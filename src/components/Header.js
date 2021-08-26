@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Row } from 'components/common'
 import Dropdown, { DropdownText } from 'components/Dropdown'
-import Signup from 'components/Signup'
+import { SignupButton } from 'components/Buttons'
 import LogoHeader from 'components/LogoHeader'
 import Image from 'next/image'
 
@@ -43,7 +43,7 @@ export default function _Header() {
       </LinksBit>
       <SignupBit>
         <Image src={'/search.svg'} width={32} height={32} />
-        <Signup />
+        <SignupButton />
       </SignupBit>
     </Header>
   )

@@ -10,6 +10,7 @@ export const DropdownText = styled.div`
   line-height: 150%;
   letter-spacing: 0.1em;
   color: ${props => props.theme.colors.black};
+  user-select: none;
 `
 
 export default function _Dropdown({ text }) {

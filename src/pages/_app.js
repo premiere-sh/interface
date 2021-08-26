@@ -21,7 +21,7 @@ const theme = {
     cultured: '#f3f3f4',
     ruby: '#982649',
     red: '#f71735',
-    white: '#f9f9f9'
+    white: '#ffffff'
   },
 }
 
