@@ -104,3 +104,10 @@ dist
 .tern-port
 node_modules
 yarn.lock
+.next
+.env.build
+.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
