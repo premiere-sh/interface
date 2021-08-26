@@ -1,8 +1,10 @@
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import '@fontsource/inter/900.css'
 import '@fontsource/inter/800.css'
+import '@fontsource/inter/700.css'
 import '@fontsource/inter/600.css'
 import '@fontsource/inter/500.css'
+import '@fontsource/inter/400.css'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -18,7 +20,8 @@ const theme = {
     gray: '#7e7f83',
     cultured: '#f3f3f4',
     ruby: '#982649',
-    red: '#f71735'
+    red: '#f71735',
+    white: '#f9f9f9'
   },
 }
 

@@ -1,10 +1,13 @@
 import LogoHeader from 'components/LogoHeader'
+import Signup from 'components/Signup'
+import Dropdown from 'components/Dropdown'
 import Head from 'next/head'
 import Image from 'next/image'
+import { Column } from 'components/common'
 
 export default function Home() {
   return (
-    <div>
+    <Column>
       <Head>
         <title>Title</title>
         <meta name="description" content="content" />
@@ -13,7 +16,13 @@ export default function Home() {
 
       <LogoHeader />
 
+      <Signup />
+
+      <Dropdown text={'GAMES'} />
+
       <footer></footer>
-    </div>
+    </Column>
   )
 }
+
+

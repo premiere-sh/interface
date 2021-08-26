@@ -7,10 +7,10 @@ const LogoHeader = styled.div`
   font-size: 24px;
   line-height: 150%;
   letter-spacing: 0.2em;
-  color: ${theme => theme.black};
+  color: ${props => props.theme.colors.black};
 `
 
-export default function() {
+export default function _LogoHeader() {
   return <LogoHeader>PREMIERE</LogoHeader>
 }
 
