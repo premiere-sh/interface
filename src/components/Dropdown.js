@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import Image from 'next/image'
 import { Row } from 'components/common'
 
-const Dropdown = styled.div`
+export const DropdownText = styled.div`
   font-family: Inter;
   font-style: normal;
   font-weight: 400;
@@ -15,7 +15,7 @@ const Dropdown = styled.div`
 export default function _Dropdown({ text }) {
   return (
     <Row>
-      <Dropdown>{text}</Dropdown>
+      <DropdownText>{text}</DropdownText>
       <div style={{ marginLeft: 10, marginTop: 5 }}>
         <Image src={'/dropdown.svg'} width={16} height={16} />
       </div>
