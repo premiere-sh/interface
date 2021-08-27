@@ -15,11 +15,11 @@ const Button = styled.button`
   &:hover {
     background: transparent;
     transition: 0.25s ease-in-out;
-    color: ${props => props.theme.colors.ruby};
-    border: 1px ${props => props.theme.colors.ruby} solid;
+    color: ${props => props.theme.colors.ruby}; 
+    border: 1px ${props => props.theme.colors.ruby} solid; 
+    # todo the gradient text and border
   }
 `
-// babcia, resistance pop bot, flash loans, wypowiedzenie
 
 const Signup = styled(Button)`
   width: 129px;
