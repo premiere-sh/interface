@@ -29,6 +29,7 @@ const SignupBit = styled(Row)`
   margin-left: 50px;
 `
 
+// TODO make the header zip when device small
 export default function _Header() {
   return (
     <Header>
