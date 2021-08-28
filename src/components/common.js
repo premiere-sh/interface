@@ -24,3 +24,14 @@ export const GradientText = styled.div`
   -webkit-text-fill-color: transparent;
 `
 
+export const Subheading = styled.div`
+  font-family: Inter;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 150%;
+  letter-spacing: 0.055em;
+  color: ${props => props.theme.colors.black};
+  margin-bottom: 80px;
+`
+
