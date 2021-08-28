@@ -4,6 +4,7 @@ import { Column } from 'components/common'
 import Header from 'components/Header'
 import AllGames from 'components/AllGames'
 import SocialsSection from 'components/SocialsSection'
+import Footer from 'components/Footer'
 
 export default function Home() {
   return (
@@ -14,7 +15,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <footer></footer>
+      <AllGames />
+      <SocialsSection />
+      <Footer />
     </Column>
   )
 }
