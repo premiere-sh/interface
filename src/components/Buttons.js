@@ -13,11 +13,10 @@ const Button = styled.button`
   color: ${props => props.theme.colors.white};
   border: 0;
   &:hover {
-    background: transparent;
-    transition: 0.25s ease-in-out;
-    color: ${props => props.theme.colors.ruby}; 
-    border: 1px ${props => props.theme.colors.ruby} solid; 
-    # todo the gradient text and border
+    background: linear-gradient(266.89deg, #982649 -18.13%, #F71735 120.14%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: 1px ${props => props.theme.colors.ruby} solid;
   }
 `
 

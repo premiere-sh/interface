@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import Image from 'next/image'
+import { Row } from 'components/common'
 
 const LogoHeader = styled.div`
   font-family: Inter;
@@ -11,6 +13,15 @@ const LogoHeader = styled.div`
 `
 
 export default function _LogoHeader() {
-  return <LogoHeader>PREMIERE</LogoHeader>
+  return (
+    <Row>
+      <div style={{ marginRight: 14, marginTop: 3 }}>
+        <Image src={'/diamond_logo.svg'} width={32} height={28.4} />
+      </div>
+      <LogoHeader>
+        PREMIERE
+      </LogoHeader>
+    </Row>
+  )
 }
 

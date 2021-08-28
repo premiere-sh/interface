@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Column } from 'components/common'
 import Header from 'components/Header'
-import GameTile from 'components/GameTile'
+import AllGames from 'components/AllGames'
 
 export default function Home() {
   return (
@@ -14,7 +14,7 @@ export default function Home() {
       </Head>
       <Header />
 
-      <GameTile game={'csgo'} caption={'123 ongoing'} />
+      <AllGames />
 
       <footer></footer>
     </Column>
