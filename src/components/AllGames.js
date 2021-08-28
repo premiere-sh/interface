@@ -47,7 +47,7 @@ export default function AllGames() {
         <Subheading>
           ALL GAMES
         </Subheading>
-        <_Row style={{ marginRight: 32 }}>
+        <_Row>
           <div style={{ marginBottom: 76, marginRight: 22 }}>
             <Image src={'/dropdown.svg'} width={16} height={16} />
           </div>
@@ -59,7 +59,7 @@ export default function AllGames() {
       <Grid columns={'repeat(auto-fit, minmax(210px, 1fr))'} gap={'45px'}>
         {
           entries.map(([game, caption], idx) => (
-            <Cell center middle key={idx}>
+            <Cell style={{ display: 'flex', justifyContent: 'center' }}  key={idx}>
               <GameTile game={game} caption={caption} />
             </Cell>
           ))
