@@ -12,7 +12,10 @@ export default function Home() {
     <Column>
       <Head>
         <title>Premiere</title>
-        <meta name="description" content="content" />
+        <meta 
+          name="description" 
+          content="Participate in gaming tournaments and receive crypto!" 
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div style={{ marginBottom: 130 }}>
