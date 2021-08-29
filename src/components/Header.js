@@ -1,9 +1,9 @@
 import styled from 'styled-components'
+import Image from 'next/image'
 import { Row } from 'components/common'
 import Dropdown, { DropdownText } from 'components/Dropdown'
 import { SignupButton } from 'components/Buttons'
 import LogoHeader from 'components/LogoHeader'
-import Image from 'next/image'
 
 const Header = styled(Row)`
   justify-content: space-around;
@@ -30,7 +30,7 @@ const SignupBit = styled(Row)`
 `
 
 // TODO make the header zip when device small
-export default function _Header() {
+export default function _Header({ dropdown }) {
   return (
     <Header>
       <LogoBit>
