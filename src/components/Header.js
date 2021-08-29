@@ -10,7 +10,6 @@ const Header = styled(Row)`
   height: 110px;
   padding-left: 30px;
   padding-right: 30px;
-  margin-bottom: 130px;
 `
 
 const LogoBit = styled.div`

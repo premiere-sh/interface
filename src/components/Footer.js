@@ -37,6 +37,7 @@ const FooterLogo = styled.div`
   letter-spacing: 0.2em;
   color: #FFFFFF;
   margin-bottom: 14px;
+  user-select: none;
 `
 
 const Heading = styled.div`

@@ -10,6 +10,7 @@ const LogoHeader = styled.div`
   line-height: 150%;
   letter-spacing: 0.2em;
   color: ${props => props.theme.colors.black};
+  user-select: none;
 `
 
 export default function _LogoHeader() {
