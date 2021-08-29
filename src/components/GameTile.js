@@ -30,7 +30,12 @@ const Caption = styled(Center)`
 export default function GameTile({ game, caption }) {
   return (
     <Tile>
-      <Image src={'/' + game + '.svg'} width={211} height={296} />
+      <Image 
+        src={'/' + game + '.svg'} 
+        width={211} 
+        height={296} 
+        alt={'game'} 
+      />
       <Caption>
         <GradientText>
           {caption}

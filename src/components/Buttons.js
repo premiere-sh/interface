@@ -41,7 +41,7 @@ export function SignupButton() {
 
 export function DashboardButton() {
   return (
-    <Dashboard>>
+    <Dashboard>
       DASHBOARD
     </Dashboard>
   )

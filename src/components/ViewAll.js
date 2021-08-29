@@ -18,7 +18,12 @@ const Text = styled.div`
 export default function ViewAll() {
   return (
     <Container>
-      <Image src={'/arrow_right.svg'} width={67} height={67} />
+      <Image 
+        src={'/arrow_right.svg'} 
+        width={67} 
+        height={67} 
+        alt={'arrow'} 
+      />
       <Text style={{ marginTop: 8 }}>
         VIEW ALL
       </Text>

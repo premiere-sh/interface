@@ -43,7 +43,12 @@ export default function _Header() {
         <DropdownText>SUPPORT</DropdownText>
       </LinksBit>
       <SignupBit>
-        <Image src={'/search.svg'} width={32} height={32} />
+        <Image 
+          src={'/search.svg'}
+          width={32}
+          height={32} 
+          alt={'search'}
+        />
         <SignupButton />
       </SignupBit>
     </Header>

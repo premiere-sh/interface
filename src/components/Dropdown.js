@@ -18,7 +18,12 @@ export default function _Dropdown({ text }) {
     <Row>
       <DropdownText>{text}</DropdownText>
       <div style={{ marginLeft: 10, marginTop: 5 }}>
-        <Image src={'/dropdown.svg'} width={16} height={16} />
+        <Image 
+          src={'/dropdown.svg'} 
+          width={16} 
+          height={16} 
+          alt={'dropdown'} 
+        />
       </div>
     </Row>
   )

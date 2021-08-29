@@ -61,7 +61,14 @@ const Text = styled.div`
 `
 
 function FooterDivider() {
-  return <Image src={'/footer_divider.svg'} width={5} height={310} />
+  return (
+    <Image 
+      src={'/footer_divider.svg'} 
+      width={5}
+      height={310} 
+      alt={'divider'}
+    />
+  )
 }
 
 export default function _Footer() {

@@ -17,7 +17,12 @@ export default function _LogoHeader() {
   return (
     <Row>
       <div style={{ marginRight: 14, marginTop: 3 }}>
-        <Image src={'/diamond_logo.svg'} width={32} height={28.4} />
+        <Image 
+          src={'/diamond_logo.svg'} 
+          width={32} 
+          height={28.4} 
+          alt={'diamond'} 
+        />
       </div>
       <LogoHeader>
         PREMIERE

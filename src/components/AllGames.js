@@ -49,7 +49,12 @@ export default function AllGames() {
         </Subheading>
         <_Row>
           <div style={{ marginBottom: 76, marginRight: 22 }}>
-            <Image src={'/dropdown.svg'} width={16} height={16} />
+            <Image 
+              src={'/dropdown.svg'} 
+              width={16} 
+              height={16} 
+              alt={'dropdown'}
+            />
           </div>
           <GradientText>
             FILTER BY PLATFORM
