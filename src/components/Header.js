@@ -52,6 +52,7 @@ const SignupBit = styled(Row)`
   @media screen and (max-width: 650px) {
     margin-left: 0;
     justify-content: center;
+    max-width: 140px;
   }
 `
 
