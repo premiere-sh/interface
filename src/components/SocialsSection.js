@@ -18,6 +18,9 @@ const Row = styled(_Row)`
     flex-direction: column;
     height: 200px;
   }
+  @media screen and (max-width: 450px) {
+    width: 500px;
+  }
 `
 
 const Column = styled(_Column)`

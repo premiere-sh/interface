@@ -32,6 +32,9 @@ const Footer = styled.footer`
   @media screen and (max-width: 1065px) {
     min-height: 450px;
   }
+  @media screen and (max-width: 450px) {
+    width: 500px;
+  }
 `
 
 const Container = styled(MainRow)`
