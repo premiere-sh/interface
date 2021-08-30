@@ -14,6 +14,10 @@ const Row = styled(_Row)`
   justify-content: space-between;
   width: min(60%, 864px);
   margin: auto;
+  @media screen and (max-width: 1065px) {
+    flex-direction: column;
+    height: 200px;
+  }
 `
 
 const Column = styled(_Column)`
@@ -44,6 +48,12 @@ const SocialsRow = styled(_Row)`
   justify-content: space-between;
 `
 
+const SocialsDividerContainer = styled.div`
+  @media screen and (max-width: 1065px) {
+    display: none;
+  }
+`
+
 export default function SocialsSection() {
   return (
     <Row>
@@ -60,7 +70,9 @@ export default function SocialsSection() {
           </Text2>
         </Column>
       </_Row>
-      <SocialsDivider style={{ position: 'relative', alignSelf: 'center' }} />
+      <SocialsDividerContainer>
+        <SocialsDivider style={{ position: 'relative', alignSelf: 'center' }} />
+      </SocialsDividerContainer>
       <SocialsRow>
         <Instagram />
         <Twitter />

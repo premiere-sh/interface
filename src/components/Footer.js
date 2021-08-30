@@ -5,12 +5,21 @@ import Image from 'next/image'
 
 const Column = styled(_Column)`
   min-width: 80px;
+  @media screen and (max-width: 1065px) {
+    margin-left: 0;
+  }
 `
 
 const Row = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+`
+
+const MainRow = styled(Row)`
+  @media screen and (max-width: 1065px) {
+    flex-direction: column;
+  }
 `
 
 const Footer = styled.footer`
@@ -20,12 +29,18 @@ const Footer = styled.footer`
   bottom: 0;
   left: 0;
   padding-top: 68px;
+  @media screen and (max-width: 1065px) {
+    min-height: 450px;
+  }
 `
 
-const Container = styled(Row)`
+const Container = styled(MainRow)`
   width: min(60%, 864px);
   margin: auto;
   justify-content: space-between;
+  @media screen and (max-width: 1065px) {
+     width: 370px;
+  }
 `
 
 const FooterLogo = styled.div`
@@ -48,6 +63,9 @@ const Heading = styled.div`
   line-height: 140.62%;
   color: #FFFFFF;
   margin-bottom: 22px;
+  @media screen and (max-width: 1065px) {
+    margin-top: 30px;
+  }
 `
 
 const Text = styled.div`
@@ -90,7 +108,7 @@ export default function _Footer() {
         </Column>
         <div />
         <Row>
-          <Column style={{ marginLeft: 40}}>
+          <Column>
             <Heading>
               Explore
             </Heading>
