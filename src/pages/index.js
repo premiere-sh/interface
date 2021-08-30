@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { Column } from 'components/common'
@@ -9,20 +8,8 @@ import Footer from 'components/Footer'
 import ViewAll from 'components/ViewAll'
 
 export default function Home() {
-  function onMouseEvent() {
-    if (window.innerWidth < 960) {
-      setDropdown(true)
-      console.log('setting dropdown')
-    } else {
-      setDropdown(false)
-    }
-  }
-  const [dropdown, setDropdown] = useState(false)
   return (
-    <Column 
-      onMouseEnter={onMouseEvent}
-      onMouseLeave={onMouseEvent}
-    >
+    <Column> 
       <Head>
         <title>Premiere</title>
         <meta 
@@ -32,7 +19,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div style={{ marginBottom: 130 }}>
-        <Header dropdown={dropdown} />
+        <Header />
       </div>
       <div style={{ marginBottom: 150 }}>
         <AllGames />

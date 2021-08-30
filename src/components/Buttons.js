@@ -22,7 +22,7 @@ const Button = styled.button`
 
 const Signup = styled(Button)`
   width: 129px;
-  height: 36px;
+  height: 56px;
 `
 
 const Dashboard = styled(Button)`
