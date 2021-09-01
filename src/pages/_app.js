@@ -6,13 +6,7 @@ import '@fontsource/inter/600.css'
 import '@fontsource/inter/500.css'
 import '@fontsource/inter/400.css'
 
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-`
+const THEME = 'light'
 
 const theme = {
   colors: {
@@ -24,6 +18,57 @@ const theme = {
     white: '#ffffff'
   },
 }
+
+const GlobalStyle = createGlobalStyle`
+  html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter;
+    font-style: normal;
+  }
+  h1, h2, h3, h4, h5, p {
+    color: ${THEME === 'light' ? theme.colors.black : theme.colors.white};
+  }
+
+  h1 {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 48px;
+    line-height: 58px;
+  }
+
+  h2 {
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 48px;
+  }
+
+  h3 {
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 39px;
+  }
+
+  h4 {
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 31px;
+  }
+
+  h5 {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 24px;
+  }
+  
+  p {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+  }
+`
+
 
 
 function MyApp({ Component, pageProps }) {

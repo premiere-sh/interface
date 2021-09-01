@@ -45,7 +45,3 @@ export default function GameTile({ game, caption }) {
   )
 }
 
-/*
-  babcia, resistance pop bot, flash loans, wypowiedzenie
-*/
-
