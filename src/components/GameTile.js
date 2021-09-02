@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import Image from 'next/image'
-import { Center, GradientText } from 'components/common'
+import { Center, GradientText, Circle } from 'components/common'
 
 const Tile = styled.div`
   width: 211px;
@@ -42,16 +42,6 @@ const MenuContainer = styled.div`
   background: rgba(12, 10, 9, 0.4);
   color: ${props => props.theme.colors.white};
   user-select: none;
-`
-
-const Circle = styled.div`
-  width: 42px;
-  height: 42px;
-  background: #ffffff;
-  border-radius: 21px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 `
 
 const CircleRow = styled.div`

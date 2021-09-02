@@ -1,6 +1,7 @@
+import Image from 'next/image'
+import Link from 'next/link'
 import styled from 'styled-components'
 import { Column as _Column } from 'components/common'
-import Image from 'next/image'
 
 
 const Column = styled(_Column)`
@@ -115,21 +116,41 @@ export default function _Footer() {
             <Heading>
               Explore
             </Heading>
-            <Text>
-              Games
-            </Text>
-            <Text>
-              Touranments
-            </Text>
-            <Text>
-              Leaderboards
-            </Text>
-            <Text>
-              Support
-            </Text>
-            <Text>
-              Premiere Stream
-            </Text>
+            <Link href={'/games'}>
+              <a>
+                <Text>
+                  Games
+                </Text>
+              </a>
+            </Link>
+            <Link href={'/tournaments'}>
+              <a>
+                <Text>
+                  Tournaments
+                </Text>
+              </a>
+            </Link>
+            <Link href={'leaderboards'}>
+              <a>
+                <Text>
+                  Leaderboards
+                </Text>
+              </a>
+            </Link>
+            <Link href={'support'}>
+              <a>
+                <Text>
+                  Support
+                </Text>
+              </a>
+            </Link>
+            <Link href={''}>
+              <a>
+                <Text>
+                  Premiere Stream
+                </Text>
+              </a>
+            </Link>
           </Column>
           <Column style={{ marginLeft: 40 }}>
             <Heading>

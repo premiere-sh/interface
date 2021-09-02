@@ -15,7 +15,8 @@ const theme = {
     cultured: '#f3f3f4',
     ruby: '#982649',
     red: '#f71735',
-    white: '#ffffff'
+    white: '#ffffff',
+    grayish: '#7B7B7B'
   },
 }
 
@@ -26,6 +27,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family: Inter;
     font-style: normal;
+    background-color: #f9f9f9;
   }
 
   a {
@@ -34,6 +36,8 @@ const GlobalStyle = createGlobalStyle`
 
   h1, h2, h3, h4, h5, p {
     color: ${THEME === 'light' ? theme.colors.black : theme.colors.white};
+    margin: 0;
+    padding: 0;
   }
 
   h1 {

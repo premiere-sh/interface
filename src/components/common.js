@@ -40,3 +40,12 @@ export const Container = styled.div`
   margin: auto;
 `
 
+export const Circle = styled.div`
+  width: 42px;
+  height: 42px;
+  background: #ffffff;
+  border-radius: 21px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
