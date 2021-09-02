@@ -1,7 +1,11 @@
 import Header from 'components/Header'
 import Footer from 'components/Footer'
-import { Column } from 'components/common'
+import { Subheading, Row, Column, Container } from 'components/common'
 import Tournament from 'components/Tournament'
+import SmallTournament from 'components/SmallTournament'
+import SocialsSection from 'components/SocialsSection'
+import GradientDropdown from 'components/GradientDropdown'
+import { Grid, Cell } from 'styled-css-grid'
 
 const tournament = {
   game: 'csgo',
@@ -18,10 +22,36 @@ const tournament = {
 }
 
 export default function Tournaments() {
+  const entries = [1, 2, 3, 4]
   return (
     <Column> 
       <Header />
+      <Container>
+        <Row style={{ justifyContent: 'space-between' }}>
+          <Subheading>
+            TOURNAMENTS
+          </Subheading>
+          <GradientDropdown text={'FILTER BY GAME'} />
+        </Row>
+      </Container>
       <Tournament tournament={tournament} />
+      <Container style={{ marginBottom: 220 }}>
+        <Grid columns={'repeat(auto-fit, minmax(600px, 1fr))'} gap={'50px'}>
+          {
+            entries.map((entry, idx) => (
+              <Cell 
+                style={{ display: 'flex', justifyContent: 'center' }}  
+                key={idx}
+              >
+                <SmallTournament tournament={tournament} />
+              </Cell>
+            ))
+          }
+        </Grid>
+      </Container>
+      <div style={{ marginBottom: 150 }}>
+        <SocialsSection />
+      </div>
       <Footer />
     </Column>
   )

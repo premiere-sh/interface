@@ -19,13 +19,15 @@ const ButtonRow = styled(Row)`
   justify-content: space-between;
   align-items: center;
   position: absolute;
-  top: 407px;
+  top: 215px;
+  /*
   @media screen and (max-width: 800px) {
-    top: 337px;
+    top: 180px;
     flex-direction: column;
     height: 80px;
     margin-top: 30px;
   }
+  */
 `
 
 const ShadowCircle = styled(Circle)`
@@ -34,34 +36,15 @@ const ShadowCircle = styled(Circle)`
 `
 
 const TournamentContainer = styled(Container)`
-  height: 556px;
+  height: 340px;
   background-color: ${props => props.theme.colors.white};
-  margin-bottom: 120px;
   position: relative;
-`
-
-const Summary = styled.p`
-  max-width: 883px;
-  height: 130px;
-  max-height: 150px;
-  overflow-y: auto;
-  margin-bottom: 20px;
-  @media screen and (max-width: 800px) {
-    display: none;
-  }
-`
-
-const Title = styled.h2`
-  margin-bottom: 22px;
-  font-size: 35px;
-  @media screen and (max-width: 1000px) {
-    font-size: 25px;
-  }
+  width: 590px;
 `
 
 const SubText = styled.div`
   font-weight: 600;
-  font-size: 24px;
+  font-size: 20px;
   @media screen and (max-width: 1000px) {
     font-size: 16px;
   }
@@ -70,8 +53,23 @@ const SubText = styled.div`
   margin-bottom: 24px;
 `
 
+const TitleContainer = styled.div`
+  overflow-x: scroll;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 300px;
+`
+
+const Title = styled.h2`
+  margin-bottom: 22px;
+  font-size: 26px;
+  @media screen and (max-width: 1000px) {
+    font-size: 20px;
+  }
+`
+
 const InfoText = styled.div`
-  font-size: 20px;
+  font-size: 18px;
   line-height: 150%;
   color: ${props => props.theme.colors.grayish};
 `
@@ -79,7 +77,7 @@ const InfoText = styled.div`
 const InfoColumn = styled(Column)`
   justify-content: flex-start;
   align-items: flex-start;
-  width: 70%;
+  width: 66%;
   margin: 48px 48px 48px 48px;
   position: relative;
 `
@@ -91,7 +89,7 @@ const ImageContainer = styled.div`
   align-items: center;
 `
 
-export default function Tournament({ tournament }) {
+export default function SmallTournament({ tournament }) {
   return (
     <TournamentContainer>
       <Row style={{ width: '100%', height: '100%' }}>
@@ -99,20 +97,19 @@ export default function Tournament({ tournament }) {
           <Image
             src={`/${tournament.game}.svg`}
             alt={'tournament_pic'}
-            width={357}
-            height={566}
+            width={219}
+            height={341}
           />
         </ImageContainer>
         <InfoColumn>
           <SubText>
             {tournament.region}
           </SubText>
-          <Title>
-            {tournament.title}
-          </Title>
-          <Summary>
-            {tournament.summary}
-          </Summary>
+          <TitleContainer>
+            <Title>
+              {tournament.title}
+            </Title>
+          </TitleContainer>
           <InfoText>
               <span style={{ fontWeight: 800}}>{tournament.time}</span> 
               <span> - {tournament.date}</span>
