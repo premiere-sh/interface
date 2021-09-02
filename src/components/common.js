@@ -35,3 +35,8 @@ export const Subheading = styled.div`
   margin-bottom: 80px;
 `
 
+export const Container = styled.div`
+  width: min(80%, 1400px);
+  margin: auto;
+`
+

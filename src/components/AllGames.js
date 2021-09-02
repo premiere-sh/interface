@@ -1,31 +1,9 @@
-import GameTile from 'components/GameTile'
-import { Grid, Cell } from 'styled-css-grid'
-import styled from 'styled-components'
-import { 
-  Subheading, 
-  Row as _Row,
-  GradientText as _GradientText 
-} from 'components/common'
 import Image from 'next/image'
-
-const AllGamesContainer = styled.div`
-  width: min(80%, 1400px);
-  margin: auto;
-`
-
-const Row = styled(_Row)`
-  justify-content: space-between;
-`
-
-const GradientText = styled(_GradientText)`
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 150%;
-  letter-spacing: 0.1em;
-  margin-bottom: 80px;
-`
+import styled from 'styled-components'
+import { Grid, Cell } from 'styled-css-grid'
+import GameTile from 'components/GameTile'
+import { Subheading, Row, Container } from 'components/common'
+import GradientDropdown from 'components/GradientDropdown'
 
 export default function AllGames() { 
   const games = {
@@ -42,35 +20,26 @@ export default function AllGames() {
     ...Object.entries(games).slice(0, 3)
   ]
   return (
-    <AllGamesContainer>
-      <Row>
+    <Container>
+      <Row style={{ justifyContent: 'space-between' }}>
         <Subheading>
           ALL GAMES
         </Subheading>
-        <_Row>
-          <div style={{ marginBottom: 76, marginRight: 22 }}>
-            <Image 
-              src={'/dropdown.svg'} 
-              width={16} 
-              height={16} 
-              alt={'dropdown'}
-            />
-          </div>
-          <GradientText>
-            FILTER BY PLATFORM
-          </GradientText>
-        </_Row>
+        <GradientDropdown text={'FILTER BY PLATFORM'} />
       </Row>
       <Grid columns={'repeat(auto-fit, minmax(210px, 1fr))'} gap={'45px'}>
         {
           entries.map(([game, caption], idx) => (
-            <Cell style={{ display: 'flex', justifyContent: 'center' }}  key={idx}>
+            <Cell 
+              style={{ display: 'flex', justifyContent: 'center' }}  
+              key={idx}
+            >
               <GameTile game={game} caption={caption} />
             </Cell>
           ))
         }
       </Grid>
-    </AllGamesContainer>
+    </Container>
   )
 }
 
