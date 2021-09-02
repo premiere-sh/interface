@@ -27,6 +27,7 @@ const Caption = styled(Center)`
   background: #ffffff;
   border-radius: 5px;
   filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.1));
+  z-index: 3;
 `
 
 const MenuContainer = styled.div`
@@ -34,11 +35,11 @@ const MenuContainer = styled.div`
   height: 100%;
   border-radius: 5px;
   position: absolute;
-  z-index: 100;
+  z-index: 2;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(12, 10, 9, 0.7);
+  background: rgba(12, 10, 9, 0.4);
   color: ${props => props.theme.colors.white};
   user-select: none;
 `

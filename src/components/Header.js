@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import Head from 'next/head'
+import Link from 'next/link'
 import styled from 'styled-components'
 import Image from 'next/image'
 import { Row } from 'components/common'
@@ -17,6 +19,7 @@ const Header = styled(Row)`
     width: 480px;
     padding: 0;
   }
+  margin-bottom: 150px;
 `
 
 const LogoBit = styled(Row)`
@@ -62,11 +65,18 @@ const SearchButtonContainer = styled.div`
   }
 `
 
-// TODO make the header zip when device small
 export default function _Header() {
   const [navigatorOpen, setNavigatorOpen] = useState(false)
   return (
     <Header>
+      <Head>
+        <title>Premiere</title>
+        <meta 
+          name="description" 
+          content="Participate in gaming tournaments and receive crypto!" 
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <LogoBit>
         <LinksDropdown 
           onClick={() => setNavigatorOpen(!navigatorOpen)}
@@ -85,10 +95,28 @@ export default function _Header() {
         <LogoHeader />
       </LogoBit>
       <LinksBit>
-        <Dropdown text={'GAMES'} />
-        <Dropdown text={'TOURNAMENTS'} />
-        <Dropdown text={'LEADERBOARDS'} />
-        <DropdownText>SUPPORT</DropdownText>
+        <Link href={'/games'}>
+          <a>
+            <Dropdown text={'GAMES'} />
+          </a>
+        </Link>
+        <Link href={'/tournaments'}>
+          <a>
+            <Dropdown text={'TOURNAMENTS'} />
+          </a>
+        </Link>
+        <Link href={'/leaderboards'}>
+          <a>
+            <Dropdown text={'LEADERBOARDS'} />
+          </a>
+        </Link>
+        <Link href={'/support'}>
+          <a>
+            <DropdownText>
+              SUPPORT
+            </DropdownText>
+          </a>
+        </Link>
       </LinksBit>
       <SignupBit>
         <SearchButtonContainer>
