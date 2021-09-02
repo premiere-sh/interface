@@ -127,7 +127,11 @@ export default function _Header() {
             alt={'search'}
           />
         </SearchButtonContainer>
-        <SignupButton />
+        <Link href={'/signup'}>
+          <a>
+            <SignupButton />
+          </a>
+        </Link>
       </SignupBit>
     </Header>
   )
