@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import styled from 'styled-components'
@@ -65,8 +65,79 @@ const SearchButtonContainer = styled.div`
   }
 `
 
+const NavigatorContainer = styled.div`
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  z-index: 13;
+  background: #ffffff;
+  top: 110px;
+  left: 30px;
+  @media screen and (min-width: 1400px) {
+    display: none;
+  }
+`
+
+const LinksContainer = styled.div`
+  width: 70%;
+  margin: auto;
+  height: 300px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+`
+
+function Navigator() {
+  return (
+    <NavigatorContainer>
+      <LinksContainer>
+        <Link href={'/games'}>
+          <a>
+            <Dropdown text={'GAMES'} />
+          </a>
+        </Link>
+        <Link href={'/tournaments'}>
+          <a>
+            <Dropdown text={'TOURNAMENTS'} />
+          </a>
+        </Link>
+        <Link href={'/leaderboards'}>
+          <a>
+            <Dropdown text={'LEADERBOARDS'} />
+          </a>
+        </Link>
+        <Link href={'/support'}>
+          <a>
+            <DropdownText>
+              SUPPORT
+            </DropdownText>
+          </a>
+        </Link>
+      </LinksContainer>
+    </NavigatorContainer>
+  )
+}
+
 export default function _Header() {
   const [navigatorOpen, setNavigatorOpen] = useState(false)
+  const ref = useRef()
+  const dropdownRef = useRef()
+
+  useEffect(function() {
+    function handleOutsideClick(event) {
+      if (
+        ref.current 
+          && !ref.current.contains(event.target) 
+          && !dropdownRef.current.contains(event.target)
+      ) 
+        setNavigatorOpen(false)
+    }
+    document.addEventListener('mousedown', handleOutsideClick)
+
+    return function() {
+      document.removeEventListener('mousedown', handleOutsideClick)
+    }
+  }, [])
   return (
     <Header>
       <Head>
@@ -79,6 +150,7 @@ export default function _Header() {
       </Head>
       <LogoBit>
         <LinksDropdown 
+          ref={dropdownRef}
           onClick={() => setNavigatorOpen(!navigatorOpen)}
         >
           <Image 
@@ -94,6 +166,10 @@ export default function _Header() {
         </LinksDropdown>
         <LogoHeader />
       </LogoBit>
+      {
+        navigatorOpen &&
+          <Navigator ref={ref} />
+      }
       <LinksBit>
         <Link href={'/games'}>
           <a>
