@@ -22,6 +22,10 @@ export const Input = styled.input`
   padding-left: 25px;
 `
 
+export const SmallInput = styled(Input)`
+  width: 260px;
+`
+
 export const Caption = styled(GradientText)`
   text-transform: uppercase;
   font-family: Inter;

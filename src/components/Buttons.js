@@ -36,12 +36,24 @@ const Login = styled(Button)`
   height: 60px;
 `
 
+const SignupLarge = styled(Button)`
+  width: 589px;
+  height: 60px;
+`
 
 export function SignupButton() {
   return (
     <Signup>
       sign up
     </Signup>
+  )
+}
+
+export function SignupButtonLarge() {
+  return (
+    <SignupLarge>
+      sign up
+    </SignupLarge>
   )
 }
 
