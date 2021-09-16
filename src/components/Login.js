@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import { LoginButton } from 'components/Buttons'
-import { GradientText } from 'components/common'
 import { Heading, Caption, Subtext, Entry, Input } from 'components/Forms'
 
 export default function Login() {
