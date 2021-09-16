@@ -20,7 +20,6 @@ const RowEntry = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  align-content: flex-start;
 `
 
 export default function Signup() {
@@ -53,7 +52,7 @@ export default function Signup() {
             placeholder={'Enter a username'}
           />
         </Entry>
-        <Entry>
+        <Entry style={{ marginLeft: 65 }}>
           <Caption>
             date of birth
           </Caption>
