@@ -18,6 +18,7 @@ const Button = styled.button`
     -webkit-text-fill-color: transparent;
     border: 1px ${props => props.theme.colors.ruby} solid;
   }
+  text-transform: uppercase;
 `
 
 const Signup = styled(Button)`
@@ -30,11 +31,16 @@ const Dashboard = styled(Button)`
   height: 36px;
 `
 
+const Login = styled(Button)`
+  width: 589px;
+  height: 60px;
+`
+
 
 export function SignupButton() {
   return (
     <Signup>
-      SIGN UP
+      sign up
     </Signup>
   )
 }
@@ -42,7 +48,15 @@ export function SignupButton() {
 export function DashboardButton() {
   return (
     <Dashboard>
-      DASHBOARD
+      dashboard
     </Dashboard>
+  )
+}
+
+export function LoginButton() {
+  return (
+    <Login>
+      log in
+    </Login>
   )
 }
