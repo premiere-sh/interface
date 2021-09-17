@@ -36,7 +36,7 @@ export default function Tournaments() {
       </Container>
       <Tournament tournament={tournament} />
       <Container style={{ marginBottom: 220 }}>
-        <Grid columns={'repeat(auto-fit, minmax(600px, 1fr))'} gap={'50px'}>
+        <Grid columns={'repeat(auto-fit, minmax(550px, 1fr))'} gap={'50px'}>
           {
             entries.map((entry, idx) => (
               <Cell 
