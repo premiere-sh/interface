@@ -72,7 +72,7 @@ export default function Leaderboard() {
   ]
 
   return (
-    <>
+    <div>
       <LeaderboardTitle>
         GB Rank Leaderboard
       </LeaderboardTitle>
@@ -112,6 +112,6 @@ export default function Leaderboard() {
           ))
         }
       </Table>
-    </>
+    </div>
   )
 }

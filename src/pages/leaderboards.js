@@ -4,6 +4,14 @@ import { Subheading, Row, Column, Container } from 'components/common'
 import SocialsSection from 'components/SocialsSection'
 import GradientDropdown from 'components/GradientDropdown'
 import Leaderboard from 'components/Leaderboard'
+import PlayerOfTheWeek from 'components/PlayerOfTheWeek'
+import styled from 'styled-components'
+
+const ContainerRow = styled(Container)`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`
 
 export default function Leaderboards() {
   return (
@@ -16,8 +24,11 @@ export default function Leaderboards() {
           </Subheading>
           <GradientDropdown text={'FILTER BY GAME'} />
         </Row>
-      <Leaderboard />
       </Container>
+      <ContainerRow>
+        <Leaderboard />
+        <PlayerOfTheWeek />
+      </ContainerRow>
       <div style={{ marginBottom: 150 }}>
         <SocialsSection />
       </div>
