@@ -69,6 +69,18 @@ export default function Leaderboard() {
       user: 'devonhenry_',
       points: '321,142,104'
     },
+    {
+      user: 'devonhenry_',
+      points: '321,142,104'
+    },
+    {
+      user: 'devonhenry_',
+      points: '321,142,104'
+    },
+    {
+      user: 'devonhenry_',
+      points: '321,142,104'
+    },
   ]
 
   return (
