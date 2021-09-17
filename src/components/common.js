@@ -49,3 +49,14 @@ export const Circle = styled.div`
   justify-content: center;
   align-items: center;
 `
+
+export const LeaderboardTitle = styled.div`
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 26px;
+  line-height: 31px;
+  color: ${props => props.theme.colors.black};
+  margin-bottom: 50px;
+`
+

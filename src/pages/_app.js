@@ -30,6 +30,26 @@ const GlobalStyle = createGlobalStyle`
     background-color: #f9f9f9;
   }
 
+  th {
+    display: flex;
+    justify-content: flex-start;
+    height: 45px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 150%;
+    letter-spacing: 0.1em;
+    color: ${theme.colors.black};
+    align-items: center;
+  }
+
+  tr {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
   a {
     text-decoration: none;
   }
