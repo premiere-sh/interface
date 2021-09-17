@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import styled from 'styled-components'
-import { LeaderboardTitle, Row, Column } from 'components/common'
+import { LeaderboardTitle, Row, Column, GradientText } from 'components/common'
 
 const PlayerRow = styled(Row)``
 
@@ -52,6 +52,49 @@ const Stat = styled.div`
   color: ${props => props.theme.colors.black};
 `
 
+const ShareRow = styled(Row)``
+
+const CopyLinkContainer = styled.div`
+  width: 183px;
+  height: 44px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+`
+
+const CopyLinkText = styled(GradientText)`
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: right;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-left: 10px;
+  user-select: none;
+`
+
+function CopyLink() {
+  return (
+    <CopyLinkContainer>
+      <Image 
+        src={'/copy_link.svg'}
+        width={24}
+        height={24}
+        alt={'copy-link'}
+      />
+      <CopyLinkText>
+        copy link
+      </CopyLinkText>
+    </CopyLinkContainer>
+  )
+}
+
 export default function PlayerOfTheWeek() {
   const player = {
     name: 'devonhenry_',
@@ -60,6 +103,7 @@ export default function PlayerOfTheWeek() {
     weeklyWins: '98',
     premEarned: '2310994'
   }
+
   return (
     <div>
       <LeaderboardTitle>
@@ -109,6 +153,28 @@ export default function PlayerOfTheWeek() {
           </Stat>
         </StatColumn>
       </StatsRow>
+      <LeaderboardTitle>
+        Share this page
+      </LeaderboardTitle>
+      <ShareRow>
+        <CopyLink />
+        <a style={{ marginTop: 12, marginLeft: 10, cursor: 'pointer' }}>
+          <Image 
+            src={'/instagram_button.svg'}
+            width={64}
+            height={64}
+            alt={'button'}
+          />
+        </a>
+        <a style={{ marginTop: 12, cursor: 'pointer' }}>
+          <Image 
+            src={'/twitter_button.svg'}
+            width={64}
+            height={64}
+            alt={'button'}
+          />
+        </a>
+      </ShareRow>
     </div>
   )
 }
