@@ -34,6 +34,7 @@ export default function Login() {
           password
         </Caption>
         <Input 
+          type={'password'}
           value={data.password} 
           onChange={event => setData({ 
             ...data, 
