@@ -19,6 +19,7 @@ const Button = styled.button`
     border: 1px ${props => props.theme.colors.ruby} solid;
   }
   text-transform: uppercase;
+  cursor: pointer;
 `
 
 const Signup = styled(Button)`

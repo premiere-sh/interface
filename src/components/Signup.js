@@ -23,6 +23,8 @@ const RowEntry = styled.div`
 `
 
 export default function Signup() {
+  // TODO add max length for password input and username
+  // make the birth date work 
   const [data, setData] = useState({
     username: '',
     dateOfBirth: '',
@@ -30,6 +32,7 @@ export default function Signup() {
     password: '',
     confirmPassword: ''
   })
+
   return (
     <>
       <Heading>
