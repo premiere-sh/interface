@@ -66,6 +66,7 @@ function Video({ src, caption }) {
         height={373} 
         muted={true}
         controls={false}
+        loop={true}
       > 
         <source src={src} type={'video/mp4'} />
       </video>
@@ -100,3 +101,4 @@ export default function WelcomeToPremiere() {
     </Container>
   )
 }
+
