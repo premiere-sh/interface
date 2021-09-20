@@ -4,18 +4,59 @@ import { Column } from 'components/common'
 import AllGames from 'components/AllGames'
 import SocialsSection from 'components/SocialsSection'
 
-export default function Games() {
+export default function Games({ games }) {
   return (
     <Column>
       <Header />
-      <div style={{ marginBottom: 150 }}>
-        <AllGames />
-      </div>
+      {
+        games &&
+        <div style={{ marginBottom: 150 }}>
+          <AllGames games={games} />
+        </div>
+      }
       <div style={{ marginBottom: 150 }}>
         <SocialsSection />
       </div>
       <Footer />
     </Column>
   )
+}
+
+function getGames() {
+  const csgo = {
+    name: 'csgo',
+    caption: '123 ongoing'
+  }
+  const dirt = {
+    name: 'dirt',
+    caption: '123 ongoing'
+  }
+  const minecraft = {
+    name: 'minecraft',
+    caption: '123 ongoing'
+  }
+  const cod = {
+    name: 'cod',
+    caption: '123 ongoing'
+  }
+  const rl = {
+    name: 'rl',
+    caption: '123 ongoing'
+  }
+  const _games = [ csgo, dirt, minecraft, cod, rl ]
+  const games = [
+    ..._games,
+    ..._games,
+    ..._games,
+    ..._games.slice(0, 3)
+  ]
+  return games
+}
+
+export async function getStaticProps(context) {
+  const games = getGames()
+  return {
+    props: { games } 
+  }
 }
 

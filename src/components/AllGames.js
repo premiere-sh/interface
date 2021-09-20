@@ -5,20 +5,7 @@ import GameTile from 'components/GameTile'
 import { Subheading, Row, Container } from 'components/common'
 import GradientDropdown from 'components/GradientDropdown'
 
-export default function AllGames() { 
-  const games = {
-    csgo: '123 ongoing',
-    dirt: '12 ongoing',
-    minecraft: '67 ongoing',
-    cod: '31 ongoing',
-    rl: '83 ongoing',
-  }
-  const entries = [
-    ...Object.entries(games),
-    ...Object.entries(games),
-    ...Object.entries(games),
-    ...Object.entries(games).slice(0, 3)
-  ]
+export default function AllGames({ games }) { 
   return (
     <Container>
       <Row style={{ justifyContent: 'space-between' }}>
@@ -29,12 +16,12 @@ export default function AllGames() {
       </Row>
       <Grid columns={'repeat(auto-fit, minmax(210px, 1fr))'} gap={'45px'}>
         {
-          entries.map(([game, caption], idx) => (
+          games.map((game, idx) => (
             <Cell 
               style={{ display: 'flex', justifyContent: 'center' }}  
               key={idx}
             >
-              <GameTile game={game} caption={caption} />
+              <GameTile game={game.name} caption={game.caption} />
             </Cell>
           ))
         }
