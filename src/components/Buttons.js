@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { GradientText } from 'components/common'
+import Image from 'next/image'
 
 const Button = styled.button`
   --gradient: linear-gradient(266.89deg, #982649 -18.13%, #F71735 120.14%);
@@ -47,6 +49,15 @@ const ViewTournaments = styled(Button)`
   height: 36px;
 `
 
+const ArrowButtonContainer = styled(GradientText)`
+  height: 30px;
+  display: flex;
+  text-transform: uppercase;
+  flex-direction: row;
+  cursor: pointer;
+  user-select: none;
+`
+
 export function SignupButton() {
   return (
     <Signup>
@@ -84,6 +95,22 @@ export function ViewTournamentsButton() {
     <ViewTournaments>
       view tournaments
     </ViewTournaments>
+  )
+}
+
+export function ArrowButton({ text }) {
+  return (
+    <ArrowButtonContainer>
+      { text }
+      <div style={{ marginBottom: 10, marginLeft: 15 }}>
+        <Image 
+          src={'/arrow-right-gradient.svg'}
+          width={16}
+          height={10}
+          alt={'arrow-right'}
+        />
+      </div>
+    </ArrowButtonContainer>
   )
 }
 
