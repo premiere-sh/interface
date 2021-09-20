@@ -105,8 +105,8 @@ export function ArrowButton({ text }) {
       <div style={{ marginBottom: 10, marginLeft: 15 }}>
         <Image 
           src={'/arrow-right-gradient.svg'}
-          width={16}
-          height={10}
+          width={18}
+          height={12}
           alt={'arrow-right'}
         />
       </div>

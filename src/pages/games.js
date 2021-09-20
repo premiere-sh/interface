@@ -22,7 +22,7 @@ export default function Games({ games }) {
   )
 }
 
-function getGames() {
+export function getGames() {
   const csgo = {
     name: 'csgo',
     caption: '123 ongoing'

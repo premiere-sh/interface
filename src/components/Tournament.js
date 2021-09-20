@@ -6,6 +6,7 @@ import {
   GradientText,
   Circle
 } from 'components/common'
+import { ArrowButton } from 'components/Buttons'
 import GradientDropdown from 'components/GradientDropdown'
 import styled from 'styled-components'
 
@@ -123,12 +124,7 @@ export default function Tournament({ tournament }) {
               <span> - {tournament.prize}</span>
           </InfoText>
           <ButtonRow>
-            <Image 
-              src={'/enter_now.svg'}
-              alt={'enter_now'}
-              width={123}
-              height={21}
-            />
+            <ArrowButton text={'enter now'} />
             <Row>
               <ShadowCircle>
                 <Image 
