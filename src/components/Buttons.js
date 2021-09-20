@@ -42,6 +42,11 @@ const SignupLarge = styled(Button)`
   height: 60px;
 `
 
+const ViewTournaments = styled(Button)`
+  width: 252px;
+  height: 36px;
+`
+
 export function SignupButton() {
   return (
     <Signup>
@@ -73,3 +78,12 @@ export function LoginButton() {
     </Login>
   )
 }
+
+export function ViewTournamentsButton() {
+  return (
+    <ViewTournaments>
+      view tournaments
+    </ViewTournaments>
+  )
+}
+

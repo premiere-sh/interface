@@ -19,7 +19,7 @@ const Header = styled(Row)`
     width: 480px;
     padding: 0;
   }
-  margin-bottom: 150px;
+  margin-bottom: ${props => props.home ? '80px' : '150px'};
 `
 
 const LogoBit = styled(Row)`
@@ -118,7 +118,7 @@ function Navigator() {
   )
 }
 
-export default function _Header() {
+export default function _Header({ home }) {
   const [navigatorOpen, setNavigatorOpen] = useState(false)
   const ref = useRef()
   const dropdownRef = useRef()
@@ -139,7 +139,7 @@ export default function _Header() {
     }
   }, [])
   return (
-    <Header>
+    <Header home={home}>
       <Head>
         <title>Premiere</title>
         <meta 
@@ -164,7 +164,11 @@ export default function _Header() {
             alt={'navigator'}
           />
         </LinksDropdown>
-        <LogoHeader />
+        <Link href={'/'}>
+          <a>
+            <LogoHeader />
+          </a>
+        </Link>
       </LogoBit>
       {
         navigatorOpen &&

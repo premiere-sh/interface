@@ -1,11 +1,15 @@
 import Header from 'components/Header'
 import Footer from 'components/Footer'
-import { Column } from 'components/common'
+import { Column, Container } from 'components/common'
+import HomeHeading from 'components/HomeHeading'
 
 export default function Home() {
   return (
     <Column> 
-      <Header />
+      <Header home={true} />
+      <Container>
+        <HomeHeading />
+      </Container>
       <Footer />
     </Column>
   )

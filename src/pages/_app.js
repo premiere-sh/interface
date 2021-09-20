@@ -27,7 +27,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family: Inter;
     font-style: normal;
-    background-color: #f9f9f9;
+    background-color: rgb(243,243,244);
   }
 
   th {
