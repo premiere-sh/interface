@@ -60,3 +60,13 @@ export const LeaderboardTitle = styled.div`
   margin-bottom: 50px;
 `
 
+export const HomeHeading = styled.div`
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 150%;
+  color: ${props => props.theme.colors.black};
+  margin-bottom: 40px;
+`
+
