@@ -23,7 +23,9 @@ export default function Home({ games, tournaments, player }) {
       <Container>
         <BigPlayerOfTheWeek player={player} />
       </Container>
-      <SocialsSection />
+      <div style={{ marginBottom: 150 }}>
+        <SocialsSection />
+      </div>
       <Footer />
     </Column>
   )
