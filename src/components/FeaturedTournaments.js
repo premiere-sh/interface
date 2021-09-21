@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import GameTile from 'components/GameTile'
+import FeaturedTournament from 'components/FeaturedTournament'
 import { ArrowButton } from 'components/Buttons'
 import { HomeHeading } from 'components/common'
 
@@ -25,28 +25,28 @@ const ButtonContainer = styled.div`
   margin-bottom: 150px;
 `
 
-export default function FeaturedGames({ games }) {
+export default function FeaturedTournaments({ tournaments }) {
   return (
     <>
       <Container>
         <HomeHeading>
-          Featured Games
+          Featured Tournaments
         </HomeHeading>
         <HorizontalScrollView>
           {
-            games && games.map((game, key) => (
+            tournaments && tournaments.map((tournament, key) => (
               <div 
                 key={key} 
-                style={{ width: 210, height: 300, marginBottom: 20 }}
+                style={{ width: 453, height: 290, marginRight: 50 }}
               >
-                <GameTile game={game.name} caption={game.caption} />
+                <FeaturedTournament tournament={tournament} />
               </div>
             ))
           }
         </HorizontalScrollView>
       </Container>
       <ButtonContainer>
-        <ArrowButton text={'view all games'} />
+        <ArrowButton text={'view all tournaments'} />
       </ButtonContainer>
     </>
   )
