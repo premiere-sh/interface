@@ -47,6 +47,12 @@ const SupportSquareContainer = styled(Column)`
 
 const SupportSquaresRow = styled(Row)`
   justify-content: space-between;
+  @media screen and (max-width: 1300px) {
+    flex-direction: column;
+    & > * {
+      margin-bottom: 25px
+    }
+  }
 `
 
 const Subheading = styled.div`
