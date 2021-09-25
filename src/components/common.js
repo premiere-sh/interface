@@ -33,6 +33,7 @@ export const Subheading = styled.div`
   letter-spacing: 0.055em;
   color: ${props => props.theme.colors.black};
   margin-bottom: 80px;
+  text-transform: uppercase;
 `
 
 export const Container = styled.div`
