@@ -12,7 +12,6 @@ const YourTeams = styled.div`
 
 
 const Box = styled(Container)`
-  max-width: 1233px;
   height: 512px;
   border-radius: 5px;
   margin-top: 86px;
