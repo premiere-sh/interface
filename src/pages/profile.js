@@ -10,7 +10,7 @@ export default function profile() {
       <Header/>
       <ProfileTop/>
       <Teams/>
-      <div style={{marginBottom: 152, marginTop: 152}}>
+      <div style={{marginBottom: 152, marginTop: 352}}>
         <SocialsSection/>
       </div>
       <Footer/>
