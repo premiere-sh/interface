@@ -18,7 +18,6 @@ const Box = styled(Container)`
   background: ${props => props.theme.colors.white};
 `
 
-const ImgBox = styled.div``
 
 
 const TeamName = styled.div`
@@ -71,32 +70,32 @@ export default function Teams() {
         <Column>
           <Spacer>
             <Row style={{ marginTop: 63, marginLeft: 74, }}>
-              <ImgBox>
+              <div>
                 <Image
                   src={'/devonhenry_.svg'} 
                   width={89.74} 
                   height={89.74} 
                   alt={'teammate-image'} 
                 />
-              </ImgBox>
+              </div>
               <div style={{ marginLeft: 26.39, marginRight: 26.39 }}>
-                <ImgBox>
+                <div>
                   <Image
                     src={'/devonhenry_.svg'} 
                     width={89.74} 
                     height={89.74} 
                     alt={'teammate-image'} 
                   />
-                </ImgBox>
+                </div>
               </div>
-              <ImgBox>
+              <div>
                 <Image
                   src={'/devonhenry_.svg'} 
                   width={89.74} 
                   height={89.74} 
                   alt={'teammate-image'} 
                 />
-              </ImgBox>
+              </div>
             </Row>
               <Row>
                 <Laptop>
@@ -156,23 +155,23 @@ export default function Teams() {
         <Column>
           <Spacer>
             <Row style={{ marginTop: 63, marginLeft: 74, }}>
-              <ImgBox>
+              <div>
                 <Image
                   src={'/devonhenry_.svg'} 
                   width={89.74} 
                   height={89.74} 
                   alt={'teammate-image'} 
                 />
-              </ImgBox>
+              </div>
               <div style={{ marginLeft: 26.39, marginRight: 26.39 }}>
-                <ImgBox>
+                <div>
                   <Image
                     src={'/devonhenry_.svg'} 
                     width={89.74} 
                     height={89.74} 
                     alt={'teammate-image'} 
                   />
-                </ImgBox>
+                </div>
               </div>
 
             </Row>
