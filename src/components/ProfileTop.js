@@ -5,22 +5,22 @@ import Image from 'next/image'
 
 
 const SpaceBetween = styled(Row)`
-justify-content: space-between;
+  justify-content: space-between;
 `
 const SpaceAround = styled(Row)`
-justify-content: space-around;
+  justify-content: space-around;
 `
 
 
 const Name = styled.div`
-font-size: 36px;
-line-height: 36px;
-font-style: italic;
-font-weight: 700;
+  font-size: 36px;
+  line-height: 36px;
+  font-style: italic;
+  font-weight: 700;
 `
 
 const Since = styled.div`
-font-family: Inter;
+  font-family: Inter;
   font-style: Normal;
   font-weight: 600;
   font-size: 18px;
@@ -50,11 +50,14 @@ const Button = styled.div`
   line-height: 30px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  &:hover{
+    cursor: pointer;
+  }
 `
 
 const Line = styled.div`
-height: 1px;
-background: #E3E3E3;
+  height: 1px;
+  background: #E3E3E3;
 `
 
 
