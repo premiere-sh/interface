@@ -44,5 +44,4 @@ export default function EventHistory() {
         </SpaceBetween>
       </Container>
     </div>
-  )
 }
