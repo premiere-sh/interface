@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 import { Column, Container, Row } from './common'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
+import { useState } from 'react'
 
-
+const Teams = dynamic(() => import('../components/Teams'))
 
 const SpaceBetween = styled(Row)`
   justify-content: space-between;
@@ -48,7 +50,7 @@ const Button = styled.div`
   line-height: 40px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  border-bottom: 1px solid ;
+  border-bottom: 0px solid;
   border-background: linear-gradient(266.89deg, #982649 -18.13%, #F71735 120.14%);
   padding: 0 23px 23px 23px;
   z-index: 2;
@@ -66,65 +68,71 @@ const Line = styled.div`
 
 
 export default function ProfileTop() {
+
+  const [showTeams, setShowTeams] = useState(false)
+
   return (
-    <Container>
-      <SpaceBetween>
-        <Row>
-          <div>
-            <Image
-              src={'/devonhenry_.svg'} 
-               width={219} 
-               height={219} 
-               alt={'Profile-image'} 
-            />
-          </div>
-          <Column style={{ marginLeft: 52 }}>
-           <Name style={{ marginBottom: 12 }}>devonhenry_</Name>
-           <Since style={{ marginBottom: 40 }}>UK Member since August 24, 2021</Since>
-            <Row>
-             <Column>
-               <GreyText style={{ textTransform: 'uppercase'}}>rank</GreyText>
-               <Numbers>1st</Numbers>
-              </Column>
+    <Column>
+      <Container>
+        <SpaceBetween>
+          <Row>
+            <div>
+              <Image
+                src={'/devonhenry_.svg'} 
+                width={219} 
+                height={219} 
+                alt={'Profile-image'} 
+              />
+            </div>
+            <Column style={{ marginLeft: 52 }}>
+            <Name style={{ marginBottom: 12 }}>devonhenry_</Name>
+            <Since style={{ marginBottom: 40 }}>UK Member since August 24, 2021</Since>
+              <Row>
               <Column>
-                <GreyText style={{ marginLeft: 52, marginRight: 52, textTransform: 'uppercase' }}>weekly wins</GreyText>
-                <Numbers style={{ marginLeft: 52, marginRight: 52 }}>98</Numbers>
-              </Column>
-              <Column>
-                <GreyText style={{ textTransform: 'uppercase'}}>$prem earned</GreyText>
-                <Numbers>2310994</Numbers>
-              </Column>
-            </Row>
+                <GreyText style={{ textTransform: 'uppercase'}}>rank</GreyText>
+                <Numbers>1st</Numbers>
+                </Column>
+                <Column>
+                  <GreyText style={{ marginLeft: 52, marginRight: 52, textTransform: 'uppercase' }}>weekly wins</GreyText>
+                  <Numbers style={{ marginLeft: 52, marginRight: 52 }}>98</Numbers>
+                </Column>
+                <Column>
+                  <GreyText style={{ textTransform: 'uppercase'}}>$prem earned</GreyText>
+                  <Numbers>2310994</Numbers>
+                </Column>
+              </Row>
+            </Column>
+          </Row>
+          <Column>
+            <div style={{ marginBottom: 113}}>
+              <Image
+                src={'/arrow_right.svg'} 
+                width={32} 
+                height={32} 
+                alt={'Profile-image'} 
+              />
+            </div>
+            <div style={{ marginBottom: 20}}>
+              <Image
+                src={'/arrow_right.svg'} 
+                width={32} 
+                height={32} 
+                alt={'Profile-image'} 
+              />
+            </div>
           </Column>
-        </Row>
-        <Column>
-          <div style={{ marginBottom: 113}}>
-            <Image
-              src={'/arrow_right.svg'} 
-              width={32} 
-              height={32} 
-              alt={'Profile-image'} 
-            />
-          </div>
-          <div style={{ marginBottom: 20}}>
-            <Image
-              src={'/arrow_right.svg'} 
-              width={32} 
-              height={32} 
-              alt={'Profile-image'} 
-            />
-          </div>
-        </Column>
-      </SpaceBetween>
-      <SpaceBetween style={{ marginTop: 137}}>
-        <Button style={{ paddingRight: 23, paddingLeft: 0 }}>home</Button>
-        <Button>event history</Button>
-        <Button>teams</Button>
-        <Button>friends</Button>
-        <Button style={{ paddingRight: 0, paddingLeft: 23 }}>uncoming events</Button>
-      </SpaceBetween>
-      <Line style={{ transform: 'translateY(-1px)' }}/>
-      <div style={{ height: 79 }}/>
-    </Container>
+        </SpaceBetween>
+        <SpaceBetween style={{ marginTop: 137}}>
+          <Button style={{ paddingRight: 23, paddingLeft: 0 }}>home</Button>
+          <Button>event history</Button>
+          <Button style={{ borderBottom: `${showTeams == true ? 1 : 0} solid` }}onClick={() => showTeams == false ? setShowTeams(true) : setShowTeams(false)}>teams</Button>
+          <Button>friends</Button>
+          <Button style={{ paddingRight: 0, paddingLeft: 23 }}>uncoming events</Button>
+        </SpaceBetween>
+        <Line style={{ transform: 'translateY(-1px)' }}/>
+        <div style={{ height: 79 }}/>
+      </Container>
+      {showTeams && <Teams/>}
+    </Column>
   )
 }

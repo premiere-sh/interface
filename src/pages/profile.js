@@ -9,7 +9,6 @@ export default function profile() {
     <div>
       <Header/>
       <ProfileTop/>
-      <Teams/>
       <div style={{marginBottom: 152, marginTop: 352}}>
         <SocialsSection/>
       </div>
