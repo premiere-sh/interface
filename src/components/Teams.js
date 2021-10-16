@@ -63,6 +63,23 @@ const Spacer = styled(Row)`
 `
 
 export default function Teams() {
+
+  const teammates = [
+    {
+      user: 'devonhenry_'
+    },
+    {
+      user: 'devonhenry_'
+    },
+    {
+      user: 'devonhenry_'
+    }
+  ]
+
+  
+
+  
+
   return (
     <div>
       <Box>
@@ -70,28 +87,18 @@ export default function Teams() {
         <Column>
           <Spacer>
             <Row style={{ marginTop: 63, marginLeft: 74, }}>
-                <Image
-                  src={'/devonhenry_.svg'} 
-                  width={89.74} 
-                  height={89.74} 
-                  alt={'teammate-image'} 
-                />
-              <div style={{ marginLeft: 26.39, marginRight: 26.39 }}>
-                  <Image
-                    src={'/devonhenry_.svg'} 
-                    width={89.74} 
-                    height={89.74} 
-                    alt={'teammate-image'} 
-                  />
-              </div>
-              <div>
-                <Image
-                  src={'/devonhenry_.svg'} 
-                  width={89.74} 
-                  height={89.74} 
-                  alt={'teammate-image'} 
-                />
-              </div>
+              {
+                teammates.map((teammate) =>
+                <div style={{ marginRight: 27 }}>
+                    <Image
+                      src={`/${teammate.user}.svg`} 
+                      width={89.74} 
+                      height={89.74} 
+                      alt={'teammate-image'} 
+                    />
+                </div>
+                )
+              }
             </Row>
               <Row>
                 <Laptop>
@@ -151,22 +158,18 @@ export default function Teams() {
         <Column>
           <Spacer>
             <Row style={{ marginTop: 63, marginLeft: 74, }}>
-              <div>
-                <Image
-                  src={'/devonhenry_.svg'} 
-                  width={89.74} 
-                  height={89.74} 
-                  alt={'teammate-image'} 
-                />
-              </div>
-              <div style={{ marginLeft: 26.39}}>
-                  <Image
-                    src={'/devonhenry_.svg'} 
-                    width={89.74} 
-                    height={89.74} 
-                    alt={'teammate-image'} 
-                  />
-              </div>
+            {
+                teammates.map((teammate) =>
+                <div style={{ marginRight: 27 }}>
+                    <Image
+                      src={`/${teammate.user}.svg`} 
+                      width={89.74} 
+                      height={89.74} 
+                      alt={'teammate-image'} 
+                    />
+                </div>
+                )
+              }
             </Row>
               <Row>
                 <Laptop>
