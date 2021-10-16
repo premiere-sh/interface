@@ -45,9 +45,15 @@ const Numbers = styled.div`
 const Button = styled.div`
   font-size: 20px;
   font-weight: 500px;
-  line-height: 30px;
+  line-height: 40px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
+  border-bottom: 1px solid ;
+  border-background: linear-gradient(266.89deg, #982649 -18.13%, #F71735 120.14%);
+  padding: 0 23px 23px 23px;
+  z-index: 2;
+  border-image-source: linear-gradient(266.89deg, #982649 -18.13%, #F71735 120.14%);
+  border-image-slice: 1;
   &:hover{
     cursor: pointer;
   }
@@ -110,14 +116,14 @@ export default function ProfileTop() {
           </div>
         </Column>
       </SpaceBetween>
-      <SpaceAround style={{ marginTop: 137, marginBottom: 23}}>
-        <Button>home</Button>
+      <SpaceBetween style={{ marginTop: 137}}>
+        <Button style={{ paddingRight: 23, paddingLeft: 0 }}>home</Button>
         <Button>event history</Button>
         <Button>teams</Button>
         <Button>friends</Button>
-        <Button>uncoming events</Button>
-      </SpaceAround>
-      <Line/>
+        <Button style={{ paddingRight: 0, paddingLeft: 23 }}>uncoming events</Button>
+      </SpaceBetween>
+      <Line style={{ transform: 'translateY(-1px)' }}/>
       <div style={{ height: 79 }}/>
     </Container>
   )
