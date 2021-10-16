@@ -33,10 +33,10 @@ const GreyText = styled.div`
   font-style: Regular;
   font-size: 16px;
   fine-height: 24px;
-  color: #7B7B7B;
+  color: ${props => props.theme.colors.gray};
   letter-spacing: 0.1em;
 `
-//color: ${props => props.theme.colors.grey};
+
 
 const Numbers = styled.div`
   font-weight: 600;
@@ -70,23 +70,19 @@ export default function Teams() {
         <Column>
           <Spacer>
             <Row style={{ marginTop: 63, marginLeft: 74, }}>
-              <div>
                 <Image
                   src={'/devonhenry_.svg'} 
                   width={89.74} 
                   height={89.74} 
                   alt={'teammate-image'} 
                 />
-              </div>
               <div style={{ marginLeft: 26.39, marginRight: 26.39 }}>
-                <div>
                   <Image
                     src={'/devonhenry_.svg'} 
                     width={89.74} 
                     height={89.74} 
                     alt={'teammate-image'} 
                   />
-                </div>
               </div>
               <div>
                 <Image
@@ -117,31 +113,31 @@ export default function Teams() {
               </Row>
           </Spacer>
           <div style={{ marginLeft: 74, marginTop: 46.26 }}>            
-           <TeamName style={{ marginBottom: 27 }}>[INSERT TEAM NAME]</TeamName>
+           <TeamName style={{ marginBottom: 27, textTransform: 'uppercase' }}>[insert team name]</TeamName>
           </div>
           <Row>
             <Column style={{ marginLeft: 74}}>
-              <GreyText>TEAM WINS</GreyText>
+              <GreyText style={{ textTransform: 'uppercase' }}>team wins</GreyText>
               <Numbers>123</Numbers>
             </Column>
             <Column style={{ marginLeft: 95, marginRight: 127 }}>
-              <GreyText>TEAM LOSSES</GreyText>
+              <GreyText style={{ textTransform: 'uppercase' }}>team losses</GreyText>
               <Numbers>4</Numbers>
             </Column>
             <Column>
-              <GreyText>COMBINED $PREM EARNED</GreyText>
+              <GreyText style={{ textTransform: 'uppercase' }}>combined $prem earned</GreyText>
               <Numbers>1,234,567</Numbers>
             </Column>
           </Row>
           <Row style={{ marginTop: 103}}>
-            <GradientText style={{ marginLeft: 74, marginRight: 17 }}>EDIT TEAM</GradientText>
+            <GradientText style={{ marginLeft: 74, marginRight: 17, textTransform: 'uppercase' }}>edit team</GradientText>
             <Image
                 src={'/arrow-right-gradient.svg'} 
                 width={14.89} 
                 height={9.3} 
                 alt={'arrow-right-gradient'} 
               />
-            <GradientText style={{ marginLeft: 80.11,marginRight: 16 }}>DELETE TEAM</GradientText>
+            <GradientText style={{ marginLeft: 80.11,marginRight: 16, textTransform: 'uppercase' }}>delete team</GradientText>
             <Image
                 src={'/arrow-right-gradient.svg'} 
                 width={14.89} 
@@ -163,17 +159,14 @@ export default function Teams() {
                   alt={'teammate-image'} 
                 />
               </div>
-              <div style={{ marginLeft: 26.39, marginRight: 26.39 }}>
-                <div>
+              <div style={{ marginLeft: 26.39}}>
                   <Image
                     src={'/devonhenry_.svg'} 
                     width={89.74} 
                     height={89.74} 
                     alt={'teammate-image'} 
                   />
-                </div>
               </div>
-
             </Row>
               <Row>
                 <Laptop>
@@ -195,31 +188,31 @@ export default function Teams() {
               </Row>
           </Spacer>
           <div style={{ marginLeft: 74, marginTop: 46.26 }}>            
-           <TeamName style={{ marginBottom: 27 }}>[INSERT TEAM NAME]</TeamName>
+           <TeamName style={{ marginBottom: 27, textTransform: 'uppercase' }}>[insert team name]</TeamName>
           </div>
           <Row>
             <Column style={{ marginLeft: 74}}>
-              <GreyText>TEAM WINS</GreyText>
+              <GreyText style={{ textTransform: 'uppercase' }}>team wins</GreyText>
               <Numbers>123</Numbers>
             </Column>
             <Column style={{ marginLeft: 95, marginRight: 127 }}>
-              <GreyText>TEAM LOSSES</GreyText>
+              <GreyText style={{ textTransform: 'uppercase' }}>team losses</GreyText>
               <Numbers>4</Numbers>
             </Column>
             <Column>
-              <GreyText>COMBINED $PREM EARNED</GreyText>
+              <GreyText style={{ textTransform: 'uppercase' }}>combined $prem earned</GreyText>
               <Numbers>1,234,567</Numbers>
             </Column>
           </Row>
           <Row style={{ marginTop: 103}}>
-            <GradientText style={{ marginLeft: 74, marginRight: 17 }}>EDIT TEAM</GradientText>
+            <GradientText style={{ marginLeft: 74, marginRight: 17, textTransform: 'uppercase' }}>edit team</GradientText>
             <Image
                 src={'/arrow-right-gradient.svg'} 
                 width={14.89} 
                 height={9.3} 
                 alt={'arrow-right-gradient'} 
               />
-            <GradientText style={{ marginLeft: 80.11,marginRight: 16 }}>DELETE TEAM</GradientText>
+            <GradientText style={{ marginLeft: 80.11,marginRight: 16,  }}>delete team</GradientText>
             <Image
                 src={'/arrow-right-gradient.svg'} 
                 width={14.89} 

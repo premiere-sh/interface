@@ -25,18 +25,16 @@ const Since = styled.div`
   font-weight: 600;
   font-size: 18px;
   fine-height: 27px;
-  color: #7B7B7B;
+  color: ${props => props.theme.colors.gray};
 `
-//color: ${props => props.theme.colors.grey};
 
 const GreyText = styled.div`
   font-style: Regular;
   font-size: 16px;
   fine-height: 24px;
-  color: #7B7B7B;
+  color: ${props => props.theme.colors.gray};
   letter-spacing: 0.1em;
 `
-//color: ${props => props.theme.colors.grey};
 
 const Numbers = styled.div`
   font-weight: 600;
@@ -79,15 +77,15 @@ export default function ProfileTop() {
            <Since style={{ marginBottom: 40 }}>UK Member since August 24, 2021</Since>
             <Row>
              <Column>
-               <GreyText>RANK</GreyText>
+               <GreyText style={{ textTransform: 'uppercase'}}>rank</GreyText>
                <Numbers>1st</Numbers>
               </Column>
               <Column>
-                <GreyText style={{ marginLeft: 52, marginRight: 52 }}>WEEKLY WINS</GreyText>
+                <GreyText style={{ marginLeft: 52, marginRight: 52, textTransform: 'uppercase' }}>weekly wins</GreyText>
                 <Numbers style={{ marginLeft: 52, marginRight: 52 }}>98</Numbers>
               </Column>
               <Column>
-                <GreyText>$PREM EARNED</GreyText>
+                <GreyText style={{ textTransform: 'uppercase'}}>$prem earned</GreyText>
                 <Numbers>2310994</Numbers>
               </Column>
             </Row>
