@@ -11,7 +11,6 @@ const Search = styled.input`
   line-height: 30px;
   font-weight: 500;
 `
-//color: ${props => props.theme.colors.black};
 
 const SearchBox = styled(Row)`
   justify-content: space-between;
@@ -110,21 +109,24 @@ export default function Friends() {
           </SearchBox>
         </Column>
         <Grid columns={'repeat(auto-fit, minmax(210px, 1fr))'} gap={'83px'}>
-          {friends.map((friend) => (
-            <Column style={{ alignItems: 'center' }}>
-              <Image
-                src={`/${friend.picture}.svg`}
-                width={173}
-                height={173}
-                alt={'teammate-image'}
-              />
-              <Username
-                style={{ marginTop: 26.73 }}
-              >{`${friend.user}`}</Username>
-            </Column>
-          ))}
+          {friends?.length &&
+            friends.map((friend) => (
+              <Column style={{ alignItems: 'center' }}>
+                <Image
+                  src={`/${friend.picture}.svg`}
+                  width={173}
+                  height={173}
+                  alt={'teammate-image'}
+                />
+                <Username style={{ marginTop: 26.73 }}> 
+                  {`${friend.user}`}
+                </Username>
+              </Column>
+            ))
+          }
         </Grid>
       </Container>
     </div>
   )
 }
+
