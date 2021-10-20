@@ -109,8 +109,9 @@ const TeamPrem = styled(Column)`
   margin-left: 74px;
 `
 
-const IconsRow = styled(Row)`
-`
+const IconsRow = styled(Row)``
+
+const TeamsContainer = styled.div``
 
 export default function Teams() {
 
@@ -148,14 +149,15 @@ export default function Teams() {
   ]
 
   return (
-      <div>
-        {teams.map((team) => 
-          <Box>
-            <Spacer>
-              <TeammatesRow>
-                {
-                  teammates.map((teammate) =>
-                  <div style={{ marginRight: 27 }}>
+    <TeamsContainer>
+      {teams?.length &&
+        teams.map((team, key) => 
+        <Box key={key}>
+          <Spacer>
+            <TeammatesRow>
+              {teammates?.length &&
+                teammates.map((teammate) =>
+                  <div style={{ marginRight: 27 }} key={key}>
                       <Image
                         src={`/${teammate.user}.svg`} 
                         width={89.74} 
@@ -163,67 +165,67 @@ export default function Teams() {
                         alt={'teammate-image'} 
                       />
                   </div>
-                  )
-                }
-              </TeammatesRow>
-                <IconsRow>
-                  <Laptop>
+                )
+              }
+            </TeammatesRow>
+              <IconsRow>
+                <Laptop>
+                <Image
+                    src={'/laptop.svg'} 
+                    width={19.54} 
+                    height={19.54} 
+                    alt={'laptop-image'} 
+                  />
+                </Laptop>
+                <Xbox>
                   <Image
-                      src={'/laptop.svg'} 
-                      width={19.54} 
-                      height={19.54} 
-                      alt={'laptop-image'} 
-                    />
-                  </Laptop>
-                  <Xbox>
-                    <Image
-                      src={'/xbox.svg'} 
-                      width={19.54} 
-                      height={19.54} 
-                      alt={'laptop-image'} 
-                    />
-                  </Xbox>
-                </IconsRow>
-            </Spacer>        
-              <TeamName>
-                {team.name}
-              </TeamName>
-            <TeamInfo>
-              <TeamWins>
-                <GreyText>team wins</GreyText>
-                <Numbers>{team.wins}</Numbers>
-              </TeamWins>
-              <TeamLosses>
-                <GreyText>team losses</GreyText>
-                <Numbers>{team.losses}</Numbers>
-              </TeamLosses>
-              <TeamPrem>
-                <GreyText>combined $prem earned</GreyText>
-                <Numbers>{team.prem}</Numbers>
-              </TeamPrem>
-            </TeamInfo>
-            <GradientTextRow>
-              <EditTeam>
-                edit team
-              </EditTeam>
-              <Image
-                src={'/arrow-right-gradient.svg'} 
-                width={14.89} 
-                height={9.3} 
-                alt={'arrow-right-gradient'} 
-                />
-              <DeleteTeam>
-                delete team
-              </DeleteTeam>
-              <Image
-                src={'/arrow-right-gradient.svg'} 
-                width={14.89} 
-                height={9.3} 
-                alt={'arrow-right-gradient'} 
+                    src={'/xbox.svg'} 
+                    width={19.54} 
+                    height={19.54} 
+                    alt={'laptop-image'} 
+                  />
+                </Xbox>
+              </IconsRow>
+          </Spacer>        
+            <TeamName>
+              {team.name}
+            </TeamName>
+          <TeamInfo>
+            <TeamWins>
+              <GreyText>team wins</GreyText>
+              <Numbers>{team.wins}</Numbers>
+            </TeamWins>
+            <TeamLosses>
+              <GreyText>team losses</GreyText>
+              <Numbers>{team.losses}</Numbers>
+            </TeamLosses>
+            <TeamPrem>
+              <GreyText>combined $prem earned</GreyText>
+              <Numbers>{team.prem}</Numbers>
+            </TeamPrem>
+          </TeamInfo>
+          <GradientTextRow>
+            <EditTeam>
+              edit team
+            </EditTeam>
+            <Image
+              src={'/arrow-right-gradient.svg'} 
+              width={14.89} 
+              height={9.3} 
+              alt={'arrow-right-gradient'} 
               />
-            </GradientTextRow>
-          </Box>
-        )}
-      </div>
+            <DeleteTeam>
+              delete team
+            </DeleteTeam>
+            <Image
+              src={'/arrow-right-gradient.svg'} 
+              width={14.89} 
+              height={9.3} 
+              alt={'arrow-right-gradient'} 
+            />
+          </GradientTextRow>
+        </Box>
+      )}
+    </TeamsContainer>
   )
 }
