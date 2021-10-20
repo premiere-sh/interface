@@ -29,20 +29,17 @@ export default function FeaturedTournaments({ tournaments }) {
   return (
     <>
       <Container>
-        <HomeHeading>
-          Featured Tournaments
-        </HomeHeading>
+        <HomeHeading>Featured Tournaments</HomeHeading>
         <HorizontalScrollView>
-          {
-            tournaments && tournaments.map((tournament, key) => (
-              <div 
-                key={key} 
+          {tournaments &&
+            tournaments.map((tournament, key) => (
+              <div
+                key={key}
                 style={{ width: 453, height: 290, marginRight: 50 }}
               >
                 <FeaturedTournament tournament={tournament} />
               </div>
-            ))
-          }
+            ))}
         </HorizontalScrollView>
       </Container>
       <ButtonContainer>
@@ -51,4 +48,3 @@ export default function FeaturedTournaments({ tournaments }) {
     </>
   )
 }
-

@@ -1,18 +1,18 @@
 import Header from 'components/Header'
+import Teams from 'components/Teams'
 import Footer from 'components/Footer'
-import Login from 'components/Login'
-import { Column } from 'components/common'
 import SocialsSection from 'components/SocialsSection'
+import ProfileTop from 'components/ProfileTop'
 
-export default function LoginPage() {
+export default function profile() {
   return (
-    <Column>
+    <div>
       <Header />
-      <Login />
-      <div style={{ marginTop: 120, marginBottom: 150 }}>
+      <ProfileTop />
+      <div style={{ marginBottom: 152, marginTop: 352 }}>
         <SocialsSection />
       </div>
       <Footer />
-    </Column>
+    </div>
   )
 }

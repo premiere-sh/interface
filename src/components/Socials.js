@@ -24,12 +24,11 @@ export function Youtube() {
 
 export function SocialsDivider() {
   return (
-    <Image 
+    <Image
       src={'/socials_divider.svg'}
-      height={124} 
-      width={1.5} 
-      alt={'social'} 
+      height={124}
+      width={1.5}
+      alt={'social'}
     />
   )
 }
-

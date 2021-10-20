@@ -19,7 +19,7 @@ export const Center = styled.div`
 `
 
 export const GradientText = styled.div`
-  background: linear-gradient(266.89deg, #982649 -18.13%, #F71735 120.14%);
+  background: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 `
@@ -31,7 +31,7 @@ export const Subheading = styled.div`
   font-size: 48px;
   line-height: 150%;
   letter-spacing: 0.055em;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
   margin-bottom: 80px;
   text-transform: uppercase;
 `
@@ -57,7 +57,7 @@ export const LeaderboardTitle = styled.div`
   font-weight: 600;
   font-size: 26px;
   line-height: 31px;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
   margin-bottom: 50px;
 `
 
@@ -67,7 +67,6 @@ export const HomeHeading = styled.div`
   font-weight: 600;
   font-size: 24px;
   line-height: 150%;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
   margin-bottom: 40px;
 `
-

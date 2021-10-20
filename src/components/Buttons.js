@@ -3,7 +3,7 @@ import { GradientText } from 'components/common'
 import Image from 'next/image'
 
 const Button = styled.button`
-  --gradient: linear-gradient(266.89deg, #982649 -18.13%, #F71735 120.14%);
+  --gradient: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
   background: var(--gradient);
   border-radius: 5px;
   font-family: Inter;
@@ -12,13 +12,13 @@ const Button = styled.button`
   font-size: 16px;
   line-height: 150%;
   letter-spacing: 0.1em;
-  color: ${props => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.white};
   border: 0;
   &:hover {
-    background: linear-gradient(266.89deg, #982649 -18.13%, #F71735 120.14%);
+    background: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    border: 1px ${props => props.theme.colors.ruby} solid;
+    border: 1px ${(props) => props.theme.colors.ruby} solid;
   }
   text-transform: uppercase;
   cursor: pointer;
@@ -59,51 +59,31 @@ const ArrowButtonContainer = styled(GradientText)`
 `
 
 export function SignupButton() {
-  return (
-    <Signup>
-      sign up
-    </Signup>
-  )
+  return <Signup>sign up</Signup>
 }
 
 export function SignupButtonLarge() {
-  return (
-    <SignupLarge>
-      sign up
-    </SignupLarge>
-  )
+  return <SignupLarge>sign up</SignupLarge>
 }
 
 export function DashboardButton() {
-  return (
-    <Dashboard>
-      dashboard
-    </Dashboard>
-  )
+  return <Dashboard>dashboard</Dashboard>
 }
 
 export function LoginButton() {
-  return (
-    <Login>
-      log in
-    </Login>
-  )
+  return <Login>log in</Login>
 }
 
 export function ViewTournamentsButton() {
-  return (
-    <ViewTournaments>
-      view tournaments
-    </ViewTournaments>
-  )
+  return <ViewTournaments>view tournaments</ViewTournaments>
 }
 
 export function ArrowButton({ text }) {
   return (
     <ArrowButtonContainer>
-      { text }
+      {text}
       <div style={{ marginBottom: 10, marginLeft: 15 }}>
-        <Image 
+        <Image
           src={'/arrow-right-gradient.svg'}
           width={18}
           height={12}
@@ -113,4 +93,3 @@ export function ArrowButton({ text }) {
     </ArrowButtonContainer>
   )
 }
-

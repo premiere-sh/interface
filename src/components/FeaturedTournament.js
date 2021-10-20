@@ -1,10 +1,10 @@
 import Image from 'next/image'
-import { 
+import {
   Subheading,
-  Column, 
-  Container, 
+  Column,
+  Container,
   GradientText,
-  Circle
+  Circle,
 } from 'components/common'
 import { ArrowButton } from 'components/Buttons'
 import GradientDropdown from 'components/GradientDropdown'
@@ -17,12 +17,12 @@ const Row = styled.div`
 
 const TournamentContainer = styled(Container)`
   height: 262px;
-  background-color: ${props => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.white};
   position: relative;
   width: 453px;
   cursor: pointer;
   &:hover {
-    border: 1px solid ${props => props.theme.colors.ruby};
+    border: 1px solid ${(props) => props.theme.colors.ruby};
     border-radius: 10px;
   }
 `
@@ -34,7 +34,7 @@ const SubText = styled.div`
     font-size: 16px;
   }
   line-height: 150%;
-  color: ${props => props.theme.colors.grayish};
+  color: ${(props) => props.theme.colors.grayish};
 `
 
 const TitleContainer = styled.div`
@@ -47,13 +47,13 @@ const Title = styled.div`
   font-weight: 600;
   font-size: 24px;
   line-height: 150%;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
 `
 
 const InfoText = styled.div`
   font-size: 18px;
   line-height: 150%;
-  color: ${props => props.theme.colors.grayish};
+  color: ${(props) => props.theme.colors.grayish};
 `
 
 const InfoColumn = styled(Column)`
@@ -65,9 +65,9 @@ const InfoColumn = styled(Column)`
 `
 
 const ImageContainer = styled.div`
-  margin-left: 20px; 
+  margin-left: 20px;
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
 `
 
@@ -85,18 +85,14 @@ export default function FeaturedTournament({ tournament }) {
         </ImageContainer>
         <InfoColumn>
           <div>
-            <SubText>
-              {tournament.region}
-            </SubText>
+            <SubText>{tournament.region}</SubText>
             <TitleContainer>
-              <Title>
-                {tournament.title}
-              </Title>
+              <Title>{tournament.title}</Title>
             </TitleContainer>
           </div>
           <div>
             <InfoText>
-                <span style={{ fontWeight: 700}}>{tournament.time}</span> 
+              <span style={{ fontWeight: 700 }}>{tournament.time}</span>
             </InfoText>
             <InfoText>
               <span>{tournament.date}</span>

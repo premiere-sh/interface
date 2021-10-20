@@ -29,20 +29,17 @@ export default function FeaturedGames({ games }) {
   return (
     <>
       <Container>
-        <HomeHeading>
-          Featured Games
-        </HomeHeading>
+        <HomeHeading>Featured Games</HomeHeading>
         <HorizontalScrollView>
-          {
-            games && games.map((game, key) => (
-              <div 
-                key={key} 
+          {games &&
+            games.map((game, key) => (
+              <div
+                key={key}
                 style={{ width: 210, height: 300, marginBottom: 20 }}
               >
                 <GameTile game={game.name} caption={game.caption} />
               </div>
-            ))
-          }
+            ))}
         </HorizontalScrollView>
       </Container>
       <ButtonContainer>
@@ -51,4 +48,3 @@ export default function FeaturedGames({ games }) {
     </>
   )
 }
-

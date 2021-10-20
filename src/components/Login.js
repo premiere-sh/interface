@@ -10,36 +10,32 @@ export default function Login() {
   })
   return (
     <>
-      <Heading>
-        log in 
-      </Heading>
-      <Subtext>
-        Login to your Premiere account below!
-      </Subtext>
+      <Heading>log in</Heading>
+      <Subtext>Login to your Premiere account below!</Subtext>
       <Entry>
-        <Caption>
-          email address
-        </Caption>
-        <Input 
-          value={data.email} 
-          onChange={event => setData({ 
-            ...data, 
-            email: event.target.value 
-          })}
+        <Caption>email address</Caption>
+        <Input
+          value={data.email}
+          onChange={(event) =>
+            setData({
+              ...data,
+              email: event.target.value,
+            })
+          }
           placeholder={'Enter your email address'}
         />
       </Entry>
       <Entry>
-        <Caption>
-          password
-        </Caption>
-        <Input 
+        <Caption>password</Caption>
+        <Input
           type={'password'}
-          value={data.password} 
-          onChange={event => setData({ 
-            ...data, 
-            password: event.target.value 
-          })}
+          value={data.password}
+          onChange={(event) =>
+            setData({
+              ...data,
+              password: event.target.value,
+            })
+          }
           placeholder={'Enter your password'}
         />
       </Entry>

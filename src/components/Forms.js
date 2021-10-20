@@ -9,8 +9,8 @@ export const Entry = styled.div`
 export const Input = styled.input`
   width: 589px;
   height: 60px;
-  background: #FFFFFF;
-  border: 1px solid #EAEAEA;
+  background: #ffffff;
+  border: 1px solid #eaeaea;
   box-sizing: border-box;
   border-radius: 5px;
   font-family: Inter;
@@ -18,7 +18,7 @@ export const Input = styled.input`
   font-weight: 500;
   font-size: 16px;
   line-height: 140.62%;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
   padding-left: 25px;
 `
 
@@ -42,7 +42,7 @@ export const Heading = styled.div`
   font-size: 48px;
   line-height: 58px;
   text-align: center;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
   text-transform: uppercase;
   margin-bottom: 30px;
 `
@@ -54,7 +54,6 @@ export const Subtext = styled.div`
   font-size: 16px;
   line-height: 140.62%;
   text-align: center;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
   margin-bottom: 70px;
 `
-
