@@ -12,22 +12,14 @@ const Text = styled.div`
   font-weight: normal;
   font-size: 16px;
   line-height: 150%;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
 `
 
 export default function ViewAll() {
   return (
     <Container>
-      <Image 
-        src={'/arrow_right.svg'} 
-        width={67} 
-        height={67} 
-        alt={'arrow'} 
-      />
-      <Text style={{ marginTop: 8 }}>
-        VIEW ALL
-      </Text>
+      <Image src={'/arrow_right.svg'} width={67} height={67} alt={'arrow'} />
+      <Text style={{ marginTop: 8 }}>VIEW ALL</Text>
     </Container>
   )
 }
-

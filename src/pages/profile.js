@@ -7,12 +7,12 @@ import ProfileTop from 'components/ProfileTop'
 export default function profile() {
   return (
     <div>
-      <Header/>
-      <ProfileTop/>
-      <div style={{marginBottom: 152, marginTop: 352}}>
-        <SocialsSection/>
+      <Header />
+      <ProfileTop />
+      <div style={{ marginBottom: 152, marginTop: 352 }}>
+        <SocialsSection />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   )
 }

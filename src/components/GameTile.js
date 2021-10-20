@@ -14,7 +14,7 @@ const Caption = styled(Center)`
   font-family: Inter;
   font-style: normal;
   font-weight: 500;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 5px;
   width: 146px;
   height: 30px;
@@ -40,7 +40,7 @@ const MenuContainer = styled.div`
   justify-content: center;
   align-items: center;
   background: rgba(12, 10, 9, 0.4);
-  color: ${props => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.white};
   user-select: none;
 `
 
@@ -60,28 +60,13 @@ function Menu({ game }) {
     <MenuContainer>
       <CircleRow>
         <Circle>
-          <Image 
-            src={'/xplay.svg'}
-            width={24}
-            height={24}
-            alt={'xplay'}
-          />
+          <Image src={'/xplay.svg'} width={24} height={24} alt={'xplay'} />
         </Circle>
         <Circle>
-          <Image 
-            src={'/laptop.svg'}
-            width={24}
-            height={24}
-            alt={'laptop'}
-          />
+          <Image src={'/laptop.svg'} width={24} height={24} alt={'laptop'} />
         </Circle>
         <Circle>
-          <Image 
-            src={'/logo-xbox.svg'}
-            width={24}
-            height={24}
-            alt={'xbox'}
-          />
+          <Image src={'/logo-xbox.svg'} width={24} height={24} alt={'xbox'} />
         </Circle>
       </CircleRow>
     </MenuContainer>
@@ -91,26 +76,15 @@ function Menu({ game }) {
 export default function GameTile({ game, caption }) {
   const [hover, setHover] = useState(false)
   return (
-    <Tile 
+    <Tile
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      {
-        hover &&
-        <Menu game={game} />
-      }
-      <Image 
-        src={'/' + game + '.svg'} 
-        width={211} 
-        height={296} 
-        alt={'game'} 
-      />
+      {hover && <Menu game={game} />}
+      <Image src={'/' + game + '.svg'} width={211} height={296} alt={'game'} />
       <Caption>
-        <GradientText>
-          {caption}
-        </GradientText>
+        <GradientText>{caption}</GradientText>
       </Caption>
     </Tile>
   )
 }
-

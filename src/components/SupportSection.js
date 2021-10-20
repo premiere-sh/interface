@@ -7,19 +7,19 @@ const supportSquares = [
     image: 'twitter',
     heading: 'Message us on Twitter',
     text: `DM our Twitter Support account and we’ll get back to you as soon
-      as possible.`
+      as possible.`,
   },
   {
     image: 'mail',
     heading: 'Email us',
     text: `Click here to email us - we’ll aim to get back to you as soon as
-      possible.`
+      possible.`,
   },
   {
     image: 'dc',
     heading: 'Join our Discord',
     text: `We have an active group of moderators available for support on
-      our discord channel.`
+      our discord channel.`,
   },
 ]
 
@@ -35,11 +35,11 @@ const SupportSquareContainer = styled(Column)`
   width: 360px;
   height: 360px;
   align-items: center;
-  border: 1px solid #E2E2E2;
+  border: 1px solid #e2e2e2;
   box-sizing: border-box;
   border-radius: 5px;
   &:hover {
-    border: 1px solid ${props => props.theme.colors.ruby}
+    border: 1px solid ${(props) => props.theme.colors.ruby};
   }
   cursor: pointer;
   justify-content: revert;
@@ -50,7 +50,7 @@ const SupportSquaresRow = styled(Row)`
   @media screen and (max-width: 1300px) {
     flex-direction: column;
     & > * {
-      margin-bottom: 25px
+      margin-bottom: 25px;
     }
   }
 `
@@ -62,7 +62,7 @@ const Subheading = styled.div`
   font-weight: 500;
   font-size: 16px;
   line-height: 140.62%;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
 `
 
 const SupportSquareHeading = styled.div`
@@ -71,7 +71,7 @@ const SupportSquareHeading = styled.div`
   font-weight: 600;
   font-size: 24px;
   line-height: 150%;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
   margin-bottom: 15px;
 `
 
@@ -82,7 +82,7 @@ const SupportSquareText = styled.div`
   font-size: 16px;
   line-height: 140.62%;
   text-align: center;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
   width: 307px;
 `
 
@@ -90,19 +90,15 @@ function SupportSquare({ supportSquare }) {
   return (
     <SupportSquareContainer>
       <div style={{ marginTop: 78, marginBottom: 33 }}>
-        <Image 
-          src={`/${supportSquare.image}.svg`} 
+        <Image
+          src={`/${supportSquare.image}.svg`}
           width={80}
           height={80}
           alt={supportSquare.image}
         />
       </div>
-      <SupportSquareHeading>
-        {supportSquare.heading}
-      </SupportSquareHeading>
-      <SupportSquareText>
-        {supportSquare.text}
-      </SupportSquareText>
+      <SupportSquareHeading>{supportSquare.heading}</SupportSquareHeading>
+      <SupportSquareText>{supportSquare.text}</SupportSquareText>
     </SupportSquareContainer>
   )
 }
@@ -110,20 +106,15 @@ function SupportSquare({ supportSquare }) {
 export default function SupportSection() {
   return (
     <Container>
-      <Heading>
-        support
-      </Heading>
+      <Heading>support</Heading>
       <Subheading>
         We’re here to help - get in touch through any of the methods below!
       </Subheading>
       <SupportSquaresRow>
-        {
-          supportSquares.map((supportSquare, idx) => (
-            <SupportSquare key={idx} supportSquare={supportSquare} />
-          ))
-        }
+        {supportSquares.map((supportSquare, idx) => (
+          <SupportSquare key={idx} supportSquare={supportSquare} />
+        ))}
       </SupportSquaresRow>
     </Container>
   )
 }
-

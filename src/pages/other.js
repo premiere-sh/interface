@@ -4,10 +4,9 @@ import { Column } from 'components/common'
 
 export default function Home() {
   return (
-    <Column> 
+    <Column>
       <Header />
       <Footer />
     </Column>
   )
 }
-

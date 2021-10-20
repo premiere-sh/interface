@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import { Row, Column, GradientText } from 'components/common' 
+import { Row, Column, GradientText } from 'components/common'
 import { ArrowButton } from 'components/Buttons'
 
 const Container = styled(Row)`
@@ -18,7 +18,7 @@ const Heading = styled.div`
   font-weight: 600;
   font-size: 32px;
   line-height: 39px;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
   margin-bottom: 20px;
 `
 
@@ -28,7 +28,7 @@ const Subtext = styled.div`
   font-weight: 500;
   font-size: 16px;
   line-height: 140.62%;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
   margin-bottom: 50px;
 `
 
@@ -44,7 +44,7 @@ const Caption = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 3;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 5px;
   top: 335px;
   right: 25%;
@@ -54,26 +54,24 @@ const Caption = styled.div`
 function Video({ src, caption }) {
   const vid = useRef()
 
-  useEffect(function() {
+  useEffect(function () {
     vid.current.play()
   }, [])
 
   return (
     <VideoContainer>
-      <video 
+      <video
         ref={vid}
-        width={584} 
-        height={373} 
+        width={584}
+        height={373}
         muted={true}
         controls={false}
         loop={true}
-      > 
+      >
         <source src={src} type={'video/mp4'} />
       </video>
       <Caption>
-        <GradientText>
-          {caption}
-        </GradientText>
+        <GradientText>{caption}</GradientText>
       </Caption>
     </VideoContainer>
   )
@@ -82,14 +80,12 @@ function Video({ src, caption }) {
 export default function WelcomeToPremiere() {
   return (
     <Container>
-      <Video 
-        src={'http://media.w3.org/2010/05/sintel/trailer.mp4'} 
-        caption={'Featured clip - @devonhenry_'} 
+      <Video
+        src={'http://media.w3.org/2010/05/sintel/trailer.mp4'}
+        caption={'Featured clip - @devonhenry_'}
       />
       <SideColumn>
-        <Heading>
-          Welcome to Premiere
-        </Heading>
+        <Heading>Welcome to Premiere</Heading>
         <Subtext>
           Premiere is a ...Premiere is a ...Premiere is a ...Premiere is a
           ...Premiere is a ...Premiere is a ...Premiere is a ...Premiere is a
@@ -101,4 +97,3 @@ export default function WelcomeToPremiere() {
     </Container>
   )
 }
-

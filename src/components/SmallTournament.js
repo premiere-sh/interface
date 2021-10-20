@@ -1,10 +1,10 @@
 import Image from 'next/image'
-import { 
+import {
   Subheading,
-  Column, 
-  Container, 
+  Column,
+  Container,
   GradientText,
-  Circle
+  Circle,
 } from 'components/common'
 import { ArrowButton } from 'components/Buttons'
 import GradientDropdown from 'components/GradientDropdown'
@@ -38,7 +38,7 @@ const ShadowCircle = styled(Circle)`
 
 const TournamentContainer = styled(Container)`
   height: 340px;
-  background-color: ${props => props.theme.colors.white};
+  background-color: ${(props) => props.theme.colors.white};
   position: relative;
   width: 590px;
 `
@@ -50,7 +50,7 @@ const SubText = styled.div`
     font-size: 16px;
   }
   line-height: 150%;
-  color: ${props => props.theme.colors.grayish};
+  color: ${(props) => props.theme.colors.grayish};
   margin-bottom: 24px;
 `
 
@@ -72,7 +72,7 @@ const Title = styled.h2`
 const InfoText = styled.div`
   font-size: 18px;
   line-height: 150%;
-  color: ${props => props.theme.colors.grayish};
+  color: ${(props) => props.theme.colors.grayish};
 `
 
 const InfoColumn = styled(Column)`
@@ -84,9 +84,9 @@ const InfoColumn = styled(Column)`
 `
 
 const ImageContainer = styled.div`
-  margin-left: 20px; 
+  margin-left: 20px;
   display: flex;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
 `
 
@@ -103,22 +103,18 @@ export default function SmallTournament({ tournament }) {
           />
         </ImageContainer>
         <InfoColumn>
-          <SubText>
-            {tournament.region}
-          </SubText>
+          <SubText>{tournament.region}</SubText>
           <TitleContainer>
-            <Title>
-              {tournament.title}
-            </Title>
+            <Title>{tournament.title}</Title>
           </TitleContainer>
           <InfoText>
-              <span style={{ fontWeight: 800}}>{tournament.time}</span> 
-              <span> - {tournament.date}</span>
+            <span style={{ fontWeight: 800 }}>{tournament.time}</span>
+            <span> - {tournament.date}</span>
           </InfoText>
           <div style={{ height: 16 }} />
           <InfoText>
-              <span style={{ fontWeight: 800}}>Prize</span> 
-              <span> - {tournament.prize}</span>
+            <span style={{ fontWeight: 800 }}>Prize</span>
+            <span> - {tournament.prize}</span>
           </InfoText>
           <ButtonRow>
             <div style={{ marginTop: 11, fontSize: 15 }}>
@@ -126,7 +122,7 @@ export default function SmallTournament({ tournament }) {
             </div>
             <Row>
               <ShadowCircle>
-                <Image 
+                <Image
                   src={'/xplay.svg'}
                   width={24}
                   height={24}
@@ -134,7 +130,7 @@ export default function SmallTournament({ tournament }) {
                 />
               </ShadowCircle>
               <ShadowCircle>
-                <Image 
+                <Image
                   src={'/laptop.svg'}
                   width={24}
                   height={24}
@@ -142,7 +138,7 @@ export default function SmallTournament({ tournament }) {
                 />
               </ShadowCircle>
               <ShadowCircle>
-                <Image 
+                <Image
                   src={'/logo-xbox.svg'}
                   width={24}
                   height={24}

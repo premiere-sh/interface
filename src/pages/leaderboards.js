@@ -15,13 +15,11 @@ const ContainerRow = styled(Container)`
 
 export default function Leaderboards() {
   return (
-    <Column> 
+    <Column>
       <Header />
       <Container>
         <Row style={{ justifyContent: 'space-between' }}>
-          <Subheading>
-            LEADERBOARDS
-          </Subheading>
+          <Subheading>LEADERBOARDS</Subheading>
           <GradientDropdown text={'FILTER BY GAME'} />
         </Row>
       </Container>
@@ -36,4 +34,3 @@ export default function Leaderboards() {
     </Column>
   )
 }
-

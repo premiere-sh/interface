@@ -8,7 +8,7 @@ const Table = styled.table`
 `
 
 const HeadRow = styled.tr`
-  border-bottom: 1px solid ${props => props.theme.colors.ruby};
+  border-bottom: 1px solid ${(props) => props.theme.colors.ruby};
   height: 40px;
 `
 
@@ -28,7 +28,7 @@ const HeadRowUser = styled(HeadRowText)`
 const HeadRowPoints = styled(HeadRowText)``
 
 const TableRow = styled.tr`
-  border-bottom: 1px solid #EBEBEB;
+  border-bottom: 1px solid #ebebeb;
   height: 60px;
 `
 
@@ -47,82 +47,68 @@ export default function Leaderboard() {
   const entries = [
     {
       user: 'devonhenry_',
-      points: '321,142,104'
+      points: '321,142,104',
     },
     {
       user: 'devonhenry_',
-      points: '321,142,104'
+      points: '321,142,104',
     },
     {
       user: 'devonhenry_',
-      points: '321,142,104'
+      points: '321,142,104',
     },
     {
       user: 'devonhenry_',
-      points: '321,142,104'
+      points: '321,142,104',
     },
     {
       user: 'devonhenry_',
-      points: '321,142,104'
+      points: '321,142,104',
     },
     {
       user: 'devonhenry_',
-      points: '321,142,104'
+      points: '321,142,104',
     },
     {
       user: 'devonhenry_',
-      points: '321,142,104'
+      points: '321,142,104',
     },
     {
       user: 'devonhenry_',
-      points: '321,142,104'
+      points: '321,142,104',
     },
     {
       user: 'devonhenry_',
-      points: '321,142,104'
+      points: '321,142,104',
     },
   ]
 
   return (
     <div>
-      <LeaderboardTitle>
-        GB Rank Leaderboard
-      </LeaderboardTitle>
+      <LeaderboardTitle>GB Rank Leaderboard</LeaderboardTitle>
       <Table>
         <HeadRow>
-          <HeadRowRank>
-              rank
-          </HeadRowRank>
-          <HeadRowUser>
-            user
-          </HeadRowUser>
-          <HeadRowPoints>
-            points
-          </HeadRowPoints>
+          <HeadRowRank>rank</HeadRowRank>
+          <HeadRowUser>user</HeadRowUser>
+          <HeadRowPoints>points</HeadRowPoints>
         </HeadRow>
-        {
-          entries.map((entry, idx) => (
-            <TableRow key={idx}>
-              <Rank>
-                #{idx + 1}
-              </Rank>
-              <User>
-                <div style={{ marginRight: 12, marginTop: 5 }}>
-                  <Image 
-                    src={'/' + entry.user + '.svg'}
-                    width={32}
-                    height={32}
-                    alt={'user'}
-                  />
-                </div>
-                {entry.user}
-              </User>
-              <Points>
-                {entry.points}
-              </Points>
-            </TableRow>
-          ))
-        }
+        {entries.map((entry, idx) => (
+          <TableRow key={idx}>
+            <Rank>#{idx + 1}</Rank>
+            <User>
+              <div style={{ marginRight: 12, marginTop: 5 }}>
+                <Image
+                  src={'/' + entry.user + '.svg'}
+                  width={32}
+                  height={32}
+                  alt={'user'}
+                />
+              </div>
+              {entry.user}
+            </User>
+            <Points>{entry.points}</Points>
+          </TableRow>
+        ))}
       </Table>
     </div>
   )

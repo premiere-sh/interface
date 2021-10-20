@@ -1,12 +1,12 @@
 import {
-  Discord, 
+  Discord,
   Instagram,
-  Twitter, 
+  Twitter,
   Telegram,
-  Youtube, 
-  SocialsDivider 
+  Youtube,
+  SocialsDivider,
 } from 'components/Socials'
-import { Row as _Row, Column as _Column} from 'components/common'
+import { Row as _Row, Column as _Column } from 'components/common'
 import styled from 'styled-components'
 
 const Row = styled(_Row)`
@@ -27,14 +27,14 @@ const Column = styled(_Column)`
   height: 100%;
 `
 
-const Text1= styled.div`
+const Text1 = styled.div`
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
   font-size: 24px;
   line-height: 150%;
   text-align: center;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
 `
 
 const Text2 = styled.div`
@@ -43,7 +43,7 @@ const Text2 = styled.div`
   font-weight: bold;
   font-size: 45px;
   line-height: 100%;
-  color: ${props => props.theme.colors.black};
+  color: ${(props) => props.theme.colors.black};
 `
 
 const SocialsRow = styled(_Row)`
@@ -65,12 +65,8 @@ export default function SocialsSection() {
           <Discord />
         </div>
         <Column>
-          <Text1>
-            Connect with us
-          </Text1>
-          <Text2>
-            1345
-          </Text2>
+          <Text1>Connect with us</Text1>
+          <Text2>1345</Text2>
         </Column>
       </_Row>
       <SocialsDividerContainer>
@@ -81,7 +77,7 @@ export default function SocialsSection() {
         <Twitter />
         <Youtube />
         <Telegram />
-        </SocialsRow>
+      </SocialsRow>
     </Row>
   )
 }

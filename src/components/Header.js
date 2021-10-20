@@ -19,7 +19,7 @@ const Header = styled(Row)`
     width: 480px;
     padding: 0;
   }
-  margin-bottom: ${props => props.home ? '80px' : '150px'};
+  margin-bottom: ${(props) => (props.home ? '80px' : '150px')};
 `
 
 const LogoBit = styled(Row)`
@@ -108,9 +108,7 @@ function Navigator() {
         </Link>
         <Link href={'/support'}>
           <a>
-            <DropdownText>
-              SUPPORT
-            </DropdownText>
+            <DropdownText>SUPPORT</DropdownText>
           </a>
         </Link>
       </LinksContainer>
@@ -123,18 +121,18 @@ export default function _Header({ home }) {
   const ref = useRef()
   const dropdownRef = useRef()
 
-  useEffect(function() {
+  useEffect(function () {
     function handleOutsideClick(event) {
       if (
-        ref.current 
-          && !ref.current.contains(event.target) 
-          && !dropdownRef.current.contains(event.target)
-      ) 
+        ref.current &&
+        !ref.current.contains(event.target) &&
+        !dropdownRef.current.contains(event.target)
+      )
         setNavigatorOpen(false)
     }
     document.addEventListener('mousedown', handleOutsideClick)
 
-    return function() {
+    return function () {
       document.removeEventListener('mousedown', handleOutsideClick)
     }
   }, [])
@@ -142,23 +140,19 @@ export default function _Header({ home }) {
     <Header home={home}>
       <Head>
         <title>Premiere</title>
-        <meta 
-          name="description" 
-          content="Participate in gaming tournaments and receive crypto!" 
+        <meta
+          name="description"
+          content="Participate in gaming tournaments and receive crypto!"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <LogoBit>
-        <LinksDropdown 
+        <LinksDropdown
           ref={dropdownRef}
           onClick={() => setNavigatorOpen(!navigatorOpen)}
         >
-          <Image 
-            src={
-              navigatorOpen 
-                ? '/navigator_open.svg' 
-                : '/navigator.svg'
-            } 
+          <Image
+            src={navigatorOpen ? '/navigator_open.svg' : '/navigator.svg'}
             width={24}
             height={24}
             alt={'navigator'}
@@ -170,10 +164,7 @@ export default function _Header({ home }) {
           </a>
         </Link>
       </LogoBit>
-      {
-        navigatorOpen &&
-          <Navigator ref={ref} />
-      }
+      {navigatorOpen && <Navigator ref={ref} />}
       <LinksBit>
         <Link href={'/games'}>
           <a>
@@ -192,20 +183,13 @@ export default function _Header({ home }) {
         </Link>
         <Link href={'/support'}>
           <a>
-            <DropdownText>
-              SUPPORT
-            </DropdownText>
+            <DropdownText>SUPPORT</DropdownText>
           </a>
         </Link>
       </LinksBit>
       <SignupBit>
         <SearchButtonContainer>
-          <Image 
-            src={'/search.svg'}
-            width={32}
-            height={32} 
-            alt={'search'}
-          />
+          <Image src={'/search.svg'} width={32} height={32} alt={'search'} />
         </SearchButtonContainer>
         <Link href={'/signup'}>
           <a>
@@ -216,4 +200,3 @@ export default function _Header({ home }) {
     </Header>
   )
 }
-

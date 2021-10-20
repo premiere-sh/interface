@@ -5,11 +5,10 @@ import { Column } from 'components/common'
 
 export default function SignupPage() {
   return (
-    <Column> 
+    <Column>
       <Header />
       <Signup />
       <Footer />
     </Column>
   )
 }
-

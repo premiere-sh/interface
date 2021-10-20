@@ -6,14 +6,13 @@ import SocialsSection from 'components/SocialsSection'
 
 export default function LoginPage() {
   return (
-    <Column> 
+    <Column>
       <Header />
       <Login />
       <div style={{ marginTop: 120, marginBottom: 150 }}>
-        <SocialsSection /> 
+        <SocialsSection />
       </div>
       <Footer />
     </Column>
   )
 }
-

@@ -6,7 +6,7 @@ import SupportSection from 'components/SupportSection'
 
 export default function Support() {
   return (
-    <Column> 
+    <Column>
       <Header />
       <Container>
         <SupportSection />
@@ -18,4 +18,3 @@ export default function Support() {
     </Column>
   )
 }
-
