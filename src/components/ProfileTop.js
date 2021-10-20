@@ -13,15 +13,19 @@ const SpaceAround = styled(Row)`
   justify-content: space-around;
 `
 
+const ProfilePanel = styled(Row)`
+`
+
 const Name = styled.div`
   font-size: 36px;
   line-height: 36px;
   font-style: italic;
   font-weight: 700;
 `
+
 const Wrapper = styled(Container)`
-border-bottom: 1px solid  #E3E3E3;
-margin-bottom: 79px;
+  border-bottom: 1px solid #e3e3e3;
+  margin-bottom: 79px;
 `
 
 const Since = styled.div`
@@ -30,15 +34,31 @@ const Since = styled.div`
   font-weight: 600;
   font-size: 18px;
   fine-height: 27px;
-  color: ${props => props.theme.colors.gray};
+  color: ${(props) => props.theme.colors.gray};
+  margin-bottom: 40px;
+`
+
+const ProfileInfo = styled(Column)`
+  margin-left: 52px;
+`
+
+const ProfileStats = styled(Row)`
+`
+
+const GreyTextColumn = styled(Column)`
+  margin-right: 42px;
 `
 
 const GreyText = styled.div`
   font-style: Regular;
   font-size: 16px;
   fine-height: 24px;
-  color: ${props => props.theme.colors.gray};
+  color: ${(props) => props.theme.colors.gray};
   letter-spacing: 0.1em;
+  text-transform: uppercase;
+`
+
+const ArrowColumn = styled(Column)`
 `
 
 const Numbers = styled.div`
@@ -46,97 +66,133 @@ const Numbers = styled.div`
   font-size: 18px;
   line-height: 27px;
   margin-top: 6px;
+  margin-bottom: 12px;
 `
+
+const ButtonWrapper = styled(Row)`
+  justify-content: space-between;
+  margin-top: 79px;
+`
+
 const Button = styled.div`
   font-size: 20px;
   font-weight: 500;
   line-height: 40px;
   letter-spacing: 0.1em;
-  border-bottom: 1px solid;
-  border-image-source: linear-gradient
-    (266.89deg, #982649 -18.13%, #F71735 120.14%); 
+  border-bottom: 0px solid;
+  border-image-source: linear-gradient(
+    266.89deg,
+    #982649 -18.13%,
+    #f71735 120.14%
+  );
   border-image-slice: 1;
   text-transform: uppercase;
   padding: 40px 23px 23px 23px;
   user-select: none;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 `
 
+const ButtonHome = styled(Button)`
+  padding-left: 0px;
+  padding-right: 23px;
+`
+
+const ButtonEvents = styled(Button)`
+  padding-left: 23px;
+  padding-right: 0px;
+`
+
 
 export default function ProfileTop() {
-
-  const [showTeams, setShowTeams] = useState(false)
+  const [selected, setSelected] = useState('Home')
 
   return (
     <Column>
       <Wrapper>
         <SpaceBetween>
-          <Row>
-              <Image
-                src={'/devonhenry_.svg'} 
-                width={219} 
-                height={219} 
-                alt={'Profile-image'} 
-              />
-            <Column style={{ marginLeft: 52 }}>
-            <Name style={{ marginBottom: 12 }}>devonhenry_</Name>
-            <Since style={{ marginBottom: 40 }}>
-              UK Member since August 24, 2021</Since>
-              <Row>
-                <Column>
-                  <GreyText style={{ textTransform: 'uppercase'}}>
-                    rank</GreyText>
+          <ProfilePanel>
+            <Image
+              src={'/devonhenry_.svg'}
+              width={219}
+              height={219}
+              alt={'Profile-image'}
+            />
+            <ProfileInfo>
+              <Name>devonhenry_</Name>
+              <Since>
+                UK Member since August 24, 2021
+              </Since>
+              <ProfileStats>
+                <GreyTextColumn>
+                  <GreyText>rank</GreyText>
                   <Numbers>1st</Numbers>
-                </Column>
-                <Column>
-                  <GreyText style={{ marginLeft: 52, marginRight: 52, 
-                    textTransform: 'uppercase' }}>weekly wins</GreyText>
-                  <Numbers style={{ marginLeft: 52, marginRight: 52 }}>
-                    98</Numbers>
-                </Column>
-                <Column>
-                  <GreyText style={{ textTransform: 'uppercase'}}>
-                    $prem earned</GreyText>
+                </GreyTextColumn>
+                <GreyTextColumn>
+                  <GreyText>weekly wins</GreyText>
+                  <Numbers>98</Numbers>
+                </GreyTextColumn>
+                <GreyTextColumn>
+                  <GreyText>$prem earned</GreyText>
                   <Numbers>2310994</Numbers>
-                </Column>
-              </Row>
-            </Column>
-          </Row>
-          <Column>
-            <div style={{ marginBottom: 113}}>gg
+                </GreyTextColumn>
+              </ProfileStats>
+            </ProfileInfo>
+          </ProfilePanel>
+          <ArrowColumn>
+            <div style={{ marginBottom: 113 }}>
               <Image
-                src={'/arrow_right.svg'} 
-                width={32} 
-                height={32} 
-                alt={'Profile-image'} 
+                src={'/arrow_right.svg'}
+                width={32}
+                height={32}
+                alt={'Profile-image'}
               />
             </div>
-            <div style={{ marginBottom: 20}}>
+            <div style={{ marginBottom: 20 }}>
               <Image
-                src={'/arrow_right.svg'} 
-                width={32} 
-                height={32} 
-                alt={'Profile-image'} 
+                src={'/arrow_right.svg'}
+                width={32}
+                height={32}
+                alt={'Profile-image'}
               />
             </div>
-          </Column>
+          </ArrowColumn>
         </SpaceBetween>
-        <SpaceBetween style={{ marginTop: 79}}>
-          <Button style={{ paddingRight: 23, paddingLeft: 0 }}>
-            home</Button>
-          <Button>event history</Button>
-          <Button style={{ borderBottom: 
-            `${showTeams == false ? 0 : 1}px solid`}}
-             onClick={() => showTeams == false ? 
-             setShowTeams(true) : setShowTeams(false)}>teams</Button>
-          <Button>friends</Button>
-          <Button style={{ paddingRight: 0, paddingLeft: 23 }}>
-            uncoming events</Button>
-        </SpaceBetween>
+        <ButtonWrapper>
+          <ButtonHome
+            style={{ borderBottom: `${selected=='Home' ? 1 : 0}px solid` }}
+            onClick={() => setSelected('Home')}
+          >
+            home
+          </ButtonHome>
+          <Button
+            style={{ borderBottom: `${selected=='History' ? 1 : 0}px solid` }}
+            onClick={() => setSelected('History')}
+          >
+            event history
+          </Button>
+          <Button
+            style={{ borderBottom: `${selected=='Teams' ? 1 : 0}px solid` }}
+            onClick={() => setSelected('Teams')}
+          >
+            teams
+          </Button>
+          <Button
+            style={{ borderBottom: `${selected=='Friends' ? 1 : 0}px solid` }}
+            onClick={() => setSelected('Friends')}
+          >
+            friends
+          </Button>
+          <ButtonEvents
+            style={{ borderBottom: `${selected=='Events' ? 1 : 0}px solid` }}
+            onClick={() => setSelected('Events')}
+          >
+            uncoming events
+          </ButtonEvents>
+        </ButtonWrapper>
       </Wrapper>
-      {showTeams && <Teams/>}
+      {selected == 'Teams' && <Teams />}
     </Column>
   )
 }

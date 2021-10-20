@@ -18,7 +18,8 @@
   "devDependencies": {
     "babel-plugin-styled-components": "^1.12.0",
     "eslint": "^7.32.0",
-    "eslint-config-next": "11.1.0"
+    "eslint-config-next": "11.1.0",
+    "prettier": "^2.4.1"
   },
   "license": "MIT",
   "description": "A crypto web-app enabling gamers to participate in tournaments and receive $Premiere for their wins.",

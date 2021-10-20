@@ -1,5 +1,11 @@
 import styled from 'styled-components'
-import { Column, Container, Row, GradientText, Circle } from './common'
+import {
+  Column,
+  Container,
+  Row,
+  GradientText,
+  Circle
+} from './common'
 import Image from 'next/image'
 
 const YourTeams = styled.div`
@@ -10,16 +16,16 @@ const YourTeams = styled.div`
   transform: translateY(-86px);
   `
 
-
 const Box = styled(Container)`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   height: 512px;
   border-radius: 5px;
   margin-top: 86px;
   background: ${props => props.theme.colors.white};
-  position: relative;
+  margin-bottom: 50px;
 `
-
-
 
 const TeamName = styled.div`
   font-family: Inter;
@@ -27,6 +33,9 @@ const TeamName = styled.div`
   font-size: 40px;
   line-height: 48px;
   line-height: 100%;
+  margin-left: 74px;
+  margin-top: 46px;
+  margin-bottom: 27px;
 `
 
 const GreyText = styled.div`
@@ -36,8 +45,11 @@ const GreyText = styled.div`
   fine-height: 24px;
   color: ${props => props.theme.colors.gray};
   letter-spacing: 0.1em;
+  text-transform: uppercase;
 `
 
+const TeamInfo = styled(Row)`
+`
 
 const Numbers = styled.div`
   font-weight: 600;
@@ -59,16 +71,45 @@ const Xbox= styled(Circle)`
   box-shadow: 0px 4px 8px 0px #0000000D;
 `
 
+const GradientTextRow = styled(Row)`
+  margin-top: 103px;
+`
+
+const EditTeam = styled(GradientText)`
+  margin-left: 74px;
+  margin-right: 17px;
+  text-transform: uppercase;
+`
+
+const DeleteTeam = styled(GradientText)`
+  margin-left: 80px;
+  margin-right: 1px;
+  text-transform: uppercase;
+`
+
 const Spacer = styled(Row)`
   justify-content: space-between;
 `
 
-const Delete = styled(Column)`
-  width: 674px;
-  height: 205px;
-  background: red;
-  transform: translateY(154px);
-  z-index: 30;
+const TeammatesRow = styled(Row)`
+  margin-top: 63px;
+  margin-left: 74px;
+`
+
+const TeamWins = styled(Column)`
+  margin-left: 74px;
+`
+
+const TeamLosses = styled(Column)`
+  margin-left: 95px;
+  margin-right: 127px;
+`
+
+const TeamPrem = styled(Column)`
+  margin-left: 74px;
+`
+
+const IconsRow = styled(Row)`
 `
 
 export default function Teams() {
@@ -109,81 +150,80 @@ export default function Teams() {
   return (
       <div>
         {teams.map((team) => 
-          <div>
-          <Box style ={{ marginBottom: 50 }}>
-            <Column>
-              <Spacer>
-                <Row style={{ marginTop: 63, marginLeft: 74, }}>
-                  {
-                    teammates.map((teammate) =>
-                    <div style={{ marginRight: 27 }}>
-                        <Image
-                          src={`/${teammate.user}.svg`} 
-                          width={89.74} 
-                          height={89.74} 
-                          alt={'teammate-image'} 
-                        />
-                    </div>
-                    )
-                  }
-                </Row>
-                  <Row>
-                    <Laptop>
-                    <Image
-                        src={'/laptop.svg'} 
-                        width={19.54} 
-                        height={19.54} 
-                        alt={'laptop-image'} 
-                      />
-                    </Laptop>
-                    <Xbox>
+          <Box>
+            <Spacer>
+              <TeammatesRow>
+                {
+                  teammates.map((teammate) =>
+                  <div style={{ marginRight: 27 }}>
                       <Image
-                        src={'/xbox.svg'} 
-                        width={19.54} 
-                        height={19.54} 
-                        alt={'laptop-image'} 
+                        src={`/${teammate.user}.svg`} 
+                        width={89.74} 
+                        height={89.74} 
+                        alt={'teammate-image'} 
                       />
-                    </Xbox>
-                  </Row>
-              </Spacer>
-              <div style={{ marginLeft: 74, marginTop: 46.26 }}>            
-              <TeamName style={{ marginBottom: 27, textTransform: 'uppercase' }}>{team.name}</TeamName>
-              </div>
-              <Row>
-                <Column style={{ marginLeft: 74}}>
-                  <GreyText style={{ textTransform: 'uppercase' }}>team wins</GreyText>
-                  <Numbers>{team.wins}</Numbers>
-                </Column>
-                <Column style={{ marginLeft: 95, marginRight: 127 }}>
-                  <GreyText style={{ textTransform: 'uppercase' }}>team losses</GreyText>
-                  <Numbers>{team.losses}</Numbers>
-                </Column>
-                <Column>
-                  <GreyText style={{ textTransform: 'uppercase' }}>combined $prem earned</GreyText>
-                  <Numbers>{team.prem}</Numbers>
-                </Column>
-              </Row>
-              <Row style={{ marginTop: 103}}>
-                <GradientText style={{ marginLeft: 74, marginRight: 17, textTransform: 'uppercase' }}>edit team</GradientText>
-                <Image
-                    src={'/arrow-right-gradient.svg'} 
-                    width={14.89} 
-                    height={9.3} 
-                    alt={'arrow-right-gradient'} 
-                  />
-                <GradientText style={{ marginLeft: 80.11,marginRight: 16, textTransform: 'uppercase' }}>delete team</GradientText>
-                <Image
-                    src={'/arrow-right-gradient.svg'} 
-                    width={14.89} 
-                    height={9.3} 
-                    alt={'arrow-right-gradient'} 
-                  />
-              </Row>
-            </Column>
+                  </div>
+                  )
+                }
+              </TeammatesRow>
+                <IconsRow>
+                  <Laptop>
+                  <Image
+                      src={'/laptop.svg'} 
+                      width={19.54} 
+                      height={19.54} 
+                      alt={'laptop-image'} 
+                    />
+                  </Laptop>
+                  <Xbox>
+                    <Image
+                      src={'/xbox.svg'} 
+                      width={19.54} 
+                      height={19.54} 
+                      alt={'laptop-image'} 
+                    />
+                  </Xbox>
+                </IconsRow>
+            </Spacer>        
+              <TeamName>
+                {team.name}
+              </TeamName>
+            <TeamInfo>
+              <TeamWins>
+                <GreyText>team wins</GreyText>
+                <Numbers>{team.wins}</Numbers>
+              </TeamWins>
+              <TeamLosses>
+                <GreyText>team losses</GreyText>
+                <Numbers>{team.losses}</Numbers>
+              </TeamLosses>
+              <TeamPrem>
+                <GreyText>combined $prem earned</GreyText>
+                <Numbers>{team.prem}</Numbers>
+              </TeamPrem>
+            </TeamInfo>
+            <GradientTextRow>
+              <EditTeam>
+                edit team
+              </EditTeam>
+              <Image
+                src={'/arrow-right-gradient.svg'} 
+                width={14.89} 
+                height={9.3} 
+                alt={'arrow-right-gradient'} 
+                />
+              <DeleteTeam>
+                delete team
+              </DeleteTeam>
+              <Image
+                src={'/arrow-right-gradient.svg'} 
+                width={14.89} 
+                height={9.3} 
+                alt={'arrow-right-gradient'} 
+              />
+            </GradientTextRow>
           </Box>
-        </div> 
         )}
       </div>
   )
 }
-//hjgjgjgh
