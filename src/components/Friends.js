@@ -124,7 +124,7 @@ export default function Friends() {
                   height={173}
                   alt={'teammate-image'}
                 />
-                <Username>{`${friend.user}`}</Username>
+                <Username>{friend.user}</Username>
               </UserColumn>
             ))}
         </Grid>
