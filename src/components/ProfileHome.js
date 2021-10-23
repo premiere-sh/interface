@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import { Column, Container, Row} from './common'
 import Image from 'next/image'
-import Tournament from './Tournament'
-import { ArrowButton } from 'components/Buttons'
+import Tournament from './SmallTournament'
+import { ArrowButton as _ArrowButton } from 'components/Buttons'
 
 const HomeContainer = styled(Container)``
 
@@ -19,6 +19,8 @@ const StatsRow = styled(Row)`
   justify-content: space-between;
   width: 758px;
 `
+
+const ArrowButton = styled(_ArrowButton)``
 
 const GrayText = styled.div`
   font-style: Regular;
@@ -72,6 +74,11 @@ const RecommendedEvents = styled.div`
 `
 
 const TournamentsColumn = styled(Column)``
+
+const TournamentsRow = styled(Row)`
+  margin-left: 0px;
+  justify-content: space-between;
+`
 
 export default function Teams() {
 
@@ -139,7 +146,7 @@ export default function Teams() {
         </div>
         <TopFriends>Top friends</TopFriends>  
         <FriendsRow>
-          {
+          {friends?.length &&
             friends.map((friend, key) => 
               <FriendColumn key={key}>
                 <Image
@@ -158,11 +165,11 @@ export default function Teams() {
         </div>
         <TournamentsColumn>
           <RecommendedEvents>Recommended Events</RecommendedEvents>
-          <Row>
+          <TournamentsRow>
             {tournaments.map((tournament, key) => (
               <Tournament tournament={tournament} key={key}/>
             ))}
-          </Row>
+          </TournamentsRow>
         </TournamentsColumn>
         <div style={{ fontSize: 15}}>
           <ArrowButton text={'view all events'}/>
