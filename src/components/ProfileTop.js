@@ -6,14 +6,11 @@ import { useState } from 'react'
 import Friends from 'components/Friends'
 import Teams from 'components/Teams'
 
+const ProfilePanel = styled(Row)``
+
 const SpaceBetween = styled(Row)`
   justify-content: space-between;
 `
-const SpaceAround = styled(Row)`
-  justify-content: space-around;
-`
-
-const ProfilePanel = styled(Row)``
 
 const Name = styled.div`
   font-size: 36px;
