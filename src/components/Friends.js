@@ -3,6 +3,10 @@ import { Column, Container, Row } from './common'
 import Image from 'next/image'
 import { Grid } from 'styled-css-grid'
 
+const UserColumn = styled(Column)``
+
+const TextSection = styled(Column)``
+
 const Search = styled.input`
   width: 250px;
   border: 0;
@@ -10,7 +14,9 @@ const Search = styled.input`
   font-size: 20px;
   line-height: 30px;
   font-weight: 500;
+  color: ${(props) => props.theme.colors.black};
 `
+//color: ${(props) => props.theme.colors.black};
 
 const SearchBox = styled(Row)`
   justify-content: space-between;
@@ -34,69 +40,68 @@ export default function Friends() {
   const friends = [
     {
       picture: 'devonhenry_',
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
       picture: 'devonhenry_',
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
       picture: 'devonhenry_',
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
       picture: 'devonhenry_',
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
       picture: 'devonhenry_',
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
       picture: 'devonhenry_',
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
       picture: 'devonhenry_',
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
       picture: 'devonhenry_',
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
       picture: 'devonhenry_',
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
       picture: 'devonhenry_',
-      user: 'devonhenry_',
+      user: 'devonhenry_'
+    },{
+      picture: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
       picture: 'devonhenry_',
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
       picture: 'devonhenry_',
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
       picture: 'devonhenry_',
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
       picture: 'devonhenry_',
-      user: 'devonhenry_',
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
   ]
   return (
     <div>
-      <Container>
-        <Column>
+      <Container style={{marginBottom: 150}}>
+        <TextSection>
           <YourFriends>Your friends</YourFriends>
           <SearchBox>
             <Image
@@ -105,28 +110,27 @@ export default function Friends() {
               height={32}
               alt={'profile-pic'}
             />
-            <Search placeholder={'Search players...'} />
+            <Search
+              placeholder={'Search players...'}
+            />
           </SearchBox>
-        </Column>
+        </TextSection>
         <Grid columns={'repeat(auto-fit, minmax(210px, 1fr))'} gap={'83px'}>
           {friends?.length &&
-            friends.map((friend) => (
-              <Column style={{ alignItems: 'center' }}>
-                <Image
-                  src={`/${friend.picture}.svg`}
-                  width={173}
-                  height={173}
-                  alt={'teammate-image'}
-                />
-                <Username style={{ marginTop: 26.73 }}> 
-                  {`${friend.user}`}
-                </Username>
-              </Column>
-            ))
-          }
+            friends.map((friend, key) =>
+            <UserColumn style={{alignItems: 'center'}} key={key}>
+              <Image
+                src={`/${friend.picture}.svg`} 
+                width={173} 
+                height={173} 
+                alt={'teammate-image'} 
+              />
+              <Username style={{marginTop: 26.73}}>{`${friend.user}`}</Username>
+            </UserColumn>
+           )
+         }
         </Grid>
       </Container>
     </div>
   )
 }
-

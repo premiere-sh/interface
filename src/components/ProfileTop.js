@@ -3,8 +3,8 @@ import { Column, Container, Row } from './common'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
-
-const Teams = dynamic(() => import('../components/Teams'))
+import Friends from 'components/Friends'
+import Teams from 'components/Teams'
 
 const SpaceBetween = styled(Row)`
   justify-content: space-between;
@@ -187,6 +187,7 @@ export default function ProfileTop() {
         </ButtonWrapper>
       </Wrapper>
       {selected == 'Teams' && <Teams />}
+      {selected == 'Friends' && <Friends />}
     </Column>
   )
 }
