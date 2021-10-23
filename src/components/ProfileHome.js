@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { Column, Container, Row} from './common'
 import Image from 'next/image'
-import SmallTournament from './Tournament'
+import Tournament from './Tournament'
 import { ArrowButton } from 'components/Buttons'
 
 const HomeContainer = styled(Container)``
@@ -111,7 +111,7 @@ export default function Teams() {
 
   return (
       <HomeContainer>
-        <YourWeeklyStats>Your Weekly Statisctics</YourWeeklyStats>
+        <YourWeeklyStats>Your Weekly Statistics</YourWeeklyStats>
         <StatsRow>
           <GreyTextColumn>
             <GrayText>events played</GrayText>
@@ -160,7 +160,7 @@ export default function Teams() {
           <RecommendedEvents>Recommended Events</RecommendedEvents>
           <Row>
             {tournaments.map((tournament, key) => (
-              <SmallTournament tournament={tournament} key={key}/>
+              <Tournament tournament={tournament} key={key}/>
             ))}
           </Row>
         </TournamentsColumn>
