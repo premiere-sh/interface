@@ -2,12 +2,12 @@ import styled from 'styled-components'
 import { Column, Container, Row} from './common'
 import Image from 'next/image'
 import Tournament from './SmallTournament'
-import { ArrowButton as _ArrowButton } from 'components/Buttons'
+import { ArrowButton } from 'components/Buttons'
 
 const HomeContainer = styled(Container)``
 
 const YourWeeklyStats = styled.div`
-  margin-top: 79px;
+  margin-top: 15px;
   margin-bottom: 55px;
   font-weight: 600;
   font-size: 24px;
@@ -19,8 +19,6 @@ const StatsRow = styled(Row)`
   justify-content: space-between;
   width: 758px;
 `
-
-const ArrowButton = styled(_ArrowButton)``
 
 const GrayText = styled.div`
   font-style: Regular;
@@ -78,6 +76,11 @@ const TournamentsColumn = styled(Column)``
 const TournamentsRow = styled(Row)`
   margin-left: 0px;
   justify-content: space-between;
+`
+
+const ArrowButtonContainer = styled.div`
+  margin-top: 50px;
+  display: inline-block;
 `
 
 export default function Teams() {
@@ -141,9 +144,9 @@ export default function Teams() {
             <Numbers>$4,301</Numbers>
           </GreyTextColumn>
         </StatsRow>
-        <div style={{ marginTop: 46, fontSize: 15}}>
+        <ArrowButtonContainer>
           <ArrowButton text={'event history'}/>
-        </div>
+        </ArrowButtonContainer>
         <TopFriends>Top friends</TopFriends>  
         <FriendsRow>
           {friends?.length &&
@@ -160,9 +163,9 @@ export default function Teams() {
             )
           }
         </FriendsRow>
-        <div style={{ marginTop: 46, fontSize: 15}}>
+        <ArrowButtonContainer>
           <ArrowButton text={'view all friends'}/>
-        </div>
+        </ArrowButtonContainer>
         <TournamentsColumn>
           <RecommendedEvents>Recommended Events</RecommendedEvents>
           <TournamentsRow>
@@ -171,9 +174,9 @@ export default function Teams() {
             ))}
           </TournamentsRow>
         </TournamentsColumn>
-        <div style={{ fontSize: 15}}>
+        <ArrowButtonContainer>
           <ArrowButton text={'view all events'}/>
-        </div>
+        </ArrowButtonContainer>
       </HomeContainer>
   )
 }
