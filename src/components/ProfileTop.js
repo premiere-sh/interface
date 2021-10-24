@@ -5,6 +5,8 @@ import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import Friends from 'components/Friends'
 import Teams from 'components/Teams'
+import Home from './ProfileHome'
+
 
 const ProfilePanel = styled(Row)``
 
@@ -185,6 +187,7 @@ export default function ProfileTop() {
       </Wrapper>
       {selected == 'Teams' && <Teams />}
       {selected == 'Friends' && <Friends />}
+      {selected == 'Home' && <Home />}
     </Column>
   )
 }
