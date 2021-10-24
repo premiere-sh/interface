@@ -3,6 +3,7 @@ import { Column, Container, Row } from './common'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { useState } from 'react'
+import Home from './ProfileHome'
 
 const Teams = dynamic(() => import('../components/Teams'))
 
@@ -193,6 +194,7 @@ export default function ProfileTop() {
         </ButtonWrapper>
       </Wrapper>
       {selected == 'Teams' && <Teams />}
+      {selected == 'Home' && <Home />}
     </Column>
   )
 }
