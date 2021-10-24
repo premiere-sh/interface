@@ -106,7 +106,7 @@ export default function Friends() {
   ]
   return (
     <FriendsContainer>
-      <Container style={{ marginBottom: 150 }}>
+      <Container>
         <TextSection>
           <YourFriends>Your friends</YourFriends>
           <SearchBox>
