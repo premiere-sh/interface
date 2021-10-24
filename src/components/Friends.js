@@ -13,13 +13,18 @@ const Search = styled.input`
   width: 250px;
   border: 0;
   background: transparent;
+  font-weight: 500;
+  line-height: 24px;
   font-size: 20px;
   line-height: 30px;
+  ::placeholder{
+    color: black;
+  }
 `
 
 const SearchBox = styled(Row)`
   justify-content: space-between;
-  width: 317.36px;
+  width: 315px;
   margin-bottom: 90px;
 `
 const YourFriends = styled.div`
