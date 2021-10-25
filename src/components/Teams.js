@@ -1,11 +1,5 @@
 import styled from 'styled-components'
-import {
-  Column,
-  Container,
-  Row,
-  GradientText,
-  Circle
-} from './common'
+import { Column, Container, Row, GradientText, Circle } from './common'
 import Image from 'next/image'
 
 const YourTeams = styled.div`
@@ -14,7 +8,7 @@ const YourTeams = styled.div`
   line-height: 31px;
   line-height: 100%;
   transform: translateY(-86px);
-  `
+`
 
 const Box = styled(Container)`
   display: flex;
@@ -23,7 +17,7 @@ const Box = styled(Container)`
   height: 512px;
   border-radius: 5px;
   margin-top: 86px;
-  background: ${props => props.theme.colors.white};
+  background: ${(props) => props.theme.colors.white};
   margin-bottom: 50px;
 `
 
@@ -43,13 +37,12 @@ const GreyText = styled.div`
   font-style: Regular;
   font-size: 16px;
   fine-height: 24px;
-  color: ${props => props.theme.colors.gray};
+  color: ${(props) => props.theme.colors.gray};
   letter-spacing: 0.1em;
   text-transform: uppercase;
 `
 
-const TeamInfo = styled(Row)`
-`
+const TeamInfo = styled(Row)``
 
 const Numbers = styled.div`
   font-weight: 600;
@@ -61,14 +54,14 @@ const Laptop = styled(Circle)`
   width: 39.08px;
   height: 39.08px;
   margin-right: 13.98px;
-  box-shadow: 0px 4px 8px 0px #0000000D;
+  box-shadow: 0px 4px 8px 0px #0000000d;
 `
 
-const Xbox= styled(Circle)`
+const Xbox = styled(Circle)`
   width: 39.08px;
   height: 39.08px;
   margin-right: 44.89px;
-  box-shadow: 0px 4px 8px 0px #0000000D;
+  box-shadow: 0px 4px 8px 0px #0000000d;
 `
 
 const GradientTextRow = styled(Row)`
@@ -114,17 +107,16 @@ const IconsRow = styled(Row)``
 const TeamsContainer = styled.div``
 
 export default function Teams() {
-
   const teammates = [
     {
-      user: 'devonhenry_'
+      user: 'devonhenry_',
     },
     {
-      user: 'devonhenry_'
+      user: 'devonhenry_',
     },
     {
-      user: 'devonhenry_'
-    }
+      user: 'devonhenry_',
+    },
   ]
 
   const teams = [
@@ -132,100 +124,93 @@ export default function Teams() {
       name: '[INSERT TEAM NAME]',
       wins: 123,
       losses: 4,
-      prem: 1234567
+      prem: 1234567,
     },
     {
       name: '[INSERT TEAM NAME]',
       wins: 123,
       losses: 4,
-      prem: 1234567
+      prem: 1234567,
     },
     {
       name: '[INSERT TEAM NAME]',
       wins: 123,
       losses: 4,
-      prem: 1234567
-    }
+      prem: 1234567,
+    },
   ]
 
   return (
     <TeamsContainer>
       {teams?.length &&
-        teams.map((team, key) => 
-        <Box key={key}>
-          <Spacer>
-            <TeammatesRow>
-              {teammates?.length &&
-                teammates.map((teammate) =>
-                  <div style={{ marginRight: 27 }} key={key}>
+        teams.map((team, key) => (
+          <Box key={key}>
+            <Spacer>
+              <TeammatesRow>
+                {teammates?.length &&
+                  teammates.map((teammate) => (
+                    <div style={{ marginRight: 27 }} key={key}>
                       <Image
-                        src={`/${teammate.user}.svg`} 
-                        width={89.74} 
-                        height={89.74} 
-                        alt={'teammate-image'} 
+                        src={`/${teammate.user}.svg`}
+                        width={89.74}
+                        height={89.74}
+                        alt={'teammate-image'}
                       />
-                  </div>
-                )
-              }
-            </TeammatesRow>
+                    </div>
+                  ))}
+              </TeammatesRow>
               <IconsRow>
                 <Laptop>
-                <Image
-                    src={'/laptop.svg'} 
-                    width={19.54} 
-                    height={19.54} 
-                    alt={'laptop-image'} 
+                  <Image
+                    src={'/laptop.svg'}
+                    width={19.54}
+                    height={19.54}
+                    alt={'laptop-image'}
                   />
                 </Laptop>
                 <Xbox>
                   <Image
-                    src={'/xbox.svg'} 
-                    width={19.54} 
-                    height={19.54} 
-                    alt={'laptop-image'} 
+                    src={'/xbox.svg'}
+                    width={19.54}
+                    height={19.54}
+                    alt={'laptop-image'}
                   />
                 </Xbox>
               </IconsRow>
-          </Spacer>        
-            <TeamName>
-              {team.name}
-            </TeamName>
-          <TeamInfo>
-            <TeamWins>
-              <GreyText>team wins</GreyText>
-              <Numbers>{team.wins}</Numbers>
-            </TeamWins>
-            <TeamLosses>
-              <GreyText>team losses</GreyText>
-              <Numbers>{team.losses}</Numbers>
-            </TeamLosses>
-            <TeamPrem>
-              <GreyText>combined $prem earned</GreyText>
-              <Numbers>{team.prem}</Numbers>
-            </TeamPrem>
-          </TeamInfo>
-          <GradientTextRow>
-            <EditTeam>
-              edit team
-            </EditTeam>
-            <Image
-              src={'/arrow-right-gradient.svg'} 
-              width={14.89} 
-              height={9.3} 
-              alt={'arrow-right-gradient'} 
+            </Spacer>
+            <TeamName>{team.name}</TeamName>
+            <TeamInfo>
+              <TeamWins>
+                <GreyText>team wins</GreyText>
+                <Numbers>{team.wins}</Numbers>
+              </TeamWins>
+              <TeamLosses>
+                <GreyText>team losses</GreyText>
+                <Numbers>{team.losses}</Numbers>
+              </TeamLosses>
+              <TeamPrem>
+                <GreyText>combined $prem earned</GreyText>
+                <Numbers>{team.prem}</Numbers>
+              </TeamPrem>
+            </TeamInfo>
+            <GradientTextRow>
+              <EditTeam>edit team</EditTeam>
+              <Image
+                src={'/arrow-right-gradient.svg'}
+                width={14.89}
+                height={9.3}
+                alt={'arrow-right-gradient'}
               />
-            <DeleteTeam>
-              delete team
-            </DeleteTeam>
-            <Image
-              src={'/arrow-right-gradient.svg'} 
-              width={14.89} 
-              height={9.3} 
-              alt={'arrow-right-gradient'} 
-            />
-          </GradientTextRow>
-        </Box>
-      )}
+              <DeleteTeam>delete team</DeleteTeam>
+              <Image
+                src={'/arrow-right-gradient.svg'}
+                width={14.89}
+                height={9.3}
+                alt={'arrow-right-gradient'}
+              />
+            </GradientTextRow>
+          </Box>
+        ))}
     </TeamsContainer>
   )
 }
