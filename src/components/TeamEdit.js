@@ -9,7 +9,7 @@ const EditColumn = styled(Column)`
 `
 
 const EditYourTeam = styled(Heading)`
-  margin-bottom: 2000px;
+  margin-bottom: 81px;
 `
 
 const Wrapper = styled(Column)`
@@ -147,14 +147,14 @@ export default function _TeamEdit() {
 
     return (
       <EditColumn>
-        <EditYourTeam style={{ marginBottom: 81}}>edit your team</EditYourTeam>
+        <EditYourTeam>edit your team</EditYourTeam>
         <Wrapper>
           <SubHeading>Team Name</SubHeading>
-          <InputName placeholder={'Enter your team name'}></InputName>
+          <InputName placeholder={'Enter your team name'} />
         </Wrapper>
         <Wrapper>
           <SubHeading>Team Description</SubHeading>
-          <InputDescription placeholder={'Enter your team description'}></InputDescription>
+          <InputDescription placeholder={'Enter your team description'} />
         </Wrapper>
         <Wrapper>
           <SubHeading>Team Members</SubHeading>
@@ -172,7 +172,7 @@ export default function _TeamEdit() {
                 </MembersRow>
               )
             }
-            <AddMember></AddMember>
+            <AddMember />
           </Members>
         </Wrapper>
       </EditColumn>

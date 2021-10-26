@@ -3,7 +3,7 @@ import Footer from 'components/Footer'
 import SocialsSection from 'components/SocialsSection'
 import TeamEdit from 'components/TeamEdit'
 
-export default function profile() {
+export default function Profile() {
   return (
     <div>
       <Header />
