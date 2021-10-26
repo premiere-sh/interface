@@ -17,7 +17,7 @@ const Search = styled.input`
   line-height: 24px;
   font-size: 20px;
   line-height: 30px;
-  ::placeholder{
+  ::placeholder {
     color: black;
   }
 `

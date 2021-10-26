@@ -5,7 +5,6 @@ import { Column, Container } from './common'
 const TournametsColumn = styled(Column)``
 
 export default function EventHistory() {
-
   const tournament = {
     game: 'csgo',
     region: 'USA + Europe',
@@ -15,13 +14,13 @@ export default function EventHistory() {
     prize: '$1,250',
   }
 
-  const tournaments = [tournament, tournament] 
+  const tournaments = [tournament, tournament]
 
   return (
     <Container>
       <TournametsColumn>
         {tournaments.map((tournament, key) => (
-          <Tournament tournament={tournament} key={key}/>
+          <Tournament tournament={tournament} key={key} />
         ))}
       </TournametsColumn>
     </Container>

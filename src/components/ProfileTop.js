@@ -8,7 +8,6 @@ import Teams from 'components/Teams'
 import Home from './ProfileHome'
 import History from './History'
 
-
 const ProfilePanel = styled(Row)``
 
 const SpaceBetween = styled(Row)`
