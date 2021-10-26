@@ -6,6 +6,7 @@ import { useState } from 'react'
 import Friends from 'components/Friends'
 import Teams from 'components/Teams'
 import Home from './ProfileHome'
+import History from './History'
 
 
 const ProfilePanel = styled(Row)``
@@ -188,6 +189,7 @@ export default function ProfileTop() {
       {selected == 'Teams' && <Teams />}
       {selected == 'Friends' && <Friends />}
       {selected == 'Home' && <Home />}
+      {selected == 'History' && <History />}
     </Column>
   )
 }
