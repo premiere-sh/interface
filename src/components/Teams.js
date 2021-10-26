@@ -1,6 +1,11 @@
 import styled from 'styled-components'
 import { Column, Container, Row, GradientText, Circle } from './common'
 import Image from 'next/image'
+import { ArrowButton } from 'components/Buttons'
+import DeleteTeam from './DeleteTeam'
+import { useState } from 'react'
+
+const Button = styled.div``
 
 const YourTeams = styled.div`
   font-weight: 600;
@@ -68,18 +73,6 @@ const GradientTextRow = styled(Row)`
   margin-top: 103px;
 `
 
-const EditTeam = styled(GradientText)`
-  margin-left: 74px;
-  margin-right: 17px;
-  text-transform: uppercase;
-`
-
-const DeleteTeam = styled(GradientText)`
-  margin-left: 80px;
-  margin-right: 1px;
-  text-transform: uppercase;
-`
-
 const Spacer = styled(Row)`
   justify-content: space-between;
 `
@@ -102,11 +95,19 @@ const TeamPrem = styled(Column)`
   margin-left: 74px;
 `
 
+const ArrowButtonContainer = styled.div`
+  margin-left: 74px;
+  display: inline-block;
+`
+
 const IconsRow = styled(Row)``
 
 const TeamsContainer = styled.div``
 
 export default function Teams() {
+
+  const [selected, setSelected] = useState('')
+
   const teammates = [
     {
       user: 'devonhenry_',
@@ -194,23 +195,20 @@ export default function Teams() {
               </TeamPrem>
             </TeamInfo>
             <GradientTextRow>
-              <EditTeam>edit team</EditTeam>
-              <Image
-                src={'/arrow-right-gradient.svg'}
-                width={14.89}
-                height={9.3}
-                alt={'arrow-right-gradient'}
-              />
-              <DeleteTeam>delete team</DeleteTeam>
-              <Image
-                src={'/arrow-right-gradient.svg'}
-                width={14.89}
-                height={9.3}
-                alt={'arrow-right-gradient'}
-              />
+              <ArrowButtonContainer>
+                <Button>
+                  <ArrowButton text={'Edit Team'}/>
+                </Button>
+              </ArrowButtonContainer>
+              <ArrowButtonContainer>
+                <Button onClick={() => setSelected('Delete Team')}>
+                  <ArrowButton text={'Delete Team'}/>
+                </Button>
+              </ArrowButtonContainer>
             </GradientTextRow>
           </Box>
         ))}
+        {selected == 'Delete Team' && <DeleteTeam />}
     </TeamsContainer>
   )
 }

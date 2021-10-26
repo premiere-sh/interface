@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Column, Container, Row } from './common'
+import { Column, Container, Row} from './common'
 import Image from 'next/image'
 import Tournament from './SmallTournament'
 import { ArrowButton } from 'components/Buttons'
@@ -24,11 +24,11 @@ const GrayText = styled.div`
   font-style: Regular;
   font-size: 16px;
   line-height: 24px;
-  color: ${(props) => props.theme.colors.gray};
+  color: ${props => props.theme.colors.gray};
   letter-spacing: 0.1em;
   font-weight: 400;
   text-transform: uppercase;
-`
+` 
 
 const Numbers = styled.div`
   font-weight: 600;
@@ -84,6 +84,7 @@ const ArrowButtonContainer = styled.div`
 `
 
 export default function Teams() {
+
   const friends = [
     {
       name: 'devonhenry_',
@@ -116,65 +117,66 @@ export default function Teams() {
     prize: '$1,250',
   }
 
-  const tournaments = [tournament, tournament]
+  const tournaments = [tournament, tournament] 
 
   return (
-    <HomeContainer>
-      <YourWeeklyStats>Your Weekly Statistics</YourWeeklyStats>
-      <StatsRow>
-        <GreyTextColumn>
-          <GrayText>events played</GrayText>
-          <Numbers>101</Numbers>
-        </GreyTextColumn>
-        <GreyTextColumn>
-          <GrayText>wins</GrayText>
-          <Numbers>98</Numbers>
-        </GreyTextColumn>
-        <GreyTextColumn>
-          <GrayText>losses</GrayText>
-          <Numbers>3</Numbers>
-        </GreyTextColumn>
-        <GreyTextColumn>
-          <GrayText>$prem earned</GrayText>
-          <Numbers>2310994</Numbers>
-        </GreyTextColumn>
-        <GreyTextColumn>
-          <GrayText>usd earned</GrayText>
-          <Numbers>$4,301</Numbers>
-        </GreyTextColumn>
-      </StatsRow>
-      <ArrowButtonContainer>
-        <ArrowButton text={'event history'} />
-      </ArrowButtonContainer>
-      <TopFriends>Top friends</TopFriends>
-      <FriendsRow>
-        {friends?.length &&
-          friends.map((friend, key) => (
-            <FriendColumn key={key}>
-              <Image
-                src={`/${friend.image}.svg`}
-                width={89.74}
-                height={89.74}
-                alt={'friend-image'}
-              />
-              <FriendName>{friend.name}</FriendName>
-            </FriendColumn>
-          ))}
-      </FriendsRow>
-      <ArrowButtonContainer>
-        <ArrowButton text={'view all friends'} />
-      </ArrowButtonContainer>
-      <TournamentsColumn>
-        <RecommendedEvents>Recommended Events</RecommendedEvents>
-        <TournamentsRow>
-          {tournaments.map((tournament, key) => (
-            <Tournament tournament={tournament} key={key} />
-          ))}
-        </TournamentsRow>
-      </TournamentsColumn>
-      <ArrowButtonContainer>
-        <ArrowButton text={'view all events'} />
-      </ArrowButtonContainer>
-    </HomeContainer>
+      <HomeContainer>
+        <YourWeeklyStats>Your Weekly Statistics</YourWeeklyStats>
+        <StatsRow>
+          <GreyTextColumn>
+            <GrayText>events played</GrayText>
+            <Numbers>101</Numbers>
+          </GreyTextColumn>
+          <GreyTextColumn>
+            <GrayText>wins</GrayText>
+            <Numbers>98</Numbers>
+          </GreyTextColumn>
+          <GreyTextColumn>
+            <GrayText>losses</GrayText>
+            <Numbers>3</Numbers>
+          </GreyTextColumn>
+          <GreyTextColumn>
+            <GrayText>$prem earned</GrayText>
+            <Numbers>2310994</Numbers>
+          </GreyTextColumn>
+          <GreyTextColumn>
+            <GrayText>usd earned</GrayText>
+            <Numbers>$4,301</Numbers>
+          </GreyTextColumn>
+        </StatsRow>
+        <ArrowButtonContainer>
+          <ArrowButton text={'event history'}/>
+        </ArrowButtonContainer>
+        <TopFriends>Top friends</TopFriends>  
+        <FriendsRow>
+          {friends?.length &&
+            friends.map((friend, key) => 
+              <FriendColumn key={key}>
+                <Image
+                  src={`/${friend.image}.svg`} 
+                  width={89.74} 
+                  height={89.74} 
+                  alt={'friend-image'} 
+                />
+                <FriendName>{friend.name}</FriendName>
+              </FriendColumn>
+            )
+          }
+        </FriendsRow>
+        <ArrowButtonContainer>
+          <ArrowButton text={'view all friends'}/>
+        </ArrowButtonContainer>
+        <TournamentsColumn>
+          <RecommendedEvents>Recommended Events</RecommendedEvents>
+          <TournamentsRow>
+            {tournaments.map((tournament, key) => (
+              <Tournament tournament={tournament} key={key}/>
+            ))}
+          </TournamentsRow>
+        </TournamentsColumn>
+        <ArrowButtonContainer>
+          <ArrowButton text={'view all events'}/>
+        </ArrowButtonContainer>
+      </HomeContainer>
   )
 }
