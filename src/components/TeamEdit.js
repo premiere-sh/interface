@@ -1,8 +1,7 @@
 import styled from "styled-components"
-import { Row, Column, Circle } from "./common"
+import { Row, Column } from "./common"
 import { Heading, Input } from  './Forms'
 import Image from 'next/Image'
-import { useState, useEffect } from 'react'
 
 const EditColumn = styled(Column)`
   width: 541px;
@@ -161,17 +160,17 @@ export default function _TeamEdit() {
           <SubHeading>Team Members</SubHeading>
           <Members>
             {teammates?.length &&
-                    teammates.map((teammate, key) =>
-                      <MembersRow style={{ marginRight: 3 }} key={key}>
-                          <Image
-                            src={`/${teammate.user}.svg`} 
-                            width={90} 
-                            height={90} 
-                            alt={'teammate-image'} 
-                          />
-                          <RemoveMember></RemoveMember>
-                      </MembersRow>
-                    )
+              teammates.map((teammate, key) =>
+                <MembersRow style={{ marginRight: 3 }} key={key}>
+                  <Image
+                    src={`/${teammate.user}.svg`} 
+                      width={90} 
+                      height={90} 
+                      alt={'teammate-image'} 
+                  />
+                  <RemoveMember></RemoveMember>
+                </MembersRow>
+              )
             }
             <AddMember></AddMember>
           </Members>
