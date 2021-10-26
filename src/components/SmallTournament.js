@@ -36,7 +36,7 @@ const ShadowCircle = styled(Circle)`
   margin-left: 12px;
 `
 
-const TournamentContainer = styled(Container)`
+const TournamentContainer = styled.div`
   height: 340px;
   background-color: ${(props) => props.theme.colors.white};
   position: relative;
