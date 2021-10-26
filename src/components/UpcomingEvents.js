@@ -100,7 +100,7 @@ export default function _UpcomingEvents() {
       <EventsHeading>watch premiere events live</EventsHeading>
       <EventsSubtext>
         If there is a premiere event currently underway,
-        you'll be able to watch it here!
+        you&apos;ll be able to watch it here!
       </EventsSubtext>
       <div>
         <Image
