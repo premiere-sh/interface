@@ -71,7 +71,9 @@ const SubHeading = styled.div`
 
 const Members = styled(Row)``
 
-const MembersRow = styled(Row)`git`
+const MembersRow = styled(Row)`
+  margin-right: 3px;
+`
 
 const AddMember = styled.div`
   width: 86px;
@@ -161,7 +163,7 @@ export default function _TeamEdit() {
           <Members>
             {teammates?.length &&
               teammates.map((teammate, key) =>
-                <MembersRow style={{ marginRight: 3 }} key={key}>
+                <MembersRow key={key}>
                   <Image
                     src={`/${teammate.user}.svg`} 
                       width={90} 
