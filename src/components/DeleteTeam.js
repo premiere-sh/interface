@@ -70,3 +70,5 @@ export default function DeleteTeam() {
     </Box>
   )
 }
+//todo Button <Cancel></Cancel> has to close window.
+//todo: window should pop centered
