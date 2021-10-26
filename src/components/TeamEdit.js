@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { Row, Column } from "./common"
 import { Heading, Input } from  './Forms'
-import Image from 'next/Image'
+import Image from 'next/image'
 
 const EditColumn = styled(Column)`
   width: 541px;
