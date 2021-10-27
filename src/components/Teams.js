@@ -105,6 +105,12 @@ const IconsRow = styled(Row)``
 
 const TeamsContainer = styled.div``
 
+const EditTeam = styled(GradientText)`
+  margin-left: 74px;
+  margin-right: 17px;
+  text-transform: uppercase;
+`
+
 export default function Teams() {
 
   const [selected, setSelected] = useState('')
