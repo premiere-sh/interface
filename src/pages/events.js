@@ -1,14 +1,13 @@
 import Header from 'components/Header'
-import Teams from 'components/Teams'
 import Footer from 'components/Footer'
 import SocialsSection from 'components/SocialsSection'
-import ProfileTop from 'components/ProfileTop'
+import UpcomingEvents from 'components/UpcomingEvents'
 
-export default function Profile() {
+export default function Events() {
   return (
     <div>
       <Header />
-      <ProfileTop />
+      <UpcomingEvents />
       <div style={{ marginBottom: 152, marginTop: 352 }}>
         <SocialsSection />
       </div>
