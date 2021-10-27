@@ -3,7 +3,8 @@ import styled from 'styled-components'
 import { Column, Container, Row, GradientText, Circle } from './common'
 import Image from 'next/image'
 import { ArrowButton } from 'components/Buttons'
-import DeleteTeamModal from 'components/DeleteTeam'
+import DeleteTeamModal from 'components/DeleteTeamModal'
+import Link from 'next/link'
 
 const Button = styled.div``
 
@@ -104,21 +105,31 @@ const IconsRow = styled(Row)``
 
 const TeamsContainer = styled.div``
 
-export default function Teams() {
+const EditTeam = styled(GradientText)`
+  margin-left: 74px;
+  margin-right: 17px;
+  text-transform: uppercase;
+`
 
-  const [selected, setSelected] = useState('')
+const DeleteTeam = styled(GradientText)`
+  margin-left: 74px;
+  margin-right: 17px;
+  text-transform: uppercase;
+`
+
+export default function Teams() {
   const [isOpen, setOpen] = useState(false)
 
   const teammates = [
     {
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
-      user: 'devonhenry_',
-    },
+      user: 'devonhenry_'
+    }
   ]
 
   const teams = [
@@ -126,20 +137,20 @@ export default function Teams() {
       name: '[INSERT TEAM NAME]',
       wins: 123,
       losses: 4,
-      prem: 1234567,
+      prem: 1234567
     },
     {
       name: '[INSERT TEAM NAME]',
       wins: 123,
       losses: 4,
-      prem: 1234567,
+      prem: 1234567
     },
     {
       name: '[INSERT TEAM NAME]',
       wins: 123,
       losses: 4,
-      prem: 1234567,
-    },
+      prem: 1234567
+    }
   ]
 
   return (
@@ -197,19 +208,24 @@ export default function Teams() {
               </TeamPrem>
             </TeamInfo>
             <GradientTextRow>
-              <ArrowButtonContainer>
-                <Button>
-                  <ArrowButton text={'Edit Team'}/>
-                </Button>
-              </ArrowButtonContainer>
+              <Link href={'edit-team'}>
+                <a>
+                  <ArrowButtonContainer>
+                    <Button>
+                      <ArrowButton text={'Edit Team'} />
+                    </Button>
+                  </ArrowButtonContainer>
+                </a>
+              </Link>
               <ArrowButtonContainer>
                 <Button onClick={() => setOpen(true)}>
-                  <ArrowButton text={'Delete Team'}/>
+                  <ArrowButton text={'Delete Team'} />
                 </Button>
               </ArrowButtonContainer>
             </GradientTextRow>
           </Box>
-        ))}
+        ))
+      }
     </TeamsContainer>
   )
 }

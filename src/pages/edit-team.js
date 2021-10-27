@@ -1,14 +1,13 @@
 import Header from 'components/Header'
-import Teams from 'components/Teams'
 import Footer from 'components/Footer'
 import SocialsSection from 'components/SocialsSection'
-import ProfileTop from 'components/ProfileTop'
+import TeamEdit from 'components/TeamEdit'
 
 export default function Profile() {
   return (
     <div>
       <Header />
-      <ProfileTop />
+      <TeamEdit />
       <div style={{ marginBottom: 152, marginTop: 352 }}>
         <SocialsSection />
       </div>

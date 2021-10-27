@@ -24,7 +24,6 @@ const Cancel = styled(Button)`
   }
 `
 
-
 const Question = styled.div`
   font-size: 26px;
   line-height: 31.5px;
@@ -35,7 +34,7 @@ const Question = styled.div`
 `
 
 const SpaceBetween = styled(Row)`
-  justify-content: Center;
+  justify-content: center;
 `
 
 export default function DeleteTeamModal({ isOpen, setOpen }) {
@@ -68,4 +67,3 @@ export default function DeleteTeamModal({ isOpen, setOpen }) {
     </Modal>
   )
 }
-
