@@ -4,7 +4,7 @@ import Footer from 'components/Footer'
 import SocialsSection from 'components/SocialsSection'
 import ProfileTop from 'components/ProfileTop'
 
-export default function profile() {
+export default function Profile() {
   return (
     <div>
       <Header />
