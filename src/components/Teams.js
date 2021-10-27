@@ -1,9 +1,9 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 import { Column, Container, Row, GradientText, Circle } from './common'
 import Image from 'next/image'
 import { ArrowButton } from 'components/Buttons'
-import DeleteTeam from './DeleteTeam'
-import { useState } from 'react'
+import DeleteTeamModal from 'components/DeleteTeam'
 
 const Button = styled.div``
 
@@ -107,6 +107,7 @@ const TeamsContainer = styled.div``
 export default function Teams() {
 
   const [selected, setSelected] = useState('')
+  const [isOpen, setOpen] = useState(false)
 
   const teammates = [
     {
@@ -143,6 +144,7 @@ export default function Teams() {
 
   return (
     <TeamsContainer>
+      <DeleteTeamModal isOpen={isOpen} setOpen={setOpen} />
       {teams?.length &&
         teams.map((team, key) => (
           <Box key={key}>
@@ -201,14 +203,13 @@ export default function Teams() {
                 </Button>
               </ArrowButtonContainer>
               <ArrowButtonContainer>
-                <Button onClick={() => setSelected('Delete Team')}>
+                <Button onClick={() => setOpen(true)}>
                   <ArrowButton text={'Delete Team'}/>
                 </Button>
               </ArrowButtonContainer>
             </GradientTextRow>
           </Box>
         ))}
-        {selected == 'Delete Team' && <DeleteTeam />}
     </TeamsContainer>
   )
 }

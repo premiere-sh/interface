@@ -1,48 +1,29 @@
+import Modal from 'react-modal'
 import styled from 'styled-components'
+import { Button as BaseButton } from 'components/Buttons'
 import { Center, Column, Row } from './common'
 
-const Button = styled.button`
-  --gradient: linear-gradient(266.89deg, #982649 -18.13%, #F71735 120.14%);
-  background: var(--gradient);
-  border-radius: 5px;
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 150%;
-  letter-spacing: 0.1em;
-  color: ${props => props.theme.colors.white};
-  border: 0;
-  &:hover {
-    background: linear-gradient(266.89deg, #982649 -18.13%, #F71735 120.14%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    border: 1px ${props => props.theme.colors.ruby} solid;
-  }
-  text-transform: uppercase;
-  cursor: pointer;
+const Button = styled(BaseButton)`
   margin-bottom: 49px;
   margin-left: 16px;
-  margin-Right: 16px;
+  margin-right: 16px;
   width: 192px;
+  height: 50px;
 `
 
 const Cancel = styled(Button)`
-background: linear-gradient(266.89deg, #982649 -18.13%, #F71735 120.14%);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-border: 1px ${props => props.theme.colors.ruby} solid;
-width: 178px;
+  background: linear-gradient(266.89deg, #982649 -18.13%, #F71735 120.14%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border: 1px ${props => props.theme.colors.ruby} solid;
+  width: 178px;
+  &:hover {
+    -webkit-background-clip: initial;
+    -webkit-text-fill-color: initial;
+    border: initial;
+  }
 `
 
-const Box = styled(Column)`
-  align-items: center;
-  max-width: 674px;
-  height: 205px;
-  margin: auto;
-  border-radius: 15px;
-  box-shadow: 0px 8px 50px 2px #00000040;
-`
 
 const Question = styled.div`
   font-size: 26px;
@@ -54,21 +35,37 @@ const Question = styled.div`
 `
 
 const SpaceBetween = styled(Row)`
-justify-content: Center;
+  justify-content: Center;
 `
 
-export default function DeleteTeam() {
+export default function DeleteTeamModal({ isOpen, setOpen }) {
+  const style = {
+    content: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      width: 674,
+      height: 205,
+      margin: 'auto',
+      borderRadius: 15,
+      boxShadow: '0px 8px 50px 2px #00000040'
+    }
+  }
   return (
-    <Box>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={() => setOpen(false)}
+      style={style}
+      ariaHideApp={false}
+    >
       <Column>
-      <Question>Are you sure you want to delete this team?</Question>
-      <SpaceBetween>
-        <Cancel>no, cancel</Cancel>
-        <Button>yes, delete it</Button>
-      </SpaceBetween>
+        <Question>Are you sure you want to delete this team?</Question>
+        <SpaceBetween>
+          <Cancel onClick={() => setOpen(false)}>no, cancel</Cancel>
+          <Button onClick={() => setOpen(false)}>yes, delete it</Button>
+        </SpaceBetween>
       </Column>
-    </Box>
+    </Modal>
   )
 }
-//todo Button <Cancel></Cancel> has to close window.
-//todo: window should pop centered
+
