@@ -1,10 +1,10 @@
+import { useState } from 'react'
 import styled from 'styled-components'
 import { Column, Container, Row, GradientText, Circle } from './common'
 import Image from 'next/image'
-import Link from 'next/link'
 import { ArrowButton } from 'components/Buttons'
-import DeleteTeam from './DeleteTeam'
-import { useState } from 'react'
+import DeleteTeamModal from 'components/DeleteTeamModal'
+import Link from 'next/link'
 
 const Button = styled.div``
 
@@ -111,20 +111,25 @@ const EditTeam = styled(GradientText)`
   text-transform: uppercase;
 `
 
-export default function Teams() {
+const DeleteTeam = styled(GradientText)`
+  margin-left: 74px;
+  margin-right: 17px;
+  text-transform: uppercase;
+`
 
-  const [selected, setSelected] = useState('')
+export default function Teams() {
+  const [isOpen, setOpen] = useState(false)
 
   const teammates = [
     {
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
-      user: 'devonhenry_',
-    },
+      user: 'devonhenry_'
+    }
   ]
 
   const teams = [
@@ -132,24 +137,25 @@ export default function Teams() {
       name: '[INSERT TEAM NAME]',
       wins: 123,
       losses: 4,
-      prem: 1234567,
+      prem: 1234567
     },
     {
       name: '[INSERT TEAM NAME]',
       wins: 123,
       losses: 4,
-      prem: 1234567,
+      prem: 1234567
     },
     {
       name: '[INSERT TEAM NAME]',
       wins: 123,
       losses: 4,
-      prem: 1234567,
-    },
+      prem: 1234567
+    }
   ]
 
   return (
     <TeamsContainer>
+      <DeleteTeamModal isOpen={isOpen} setOpen={setOpen} />
       {teams?.length &&
         teams.map((team, key) => (
           <Box key={key}>
@@ -204,36 +210,22 @@ export default function Teams() {
             <GradientTextRow>
               <Link href={'edit-team'}>
                 <a>
-                  <EditTeam>edit team</EditTeam>
+                  <ArrowButtonContainer>
+                    <Button>
+                      <ArrowButton text={'Edit Team'} />
+                    </Button>
+                  </ArrowButtonContainer>
                 </a>
               </Link>
-              <Image
-                src={'/arrow-right-gradient.svg'}
-                width={14.89}
-                height={9.3}
-                alt={'arrow-right-gradient'}
-              />
-              <DeleteTeam>delete team</DeleteTeam>
-              <Image
-                src={'/arrow-right-gradient.svg'}
-                width={14.89}
-                height={9.3}
-                alt={'arrow-right-gradient'}
-              />
               <ArrowButtonContainer>
-                <Button>
-                  <ArrowButton text={'Edit Team'}/>
-                </Button>
-              </ArrowButtonContainer>
-              <ArrowButtonContainer>
-                <Button onClick={() => setSelected('Delete Team')}>
-                  <ArrowButton text={'Delete Team'}/>
+                <Button onClick={() => setOpen(true)}>
+                  <ArrowButton text={'Delete Team'} />
                 </Button>
               </ArrowButtonContainer>
             </GradientTextRow>
           </Box>
-        ))}
-        {selected == 'Delete Team' && <DeleteTeam />}
+        ))
+      }
     </TeamsContainer>
   )
 }
