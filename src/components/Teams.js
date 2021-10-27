@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Column, Container, Row, GradientText, Circle } from './common'
 import Image from 'next/image'
+import Link from 'next/link'
 import { ArrowButton } from 'components/Buttons'
 import DeleteTeam from './DeleteTeam'
 import { useState } from 'react'
@@ -104,6 +105,12 @@ const IconsRow = styled(Row)``
 
 const TeamsContainer = styled.div``
 
+const EditTeam = styled(GradientText)`
+  margin-left: 74px;
+  margin-right: 17px;
+  text-transform: uppercase;
+`
+
 export default function Teams() {
 
   const [selected, setSelected] = useState('')
@@ -195,6 +202,24 @@ export default function Teams() {
               </TeamPrem>
             </TeamInfo>
             <GradientTextRow>
+              <Link href={'edit-team'}>
+                <a>
+                  <EditTeam>edit team</EditTeam>
+                </a>
+              </Link>
+              <Image
+                src={'/arrow-right-gradient.svg'}
+                width={14.89}
+                height={9.3}
+                alt={'arrow-right-gradient'}
+              />
+              <DeleteTeam>delete team</DeleteTeam>
+              <Image
+                src={'/arrow-right-gradient.svg'}
+                width={14.89}
+                height={9.3}
+                alt={'arrow-right-gradient'}
+              />
               <ArrowButtonContainer>
                 <Button>
                   <ArrowButton text={'Edit Team'}/>
