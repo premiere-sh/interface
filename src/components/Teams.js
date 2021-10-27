@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Column, Container, Row, GradientText, Circle } from './common'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const YourTeams = styled.div`
   font-weight: 600;
@@ -194,7 +195,11 @@ export default function Teams() {
               </TeamPrem>
             </TeamInfo>
             <GradientTextRow>
-              <EditTeam>edit team</EditTeam>
+              <Link href={'edit-team'}>
+                <a>
+                  <EditTeam>edit team</EditTeam>
+                </a>
+              </Link>
               <Image
                 src={'/arrow-right-gradient.svg'}
                 width={14.89}
