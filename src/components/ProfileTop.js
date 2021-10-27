@@ -5,8 +5,8 @@ import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import Friends from 'components/Friends'
 import Teams from 'components/Teams'
-import Home from './ProfileHome'
-
+import Home from 'components/ProfileHome'
+import History from 'components/History'
 
 const ProfilePanel = styled(Row)``
 
@@ -101,6 +101,7 @@ const ButtonEvents = styled(Button)`
 `
 
 export default function ProfileTop() {
+  
   const [selected, setSelected] = useState('Home')
 
   return (

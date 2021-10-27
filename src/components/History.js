@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import Tournament from 'components/Tournament'
-import { Column, Container } from './common'
+import { Column, Container } from 'components/common'
 
 const TournametsColumn = styled(Column)``
 
@@ -19,9 +19,11 @@ export default function EventHistory() {
   return (
     <Container>
       <TournametsColumn>
-        {tournaments.map((tournament, key) => (
-          <Tournament tournament={tournament} key={key} />
-        ))}
+        {tournaments?.length &&
+          tournaments.map((tournament, key) => (
+            <Tournament tournament={tournament} key={key}/>
+          ))
+        }
       </TournametsColumn>
     </Container>
   )
