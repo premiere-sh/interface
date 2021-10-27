@@ -23,7 +23,8 @@ export default function EventHistory() {
         {tournaments?.length &&
           tournaments.map((tournament, key) => (
             <Tournament tournament={tournament} key={key}/>
-          ))}
+          ))
+        }
       </TournametsColumn>
     </Container>
   )

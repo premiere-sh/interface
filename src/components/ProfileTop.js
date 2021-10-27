@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import Friends from 'components/Friends'
 import Teams from 'components/Teams'
-import Home from './ProfileHome'
+import Home from 'components/ProfileHome'
 import History from 'components/History'
 
 
