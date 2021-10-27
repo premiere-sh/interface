@@ -8,7 +8,6 @@ import Teams from 'components/Teams'
 import Home from 'components/ProfileHome'
 import History from 'components/History'
 
-
 const ProfilePanel = styled(Row)``
 
 const SpaceBetween = styled(Row)`
@@ -190,7 +189,6 @@ export default function ProfileTop() {
       {selected == 'Teams' && <Teams />}
       {selected == 'Friends' && <Friends />}
       {selected == 'Home' && <Home />}
-      {selected == 'History' && <History />}
     </Column>
   )
 }

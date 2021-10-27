@@ -5,7 +5,6 @@ import { Column, Container } from 'components/common'
 const TournametsColumn = styled(Column)``
 
 export default function EventHistory() {
-
   const tournament = {
     game: 'csgo',
     region: 'USA + Europe',
@@ -15,7 +14,7 @@ export default function EventHistory() {
     prize: '$1,250',
   }
 
-  const tournaments = [tournament, tournament] 
+  const tournaments = [tournament, tournament]
 
   return (
     <Container>
