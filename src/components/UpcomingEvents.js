@@ -4,6 +4,7 @@ import { Heading, Subtext } from  'components/Forms'
 import Image from 'next/image'
 import { ArrowButton } from 'components/Buttons'
 import SmallTournament from 'components/SmallTournament'
+import ReactPlayer from 'react-player'
 
 const EventsContainer = styled(Container)`
   display: flex;
@@ -102,12 +103,11 @@ export default function _UpcomingEvents() {
         If there is a premiere event currently underway,
         you&apos;ll be able to watch it here!
       </EventsSubtext>
-      <div>
-        <Image
-          src={'/csgo-sc.svg'}
+      <div style={{ marginBottom: 30 }}>
+        <ReactPlayer
+          url="https://www.twitch.tv/izakooo" 
           width={1233}
           height={788}
-          alt={'watch tournament'}
         />
       </div>
       <WatchedTournament>
