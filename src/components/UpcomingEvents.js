@@ -24,8 +24,13 @@ const EventsSubtext = styled(Subtext)`
 `
 
 const WatchedTournament = styled(Row)`
+  padding-top: 35px;
+  padding-bottom: 35px;
   height: 260px;
   width: 1233px;
+  background-color: ${(props) => props.theme.colors.white};
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
 `
 
 const TournamentInfo = styled(Column)`
@@ -78,6 +83,8 @@ const TournamentsRow = styled(Row)`
   margin-top: 155px;
 `
 
+const PlayerWrapper = styled.div``
+
 export default function _UpcomingEvents() {
 
   const tournament = {
@@ -103,15 +110,21 @@ export default function _UpcomingEvents() {
         If there is a premiere event currently underway,
         you&apos;ll be able to watch it here!
       </EventsSubtext>
-      <div style={{ marginBottom: 30 }}>
-        <ReactPlayer
-          url="https://www.twitch.tv/izakooo" 
-          width={1233}
-          height={788}
+      <PlayerWrapper>
+        <ReactPlayer 
+          url={'https://www.twitch.tv/izakooo'}
+          playing={true} 
+          width={1233} 
+          height={788} 
+          style={{ 
+            borderTopLeftRadius: 25,
+            borderTopRightRadius: 25,
+            overflow: 'hidden' 
+          }}
         />
-      </div>
+      </PlayerWrapper>
       <WatchedTournament>
-        <div style={{ marginLeft: 40, marginRight: 38 }}>
+        <div style={{ marginLeft: 40, marginRight: 38}}>
           <Image
             src={'/csgo.svg'}
             width={167}
@@ -125,7 +138,7 @@ export default function _UpcomingEvents() {
           <Summary>{tournament.summary}</Summary>
           <Buttons>
             <ArrowButtonContainer>
-              <ArrowButton text={'watch live on twitch.tv'}/>
+              <ArrowButton text={'watch live on twitch.tv'} />
             </ArrowButtonContainer>
             <CirclesRow>
               <ShadowCircle>
@@ -149,9 +162,11 @@ export default function _UpcomingEvents() {
         </TournamentInfo>
       </WatchedTournament>
       <TournamentsRow>
-        {tournaments.map((tournament, key) => (
-          <SmallTournament tournament={tournament} key={key}/>
-        ))}
+        {tournaments?.length &&
+          tournaments.map((tournament, key) => (
+            <SmallTournament tournament={tournament} key={key} />
+          ))
+        }
       </TournamentsRow>
     </EventsContainer>
   )
