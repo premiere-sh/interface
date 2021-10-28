@@ -4,13 +4,8 @@ import Image from 'next/image'
 import { useState } from 'react'
 import Friends from 'components/Friends'
 import Teams from 'components/Teams'
-<<<<<<< HEAD
-import Home from './ProfileHome'
-import Link from 'next/dist/client/link'
-=======
 import Home from 'components/ProfileHome'
 import History from 'components/History'
->>>>>>> fe14fc5108c32e1e21b4129fedbf48a3dd5f90a6
 
 const ProfilePanel = styled(Row)``
 
