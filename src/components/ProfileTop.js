@@ -6,6 +6,7 @@ import Friends from 'components/Friends'
 import Teams from 'components/Teams'
 import Home from 'components/ProfileHome'
 import History from 'components/History'
+import Link from 'next/dist/client/link'
 
 const ProfilePanel = styled(Row)``
 
