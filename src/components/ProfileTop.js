@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 import { Column, Container, Row } from './common'
 import Image from 'next/image'
-import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import Friends from 'components/Friends'
 import Teams from 'components/Teams'
 import Home from 'components/ProfileHome'
 import History from 'components/History'
+import Link from 'next/link'
 
 const ProfilePanel = styled(Row)``
 
@@ -178,12 +178,13 @@ export default function ProfileTop() {
           >
             friends
           </Button>
-          <ButtonEvents
-            style={{ borderBottom: `${selected == 'Events' ? 1 : 0}px solid` }}
-            onClick={() => setSelected('Events')}
-          >
-            uncoming events
-          </ButtonEvents>
+          <Link href={'/events'}>
+            <a>
+              <ButtonEvents>
+                uncoming events
+              </ButtonEvents>
+            </a>
+          </Link>
         </ButtonWrapper>
       </Wrapper>
       {selected == 'Teams' && <Teams />}
