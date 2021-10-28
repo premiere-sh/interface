@@ -78,6 +78,10 @@ const TournamentsRow = styled(Row)`
   margin-top: 155px;
 `
 
+const PlayerContainer = styled.div`
+  margin-bottom: 35px;
+`
+
 export default function _UpcomingEvents() {
 
   const tournament = {
@@ -103,9 +107,14 @@ export default function _UpcomingEvents() {
         If there is a premiere event currently underway,
         you&apos;ll be able to watch it here!
       </EventsSubtext>
-      <div style={{ marginBottom: 35}}>
-        <ReactPlayer url="https://www.twitch.tv/izakooo" playing={ true } width={1233} height={788} />
-      </div>
+      <PlayerContainer>
+        <ReactPlayer 
+          url={'https://www.twitch.tv/izakooo'}
+          playing={true} 
+          width={1233} 
+          height={788} 
+        />
+      </PlayerContainer>
       <WatchedTournament>
         <div style={{ marginLeft: 40, marginRight: 38}}>
           <Image
@@ -121,7 +130,7 @@ export default function _UpcomingEvents() {
           <Summary>{tournament.summary}</Summary>
           <Buttons>
             <ArrowButtonContainer>
-              <ArrowButton text={'watch live on twitch.tv'}/>
+              <ArrowButton text={'watch live on twitch.tv'} />
             </ArrowButtonContainer>
             <CirclesRow>
               <ShadowCircle>
@@ -145,9 +154,11 @@ export default function _UpcomingEvents() {
         </TournamentInfo>
       </WatchedTournament>
       <TournamentsRow>
-        {tournaments.map((tournament, key) => (
-          <SmallTournament tournament={tournament} key={key}/>
-        ))}
+        {tournaments?.length &&
+          tournaments.map((tournament, key) => (
+            <SmallTournament tournament={tournament} key={key} />
+          ))
+        }
       </TournamentsRow>
     </EventsContainer>
   )
