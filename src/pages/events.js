@@ -3,7 +3,7 @@ import Footer from 'components/Footer'
 import SocialsSection from 'components/SocialsSection'
 import UpcomingEvents from 'components/UpcomingEvents'
 
-export default function profile() {
+export default function Events() {
   return (
     <div>
       <Header />

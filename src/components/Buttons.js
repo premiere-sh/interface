@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import { GradientText } from 'components/common'
 import Image from 'next/image'
 
-const Button = styled.button`
+export const Button = styled.button`
   --gradient: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
   background: var(--gradient);
   border-radius: 5px;
@@ -22,6 +22,7 @@ const Button = styled.button`
   }
   text-transform: uppercase;
   cursor: pointer;
+  transition: all 0.4s ease;
 `
 
 const Signup = styled(Button)`
