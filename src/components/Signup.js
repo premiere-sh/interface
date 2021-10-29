@@ -53,6 +53,20 @@ export default function Signup() {
     return true
   }
 
+  const uppercase = (inputValue) => {
+    const hasUppercase = /(?=.*[A-Z])/
+    return hasUppercase.test(inputValue)
+  }
+
+  const number = (inputValue) => {
+    const hasNumber = /(?=.*[0-9])/
+    return hasNumber.test(inputValue)
+  }
+
+  const special = (inputValue) => {
+    const hasSpecial = /(?=.*[!@#$%^&*])/
+    return hasSpecial.test(inputValue)
+  }
 
   const adult = (inputValue) => {
     var today = new Date()
@@ -61,9 +75,9 @@ export default function Signup() {
     var m = today.getMonth() - birthDate.getMonth()
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
     {
-      age--;
+      age--
     }
-    return age >= 18 ? true : false;
+    return age >= 18 ? true : false
   }
 
   const checkMatch = (inputValue) => {
@@ -130,21 +144,37 @@ export default function Signup() {
         <Input
           required={ true }
           {...register('password', {
-            minLength: 6,
-            pattern: /(?=.*[A-Z])/,
-            validate: { checkMatch, inUse } 
+            minLength: 8,
+            validate: { uppercase, number, special, checkMatch, inUse } 
           })}
           type={'password'}
           placeholder={'Enter your password'}
         />
         {
-          errors.password?.type === 'minLength' ||
-          errors.password?.type === 'pattern' && 
+          errors.password?.type === 'minLength' &&
           <Alert>
-            Please use at least 6 characters, with one capital letter
+            Please use at least 8 characters
           </Alert>
         }
-        { 
+        {
+          errors.password?.type === 'uppercase' &&
+          <Alert>
+            Please use at least one capital letter
+          </Alert>
+        }
+        {
+          errors.password?.type === 'number' &&
+          <Alert>
+            Please use at least one number
+          </Alert>
+        }
+        {
+          errors.password?.type === 'special' &&
+          <Alert>
+            Please use at least one special character
+          </Alert>
+        }
+        {
           errors.password?.type === 'inUse' &&
           <Alert>
             Password already in use
