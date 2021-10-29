@@ -6,6 +6,9 @@ import { ArrowButton } from 'components/Buttons'
 const Container = styled(Row)`
   justify-content: space-between;
   margin-bottom: 150px;
+  @media screen and (max-width: 1100px) {
+    flex-direction: column;
+  }
 `
 
 const SideColumn = styled(Column)`

@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import FeaturedTournament from 'components/FeaturedTournament'
 import { ArrowButton } from 'components/Buttons'
 import { HomeHeading } from 'components/common'
+import Link from 'next/link'
 
 const HorizontalScrollView = styled.div`
   width: 100%;
@@ -40,16 +41,20 @@ export default function FeaturedTournaments({ tournaments }) {
           {tournaments &&
             tournaments.map((tournament, key) => (
               <FeaturedTournamentContainer key={key}>
-                <FeaturedTournament 
-                  tournament={tournament} 
-                  roundBorders={true} 
+                <FeaturedTournament
+                  tournament={tournament}
+                  roundBorders={true}
                 />
               </FeaturedTournamentContainer>
             ))}
         </HorizontalScrollView>
       </Container>
       <ButtonContainer>
-        <ArrowButton text={'view all tournaments'} />
+        <Link href={'/tournaments'}>
+          <a>
+            <ArrowButton text={'view all tournaments'} />
+          </a>
+        </Link>
       </ButtonContainer>
     </>
   )

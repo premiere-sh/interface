@@ -24,7 +24,7 @@ const TournamentContainer = styled(Container)`
   &:hover {
     border: 1px solid ${(props) => props.theme.colors.ruby};
   }
-  border-radius: ${(props) => props.roundBorders ? '10px' : '0'};
+  border-radius: ${(props) => (props.roundBorders ? '10px' : '0')};
 `
 
 const SubText = styled.div`

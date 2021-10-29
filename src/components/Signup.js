@@ -17,6 +17,10 @@ const FormContainer = styled.form`
   margin: auto;
 `
 
+const DateInput = styled(SmallInput)`
+  padding-right: 15px;
+`
+
 const RowEntry = styled.div`
   height: 130px;
   width: 589px;
@@ -32,6 +36,7 @@ const Alert = styled.div`
   font-size: 12px;
   font-weight: 400;
   color: #EC9BA6;
+  margin-top: 10px;
 `
 
 const SubmitEntry = styled(Entry)`
@@ -110,7 +115,7 @@ export default function Signup() {
         </Entry>
         <Entry style={{ marginLeft: 65 }}>
           <Caption>date of birth</Caption>
-          <SmallInput
+          <DateInput
             required={ true }
             {...register('date', { validate: { adult }})} 
             type={'date'}

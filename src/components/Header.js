@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Image from 'next/image'
 import { Row } from 'components/common'
 import Dropdown, { DropdownText } from 'components/Dropdown'
-import { SignupButton } from 'components/Buttons'
+import { Button, SignupButton } from 'components/Buttons'
 import LogoHeader from 'components/LogoHeader'
 
 const Header = styled(Row)`
@@ -33,7 +33,7 @@ const LogoBit = styled(Row)`
 
 const LinksBit = styled(Row)`
   width: 100%;
-  max-width: 640px;
+  max-width: 800px;
   justify-content: space-between;
   @media screen and (max-width: 1400px) {
     display: none;
@@ -45,6 +45,11 @@ const LinksDropdown = styled.div`
   @media screen and (min-width: 1400px) {
     display: none;
   }
+`
+
+const LoginButton = styled(Button)`
+  width: 129px;
+  height: 36px;
 `
 
 const SignupBit = styled(Row)`
@@ -109,6 +114,11 @@ function Navigator() {
         <Link href={'/support'}>
           <a>
             <DropdownText>SUPPORT</DropdownText>
+          </a>
+        </Link>
+        <Link href={'/login'}>
+          <a>
+            <LoginButton>login</LoginButton>
           </a>
         </Link>
       </LinksContainer>
@@ -184,6 +194,11 @@ export default function _Header({ home }) {
         <Link href={'/support'}>
           <a>
             <DropdownText>SUPPORT</DropdownText>
+          </a>
+        </Link>
+        <Link href={'/login'}>
+          <a>
+            <LoginButton>login</LoginButton>
           </a>
         </Link>
       </LinksBit>
