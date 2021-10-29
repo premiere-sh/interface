@@ -116,17 +116,17 @@ export default function _Footer() {
                 <Text>Tournaments</Text>
               </a>
             </Link>
-            <Link href={'leaderboards'}>
+            <Link href={'/leaderboards'}>
               <a>
                 <Text>Leaderboards</Text>
               </a>
             </Link>
-            <Link href={'support'}>
+            <Link href={'/support'}>
               <a>
                 <Text>Support</Text>
               </a>
             </Link>
-            <Link href={''}>
+            <Link href={'/'}>
               <a>
                 <Text>Premiere Stream</Text>
               </a>
@@ -134,7 +134,11 @@ export default function _Footer() {
           </Column>
           <Column style={{ marginLeft: 40 }}>
             <Heading>Useful links</Heading>
-            <Text>Login</Text>
+            <Link href={'/login'}>
+              <a>
+                <Text>Login</Text>
+              </a>
+            </Link>
             <Text>Dashboard</Text>
             <Text>Privacy -- Terms</Text>
           </Column>
