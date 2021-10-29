@@ -4,9 +4,18 @@ import { LoginButton } from 'components/Buttons'
 import { Heading, Caption, Subtext, Entry, Input } from 'components/Forms'
 import { useForm } from 'react-hook-form'
 
-
 const FormContainer = styled.form`
-  margin: auto;`
+  margin: auto;
+`
+
+const SubmitEntry = styled(Entry)`
+  margin-top: 40px;
+`
+
+const ErrorMessage = styled.p`
+  margin-top: 8px;
+  color: ${(props) => props.theme.colors.red};
+`
 
 export default function Login() {
 
@@ -14,8 +23,11 @@ export default function Login() {
 
   const onSubmit = (data) => {
     console.log(JSON.stringify(data))
+    console.log(errors)
   }
 
+  console.log(errors)
+  
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <Heading>log in</Heading>
@@ -37,15 +49,15 @@ export default function Login() {
           type={'password'}
           placeholder={'Enter your password'}
         />
-        { errors.password && 
-          <p>
+        {errors.password && 
+          <ErrorMessage>
             The password should be at least 8 characters long
-          </p>      
+          </ErrorMessage>      
         }
       </Entry>
-      <Entry style={{ marginTop: 40 }}> 
+      <SubmitEntry> 
         <LoginButton type={'submit'}/>
-      </Entry>
+      </SubmitEntry>
     </FormContainer>
   )
 }

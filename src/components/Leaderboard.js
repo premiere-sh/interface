@@ -43,6 +43,10 @@ const User = styled.th`
 
 const Points = styled.th``
 
+const TableBody = styled.tbody``
+
+const TableHead = styled.thead``
+
 export default function Leaderboard() {
   const entries = [
     {
@@ -87,28 +91,32 @@ export default function Leaderboard() {
     <div>
       <LeaderboardTitle>GB Rank Leaderboard</LeaderboardTitle>
       <Table>
-        <HeadRow>
-          <HeadRowRank>rank</HeadRowRank>
-          <HeadRowUser>user</HeadRowUser>
-          <HeadRowPoints>points</HeadRowPoints>
-        </HeadRow>
-        {entries.map((entry, idx) => (
-          <TableRow key={idx}>
-            <Rank>#{idx + 1}</Rank>
-            <User>
-              <div style={{ marginRight: 12, marginTop: 5 }}>
-                <Image
-                  src={'/' + entry.user + '.svg'}
-                  width={32}
-                  height={32}
-                  alt={'user'}
-                />
-              </div>
-              {entry.user}
-            </User>
-            <Points>{entry.points}</Points>
-          </TableRow>
-        ))}
+        <TableHead>
+          <HeadRow>
+            <HeadRowRank>rank</HeadRowRank>
+            <HeadRowUser>user</HeadRowUser>
+            <HeadRowPoints>points</HeadRowPoints>
+          </HeadRow>
+        </TableHead>
+        <TableBody>
+          {entries.map((entry, idx) => (
+            <TableRow key={idx}>
+              <Rank>#{idx + 1}</Rank>
+              <User>
+                <div style={{ marginRight: 12, marginTop: 5 }}>
+                  <Image
+                    src={'/' + entry.user + '.svg'}
+                    width={32}
+                    height={32}
+                    alt={'user'}
+                  />
+                </div>
+                {entry.user}
+              </User>
+              <Points>{entry.points}</Points>
+            </TableRow>
+          ))}
+        </TableBody>
       </Table>
     </div>
   )
