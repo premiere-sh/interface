@@ -23,8 +23,8 @@ const TournamentContainer = styled(Container)`
   cursor: pointer;
   &:hover {
     border: 1px solid ${(props) => props.theme.colors.ruby};
-    border-radius: 10px;
   }
+  border-radius: ${(props) => props.roundBorders ? '10px' : '0'};
 `
 
 const SubText = styled.div`
@@ -71,9 +71,9 @@ const ImageContainer = styled.div`
   align-items: center;
 `
 
-export default function FeaturedTournament({ tournament }) {
+export default function FeaturedTournament({ tournament, roundBorders }) {
   return (
-    <TournamentContainer>
+    <TournamentContainer roundBorders={roundBorders}>
       <Row style={{ width: '100%', height: '100%' }}>
         <ImageContainer>
           <Image

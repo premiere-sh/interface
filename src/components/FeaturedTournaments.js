@@ -25,6 +25,12 @@ const ButtonContainer = styled.div`
   margin-bottom: 150px;
 `
 
+const FeaturedTournamentContainer = styled.div`
+  width: 453px;
+  height: 290px;
+  margin-right: 50px;
+`
+
 export default function FeaturedTournaments({ tournaments }) {
   return (
     <>
@@ -33,12 +39,12 @@ export default function FeaturedTournaments({ tournaments }) {
         <HorizontalScrollView>
           {tournaments &&
             tournaments.map((tournament, key) => (
-              <div
-                key={key}
-                style={{ width: 453, height: 290, marginRight: 50 }}
-              >
-                <FeaturedTournament tournament={tournament} />
-              </div>
+              <FeaturedTournamentContainer key={key}>
+                <FeaturedTournament 
+                  tournament={tournament} 
+                  roundBorders={true} 
+                />
+              </FeaturedTournamentContainer>
             ))}
         </HorizontalScrollView>
       </Container>
