@@ -34,6 +34,10 @@ const Alert = styled.div`
   color: #EC9BA6;
 `
 
+const SubmitEntry = styled(Entry)`
+  margin-top: 40px;
+`
+
 export default function Signup() {
 
   const { register, handleSubmit, formState: { errors }} = useForm()
@@ -83,7 +87,8 @@ export default function Signup() {
             type={'text'}
             placeholder={'Enter your username'}
           />
-          { errors.username && 
+          { 
+            errors.username && 
             <Alert>
               Username already in use
             </Alert>
@@ -97,7 +102,8 @@ export default function Signup() {
             type={'date'}
             placeholder={'Enter your date of birth'}
           />
-          { errors.date && 
+          { 
+            errors.date && 
             <Alert>
               We&apos;re sorry - you must be 18 or older
             </Alert>
@@ -112,7 +118,8 @@ export default function Signup() {
           type={'email'}
           placeholder={'Enter your email address'}
         />
-        { errors.email &&
+        { 
+          errors.email &&
           <Alert>
             Email address already in use
           </Alert>
@@ -130,13 +137,15 @@ export default function Signup() {
           type={'password'}
           placeholder={'Enter your password'}
         />
-        { errors.password?.type === 'minLength' ||
+        {
+          errors.password?.type === 'minLength' ||
           errors.password?.type === 'pattern' && 
           <Alert>
             Please use at least 6 characters, with one capital letter
           </Alert>
         }
-        { errors.password?.type === 'inUse' &&
+        { 
+          errors.password?.type === 'inUse' &&
           <Alert>
             Password already in use
           </Alert>
@@ -150,15 +159,16 @@ export default function Signup() {
           type={'password'}
           placeholder={'Enter your password'}
         />
-        { errors.confirm && 
+        { 
+          errors.confirm && 
           <Alert>
             Passwords do not match
           </Alert>
         }
       </Entry>
-      <Entry style={{ marginTop: 40 }}>
+      <SubmitEntry>
         <SignupButton type={'submit'}/>
-      </Entry>
+      </SubmitEntry>
     </FormContainer>
   )
 }
