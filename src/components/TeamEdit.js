@@ -136,14 +136,14 @@ const RemoveMember = styled.div`
 export default function _TeamEdit() {
   const teammates = [
     {
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
-      user: 'devonhenry_',
+      user: 'devonhenry_'
     },
     {
-      user: 'devonhenry_',
-    },
+      user: 'devonhenry_'
+    }
   ]
 
   return (

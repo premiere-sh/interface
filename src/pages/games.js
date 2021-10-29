@@ -24,23 +24,23 @@ export default function Games({ games }) {
 export function getGames() {
   const csgo = {
     name: 'csgo',
-    caption: '123 ongoing',
+    caption: '123 ongoing'
   }
   const dirt = {
     name: 'dirt',
-    caption: '123 ongoing',
+    caption: '123 ongoing'
   }
   const minecraft = {
     name: 'minecraft',
-    caption: '123 ongoing',
+    caption: '123 ongoing'
   }
   const cod = {
     name: 'cod',
-    caption: '123 ongoing',
+    caption: '123 ongoing'
   }
   const rl = {
     name: 'rl',
-    caption: '123 ongoing',
+    caption: '123 ongoing'
   }
   const _games = [csgo, dirt, minecraft, cod, rl]
   const games = [..._games, ..._games, ..._games, ..._games.slice(0, 3)]
@@ -50,6 +50,6 @@ export function getGames() {
 export async function getStaticProps(context) {
   const games = getGames()
   return {
-    props: { games },
+    props: { games }
   }
 }

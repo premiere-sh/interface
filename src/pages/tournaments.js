@@ -54,7 +54,7 @@ export function getTournaments() {
       go.`,
     date: '24/08/2021',
     time: '9:15pm',
-    prize: '$1,250',
+    prize: '$1,250'
   }
   const tournaments = [tournament, tournament, tournament, tournament]
   return tournaments
@@ -63,6 +63,6 @@ export function getTournaments() {
 export async function getStaticProps(context) {
   const tournaments = getTournaments()
   return {
-    props: { tournaments },
+    props: { tournaments }
   }
 }

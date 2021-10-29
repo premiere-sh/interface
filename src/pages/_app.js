@@ -16,8 +16,8 @@ const theme = {
     ruby: '#982649',
     red: '#f71735',
     white: '#ffffff',
-    grayish: '#7B7B7B',
-  },
+    grayish: '#7B7B7B'
+  }
 }
 
 const GlobalStyle = createGlobalStyle`

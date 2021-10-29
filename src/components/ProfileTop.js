@@ -101,7 +101,6 @@ const ButtonEvents = styled(Button)`
 `
 
 export default function ProfileTop() {
-  
   const [selected, setSelected] = useState('Home')
 
   return (
@@ -180,9 +179,7 @@ export default function ProfileTop() {
           </Button>
           <Link href={'/events'}>
             <a>
-              <ButtonEvents>
-                uncoming events
-              </ButtonEvents>
+              <ButtonEvents>uncoming events</ButtonEvents>
             </a>
           </Link>
         </ButtonWrapper>

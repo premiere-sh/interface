@@ -11,7 +11,7 @@ export default function EventHistory() {
     title: '5v5 | Search & Destroy | FACEIT',
     date: '24/08/2021',
     time: '9:15pm',
-    prize: '$1,250',
+    prize: '$1,250'
   }
 
   const tournaments = [tournament, tournament]
@@ -21,9 +21,8 @@ export default function EventHistory() {
       <TournametsColumn>
         {tournaments?.length &&
           tournaments.map((tournament, key) => (
-            <Tournament tournament={tournament} key={key}/>
-          ))
-        }
+            <Tournament tournament={tournament} key={key} />
+          ))}
       </TournametsColumn>
     </Container>
   )

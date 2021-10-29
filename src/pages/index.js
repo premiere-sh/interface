@@ -39,9 +39,9 @@ export async function getStaticProps(context) {
     since: 'UK Member since August 24, 2021',
     rank: '1st',
     weeklyWins: '98',
-    premEarned: '2310994',
+    premEarned: '2310994'
   }
   return {
-    props: { games, tournaments, player },
+    props: { games, tournaments, player }
   }
 }

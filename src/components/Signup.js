@@ -7,7 +7,7 @@ import {
   Subtext,
   Entry,
   Input,
-  SmallInput,
+  SmallInput
 } from 'components/Forms'
 import { SignupButtonLarge as SignupButton } from 'components/Buttons'
 import styled from 'styled-components'
@@ -30,7 +30,7 @@ export default function Signup() {
     dateOfBirth: '',
     email: '',
     password: '',
-    confirmPassword: '',
+    confirmPassword: ''
   })
 
   return (
@@ -45,7 +45,7 @@ export default function Signup() {
             onChange={(event) =>
               setData({
                 ...data,
-                email: event.target.value,
+                email: event.target.value
               })
             }
             placeholder={'Enter a username'}
@@ -58,7 +58,7 @@ export default function Signup() {
             onChange={(event) =>
               setData({
                 ...data,
-                dateOfBirth: event.target.value,
+                dateOfBirth: event.target.value
               })
             }
             placeholder={'DD / MM / YYYY'}
@@ -72,7 +72,7 @@ export default function Signup() {
           onChange={(event) =>
             setData({
               ...data,
-              email: event.target.value,
+              email: event.target.value
             })
           }
           placeholder={'Enter your email address'}
@@ -86,7 +86,7 @@ export default function Signup() {
           onChange={(event) =>
             setData({
               ...data,
-              password: event.target.value,
+              password: event.target.value
             })
           }
           placeholder={'Enter your password'}
@@ -100,7 +100,7 @@ export default function Signup() {
           onChange={(event) =>
             setData({
               ...data,
-              confirmPassword: event.target.value,
+              confirmPassword: event.target.value
             })
           }
           placeholder={'Enter your password'}

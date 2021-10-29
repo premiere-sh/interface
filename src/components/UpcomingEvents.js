@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { Column, Row, Container, Circle } from 'components/common'
-import { Heading, Subtext } from  'components/Forms'
+import { Heading, Subtext } from 'components/Forms'
 import Image from 'next/image'
 import { ArrowButton } from 'components/Buttons'
 import SmallTournament from 'components/SmallTournament'
@@ -52,7 +52,7 @@ const Title = styled.div`
   font-size: 40px;
   line-height: 48px;
   font-weight: 600;
-  margin-bottom: 22px;  
+  margin-bottom: 22px;
 `
 
 const Summary = styled.div`
@@ -66,7 +66,8 @@ const ArrowButtonContainer = styled.div`
 `
 
 const CirclesRow = styled(Row)`
-  margin-right: 29px;`
+  margin-right: 29px;
+`
 
 const ShadowCircle = styled(Circle)`
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
@@ -86,7 +87,6 @@ const TournamentsRow = styled(Row)`
 const PlayerWrapper = styled.div``
 
 export default function _UpcomingEvents() {
-
   const tournament = {
     game: 'csgo',
     region: 'USA + Europe',
@@ -98,7 +98,7 @@ export default function _UpcomingEvents() {
       go.`,
     date: '24/08/2021',
     time: '9:15pm',
-    prize: '$1,250',
+    prize: '$1,250'
   }
 
   const tournaments = [tournament, tournament]
@@ -107,24 +107,24 @@ export default function _UpcomingEvents() {
     <EventsContainer>
       <EventsHeading>watch premiere events live</EventsHeading>
       <EventsSubtext>
-        If there is a premiere event currently underway,
-        you&apos;ll be able to watch it here!
+        If there is a premiere event currently underway, you&apos;ll be able to
+        watch it here!
       </EventsSubtext>
       <PlayerWrapper>
-        <ReactPlayer 
+        <ReactPlayer
           url={'https://www.twitch.tv/izakooo'}
-          playing={true} 
-          width={1233} 
-          height={788} 
-          style={{ 
+          playing={true}
+          width={1233}
+          height={788}
+          style={{
             borderTopLeftRadius: 25,
             borderTopRightRadius: 25,
-            overflow: 'hidden' 
+            overflow: 'hidden'
           }}
         />
       </PlayerWrapper>
       <WatchedTournament>
-        <div style={{ marginLeft: 40, marginRight: 38}}>
+        <div style={{ marginLeft: 40, marginRight: 38 }}>
           <Image
             src={'/csgo.svg'}
             width={167}
@@ -165,8 +165,7 @@ export default function _UpcomingEvents() {
         {tournaments?.length &&
           tournaments.map((tournament, key) => (
             <SmallTournament tournament={tournament} key={key} />
-          ))
-        }
+          ))}
       </TournamentsRow>
     </EventsContainer>
   )

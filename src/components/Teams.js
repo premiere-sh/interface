@@ -224,8 +224,7 @@ export default function Teams() {
               </ArrowButtonContainer>
             </GradientTextRow>
           </Box>
-        ))
-      }
+        ))}
     </TeamsContainer>
   )
 }

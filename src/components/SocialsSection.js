@@ -4,7 +4,7 @@ import {
   Twitter,
   Telegram,
   Youtube,
-  SocialsDivider,
+  SocialsDivider
 } from 'components/Socials'
 import { Row as _Row, Column as _Column } from 'components/common'
 import styled from 'styled-components'

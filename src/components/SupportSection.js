@@ -7,20 +7,20 @@ const supportSquares = [
     image: 'twitter',
     heading: 'Message us on Twitter',
     text: `DM our Twitter Support account and we’ll get back to you as soon
-      as possible.`,
+      as possible.`
   },
   {
     image: 'mail',
     heading: 'Email us',
     text: `Click here to email us - we’ll aim to get back to you as soon as
-      possible.`,
+      possible.`
   },
   {
     image: 'dc',
     heading: 'Join our Discord',
     text: `We have an active group of moderators available for support on
-      our discord channel.`,
-  },
+      our discord channel.`
+  }
 ]
 
 const Heading = styled(_Heading)`

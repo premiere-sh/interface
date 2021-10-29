@@ -94,7 +94,7 @@ export default function PlayerOfTheWeek() {
     since: 'UK Member since August 24, 2021',
     rank: '1st',
     weeklyWins: '98',
-    premEarned: '2310994',
+    premEarned: '2310994'
   }
 
   return (

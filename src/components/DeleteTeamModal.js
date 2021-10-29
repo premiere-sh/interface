@@ -12,10 +12,10 @@ const Button = styled(BaseButton)`
 `
 
 const Cancel = styled(Button)`
-  background: linear-gradient(266.89deg, #982649 -18.13%, #F71735 120.14%);
+  background: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  border: 1px ${props => props.theme.colors.ruby} solid;
+  border: 1px ${(props) => props.theme.colors.ruby} solid;
   width: 178px;
   &:hover {
     -webkit-background-clip: initial;
@@ -28,7 +28,7 @@ const Question = styled.div`
   font-size: 26px;
   line-height: 31.5px;
   font-weight: 600;
-  color: #0C0A09;
+  color: #0c0a09;
   margin-top: 54px;
   margin-bottom: 41px;
 `

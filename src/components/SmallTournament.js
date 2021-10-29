@@ -4,7 +4,7 @@ import {
   Column,
   Container,
   GradientText,
-  Circle,
+  Circle
 } from 'components/common'
 import { ArrowButton } from 'components/Buttons'
 import GradientDropdown from 'components/GradientDropdown'
