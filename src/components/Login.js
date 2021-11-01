@@ -70,7 +70,7 @@ export default function Login() {
         <LoginButton type={'submit'} />
       </SubmitEntry>
       <SignupIfNotGotAnAccount>
-        Don't have an account? 
+        Don&apos;t have an account? 
         <GradientText style={{ display: 'inline', marginLeft: 5 }}>
           <Link href={'/signup'}>
             <a>
