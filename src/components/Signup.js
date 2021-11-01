@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { SignupButtonLarge } from 'components/Buttons'
-import { Row } from 'components/common'
+import { Row, GradientText } from 'components/common'
 import {
   Heading,
   Caption,
@@ -12,6 +12,7 @@ import {
 import { SignupButtonLarge as SignupButton } from 'components/Buttons'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
+import Link from 'next/link'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -41,6 +42,12 @@ const Alert = styled.div`
 
 const SubmitEntry = styled(Entry)`
   margin-top: 40px;
+  height: 85px;
+`
+
+const LoginIfGotAnAccount = styled.div`
+  display: flex;
+  justify-content: center;
 `
 
 export default function Signup() {
@@ -204,6 +211,16 @@ export default function Signup() {
       <SubmitEntry>
         <SignupButton type={'submit'}/>
       </SubmitEntry>
+      <LoginIfGotAnAccount>
+        Already have an account? 
+        <GradientText style={{ display: 'inline', marginLeft: 5 }}>
+          <Link href={'/login'}>
+            <a>
+              {' '}Log In
+            </a>
+          </Link>
+        </GradientText>
+      </LoginIfGotAnAccount>
     </FormContainer>
   )
 }

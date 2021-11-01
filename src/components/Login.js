@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { LoginButton } from 'components/Buttons'
 import { Heading, Caption, Subtext, Entry, Input } from 'components/Forms'
 import { useForm } from 'react-hook-form'
+import { GradientText } from 'components/common'
+import Link from 'next/link'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -10,11 +12,17 @@ const FormContainer = styled.form`
 
 const SubmitEntry = styled(Entry)`
   margin-top: 40px;
+  height: 85px;
 `
 
 const ErrorMessage = styled.p`
   margin-top: 8px;
   color: ${(props) => props.theme.colors.red};
+`
+
+const SignupIfNotGotAnAccount = styled.div`
+  display: flex;
+  justify-content: center;
 `
 
 export default function Login() {
@@ -61,6 +69,16 @@ export default function Login() {
       <SubmitEntry>
         <LoginButton type={'submit'} />
       </SubmitEntry>
+      <SignupIfNotGotAnAccount>
+        Don't have an account? 
+        <GradientText style={{ display: 'inline', marginLeft: 5 }}>
+          <Link href={'/signup'}>
+            <a>
+              Sign up
+            </a>
+          </Link>
+        </GradientText>
+      </SignupIfNotGotAnAccount>
     </FormContainer>
   )
 }
