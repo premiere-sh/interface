@@ -90,6 +90,7 @@ const LinksContainer = styled.div`
   display: flex;
   justify-content: space-around;
   flex-direction: column;
+  align-items: flex-start
 `
 
 function Navigator() {
@@ -98,17 +99,17 @@ function Navigator() {
       <LinksContainer>
         <Link href={'/games'}>
           <a>
-            <Dropdown text={'GAMES'} />
+            <DropdownText>GAMES</DropdownText>
           </a>
         </Link>
         <Link href={'/tournaments'}>
           <a>
-            <Dropdown text={'TOURNAMENTS'} />
+            <DropdownText>TOURNAMENTS</DropdownText>
           </a>
         </Link>
         <Link href={'/leaderboards'}>
           <a>
-            <Dropdown text={'LEADERBOARDS'} />
+            <DropdownText>LEADERBOARDS</DropdownText>
           </a>
         </Link>
         <Link href={'/support'}>
@@ -178,27 +179,22 @@ export default function _Header({ home }) {
       <LinksBit>
         <Link href={'/games'}>
           <a>
-            <Dropdown text={'GAMES'} />
+            <DropdownText>GAMES</DropdownText>
           </a>
         </Link>
         <Link href={'/tournaments'}>
           <a>
-            <Dropdown text={'TOURNAMENTS'} />
+            <DropdownText>TOURNAMENTS</DropdownText>
           </a>
         </Link>
         <Link href={'/leaderboards'}>
           <a>
-            <Dropdown text={'LEADERBOARDS'} />
+            <DropdownText>LEADERBOARDS</DropdownText>
           </a>
         </Link>
         <Link href={'/support'}>
           <a>
             <DropdownText>SUPPORT</DropdownText>
-          </a>
-        </Link>
-        <Link href={'/login'}>
-          <a>
-            <LoginButton>login</LoginButton>
           </a>
         </Link>
       </LinksBit>
