@@ -19,8 +19,8 @@ export default function Tournaments({ tournaments }) {
       </Container>
       {tournaments && (
         <>
-          <Tournament tournament={tournaments[0]} />
           <Container style={{ marginBottom: 220 }}>
+            <Tournament tournament={tournaments[0]} />
             <Grid columns={'repeat(auto-fit, minmax(550px, 1fr))'} gap={'50px'}>
               {tournaments.map((tournament, idx) => (
                 <Cell

@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { GradientText } from 'components/common'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export const Button = styled.button`
   --gradient: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
@@ -76,7 +77,15 @@ export function LoginButton() {
 }
 
 export function ViewTournamentsButton() {
-  return <ViewTournaments>view tournaments</ViewTournaments>
+  return (
+    <Link href={'/tournaments'}>
+      <a>
+        <ViewTournaments>
+          view tournaments
+        </ViewTournaments>
+      </a>
+    </Link>
+  )
 }
 
 export function ArrowButton({ text }) {
