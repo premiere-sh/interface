@@ -84,7 +84,7 @@ export default function WelcomeToPremiere() {
   return (
     <Container>
       <Video
-        src={'http://media.w3.org/2010/05/sintel/trailer.mp4'}
+        src={'https://media.w3.org/2010/05/sintel/trailer.mp4'}
         caption={'Featured clip - @devonhenry_'}
       />
       <SideColumn>
