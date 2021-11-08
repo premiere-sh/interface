@@ -36,7 +36,6 @@ export function useAuth() {
           }
         }
       } catch (err) {
-        console.log(err)
         setLoading(false)
       }
       setLoading(false)
@@ -63,6 +62,7 @@ export function getHeaders(token) {
 }
 
 export function useSignUp() {
+  const signIn = useSignIn()
   return async function signUp(data) {
     const res = await fetch(BASE_URL + 'users/', {
       method: 'POST',
@@ -73,14 +73,14 @@ export function useSignUp() {
       }
     })
     if (res.status == 200) {
-      const { error, token } = await signIn({ 
-        username: data['username'],
-        password: data['password'] 
-      })
-      return { token: token, error: error }
-    } else if (res.status == 0) {
-      const error = (await res.json()).detail
-      return { token: undefined, error: error }
+      const credentials = {
+        username: data.username,
+        password: data.password
+      }
+      return signIn(credentials)
+    } else {
+      const error = await res.json()
+      return { error: error.detail }
     }
   }
 }
@@ -89,18 +89,18 @@ export function useSignIn() {
   return async function signIn(data) {
     const res = await fetch(BASE_URL + 'token/', {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: `username=${data.username}&password=${data.password}`,
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/x-www-form-urlencoded'
       }
     })
     if (res.status == 200) {
       const token = (await res.json()).access_token
-      return { token: token, error: undefined }
+      return { token: token }
     } else {
       const error = (await res.json()).detail
-      return { token: undefined, error: error }
+      return { error: error }
     }
   }
 }

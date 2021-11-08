@@ -1,8 +1,4 @@
 // TODO
-// make the borders round for small tournament
-//
-// games
-// keep them fixed, warzone to start with, remove filter by platform
 //
 // tournaments
 // POST view for creating tournaments
@@ -16,12 +12,7 @@
 //   stores the date and time
 //   finalise(address winner) => withdraw(winner)
 //
-// GET view for retrieving tournaments
-//
-// leaderboard
-// use Warzone call of duty api
-//
-// player of the week - most tournmanets won
+// player of the week endpoint - most tournmanets won
 //
 // users
 // user_id
@@ -32,11 +23,27 @@
 //
 // prem earned delete for now
 //
-// profile
-// friends => mechanism for adding friends
-//
-// for now solos
+// for now solos only so no teams
 //
 // recommended events:
 // events.map((event) =>  Date.now() - event.startDate < thresh
+//
+// NEW
+//
+// make signup form only accessible if not authenticated
+//
+// use randomized avatars like gh
+//
+// add google, facebook etc signups
+//
+// complete todos in the api bit
+// finish the remaining test cases
+//
+// mobile scaling
+//
+// integrate warzone api and cod api in general, 
+// add some endpoints per game and per user
+// 
+// add friends mechanisms (need the design)
+// add tournaments creation (need the design)
 //
