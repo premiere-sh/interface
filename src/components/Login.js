@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import styled from 'styled-components'
 import { LoginButton } from 'components/Buttons'
 import { Heading, Caption, Subtext, Entry, Input } from 'components/Forms'
 import { useForm } from 'react-hook-form'
 import { GradientText } from 'components/common'
 import Link from 'next/link'
+import { useSignIn } from 'hooks'
+import AuthenticationContext from 'contexts/authentication'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -25,19 +27,28 @@ const SignupIfNotGotAnAccount = styled.div`
   justify-content: center;
 `
 
+const ErrorMessageContainer = styled.div`
+  color: ${props => props.theme.colors.red};
+  line-height: 19px;
+  font-size: 14px;
+  margin-top: 20px;
+`
+
 export default function Login() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm()
+  const { register, handleSubmit, formState: { errors } } = useForm()
+  const { isAuthenticated, setToken } = useContext(AuthenticationContext)
+  const [errorMessage, setErrorMessage] = useState('')
 
   const onSubmit = (data) => {
     console.log(JSON.stringify(data))
     console.log(errors)
+    const { error, token } = await signIn(data)
+    if (error) {
+      setErrorMessage(error)
+    } else if (token) {
+      setToken(token)
+    }
   }
-
-  console.log(errors)
 
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
@@ -69,6 +80,10 @@ export default function Login() {
       <SubmitEntry>
         <LoginButton type={'submit'} />
       </SubmitEntry>
+      {
+        errorMessage &&
+        <ErrorMessageContainer>{errorResponse}</ErrorMessageContainer>
+      }
       <SignupIfNotGotAnAccount>
         Don&apos;t have an account? 
         <GradientText style={{ display: 'inline', marginLeft: 5 }}>

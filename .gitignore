@@ -117,3 +117,4 @@ yarn-error.log*
 .vscode
 
 *.swp
+local_db

@@ -52,7 +52,7 @@ const LoginIfGotAnAccount = styled.div`
   justify-content: center;
 `
 
-const ErrorContainer = styled.div`
+const ErrorMessageContainer = styled.div`
   color: ${props => props.theme.colors.red};
   line-height: 19px;
   font-size: 14px;
@@ -61,7 +61,7 @@ const ErrorContainer = styled.div`
 
 export default function Signup() {
 
-  const { register, handleSubmit, formState: { errors }} = useForm()
+  const { register, handleSubmit, formState: { errors } } = useForm()
   const { isAuthenticated, setToken } = useContext(AuthenticationContext)
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
@@ -244,7 +244,7 @@ export default function Signup() {
           </LoginIfGotAnAccount>
           {
             errorMessage &&
-            <ErrorContainer>{errorResponse}</ErrorContainer>
+            <ErrorMessageContainer>{errorResponse}</ErrorMessageContainer>
           }
         </FormContainer>
           :
