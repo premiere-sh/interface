@@ -5,7 +5,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest"
   },
   "dependencies": {
     "@fontsource/inter": "^4.5.0",
@@ -21,9 +22,13 @@
     "styled-css-grid": "^1.2.1"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "babel-jest": "^27.3.1",
     "babel-plugin-styled-components": "^1.12.0",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.0",
+    "jest": "^27.3.1",
     "prettier": "2.4.1"
   },
   "license": "MIT"
