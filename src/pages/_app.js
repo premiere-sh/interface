@@ -1,3 +1,4 @@
+import { AuthenticationProvider } from 'contexts/authentication'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import '@fontsource/inter/900.css'
 import '@fontsource/inter/800.css'
@@ -102,9 +103,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <AuthenticationProvider>
+        <ThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </AuthenticationProvider>
     </>
   )
 }
