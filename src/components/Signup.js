@@ -62,33 +62,20 @@ const ErrorContainer = styled.div`
 export default function Signup() {
 
   const { register, handleSubmit, formState: { errors }} = useForm()
-
+  const { isAuthenticated, setToken } = useContext(AuthenticationContext)
+  const [password, setPassword] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
   const signUp = useSignUp()
   const signIn = useSignIn()
-
-  const { isAuthenticated, setToken } = useContext(AuthenticationContext)
-
-  console.log(isAuthenticated)
-
-  const [password, setPassword] = useState('')
-
-  const [errorResponse, setErrorResponse] = useState('')
 
   const onSubmit = async (data) => {
     data.date_of_birth = parseInt(new Date(data.date).getTime() / 1000)
     delete data['date']
-    console.log(data)
-    const res = await signUp(data)
-    console.log(res)
-    if (res.status == 200) {
-      const signInRes = await signIn({ 
-        username: data['username'],
-        password: data['password'] 
-      })
-      const json = await signInRes.json()
-      setToken(json['access_token'])
-    } else if (res.status == 0) {
-      // setErrorResponse(res.json())
+    const { error, token } = await signUp(data)
+    if (error) {
+      setErrorMessage(error)
+    } else if (token) {
+      setToken(token)
     }
   }
 
@@ -256,7 +243,7 @@ export default function Signup() {
             </GradientText>
           </LoginIfGotAnAccount>
           {
-            errorResponse &&
+            errorMessage &&
             <ErrorContainer>{errorResponse}</ErrorContainer>
           }
         </FormContainer>

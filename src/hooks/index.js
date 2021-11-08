@@ -72,7 +72,16 @@ export function useSignUp() {
         'Content-Type': 'application/json'
       }
     })
-    return res
+    if (res.status == 200) {
+      const { error, token } = await signIn({ 
+        username: data['username'],
+        password: data['password'] 
+      })
+      return { token: token, error: error }
+    } else if (res.status == 0) {
+      const error = (await res.json()).detail
+      return { token: undefined, error: error }
+    }
   }
 }
 
@@ -86,5 +95,12 @@ export function useSignIn() {
         'Content-Type': 'application/json'
       }
     })
+    if (res.status == 200) {
+      const token = (await res.json()).access_token
+      return { token: token, error: undefined }
+    } else {
+      const error = (await res.json()).detail
+      return { token: undefined, error: error }
+    }
   }
 }
