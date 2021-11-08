@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { SignupButtonLarge } from 'components/Buttons'
 import { Row, GradientText } from 'components/common'
 import {
@@ -13,6 +13,8 @@ import { SignupButtonLarge as SignupButton } from 'components/Buttons'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
 import Link from 'next/link'
+import { useSignUp, useSignIn } from 'hooks'
+import AuthenticationContext from 'contexts/authentication'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -50,15 +52,44 @@ const LoginIfGotAnAccount = styled.div`
   justify-content: center;
 `
 
+const ErrorContainer = styled.div`
+  color: ${props => props.theme.colors.red};
+  line-height: 19px;
+  font-size: 14px;
+  margin-top: 20px;
+`
+
 export default function Signup() {
 
   const { register, handleSubmit, formState: { errors }} = useForm()
 
+  const signUp = useSignUp()
+  const signIn = useSignIn()
+
+  const { isAuthenticated, setToken } = useContext(AuthenticationContext)
+
+  console.log(isAuthenticated)
+
   const [password, setPassword] = useState('')
 
-  const onSubmit = (data) => {
-    console.log(JSON.stringify(data))
-    return data
+  const [errorResponse, setErrorResponse] = useState('')
+
+  const onSubmit = async (data) => {
+    data.date_of_birth = parseInt(new Date(data.date).getTime() / 1000)
+    delete data['date']
+    console.log(data)
+    const res = await signUp(data)
+    console.log(res)
+    if (res.status == 200) {
+      const signInRes = await signIn({ 
+        username: data['username'],
+        password: data['password'] 
+      })
+      const json = await signInRes.json()
+      setToken(json['access_token'])
+    } else if (res.status == 0) {
+      // setErrorResponse(res.json())
+    }
   }
 
   const inUse = (inputValue) => {
@@ -101,126 +132,137 @@ export default function Signup() {
   }
 
   return (
-    <FormContainer onSubmit={handleSubmit(onSubmit)}>
-      <Heading>sign up</Heading>
-      <Subtext>Premiere is only available to users that are 18+</Subtext>
-      <RowEntry>
-        <Entry>
-          <Caption>username</Caption>
-          <SmallInput
-            required={ true }
-            {...register('username', { validate: { inUse }})} 
-            type={'text'}
-            placeholder={'Enter your username'}
-          />
-          { 
-            errors.username && 
-            <Alert>
-              Username already in use
-            </Alert>
+    <>
+      {
+        !isAuthenticated ? 
+        <FormContainer onSubmit={handleSubmit(onSubmit)}>
+          <Heading>sign up</Heading>
+          <Subtext>Premiere is only available to users that are 18+</Subtext>
+          <RowEntry>
+            <Entry>
+              <Caption>username</Caption>
+              <SmallInput
+                required={ true }
+                {...register('username', { validate: { inUse }})} 
+                type={'text'}
+                placeholder={'Enter your username'}
+              />
+              { 
+                errors.username && 
+                <Alert>
+                  Username already in use
+                </Alert>
+              }
+            </Entry>
+            <Entry style={{ marginLeft: 65 }}>
+              <Caption>date of birth</Caption>
+              <DateInput
+                required={ true }
+                {...register('date', { validate: { adult }})} 
+                type={'date'}
+                placeholder={'Enter your date of birth'}
+              />
+              { 
+                errors.date && 
+                <Alert>
+                  We&apos;re sorry - you must be 18 or older
+                </Alert>
+              }
+            </Entry>
+          </RowEntry>
+          <Entry>
+            <Caption>email address</Caption>
+            <Input
+              required={ true }
+              {...register('email', { validate: { inUse }})} 
+              type={'email'}
+              placeholder={'Enter your email address'}
+            />
+            { 
+              errors.email &&
+              <Alert>
+                Email address already in use
+              </Alert>
+            }
+          </Entry>
+          <Entry>
+            <Caption>password</Caption>
+            <Input
+              required={ true }
+              {...register('password', {
+                minLength: 8,
+                validate: { uppercase, number, special, checkMatch, inUse } 
+              })}
+              type={'password'}
+              placeholder={'Enter your password'}
+            />
+            {
+              errors.password?.type === 'minLength' &&
+              <Alert>
+                Please use at least 8 characters
+              </Alert>
+            }
+            {
+              errors.password?.type === 'uppercase' &&
+              <Alert>
+                Please use at least one capital letter
+              </Alert>
+            }
+            {
+              errors.password?.type === 'number' &&
+              <Alert>
+                Please use at least one number
+              </Alert>
+            }
+            {
+              errors.password?.type === 'special' &&
+              <Alert>
+                Please use at least one special character
+              </Alert>
+            }
+            {
+              errors.password?.type === 'inUse' &&
+              <Alert>
+                Password already in use
+              </Alert>
+            }
+          </Entry>
+          <Entry>
+            <Caption>confirm password</Caption>
+            <Input
+              required={ true }
+              {...register('confirm', { validate: { match }})} 
+              type={'password'}
+              placeholder={'Enter your password'}
+            />
+            { 
+              errors.confirm && 
+              <Alert>
+                Passwords do not match
+              </Alert>
+            }
+          </Entry>
+          <SubmitEntry>
+            <SignupButton type={'submit'}/>
+          </SubmitEntry>
+          <LoginIfGotAnAccount>
+            Already have an account? 
+            <GradientText style={{ display: 'inline', marginLeft: 5 }}>
+              <Link href={'/login'}>
+                <a>
+                  {' '}Log In
+                </a>
+              </Link>
+            </GradientText>
+          </LoginIfGotAnAccount>
+          {
+            errorResponse &&
+            <ErrorContainer>{errorResponse}</ErrorContainer>
           }
-        </Entry>
-        <Entry style={{ marginLeft: 65 }}>
-          <Caption>date of birth</Caption>
-          <DateInput
-            required={ true }
-            {...register('date', { validate: { adult }})} 
-            type={'date'}
-            placeholder={'Enter your date of birth'}
-          />
-          { 
-            errors.date && 
-            <Alert>
-              We&apos;re sorry - you must be 18 or older
-            </Alert>
-          }
-        </Entry>
-      </RowEntry>
-      <Entry>
-        <Caption>email address</Caption>
-        <Input
-          required={ true }
-          {...register('email', { validate: { inUse }})} 
-          type={'email'}
-          placeholder={'Enter your email address'}
-        />
-        { 
-          errors.email &&
-          <Alert>
-            Email address already in use
-          </Alert>
-        }
-      </Entry>
-      <Entry>
-        <Caption>password</Caption>
-        <Input
-          required={ true }
-          {...register('password', {
-            minLength: 8,
-            validate: { uppercase, number, special, checkMatch, inUse } 
-          })}
-          type={'password'}
-          placeholder={'Enter your password'}
-        />
-        {
-          errors.password?.type === 'minLength' &&
-          <Alert>
-            Please use at least 8 characters
-          </Alert>
-        }
-        {
-          errors.password?.type === 'uppercase' &&
-          <Alert>
-            Please use at least one capital letter
-          </Alert>
-        }
-        {
-          errors.password?.type === 'number' &&
-          <Alert>
-            Please use at least one number
-          </Alert>
-        }
-        {
-          errors.password?.type === 'special' &&
-          <Alert>
-            Please use at least one special character
-          </Alert>
-        }
-        {
-          errors.password?.type === 'inUse' &&
-          <Alert>
-            Password already in use
-          </Alert>
-        }
-      </Entry>
-      <Entry>
-        <Caption>confirm password</Caption>
-        <Input
-          required={ true }
-          {...register('confirm', { validate: { match }})} 
-          type={'password'}
-          placeholder={'Enter your password'}
-        />
-        { 
-          errors.confirm && 
-          <Alert>
-            Passwords do not match
-          </Alert>
-        }
-      </Entry>
-      <SubmitEntry>
-        <SignupButton type={'submit'}/>
-      </SubmitEntry>
-      <LoginIfGotAnAccount>
-        Already have an account? 
-        <GradientText style={{ display: 'inline', marginLeft: 5 }}>
-          <Link href={'/login'}>
-            <a>
-              {' '}Log In
-            </a>
-          </Link>
-        </GradientText>
-      </LoginIfGotAnAccount>
-    </FormContainer>
+        </FormContainer>
+          :
+        <div>Authorized!</div>
+      }
+    </>
   )
 }

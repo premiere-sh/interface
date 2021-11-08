@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-const BASE_URL = 'https://api.premiere.sh/'
+export const BASE_URL = 'https://api.premiere.sh/'
 
 export function useAuth() {
   const [isLoading, setLoading] = useState(false)
@@ -52,3 +52,39 @@ export function useAuth() {
   }
 }
 
+// login and signup functions assume that form data has been sanitized
+
+export function getHeaders(token) {
+  return {
+    Authorization: `Bearer ${token}`,
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
+  }
+}
+
+export function useSignUp() {
+  return async function signUp(data) {
+    const res = await fetch(BASE_URL + 'users/', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    return res
+  }
+}
+
+export function useSignIn() {
+  return async function signIn(data) {
+    const res = await fetch(BASE_URL + 'token/', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+  }
+}
