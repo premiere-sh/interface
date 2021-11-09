@@ -92,7 +92,7 @@ const LinksContainer = styled.div`
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-  align-items: flex-start
+  align-items: flex-start;
 `
 
 function Navigator({ isAuthenticated, currentUser }) {
@@ -124,20 +124,17 @@ function Navigator({ isAuthenticated, currentUser }) {
             <DropdownText>EVENTS</DropdownText>
           </a>
         </Link>
-        {
-          !isAuthenticated 
-            ? (
-              <Link href={'/login'}>
-                <a>
-                  <LoginButton>login</LoginButton>
-                </a>
-              </Link>
-            ) : (
-              <div style={{ marginLeft: 15 }}>
-                Logged in as <b>{currentUser.username}</b>
-              </div>
-            )
-        }
+        {!isAuthenticated ? (
+          <Link href={'/login'}>
+            <a>
+              <LoginButton>login</LoginButton>
+            </a>
+          </Link>
+        ) : (
+          <div style={{ marginLeft: 15 }}>
+            Logged in as <b>{currentUser.username}</b>
+          </div>
+        )}
       </LinksContainer>
     </NavigatorContainer>
   )
@@ -194,14 +191,13 @@ export default function _Header({ home }) {
           </a>
         </Link>
       </LogoBit>
-      {
-        navigatorOpen &&
-          <Navigator 
-            ref={ref}
-            currentUser={currentUser} 
-            isAuthenticated={isAuthenticated} 
-          />
-      }
+      {navigatorOpen && (
+        <Navigator
+          ref={ref}
+          currentUser={currentUser}
+          isAuthenticated={isAuthenticated}
+        />
+      )}
       <LinksBit>
         <Link href={'/games'}>
           <a>
@@ -233,27 +229,22 @@ export default function _Header({ home }) {
         <SearchButtonContainer>
           <Image src={'/search.svg'} width={32} height={32} alt={'search'} />
         </SearchButtonContainer>
-        {
-          !isAuthenticated 
-            ? (
-              <Link href={'/login'}>
-                <a>
-                  <LoginButton>
-                    login
-                  </LoginButton>
-                </a>
-              </Link>
-            ) : (
-              <>
-                <div style={{ marginLeft: 15 }}>
-                  Logged in as <b>{currentUser.username}</b>
-                </div>
-                <LoginButton onClick={signOut} style={{ fontSize: 12 }}>
-                  log out
-                </LoginButton>
-              </>
-            )
-        }
+        {!isAuthenticated ? (
+          <Link href={'/login'}>
+            <a>
+              <LoginButton>login</LoginButton>
+            </a>
+          </Link>
+        ) : (
+          <>
+            <div style={{ marginLeft: 15 }}>
+              Logged in as <b>{currentUser.username}</b>
+            </div>
+            <LoginButton onClick={signOut} style={{ fontSize: 12 }}>
+              log out
+            </LoginButton>
+          </>
+        )}
       </SignupBit>
     </Header>
   )

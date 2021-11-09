@@ -41,9 +41,9 @@
 //
 // mobile scaling
 //
-// integrate warzone api and cod api in general, 
+// integrate warzone api and cod api in general,
 // add some endpoints per game and per user
-// 
+//
 // add friends mechanisms (need the design)
 // add tournaments creation (need the design)
 //

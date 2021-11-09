@@ -10,17 +10,14 @@ export function useAuth() {
   const [currentUser, setCurrentUser] = useState({})
 
   useEffect(() => {
-    (async function() {
+    ;(async function () {
       setLoading(true)
       try {
         let storedToken = window.localStorage.getItem('token')
         console.log('retrieved', storedToken)
 
         // first time
-        if (
-          storedToken == null &&
-          token != null
-        ) {
+        if (storedToken == null && token != null) {
           console.log('first time')
           const headers = getHeaders(token)
           const res = await fetch(BASE_URL + 'is-authenticated/', {
@@ -37,10 +34,10 @@ export function useAuth() {
             console.log(window.localStorage)
           }
 
-        // there is a new token
+          // there is a new token
         } else if (
           token != null &&
-          storedToken != null && 
+          storedToken != null &&
           storedToken != token
         ) {
           console.log('new token')
@@ -58,11 +55,8 @@ export function useAuth() {
             setCurrentUser(_currentUser)
           }
 
-        // there is an existing token and no local token
-        } else if (
-          token != null && 
-          storedToken == null
-        ) {
+          // there is an existing token and no local token
+        } else if (token != null && storedToken == null) {
           console.log('existing')
           const headers = getHeaders(storedToken)
           const res = await fetch(BASE_URL + 'is-authenticated/', {
@@ -80,11 +74,8 @@ export function useAuth() {
             setCurrentUser(_currentUser)
           }
 
-        // there is an only the local token
-        } else if (
-          token == null && 
-          storedToken != null
-        ) {
+          // there is an only the local token
+        } else if (token == null && storedToken != null) {
           console.log('local existing')
           const headers = getHeaders(storedToken)
           const res = await fetch(BASE_URL + 'is-authenticated/', {
@@ -102,7 +93,7 @@ export function useAuth() {
             const _currentUser = await res.json()
             setCurrentUser(_currentUser)
           }
-        } 
+        }
       } catch (err) {
         setLoading(false)
       }
@@ -114,7 +105,7 @@ export function useAuth() {
     isLoading: isLoading,
     isAuthenticated: isAuthenticated,
     token: token,
-    setToken: setToken,  // to set token from login and update localStorage
+    setToken: setToken, // to set token from login and update localStorage
     // in case token expires set it to '' and it will update isAuthenticated
     currentUser: currentUser
   }
@@ -185,8 +176,8 @@ export function useSignOut() {
 export function useFriends(user_id) {
   const [friends, setFriends] = useState([])
 
-  useEffect(function() {
-    (async function() {
+  useEffect(function () {
+    ;(async function () {
       const res = await fetch(`${BASE_URL}${user_id}/friends/`)
       if (res.status == 200) {
         const _friends = await res.json()
@@ -201,8 +192,8 @@ export function useFriends(user_id) {
 export function useStats(user_id) {
   const [stats, setStats] = useState({})
 
-  useEffect(function() {
-    (async function() {
+  useEffect(function () {
+    ;(async function () {
       return
       const res = await fetch(`${BASE_URL}${user_id}/stats/`)
       if (res.status == 200) {
@@ -214,4 +205,3 @@ export function useStats(user_id) {
 
   return stats
 }
-

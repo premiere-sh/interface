@@ -104,7 +104,7 @@ const ImageContainer = styled.div`
 `
 
 const MainRow = styled(Row)`
-  width: 100%; 
+  width: 100%;
   height: 100%;
 `
 

@@ -3,7 +3,7 @@ import { useSignUp, useSignIn } from '../src/hooks'
 import 'isomorphic-fetch'
 
 function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
+  return Math.floor(Math.random() * max)
 }
 
 const randInt = getRandomInt(5000)
@@ -16,8 +16,8 @@ const signUpCredentials = {
 }
 
 const workingCredentials = {
-  username: 'user1941', 
-  password: 'asdfasdf' 
+  username: 'user1941',
+  password: 'asdfasdf'
 }
 
 const invalidCredentials = {

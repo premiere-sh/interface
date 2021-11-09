@@ -31,7 +31,7 @@ const SignupIfNotGotAnAccount = styled.div`
 `
 
 const ErrorMessageContainer = styled.div`
-  color: ${props => props.theme.colors.red};
+  color: ${(props) => props.theme.colors.red};
   line-height: 19px;
   font-size: 16px;
   margin-bottom: 20px;
@@ -40,7 +40,11 @@ const ErrorMessageContainer = styled.div`
 `
 
 export default function Login() {
-  const { register, handleSubmit, formState: { errors } } = useForm()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm()
   const { isAuthenticated, setToken } = useContext(AuthenticationContext)
   const [errorMessage, setErrorMessage] = useState('')
   const [waiting, setWaiting] = useContext(WaitingContext)
@@ -89,32 +93,20 @@ export default function Login() {
         )}
       </Entry>
       <SubmitEntry>
-        {
-          waiting 
-            ? (
-              <LoginButton 
-                text={<Dots />}
-                disabled={true}
-              />
-            ) : (
-              <LoginButton
-                type={'submit'}
-                text={'log in'}
-              />
-            )
-        }
+        {waiting ? (
+          <LoginButton text={<Dots />} disabled={true} />
+        ) : (
+          <LoginButton type={'submit'} text={'log in'} />
+        )}
       </SubmitEntry>
-      {
-        errorMessage &&
+      {errorMessage && (
         <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
-      }
+      )}
       <SignupIfNotGotAnAccount>
-        Don&apos;t have an account? 
+        Don&apos;t have an account?
         <GradientText style={{ display: 'inline', marginLeft: 5 }}>
           <Link href={'/signup'}>
-            <a>
-              Sign up
-            </a>
+            <a>Sign up</a>
           </Link>
         </GradientText>
       </SignupIfNotGotAnAccount>

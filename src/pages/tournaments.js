@@ -10,7 +10,7 @@ import { Grid, Cell } from 'styled-css-grid'
 
 export default function Tournaments({ tournaments }) {
   const [width, setWidth] = useState(null)
-  useEffect(function() {
+  useEffect(function () {
     setWidth(window.innerWidth)
     console.log(window.innerWidth)
   }, [])
@@ -26,9 +26,7 @@ export default function Tournaments({ tournaments }) {
       {tournaments && (
         <>
           <Container style={{ marginBottom: 220 }}>
-            {
-              width > 800 && <Tournament tournament={tournaments[0]} />
-            }
+            {width > 800 && <Tournament tournament={tournaments[0]} />}
             <Grid columns={'repeat(auto-fit, minmax(550px, 1fr))'} gap={'50px'}>
               {tournaments.map((tournament, idx) => (
                 <Cell

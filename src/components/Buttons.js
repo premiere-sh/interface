@@ -80,9 +80,7 @@ export function ViewTournamentsButton() {
   return (
     <Link href={'/tournaments'}>
       <a>
-        <ViewTournaments>
-          view tournaments
-        </ViewTournaments>
+        <ViewTournaments>view tournaments</ViewTournaments>
       </a>
     </Link>
   )
