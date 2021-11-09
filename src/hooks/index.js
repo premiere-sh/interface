@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import AuthenticationContext from 'contexts/authentication'
 
 export const BASE_URL = 'https://api.premiere.sh/'
 
@@ -172,3 +173,12 @@ export function useSignIn() {
     }
   }
 }
+
+export function useSignOut() {
+  const { setToken } = useContext(AuthenticationContext)
+  return function signOut() {
+    window.localStorage.setItem('token', null)
+    setToken(null)
+  }
+}
+

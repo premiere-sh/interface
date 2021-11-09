@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import styled from 'styled-components'
@@ -7,6 +7,7 @@ import { Row } from 'components/common'
 import Dropdown, { DropdownText } from 'components/Dropdown'
 import { Button, SignupButton } from 'components/Buttons'
 import LogoHeader from 'components/LogoHeader'
+import AuthenticationContext from 'contexts/authentication'
 
 const Header = styled(Row)`
   justify-content: space-between;
@@ -93,7 +94,7 @@ const LinksContainer = styled.div`
   align-items: flex-start
 `
 
-function Navigator() {
+function Navigator({ isAuthenticated, currentUser }) {
   return (
     <NavigatorContainer>
       <LinksContainer>
@@ -117,11 +118,25 @@ function Navigator() {
             <DropdownText>SUPPORT</DropdownText>
           </a>
         </Link>
-        <Link href={'/login'}>
+        <Link href={'/events'}>
           <a>
-            <LoginButton>login</LoginButton>
+            <DropdownText>EVENTS</DropdownText>
           </a>
         </Link>
+        {
+          !isAuthenticated 
+            ? (
+              <Link href={'/login'}>
+                <a>
+                  <LoginButton>login</LoginButton>
+                </a>
+              </Link>
+            ) : (
+              <div style={{ marginLeft: 15 }}>
+                Logged in as <b>{currentUser.username}</b>
+              </div>
+            )
+        }
       </LinksContainer>
     </NavigatorContainer>
   )
@@ -131,6 +146,7 @@ export default function _Header({ home }) {
   const [navigatorOpen, setNavigatorOpen] = useState(false)
   const ref = useRef()
   const dropdownRef = useRef()
+  const { isAuthenticated, currentUser } = useContext(AuthenticationContext)
 
   useEffect(function () {
     function handleOutsideClick(event) {
@@ -175,7 +191,14 @@ export default function _Header({ home }) {
           </a>
         </Link>
       </LogoBit>
-      {navigatorOpen && <Navigator ref={ref} />}
+      {
+        navigatorOpen &&
+          <Navigator 
+            ref={ref}
+            currentUser={currentUser} 
+            isAuthenticated={isAuthenticated} 
+          />
+      }
       <LinksBit>
         <Link href={'/games'}>
           <a>
@@ -197,16 +220,30 @@ export default function _Header({ home }) {
             <DropdownText>SUPPORT</DropdownText>
           </a>
         </Link>
+        <Link href={'/events'}>
+          <a>
+            <DropdownText>EVENTS</DropdownText>
+          </a>
+        </Link>
       </LinksBit>
       <SignupBit>
         <SearchButtonContainer>
           <Image src={'/search.svg'} width={32} height={32} alt={'search'} />
         </SearchButtonContainer>
-        <Link href={'/signup'}>
-          <a>
-            <SignupButton />
-          </a>
-        </Link>
+        {
+          !isAuthenticated 
+            ? (
+              <Link href={'/signup'}>
+                <a>
+                  <SignupButton />
+                </a>
+              </Link>
+            ) : (
+              <div style={{ marginLeft: 15 }}>
+                Logged in as <b>{currentUser.username}</b>
+              </div>
+            )
+        }
       </SignupBit>
     </Header>
   )
