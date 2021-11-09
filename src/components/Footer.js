@@ -30,10 +30,7 @@ const Footer = styled.footer`
   left: 0;
   padding-top: 68px;
   @media screen and (max-width: 1065px) {
-    min-height: 450px;
-  }
-  @media screen and (max-width: 450px) {
-    width: 500px;
+    min-height: 510px;
   }
 `
 

@@ -41,6 +41,8 @@ const TournamentContainer = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   position: relative;
   width: 590px;
+  border-radius: 15px;
+  overflow: hidden;
 `
 
 const SubText = styled.div`
@@ -84,9 +86,18 @@ const InfoColumn = styled(Column)`
 `
 
 const ImageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  overflow: hidden;
+  height: 111%;
+  height: fill;
+  position: relative;
+  margin-top: -12px;
+  img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    object-fit: cover;
+  }
 `
 
 export default function SmallTournament({ tournament }) {
@@ -97,8 +108,7 @@ export default function SmallTournament({ tournament }) {
           <Image
             src={`/${tournament.game}.svg`}
             alt={'tournament_pic'}
-            width={219}
-            height={341}
+            layout={'fill'}
           />
         </ImageContainer>
         <InfoColumn>

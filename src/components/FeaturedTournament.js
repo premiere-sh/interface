@@ -25,6 +25,7 @@ const TournamentContainer = styled(Container)`
     border: 1px solid ${(props) => props.theme.colors.ruby};
   }
   border-radius: ${(props) => (props.roundBorders ? '10px' : '0')};
+  overflow: hidden;
 `
 
 const SubText = styled.div`
@@ -65,10 +66,19 @@ const InfoColumn = styled(Column)`
 `
 
 const ImageContainer = styled.div`
-  margin-left: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 50%;
+  overflow: hidden;
+  height: 111%;
+  height: fill;
+  position: relative;
+  margin-top: -12px;
+  margin-left: -30px;
+  img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    object-fit: cover;
+  }
 `
 
 export default function FeaturedTournament({ tournament, roundBorders }) {
@@ -79,8 +89,7 @@ export default function FeaturedTournament({ tournament, roundBorders }) {
           <Image
             src={`/${tournament.game}.svg`}
             alt={'tournament_pic'}
-            width={188}
-            height={262}
+            layout={'fill'}
           />
         </ImageContainer>
         <InfoColumn>

@@ -29,6 +29,9 @@ const GlobalStyle = createGlobalStyle`
     font-family: Inter;
     font-style: normal;
     background-color: rgb(243,243,244);
+    @media screen and (max-width: 800px) {
+      width: 700px;
+    }
   }
 
   th {

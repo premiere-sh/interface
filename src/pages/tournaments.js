@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import { Subheading, Row, Column, Container } from 'components/common'
@@ -8,6 +9,11 @@ import GradientDropdown from 'components/GradientDropdown'
 import { Grid, Cell } from 'styled-css-grid'
 
 export default function Tournaments({ tournaments }) {
+  const [width, setWidth] = useState(null)
+  useEffect(function() {
+    setWidth(window.innerWidth)
+    console.log(window.innerWidth)
+  }, [])
   return (
     <Column>
       <Header />
@@ -20,7 +26,9 @@ export default function Tournaments({ tournaments }) {
       {tournaments && (
         <>
           <Container style={{ marginBottom: 220 }}>
-            <Tournament tournament={tournaments[0]} />
+            {
+              width > 800 && <Tournament tournament={tournaments[0]} />
+            }
             <Grid columns={'repeat(auto-fit, minmax(550px, 1fr))'} gap={'50px'}>
               {tournaments.map((tournament, idx) => (
                 <Cell

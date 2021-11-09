@@ -39,6 +39,8 @@ const TournamentContainer = styled.div`
   background-color: ${(props) => props.theme.colors.white};
   margin-bottom: 120px;
   position: relative;
+  overflow: hidden;
+  border-radius: 15px;
 `
 
 const Summary = styled.p`
@@ -86,21 +88,35 @@ const InfoColumn = styled(Column)`
 `
 
 const ImageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 50%;
+  overflow: hidden;
+  height: 111%;
+  height: fill;
+  position: relative;
+  margin-top: -12px;
+  margin-left: -30px;
+  img {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    object-fit: cover;
+  }
+`
+
+const MainRow = styled(Row)`
+  width: 100%; 
+  height: 100%;
 `
 
 export default function Tournament({ tournament }) {
   return (
     <TournamentContainer>
-      <Row style={{ width: '100%', height: '100%' }}>
+      <MainRow>
         <ImageContainer>
           <Image
             src={`/${tournament.game}.svg`}
             alt={'tournament_pic'}
-            width={357}
-            height={566}
+            layout={'fill'}
           />
         </ImageContainer>
         <InfoColumn>
@@ -146,7 +162,7 @@ export default function Tournament({ tournament }) {
             </Row>
           </ButtonRow>
         </InfoColumn>
-      </Row>
+      </MainRow>
     </TournamentContainer>
   )
 }
