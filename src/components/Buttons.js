@@ -60,8 +60,8 @@ const ArrowButtonContainer = styled(GradientText)`
   user-select: none;
 `
 
-export function SignupButton() {
-  return <Signup>sign up</Signup>
+export function SignupButton({ text, disabled }) {
+  return <Signup disabled={disabled}>{text}</Signup>
 }
 
 export function SignupButtonLarge() {
@@ -72,8 +72,8 @@ export function DashboardButton() {
   return <Dashboard>dashboard</Dashboard>
 }
 
-export function LoginButton() {
-  return <Login>log in</Login>
+export function LoginButton({ text, disabled }) {
+  return <Login disabled={disabled}>{text}</Login>
 }
 
 export function ViewTournamentsButton() {

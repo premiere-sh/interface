@@ -1,4 +1,5 @@
 import { AuthenticationProvider } from 'contexts/authentication'
+import { WaitingProvider } from 'contexts/waiting'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import '@fontsource/inter/900.css'
 import '@fontsource/inter/800.css'
@@ -6,6 +7,7 @@ import '@fontsource/inter/700.css'
 import '@fontsource/inter/600.css'
 import '@fontsource/inter/500.css'
 import '@fontsource/inter/400.css'
+import 'react-activity/dist/Dots.css'
 
 const THEME = 'light'
 
@@ -106,11 +108,13 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <AuthenticationProvider>
-        <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </AuthenticationProvider>
+      <WaitingProvider>
+        <AuthenticationProvider>
+          <ThemeProvider theme={theme}>
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </AuthenticationProvider>
+      </WaitingProvider>
     </>
   )
 }

@@ -8,6 +8,7 @@ import Dropdown, { DropdownText } from 'components/Dropdown'
 import { Button, SignupButton } from 'components/Buttons'
 import LogoHeader from 'components/LogoHeader'
 import AuthenticationContext from 'contexts/authentication'
+import { useSignOut } from 'hooks'
 
 const Header = styled(Row)`
   justify-content: space-between;
@@ -147,6 +148,7 @@ export default function _Header({ home }) {
   const ref = useRef()
   const dropdownRef = useRef()
   const { isAuthenticated, currentUser } = useContext(AuthenticationContext)
+  const signOut = useSignOut()
 
   useEffect(function () {
     function handleOutsideClick(event) {
@@ -163,6 +165,7 @@ export default function _Header({ home }) {
       document.removeEventListener('mousedown', handleOutsideClick)
     }
   }, [])
+
   return (
     <Header home={home}>
       <Head>
@@ -233,15 +236,22 @@ export default function _Header({ home }) {
         {
           !isAuthenticated 
             ? (
-              <Link href={'/signup'}>
+              <Link href={'/login'}>
                 <a>
-                  <SignupButton />
+                  <LoginButton>
+                    login
+                  </LoginButton>
                 </a>
               </Link>
             ) : (
-              <div style={{ marginLeft: 15 }}>
-                Logged in as <b>{currentUser.username}</b>
-              </div>
+              <>
+                <div style={{ marginLeft: 15 }}>
+                  Logged in as <b>{currentUser.username}</b>
+                </div>
+                <LoginButton onClick={signOut} style={{ fontSize: 12 }}>
+                  log out
+                </LoginButton>
+              </>
             )
         }
       </SignupBit>

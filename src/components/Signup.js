@@ -16,6 +16,8 @@ import Link from 'next/link'
 import { useSignUp, useSignIn } from 'hooks'
 import AuthenticationContext from 'contexts/authentication'
 import Router from 'next/router'
+import { Dots } from 'react-activity'
+import WaitingContext from 'contexts/waiting'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -68,18 +70,23 @@ export default function Signup() {
   const { isAuthenticated, setToken, currentUser } = useContext(AuthenticationContext)
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
+  const [waiting, setWaiting] = useContext(WaitingContext)
   const signUp = useSignUp()
   const signIn = useSignIn()
 
   const onSubmit = async (data) => {
+    setErrorMessage('')
+    setWaiting(true)
     data.date_of_birth = parseInt(new Date(data.date).getTime() / 1000)
     delete data['date']
     const { error, token } = await signUp(data)
     if (error) {
       setErrorMessage(error)
+      setWaiting(false)
     } else if (token) {
       setToken(token)
       setErrorMessage('')
+      setWaiting(false)
       Router.push(`/profile`)
     }
   }
@@ -235,7 +242,11 @@ export default function Signup() {
             }
           </Entry>
           <SubmitEntry>
-            <SignupButton type={'submit'}/>
+            <SignupButton 
+              type={'submit'}
+              disabled={waiting}
+              text={waiting ? <Dots /> : 'sign up'}
+            />
           </SubmitEntry>
           {
             errorMessage &&

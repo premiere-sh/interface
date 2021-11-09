@@ -7,7 +7,9 @@ import { GradientText } from 'components/common'
 import Link from 'next/link'
 import { useSignIn } from 'hooks'
 import AuthenticationContext from 'contexts/authentication'
+import WaitingContext from 'contexts/waiting'
 import Router from 'next/router'
+import { Dots } from 'react-activity'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -41,17 +43,20 @@ export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm()
   const { isAuthenticated, setToken } = useContext(AuthenticationContext)
   const [errorMessage, setErrorMessage] = useState('')
+  const [waiting, setWaiting] = useContext(WaitingContext)
   const signIn = useSignIn()
 
   const onSubmit = async (data) => {
-    console.log(JSON.stringify(data))
-    console.log(errors)
+    setErrorMessage('')
+    setWaiting(true)
     const { error, token } = await signIn(data)
     if (error) {
       setErrorMessage(error)
+      setWaiting(false)
     } else if (token) {
       setToken(token)
       setErrorMessage('')
+      setWaiting(false)
       Router.push(`/profile`)
     }
   }
@@ -84,7 +89,20 @@ export default function Login() {
         )}
       </Entry>
       <SubmitEntry>
-        <LoginButton type={'submit'} />
+        {
+          waiting 
+            ? (
+              <LoginButton 
+                text={<Dots />}
+                disabled={true}
+              />
+            ) : (
+              <LoginButton
+                type={'submit'}
+                text={'log in'}
+              />
+            )
+        }
       </SubmitEntry>
       {
         errorMessage &&
