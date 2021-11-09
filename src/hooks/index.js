@@ -5,36 +5,103 @@ export const BASE_URL = 'https://api.premiere.sh/'
 export function useAuth() {
   const [isLoading, setLoading] = useState(false)
   const [isAuthenticated, setAuthenticated] = useState(false)
-  const [token, setToken] = useState('')
+  const [token, setToken] = useState(undefined)
+  const [currentUser, setCurrentUser] = useState({})
 
-  // make it so that this runs after login
   useEffect(() => {
     (async function() {
       setLoading(true)
       try {
-        const storedToken = localStorage.getItem('token')
-        // there is a new token
-        if (token && storedToken && storedToken !== token) {
-          const headers = {}
-          const res = await fetch(BASE_URL + 'is-authenticated/')
+        let storedToken = window.localStorage.getItem('token')
+        console.log('retrieved', storedToken)
+
+        // first time
+        if (
+          storedToken == null &&
+          token != null
+        ) {
+          console.log('first time')
+          const headers = getHeaders(token)
+          const res = await fetch(BASE_URL + 'is-authenticated/', {
+            method: 'GET',
+            headers: headers
+          })
           if (res.status == 401) {
             setAuthenticated(false)
           } else if (res.status == 200) {
             setAuthenticated(true)
-            localStorage.setItem('token', token)
+            window.localStorage.setItem('token', token)
+            const _currentUser = await res.json()
+            setCurrentUser(_currentUser)
+            console.log(window.localStorage)
           }
+
+        // there is a new token
+        } else if (
+          token != null &&
+          storedToken != null && 
+          storedToken != token
+        ) {
+          console.log('new token')
+          const headers = getHeaders(token)
+          const res = await fetch(BASE_URL + 'is-authenticated/', {
+            method: 'GET',
+            headers: headers
+          })
+          if (res.status == 401) {
+            setAuthenticated(false)
+          } else if (res.status == 200) {
+            setAuthenticated(true)
+            window.localStorage.setItem('token', token)
+            const _currentUser = await res.json()
+            setCurrentUser(_currentUser)
+          }
+
         // there is an existing token and no local token
-        } else if (!token && storedToken) {
-          const headers = {}
-          const res = await fetch(BASE_URL + 'is-authenticated/')
+        } else if (
+          token != null && 
+          storedToken == null
+        ) {
+          console.log('existing')
+          const headers = getHeaders(storedToken)
+          const res = await fetch(BASE_URL + 'is-authenticated/', {
+            method: 'GET',
+            headers: headers
+          })
           if (res.status == 401) {
             setAuthenticated(false)
             setLoading(false)
+            window.localStorage.setItem('token', undefined)
           } else if (res.status == 200) {
             setAuthenticated(true)
             setToken(storedToken)
+            const _currentUser = await res.json()
+            setCurrentUser(_currentUser)
           }
-        }
+
+        // there is an only the local token
+        } else if (
+          token == null && 
+          storedToken != null
+        ) {
+          console.log('local existing')
+          const headers = getHeaders(storedToken)
+          const res = await fetch(BASE_URL + 'is-authenticated/', {
+            method: 'GET',
+            headers: headers
+          })
+          if (res.status == 401) {
+            // in case it expires
+            setAuthenticated(false)
+            setLoading(false)
+            window.localStorage.setItem('token', undefined)
+          } else if (res.status == 200) {
+            setAuthenticated(true)
+            setToken(storedToken)
+            const _currentUser = await res.json()
+            setCurrentUser(_currentUser)
+          }
+        } 
       } catch (err) {
         setLoading(false)
       }
@@ -46,8 +113,9 @@ export function useAuth() {
     isLoading: isLoading,
     isAuthenticated: isAuthenticated,
     token: token,
-    setToken: setToken  // to set token from login and update localStorage
+    setToken: setToken,  // to set token from login and update localStorage
     // in case token expires set it to '' and it will update isAuthenticated
+    currentUser: currentUser
   }
 }
 

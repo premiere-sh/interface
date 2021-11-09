@@ -7,6 +7,7 @@ import { GradientText } from 'components/common'
 import Link from 'next/link'
 import { useSignIn } from 'hooks'
 import AuthenticationContext from 'contexts/authentication'
+import Router from 'next/router'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -30,16 +31,19 @@ const SignupIfNotGotAnAccount = styled.div`
 const ErrorMessageContainer = styled.div`
   color: ${props => props.theme.colors.red};
   line-height: 19px;
-  font-size: 14px;
-  margin-top: 20px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
 `
 
 export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm()
   const { isAuthenticated, setToken } = useContext(AuthenticationContext)
   const [errorMessage, setErrorMessage] = useState('')
+  const signIn = useSignIn()
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(JSON.stringify(data))
     console.log(errors)
     const { error, token } = await signIn(data)
@@ -47,6 +51,8 @@ export default function Login() {
       setErrorMessage(error)
     } else if (token) {
       setToken(token)
+      setErrorMessage('')
+      Router.push(`/profile`)
     }
   }
 
@@ -82,7 +88,7 @@ export default function Login() {
       </SubmitEntry>
       {
         errorMessage &&
-        <ErrorMessageContainer>{errorResponse}</ErrorMessageContainer>
+        <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
       }
       <SignupIfNotGotAnAccount>
         Don&apos;t have an account? 

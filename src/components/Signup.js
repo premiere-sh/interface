@@ -15,6 +15,7 @@ import { useForm } from 'react-hook-form'
 import Link from 'next/link'
 import { useSignUp, useSignIn } from 'hooks'
 import AuthenticationContext from 'contexts/authentication'
+import Router from 'next/router'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -55,14 +56,16 @@ const LoginIfGotAnAccount = styled.div`
 const ErrorMessageContainer = styled.div`
   color: ${props => props.theme.colors.red};
   line-height: 19px;
-  font-size: 14px;
-  margin-top: 20px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
 `
 
 export default function Signup() {
 
   const { register, handleSubmit, formState: { errors } } = useForm()
-  const { isAuthenticated, setToken } = useContext(AuthenticationContext)
+  const { isAuthenticated, setToken, currentUser } = useContext(AuthenticationContext)
   const [password, setPassword] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const signUp = useSignUp()
@@ -76,6 +79,8 @@ export default function Signup() {
       setErrorMessage(error)
     } else if (token) {
       setToken(token)
+      setErrorMessage('')
+      Router.push(`/profile`)
     }
   }
 
@@ -232,6 +237,10 @@ export default function Signup() {
           <SubmitEntry>
             <SignupButton type={'submit'}/>
           </SubmitEntry>
+          {
+            errorMessage &&
+            <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
+          }
           <LoginIfGotAnAccount>
             Already have an account? 
             <GradientText style={{ display: 'inline', marginLeft: 5 }}>
@@ -242,10 +251,6 @@ export default function Signup() {
               </Link>
             </GradientText>
           </LoginIfGotAnAccount>
-          {
-            errorMessage &&
-            <ErrorMessageContainer>{errorResponse}</ErrorMessageContainer>
-          }
         </FormContainer>
           :
         <div>Authorized!</div>
