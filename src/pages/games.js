@@ -22,10 +22,6 @@ export default function Games({ games }) {
 }
 
 export function getGames() {
-  const csgo = {
-    name: 'csgo',
-    caption: '123 ongoing'
-  }
   const dirt = {
     name: 'dirt',
     caption: '123 ongoing'
@@ -42,7 +38,7 @@ export function getGames() {
     name: 'rl',
     caption: '123 ongoing'
   }
-  const _games = [csgo, dirt, minecraft, cod, rl]
+  const _games = [dirt, minecraft, cod, rl]
   const games = [..._games, ..._games, ..._games, ..._games.slice(0, 3)]
   return games
 }

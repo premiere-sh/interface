@@ -52,7 +52,7 @@ export default function Tournaments({ tournaments }) {
 
 export function getTournaments() {
   const tournament = {
-    game: 'csgo',
+    game: 'cod',
     region: 'USA + Europe',
     title: '5v5 | Search & Destroy | FACEIT',
     summary: `This is where a summary of the featured tournament will go. This is
