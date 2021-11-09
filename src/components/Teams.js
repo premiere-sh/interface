@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import { Column, Container, Row, GradientText, Circle } from './common'
+import { Column, Container, Row, GradientText, Circle } from 'components/common'
 import Image from 'next/image'
 import { ArrowButton } from 'components/Buttons'
 import DeleteTeamModal from 'components/DeleteTeamModal'

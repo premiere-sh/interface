@@ -182,3 +182,36 @@ export function useSignOut() {
   }
 }
 
+export function useFriends(user_id) {
+  const [friends, setFriends] = useState([])
+
+  useEffect(function() {
+    (async function() {
+      const res = await fetch(`${BASE_URL}${user_id}/friends/`)
+      if (res.status == 200) {
+        const _friends = await res.json()
+        setFriends(_friends)
+      }
+    })()
+  }, [])
+
+  return friends
+}
+
+export function useStats(user_id) {
+  const [stats, setStats] = useState({})
+
+  useEffect(function() {
+    (async function() {
+      return
+      const res = await fetch(`${BASE_URL}${user_id}/stats/`)
+      if (res.status == 200) {
+        const _stats = await res.json()
+        setFriends(_stats)
+      }
+    })()
+  }, [])
+
+  return stats
+}
+

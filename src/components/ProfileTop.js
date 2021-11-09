@@ -1,5 +1,6 @@
+import { useContext } from 'react'
 import styled from 'styled-components'
-import { Column, Container, Row } from './common'
+import { Column, Container, Row } from 'components/common'
 import Image from 'next/image'
 import { useState } from 'react'
 import Friends from 'components/Friends'
@@ -7,6 +8,8 @@ import Teams from 'components/Teams'
 import Home from 'components/ProfileHome'
 import History from 'components/History'
 import Link from 'next/link'
+import AuthenticationContext from 'contexts/authentication'
+import { useFriends, useStats } from 'hooks'
 
 const ProfilePanel = styled(Row)``
 
@@ -26,7 +29,7 @@ const Wrapper = styled(Container)`
   margin-bottom: 79px;
 `
 
-const Since = styled.div`
+const Team = styled.div`
   font-family: Inter;
   font-style: Normal;
   font-weight: 600;
@@ -102,7 +105,9 @@ const ButtonEvents = styled(Button)`
 
 export default function ProfileTop() {
   const [selected, setSelected] = useState('Home')
-
+  const { currentUser } = useContext(AuthenticationContext)
+  const friends = useFriends(currentUser.id)
+  const stats = useStats(currentUser.id)
   return (
     <Column>
       <Wrapper>
@@ -115,20 +120,20 @@ export default function ProfileTop() {
               alt={'Profile-image'}
             />
             <ProfileInfo>
-              <Name>devonhenry_</Name>
-              <Since>UK Member since August 24, 2021</Since>
+              <Name>{currentUser?.username}</Name>
+              <Team>{currentUser?.team}</Team>
               <ProfileStats>
                 <GreyTextColumn>
                   <GreyText>rank</GreyText>
-                  <Numbers>1st</Numbers>
+                  <Numbers>{stats?.rank ?? '-'}</Numbers>
                 </GreyTextColumn>
                 <GreyTextColumn>
                   <GreyText>weekly wins</GreyText>
-                  <Numbers>98</Numbers>
+                  <Numbers>{stats?.weeklyWins ?? 0}</Numbers>
                 </GreyTextColumn>
                 <GreyTextColumn>
-                  <GreyText>$prem earned</GreyText>
-                  <Numbers>2310994</Numbers>
+                  <GreyText>Friends</GreyText>
+                  <Numbers>{friends.length}</Numbers>
                 </GreyTextColumn>
               </ProfileStats>
             </ProfileInfo>
@@ -178,8 +183,8 @@ export default function ProfileTop() {
             friends
           </Button>
           <Link href={'/events'}>
-            <a>
-              <ButtonEvents>uncoming events</ButtonEvents>
+            <a style={{ color: 'inherit' }}>
+              <ButtonEvents>upcoming events</ButtonEvents>
             </a>
           </Link>
         </ButtonWrapper>

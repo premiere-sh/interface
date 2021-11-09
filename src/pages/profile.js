@@ -9,7 +9,7 @@ export default function Profile() {
     <div>
       <Header />
       <ProfileTop />
-      <div style={{ marginBottom: 152, marginTop: 352 }}>
+      <div style={{ marginBottom: 152, marginTop: 152 }}>
         <SocialsSection />
       </div>
       <Footer />
