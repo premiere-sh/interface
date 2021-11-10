@@ -21,6 +21,7 @@ const TournamentContainer = styled(Container)`
   position: relative;
   width: 453px;
   cursor: pointer;
+  border: 1px solid transparent;
   &:hover {
     border: 1px solid ${(props) => props.theme.colors.ruby};
   }
