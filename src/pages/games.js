@@ -1,3 +1,4 @@
+import { BASE_URL } from 'hooks'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import { Column } from 'components/common'
@@ -21,30 +22,24 @@ export default function Games({ games }) {
   )
 }
 
-export function getGames() {
-  const dirt = {
-    name: 'dirt',
-    caption: '123 ongoing'
+export async function getGames() {
+  const _games = []
+  const res = await fetch(BASE_URL + 'tournaments/ongoing/')
+  if (res.status == 200) {
+    const ongoingTournaments = await res.json()
+    let ongoing
+    for (let game in ongoingTournaments) {
+      _games.push({
+        name: game,
+        caption: `${ongoingTournaments[game]} ongoing`
+      })
+    }
   }
-  const minecraft = {
-    name: 'minecraft',
-    caption: '123 ongoing'
-  }
-  const cod = {
-    name: 'cod',
-    caption: '123 ongoing'
-  }
-  const rl = {
-    name: 'rl',
-    caption: '123 ongoing'
-  }
-  const _games = [dirt, minecraft, cod, rl]
-  const games = [..._games, ..._games, ..._games, ..._games.slice(0, 3)]
-  return games
+  return _games
 }
 
 export async function getStaticProps(context) {
-  const games = getGames()
+  const games = await getGames()
   return {
     props: { games }
   }
