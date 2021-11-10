@@ -16,8 +16,8 @@ const signUpCredentials = {
 }
 
 const workingCredentials = {
-  username: 'user1941',
-  password: 'asdfasdf'
+  username: 'username',
+  password: 'password'
 }
 
 const invalidCredentials = {
