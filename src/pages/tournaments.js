@@ -7,7 +7,7 @@ import SmallTournament from 'components/SmallTournament'
 import SocialsSection from 'components/SocialsSection'
 import GradientDropdown from 'components/GradientDropdown'
 import { Grid, Cell } from 'styled-css-grid'
-import { BASE_URL } from 'hooks'
+import { getTournaments } from 'calls'
 
 export default function Tournaments({ tournaments }) {
   const [width, setWidth] = useState(null)
@@ -48,32 +48,6 @@ export default function Tournaments({ tournaments }) {
     </Column>
   )
 }
-
-export async function getTournaments() {
-  const months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
-  ]
-  function makeTimeRight(tournament) {
-    const unix = tournament.time
-    let date = new Date(unix * 1000)
-    let year = date.getFullYear()
-    let day = date.getDate()
-    let month = months[date.getMonth()]
-    let hours = date.getHours()
-    let minutes = date.getMinutes()
-    tournament.time = `${hours}:${minutes}`
-    tournament.date = `${day} ${month} ${year}`
-    return tournament
-  }
-  const res = await fetch(BASE_URL + 'tournaments/')
-  if (res.status == 200) {
-    let tournaments = await res.json()
-    tournaments = tournaments.map(tournament => makeTimeRight(tournament))
-    return tournaments
-  }
-}
-
 
 export async function getStaticProps(context) {
   const tournaments = await getTournaments()

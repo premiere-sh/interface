@@ -32,7 +32,8 @@ function getTournament(game, i) {
     description: `This tournaments is succulent.`,
     time: convertToUnix('24/08/2021'),
     prize: 1250,
-    prize_currency: 'usd'
+    prize_currency: 'usd',
+    creator: 'username'
   }
 }
 

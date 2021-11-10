@@ -88,15 +88,7 @@ function CopyLink() {
   )
 }
 
-export default function PlayerOfTheWeek() {
-  const player = {
-    name: 'devonhenry_',
-    since: 'UK Member since August 24, 2021',
-    rank: '1st',
-    weeklyWins: '98',
-    premEarned: '2310994'
-  }
-
+export default function PlayerOfTheWeek({ player }) {
   return (
     <div>
       <LeaderboardTitle>Player of the week</LeaderboardTitle>

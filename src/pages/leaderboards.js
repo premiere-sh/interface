@@ -6,6 +6,7 @@ import GradientDropdown from 'components/GradientDropdown'
 import Leaderboard from 'components/Leaderboard'
 import PlayerOfTheWeek from 'components/PlayerOfTheWeek'
 import styled from 'styled-components'
+import { getPlayerOfTheWeek } from 'calls'
 
 const ContainerRow = styled(Container)`
   display: flex;
@@ -13,7 +14,7 @@ const ContainerRow = styled(Container)`
   justify-content: space-between;
 `
 
-export default function Leaderboards() {
+export default function Leaderboards({ player }) {
   return (
     <Column>
       <Header />
@@ -25,7 +26,7 @@ export default function Leaderboards() {
       </Container>
       <ContainerRow>
         <Leaderboard />
-        <PlayerOfTheWeek />
+        <PlayerOfTheWeek player={player} />
       </ContainerRow>
       <div style={{ marginBottom: 150 }}>
         <SocialsSection />
@@ -33,4 +34,11 @@ export default function Leaderboards() {
       <Footer />
     </Column>
   )
+}
+
+export async function getStaticProps(context) {
+  const player = await getPlayerOfTheWeek()
+  return {
+    props: { player }
+  }
 }

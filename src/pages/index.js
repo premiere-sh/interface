@@ -7,8 +7,7 @@ import FeaturedGames from 'components/FeaturedGames'
 import FeaturedTournaments from 'components/FeaturedTournaments'
 import SocialsSection from 'components/SocialsSection'
 import BigPlayerOfTheWeek from 'components/BigPlayerOfTheWeek'
-import { getTournaments } from 'pages/tournaments'
-import { getGames } from 'pages/games'
+import { getGames, getTournaments, getPlayerOfTheWeek } from 'calls'
 
 export default function Home({ games, tournaments, player }) {
   return (
@@ -34,13 +33,7 @@ export default function Home({ games, tournaments, player }) {
 export async function getStaticProps(context) {
   const games = await getGames()
   const tournaments = await getTournaments()
-  const player = {
-    name: 'devonhenry_',
-    since: 'UK Member since August 24, 2021',
-    rank: '1st',
-    weeklyWins: '98',
-    premEarned: '2310994'
-  }
+  const player = await getPlayerOfTheWeek()
   return {
     props: { games, tournaments, player }
   }
