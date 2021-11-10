@@ -7,6 +7,7 @@ import SmallTournament from 'components/SmallTournament'
 import SocialsSection from 'components/SocialsSection'
 import GradientDropdown from 'components/GradientDropdown'
 import { Grid, Cell } from 'styled-css-grid'
+import { BASE_URL } from 'hooks'
 
 export default function Tournaments({ tournaments }) {
   const [width, setWidth] = useState(null)
@@ -48,26 +49,18 @@ export default function Tournaments({ tournaments }) {
   )
 }
 
-export function getTournaments() {
-  const tournament = {
-    game: 'cod',
-    region: 'USA + Europe',
-    title: '5v5 | Search & Destroy | FACEIT',
-    summary: `This is where a summary of the featured tournament will go. This is
-      where a summary of the featured tournament will go. This is where a summary
-      of the featured tournament will go. This is where a summary of the featured
-      tournament will go. This is where a summary of the featured tournament will
-      go.`,
-    date: '24/08/2021',
-    time: '9:15pm',
-    prize: '$1,250'
+export async function getTournaments() {
+  const res = await fetch(BASE_URL + 'tournaments/')
+  console.log(res)
+  if (res.status == 200) {
+    const tournaments = await res.json()
+    return tournaments
   }
-  const tournaments = [tournament, tournament, tournament, tournament]
-  return tournaments
 }
 
+
 export async function getStaticProps(context) {
-  const tournaments = getTournaments()
+  const tournaments = await getTournaments()
   return {
     props: { tournaments }
   }

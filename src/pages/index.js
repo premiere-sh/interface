@@ -32,8 +32,8 @@ export default function Home({ games, tournaments, player }) {
 }
 
 export async function getStaticProps(context) {
-  const games = getGames()
-  const tournaments = getTournaments()
+  const games = await getGames()
+  const tournaments = await getTournaments()
   const player = {
     name: 'devonhenry_',
     since: 'UK Member since August 24, 2021',

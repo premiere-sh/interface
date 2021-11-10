@@ -70,12 +70,12 @@ export default function Login() {
       <Heading>log in</Heading>
       <Subtext>Login to your Premiere account below!</Subtext>
       <Entry htmlFor={'email'}>
-        <Caption>email address</Caption>
+        <Caption>username</Caption>
         <Input
           required={true}
-          {...register('email')}
-          type={'email'}
-          placeholder={'Enter your email address'}
+          {...register('username')}
+          type={'username'}
+          placeholder={'Enter your username'}
         />
       </Entry>
       <Entry>
