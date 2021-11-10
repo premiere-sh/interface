@@ -114,7 +114,7 @@ export default function SmallTournament({ tournament }) {
         <InfoColumn>
           <SubText>{tournament.region}</SubText>
           <TitleContainer>
-            <Title>{tournament.title}</Title>
+            <Title>{tournament.name}</Title>
           </TitleContainer>
           <InfoText>
             <span style={{ fontWeight: 800 }}>{tournament.time}</span>
@@ -123,7 +123,7 @@ export default function SmallTournament({ tournament }) {
           <div style={{ height: 16 }} />
           <InfoText>
             <span style={{ fontWeight: 800 }}>Prize</span>
-            <span> - {tournament.prize}</span>
+            <span> - {tournament.prize} {tournament.prize_currency}</span>
           </InfoText>
           <ButtonRow>
             <div style={{ marginTop: 11, fontSize: 15 }}>

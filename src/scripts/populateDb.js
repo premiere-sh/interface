@@ -9,7 +9,7 @@ function convertToUnix(date) {
   _date = _date.replaceAll('/', '.')
   _date = _date.split(".");
   _date = new Date(_date[2], _date[1] - 1, _date[0]);
-  return parseInt(_date.getTime() / 1000)
+  return parseInt((_date.getTime() / 1000) + 12342134) 
 }
 
 const user = {
@@ -28,12 +28,8 @@ function getTournament(game, i) {
   return {
     game: game,
     region: 'USA + Europe',
-    name: '5v5 | Search & Destroy | FACEIT ' + i,
-    summary: `This is where a summary of the featured tournament will go. This is
-      where a summary of the featured tournament will go. This is where a summary
-      of the featured tournament will go. This is where a summary of the featured
-      tournament will go. This is where a summary of the featured tournament will
-      go.`,
+    name: 'Tournament ' + i,
+    description: `This tournaments is succulent.`,
     time: convertToUnix('24/08/2021'),
     prize: 1250,
     prize_currency: 'usd'
@@ -66,6 +62,7 @@ function getTournament(game, i) {
   let i = 1
   if (token) {
     for (let game of games) {
+      console.log(game)
       res = await fetch(BASE_URL + 'tournaments/', {
         headers: { ...headers, 'authorization': `Bearer ${token}` },
         method: 'POST',

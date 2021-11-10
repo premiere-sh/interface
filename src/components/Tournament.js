@@ -114,23 +114,23 @@ export default function Tournament({ tournament }) {
       <MainRow>
         <ImageContainer>
           <Image
-            src={`/${tournament.game}.svg`}
+            src={`/${tournament?.game}.svg`}
             alt={'tournament_pic'}
             layout={'fill'}
           />
         </ImageContainer>
         <InfoColumn>
-          <SubText>{tournament.region}</SubText>
-          <Title>{tournament.title}</Title>
-          <Summary>{tournament.summary}</Summary>
+          <SubText>{tournament?.region}</SubText>
+          <Title>{tournament?.name}</Title>
+          <Summary>{tournament?.description}</Summary>
           <InfoText>
-            <span style={{ fontWeight: 800 }}>{tournament.time}</span>
-            <span> - {tournament.date}</span>
+            <span style={{ fontWeight: 800 }}>{tournament?.time}</span>
+            <span> - {tournament?.date}</span>
           </InfoText>
           <div style={{ height: 16 }} />
           <InfoText>
             <span style={{ fontWeight: 800 }}>Prize</span>
-            <span> - {tournament.prize}</span>
+            <span> - {tournament?.prize} {tournament?.prize_currency}</span>
           </InfoText>
           <ButtonRow>
             <ArrowButton text={'enter now'} />

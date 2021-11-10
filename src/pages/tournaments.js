@@ -50,10 +50,26 @@ export default function Tournaments({ tournaments }) {
 }
 
 export async function getTournaments() {
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ]
+  function makeTimeRight(tournament) {
+    const unix = tournament.time
+    let date = new Date(unix * 1000)
+    let year = date.getFullYear()
+    let day = date.getDate()
+    let month = months[date.getMonth()]
+    let hours = date.getHours()
+    let minutes = date.getMinutes()
+    tournament.time = `${hours}:${minutes}`
+    tournament.date = `${day} ${month} ${year}`
+    return tournament
+  }
   const res = await fetch(BASE_URL + 'tournaments/')
-  console.log(res)
   if (res.status == 200) {
-    const tournaments = await res.json()
+    let tournaments = await res.json()
+    tournaments = tournaments.map(tournament => makeTimeRight(tournament))
     return tournaments
   }
 }

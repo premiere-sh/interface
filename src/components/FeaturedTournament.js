@@ -96,7 +96,7 @@ export default function FeaturedTournament({ tournament, roundBorders }) {
           <div>
             <SubText>{tournament.region}</SubText>
             <TitleContainer>
-              <Title>{tournament.title}</Title>
+              <Title>{tournament.name}</Title>
             </TitleContainer>
           </div>
           <div>
