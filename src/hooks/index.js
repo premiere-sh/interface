@@ -1,5 +1,7 @@
 import { useState, useEffect, useContext } from 'react'
 import AuthenticationContext from 'contexts/authentication'
+import { createAvatar } from '@dicebear/avatars'
+import * as style from '@dicebear/avatars-identicon-sprites'
 
 export const BASE_URL = 'https://api.premiere.sh/'
 
@@ -8,6 +10,18 @@ export function useAuth() {
   const [isAuthenticated, setAuthenticated] = useState(false)
   const [token, setToken] = useState(undefined)
   const [currentUser, setCurrentUser] = useState({})
+  const [avatar, setAvatar] = useState(null)
+
+  useEffect(function() {
+    if (currentUser?.username) {
+      const _avatar = createAvatar(style, {
+        seed: currentUser.username + 'asdf',
+        dataUri: true
+      })
+      console.log(_avatar)
+      setAvatar(_avatar)
+    }
+  }, [currentUser])
 
   useEffect(() => {
     ;(async function () {
@@ -107,7 +121,8 @@ export function useAuth() {
     token: token,
     setToken: setToken, // to set token from login and update localStorage
     // in case token expires set it to '' and it will update isAuthenticated
-    currentUser: currentUser
+    currentUser: currentUser,
+    avatar: avatar
   }
 }
 
@@ -205,3 +220,10 @@ export function useStats(user_id) {
 
   return stats
 }
+
+export function useInviteFriend() {
+  return async function inviteFriend() {
+    return
+  }
+}
+

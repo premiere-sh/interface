@@ -9,6 +9,7 @@ import { Button, SignupButton } from 'components/Buttons'
 import LogoHeader from 'components/LogoHeader'
 import AuthenticationContext from 'contexts/authentication'
 import { useSignOut } from 'hooks'
+import Router from 'next/router'
 
 const Header = styled(Row)`
   justify-content: space-between;
@@ -95,6 +96,15 @@ const LinksContainer = styled.div`
   align-items: flex-start;
 `
 
+const Avatar = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+`
+
+const LogoutButton = styled(LoginButton)`
+`
+
 function Navigator({ isAuthenticated, currentUser }) {
   return (
     <NavigatorContainer>
@@ -144,7 +154,7 @@ export default function _Header({ home }) {
   const [navigatorOpen, setNavigatorOpen] = useState(false)
   const ref = useRef()
   const dropdownRef = useRef()
-  const { isAuthenticated, currentUser } = useContext(AuthenticationContext)
+  const { isAuthenticated, currentUser, avatar } = useContext(AuthenticationContext)
   const signOut = useSignOut()
 
   useEffect(function () {
@@ -226,25 +236,25 @@ export default function _Header({ home }) {
         </Link>
       </LinksBit>
       <SignupBit>
-        <SearchButtonContainer>
-          <Image src={'/search.svg'} width={32} height={32} alt={'search'} />
-        </SearchButtonContainer>
-        {!isAuthenticated ? (
-          <Link href={'/login'}>
-            <a>
-              <LoginButton>login</LoginButton>
-            </a>
-          </Link>
-        ) : (
-          <>
-            <div style={{ marginLeft: 15 }}>
-              Logged in as <b>{currentUser.username}</b>
-            </div>
-            <LoginButton onClick={signOut} style={{ fontSize: 12 }}>
-              log out
-            </LoginButton>
-          </>
-        )}
+          {!isAuthenticated ? (
+            <Link href={'/login'}>
+              <a>
+                <LoginButton>login</LoginButton>
+              </a>
+            </Link>
+          ) : (
+            <>
+              <div 
+                onClick={() => Router.push('/profile')} 
+                style={{ cursor: 'pointer', marginTop: 5 }}
+              >
+                <Avatar src={avatar} />
+              </div>
+              <LogoutButton>
+                log out
+              </LogoutButton>
+            </>
+          )}
       </SignupBit>
     </Header>
   )

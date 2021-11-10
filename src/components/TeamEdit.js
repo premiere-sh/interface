@@ -75,7 +75,7 @@ const MembersRow = styled(Row)`
   margin-right: 3px;
 `
 
-const AddMember = styled.div`
+export const AddMember = styled.div`
   width: 86px;
   height: 86px;
   border-radius: 50%;
@@ -100,6 +100,9 @@ const AddMember = styled.div`
     height: 2px;
     transform: translateY(-50%);
     background: #982649;
+  }
+  &:hover {
+    opacity: 0.7;
   }
 `
 

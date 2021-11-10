@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { Column, Container, Row } from 'components/common'
 import Image from 'next/image'
@@ -9,7 +9,8 @@ import Home from 'components/ProfileHome'
 import History from 'components/History'
 import Link from 'next/link'
 import AuthenticationContext from 'contexts/authentication'
-import { useFriends, useStats } from 'hooks'
+import { useFriends, useStats, useInviteFriend } from 'hooks'
+import { AddMember } from 'components/TeamEdit'
 
 const ProfilePanel = styled(Row)``
 
@@ -58,7 +59,10 @@ const GreyText = styled.div`
   text-transform: uppercase;
 `
 
-const ArrowColumn = styled(Column)``
+const ArrowColumn = styled(Column)`
+  justify-content: center;
+  margin-right: 50px;
+`
 
 const Numbers = styled.div`
   font-weight: 600;
@@ -103,22 +107,35 @@ const ButtonEvents = styled(Button)`
   padding-right: 0px;
 `
 
+const Avatar = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 200px;
+`
+
 export default function ProfileTop() {
   const [selected, setSelected] = useState('Home')
-  const { currentUser } = useContext(AuthenticationContext)
-  const friends = useFriends(currentUser.id)
-  const stats = useStats(currentUser.id)
+  const [profileId, setProfileId] = useState(null)
+  const { currentUser, avatar } = useContext(AuthenticationContext)
+  // there have to be profile pages for all the users
+  // and onclick it takes you to the profile
+  // profiles are based on the id
+  // edit so that it pushes you to the profile id of user, not /profile
+  const friends = useFriends(currentUser)
+  const stats = useStats(currentUser)
+  const inviteFriend = useInviteFriend()
+
+  useEffect(function() {
+  }, [])
   return (
     <Column>
       <Wrapper>
         <SpaceBetween>
           <ProfilePanel>
-            <Image
-              src={'/devonhenry_.svg'}
-              width={219}
-              height={219}
-              alt={'Profile-image'}
-            />
+            {
+              avatar &&
+              <Avatar src={avatar} />
+            }
             <ProfileInfo>
               <Name>{currentUser?.username}</Name>
               <Team>{currentUser?.team}</Team>
@@ -138,24 +155,20 @@ export default function ProfileTop() {
               </ProfileStats>
             </ProfileInfo>
           </ProfilePanel>
-          <ArrowColumn>
-            <div style={{ marginBottom: 113 }}>
-              <Image
-                src={'/arrow_right.svg'}
-                width={32}
-                height={32}
-                alt={'Profile-image'}
-              />
-            </div>
-            <div style={{ marginBottom: 20 }}>
-              <Image
-                src={'/arrow_right.svg'}
-                width={32}
-                height={32}
-                alt={'Profile-image'}
-              />
-            </div>
-          </ArrowColumn>
+          {
+            currentUser && profileId && currentUser != profileId &&
+              <ArrowColumn>
+                <div 
+                  style={{ cursor: 'pointer' }} 
+                  onClick={() => inviteFriend(currentUser, profileId)}
+                >
+                  <AddMember />
+                  <div style={{ marginTop: 10 }}>
+                    invite friend 
+                  </div>
+                </div>
+              </ArrowColumn>
+          }
         </SpaceBetween>
         <ButtonWrapper>
           <ButtonHome
@@ -194,4 +207,4 @@ export default function ProfileTop() {
       {selected == 'Home' && <Home />}
     </Column>
   )
-}
+ }
