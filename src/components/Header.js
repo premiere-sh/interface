@@ -102,6 +102,11 @@ const Avatar = styled.img`
   border-radius: 40px;
 `
 
+const AvatarPlaceholder = styled.div`
+  height: 40px;
+  width: 40px;
+`
+
 const LogoutButton = styled(LoginButton)`
 `
 
@@ -237,11 +242,14 @@ export default function _Header({ home }) {
       </LinksBit>
       <SignupBit>
           {!isAuthenticated ? (
-            <Link href={'/login'}>
-              <a>
-                <LoginButton>login</LoginButton>
-              </a>
-            </Link>
+            <>
+              <AvatarPlaceholder />
+              <Link href={'/login'}>
+                <a>
+                  <LoginButton>login</LoginButton>
+                </a>
+              </Link>
+            </>
           ) : (
             <>
               <div 
@@ -250,7 +258,7 @@ export default function _Header({ home }) {
               >
                 <Avatar src={avatar} />
               </div>
-              <LogoutButton>
+              <LogoutButton onClick={signOut}>
                 log out
               </LogoutButton>
             </>
