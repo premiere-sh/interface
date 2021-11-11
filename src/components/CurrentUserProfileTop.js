@@ -115,14 +115,14 @@ const Avatar = styled.img`
 `
 
 export default function ProfileTop() {
-  const router = useRouter() 
-  const { userId } = router.query
-  const { user, avatar } = useUser(userId)
   const [selected, setSelected] = useState('Home')
-  const { currentUser, isAuthenticated } = useContext(AuthenticationContext)
-  const friends = useFriends(user)
-  const stats = useStats(user)
-  const inviteFriend = useInviteFriend()
+  const { 
+    currentUser,
+    isAuthenticated, 
+    currentUserAvatar 
+  } = useContext(AuthenticationContext)
+  const friends = useFriends(currentUser)
+  const stats = useStats(currentUser)
 
   return (
     <Column>
@@ -130,12 +130,12 @@ export default function ProfileTop() {
         <SpaceBetween>
           <ProfilePanel>
             {
-              avatar &&
-              <Avatar src={avatar} />
+              currentUserAvatar &&
+              <Avatar src={currentUserAvatar} />
             }
             <ProfileInfo>
-              <Name>{user?.username}</Name>
-              <Team>{user?.team}</Team>
+              <Name>{currentUser?.username}</Name>
+              <Team>{currentUser?.team}</Team>
               <ProfileStats>
                 <GreyTextColumn>
                   <GreyText>rank</GreyText>
@@ -152,25 +152,6 @@ export default function ProfileTop() {
               </ProfileStats>
             </ProfileInfo>
           </ProfilePanel>
-          {
-            (
-              currentUser && 
-              userId && 
-              currentUser.id != userId &&
-              isAuthenticated 
-            ) &&
-              <ArrowColumn>
-                <div 
-                  style={{ cursor: 'pointer' }} 
-                  onClick={() => inviteFriend(currentUser, userId)}
-                >
-                  <AddMember />
-                  <div style={{ marginTop: 10 }}>
-                    invite friend 
-                  </div>
-                </div>
-              </ArrowColumn>
-          }
         </SpaceBetween>
         <ButtonWrapper>
           <ButtonHome

@@ -257,7 +257,7 @@ export default function _Header({ home }) {
           ) : (
             <>
               <div 
-                onClick={() => Router.push(`/profile/${currentUser?.id}`)} 
+                onClick={() => Router.push(`/profile`)} 
                 style={{ cursor: 'pointer', marginTop: 5 }}
               >
                 <Avatar src={currentUserAvatar} />

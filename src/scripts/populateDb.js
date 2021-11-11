@@ -37,6 +37,15 @@ function getTournament(game, i) {
   }
 }
 
+function getUser(id) {
+  return {
+    username: `user${id}`,
+    password: 'password',
+    email: `user${id}@gmail.com`,
+    date_of_birth: parseInt(Date.now() / 1000) 
+  }
+}
+
 (async function main() {
   let res, json
   try {
@@ -71,6 +80,18 @@ function getTournament(game, i) {
       })
       console.log(res.status)
       i += 1
+    }
+    let user
+    let json
+    for (i = 0; i < 10; i++) {
+      user = getUser(i)
+      console.log(user.username)
+      res = await fetch(BASE_URL + 'users/', {
+        method: 'POST',
+        body: JSON.stringify(user),
+        headers: headers
+      })
+      console.log(res.status)
     }
   }
 })()
