@@ -41,6 +41,12 @@ const Username = styled.div`
   margin-top: 26.73px;
 `
 
+const Avatar = styled.img`
+  width: 170px;
+  height: 170px;
+  border-radius: 170px;
+`
+
 export default function Friends({ friends }) {
   return (
     <FriendsContainer>

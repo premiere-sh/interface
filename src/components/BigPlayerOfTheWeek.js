@@ -68,18 +68,13 @@ export default function BigPlayerOfTheWeek({ user, avatar }) {
     <Container>
       <LeaderboardTitle>Player of the week</LeaderboardTitle>
       <PlayerRow>
-        <div 
-          style={{ marginRight: 60, cursor: 'pointer' }} 
+        <div
+          style={{ marginRight: 60, cursor: 'pointer' }}
           onClick={
-            user?.id 
-              ? () => router.push(`/profile/${user.id}`) 
-              : () => null
+            user?.id ? () => router.push(`/profile/${user.id}`) : () => null
           }
         >
-          {
-            avatar &&
-            <Avatar src={avatar} />
-          }
+          {avatar && <Avatar src={avatar} />}
         </div>
         <Column>
           <PlayerName>{user?.username}</PlayerName>

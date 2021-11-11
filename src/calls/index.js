@@ -30,8 +30,18 @@ export async function getGames() {
 export async function getTournaments() {
   let tournaments = []
   const months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
   ]
   function makeTimeRight(tournament) {
     const unix = tournament.time
@@ -48,8 +58,7 @@ export async function getTournaments() {
   const res = await fetch(BASE_URL + 'tournaments/')
   if (res.status == 200) {
     let _tournaments = await res.json()
-    tournaments = _tournaments.map(tournament => makeTimeRight(tournament))
+    tournaments = _tournaments.map((tournament) => makeTimeRight(tournament))
   }
   return tournaments
 }
-

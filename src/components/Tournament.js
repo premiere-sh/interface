@@ -130,7 +130,10 @@ export default function Tournament({ tournament }) {
           <div style={{ height: 16 }} />
           <InfoText>
             <span style={{ fontWeight: 800 }}>Prize</span>
-            <span> - {tournament?.prize} {tournament?.prize_currency}</span>
+            <span>
+              {' '}
+              - {tournament?.prize} {tournament?.prize_currency}
+            </span>
           </InfoText>
           <ButtonRow>
             <ArrowButton text={'enter now'} />

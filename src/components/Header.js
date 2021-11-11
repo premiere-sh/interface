@@ -107,8 +107,7 @@ const AvatarPlaceholder = styled.div`
   width: 40px;
 `
 
-const LogoutButton = styled(LoginButton)`
-`
+const LogoutButton = styled(LoginButton)``
 
 function Navigator({ isAuthenticated, currentUser }) {
   return (
@@ -159,11 +158,9 @@ export default function _Header({ home }) {
   const [navigatorOpen, setNavigatorOpen] = useState(false)
   const ref = useRef()
   const dropdownRef = useRef()
-  const { 
-    isAuthenticated,
-    currentUser,
-    currentUserAvatar 
-  } = useContext(AuthenticationContext)
+  const { isAuthenticated, currentUser, currentUserAvatar } = useContext(
+    AuthenticationContext
+  )
   const signOut = useSignOut()
 
   useEffect(function () {
@@ -245,28 +242,26 @@ export default function _Header({ home }) {
         </Link>
       </LinksBit>
       <SignupBit>
-          {!isAuthenticated ? (
-            <>
-              <AvatarPlaceholder />
-              <Link href={'/login'}>
-                <a>
-                  <LoginButton>login</LoginButton>
-                </a>
-              </Link>
-            </>
-          ) : (
-            <>
-              <div 
-                onClick={() => Router.push(`/profile`)} 
-                style={{ cursor: 'pointer', marginTop: 5 }}
-              >
-                <Avatar src={currentUserAvatar} />
-              </div>
-              <LogoutButton onClick={signOut}>
-                log out
-              </LogoutButton>
-            </>
-          )}
+        {!isAuthenticated ? (
+          <>
+            <AvatarPlaceholder />
+            <Link href={'/login'}>
+              <a>
+                <LoginButton>login</LoginButton>
+              </a>
+            </Link>
+          </>
+        ) : (
+          <>
+            <div
+              onClick={() => Router.push(`/profile`)}
+              style={{ cursor: 'pointer', marginTop: 5 }}
+            >
+              <Avatar src={currentUserAvatar} />
+            </div>
+            <LogoutButton onClick={signOut}>log out</LogoutButton>
+          </>
+        )}
       </SignupBit>
     </Header>
   )

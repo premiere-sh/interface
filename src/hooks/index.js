@@ -12,15 +12,18 @@ export function useAuth() {
   const [currentUser, setCurrentUser] = useState({})
   const [currentUserAvatar, setCurrentUserAvatar] = useState(null)
 
-  useEffect(function() {
-    if (currentUser?.username) {
-      const _avatar = createAvatar(style, {
-        seed: currentUser.username + 'asdf',
-        dataUri: true
-      })
-      setCurrentUserAvatar(_avatar)
-    }
-  }, [currentUser])
+  useEffect(
+    function () {
+      if (currentUser?.username) {
+        const _avatar = createAvatar(style, {
+          seed: currentUser.username + 'asdf',
+          dataUri: true
+        })
+        setCurrentUserAvatar(_avatar)
+      }
+    },
+    [currentUser]
+  )
 
   useEffect(() => {
     ;(async function () {
@@ -118,7 +121,7 @@ export function useAuth() {
     isLoading: isLoading,
     isAuthenticated: isAuthenticated,
     token: token,
-    setToken: setToken, 
+    setToken: setToken,
     currentUser: currentUser,
     currentUserAvatar: currentUserAvatar
   }
@@ -193,7 +196,7 @@ export function useFriends(user_id) {
       let avatar
       if (res.status == 200) {
         let _friends = await res.json()
-        _friends = _friends.map(friend => {
+        _friends = _friends.map((friend) => {
           avatar = createAvatar(style, {
             seed: user.username + 'asdf',
             dataUri: true
@@ -236,27 +239,31 @@ export function useUser(userId) {
   const [user, setUser] = useState(null)
   const [avatar, setAvatar] = useState(null)
 
-  useEffect(function() {
-    if (user?.username) {
-      const _avatar = createAvatar(style, {
-        seed: user.username + 'asdf',
-        dataUri: true
-      })
-      setAvatar(_avatar)
-    }
-  }, [user])
+  useEffect(
+    function () {
+      if (user?.username) {
+        const _avatar = createAvatar(style, {
+          seed: user.username + 'asdf',
+          dataUri: true
+        })
+        setAvatar(_avatar)
+      }
+    },
+    [user]
+  )
 
-
-  useEffect(function() {
-    if (userId) {
-      ;(async function() {
-        const res = await fetch(`https://api.premiere.sh/users/${userId}`)
-        const _user = await res.json()
-        setUser(_user)
-      })()
-    }
-  }, [userId])
+  useEffect(
+    function () {
+      if (userId) {
+        ;(async function () {
+          const res = await fetch(`https://api.premiere.sh/users/${userId}`)
+          const _user = await res.json()
+          setUser(_user)
+        })()
+      }
+    },
+    [userId]
+  )
 
   return { user: user, avatar: avatar }
 }
-

@@ -9,7 +9,7 @@ import Home from 'components/ProfileHome'
 import History from 'components/History'
 import Link from 'next/link'
 import AuthenticationContext from 'contexts/authentication'
-import { useFriends, useStats, useInviteFriend , useUser } from 'hooks'
+import { useFriends, useStats, useInviteFriend, useUser } from 'hooks'
 import { AddMember } from 'components/TeamEdit'
 import { useRouter } from 'next/router'
 
@@ -115,7 +115,7 @@ const Avatar = styled.img`
 `
 
 export default function ProfileTop() {
-  const router = useRouter() 
+  const router = useRouter()
   const { userId } = router.query
   const { user, avatar } = useUser(userId)
   const [selected, setSelected] = useState('Home')
@@ -129,10 +129,7 @@ export default function ProfileTop() {
       <Wrapper>
         <SpaceBetween>
           <ProfilePanel>
-            {
-              avatar &&
-              <Avatar src={avatar} />
-            }
+            {avatar && <Avatar src={avatar} />}
             <ProfileInfo>
               <Name>{user?.username}</Name>
               <Team>{user?.team}</Team>
@@ -152,25 +149,20 @@ export default function ProfileTop() {
               </ProfileStats>
             </ProfileInfo>
           </ProfilePanel>
-          {
-            (
-              currentUser && 
-              userId && 
-              currentUser.id != userId &&
-              isAuthenticated 
-            ) &&
+          {currentUser &&
+            userId &&
+            currentUser.id != userId &&
+            isAuthenticated && (
               <ArrowColumn>
-                <div 
-                  style={{ cursor: 'pointer' }} 
+                <div
+                  style={{ cursor: 'pointer' }}
                   onClick={() => inviteFriend(currentUser, userId)}
                 >
                   <AddMember />
-                  <div style={{ marginTop: 10 }}>
-                    invite friend 
-                  </div>
+                  <div style={{ marginTop: 10 }}>invite friend</div>
                 </div>
               </ArrowColumn>
-          }
+            )}
         </SpaceBetween>
         <ButtonWrapper>
           <ButtonHome
@@ -209,4 +201,4 @@ export default function ProfileTop() {
       {selected == 'Home' && <Home />}
     </Column>
   )
- }
+}

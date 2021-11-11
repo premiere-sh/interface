@@ -9,7 +9,7 @@ import Home from 'components/ProfileHome'
 import History from 'components/History'
 import Link from 'next/link'
 import AuthenticationContext from 'contexts/authentication'
-import { useFriends, useStats, useInviteFriend , useUser } from 'hooks'
+import { useFriends, useStats, useInviteFriend, useUser } from 'hooks'
 import { AddMember } from 'components/TeamEdit'
 import { useRouter } from 'next/router'
 
@@ -116,11 +116,9 @@ const Avatar = styled.img`
 
 export default function ProfileTop() {
   const [selected, setSelected] = useState('Home')
-  const { 
-    currentUser,
-    isAuthenticated, 
-    currentUserAvatar 
-  } = useContext(AuthenticationContext)
+  const { currentUser, isAuthenticated, currentUserAvatar } = useContext(
+    AuthenticationContext
+  )
   const friends = useFriends(currentUser)
   const stats = useStats(currentUser)
 
@@ -129,10 +127,7 @@ export default function ProfileTop() {
       <Wrapper>
         <SpaceBetween>
           <ProfilePanel>
-            {
-              currentUserAvatar &&
-              <Avatar src={currentUserAvatar} />
-            }
+            {currentUserAvatar && <Avatar src={currentUserAvatar} />}
             <ProfileInfo>
               <Name>{currentUser?.username}</Name>
               <Team>{currentUser?.team}</Team>
@@ -190,4 +185,4 @@ export default function ProfileTop() {
       {selected == 'Home' && <Home />}
     </Column>
   )
- }
+}
