@@ -1,10 +1,5 @@
 // TODO
 //
-// tournaments
-// POST view for creating tournaments
-// after post view, it also inits tournament contract
-// each tournament object stores tournamentContractAddress
-//
 // tournament contract:
 //   entryPrice
 //   allows to join 100 players
@@ -13,13 +8,6 @@
 //   finalise(address winner) => withdraw(winner)
 //
 // player of the week endpoint - most tournmanets won
-//
-// users
-// user_id
-// point system, points for winning tournaments
-// if we have more users this is st. change
-// rank system -> based on retrieved players,
-// the one with most points is gonna be 1st
 //
 // prem earned delete for now
 //
@@ -46,4 +34,6 @@
 //
 // add friends mechanisms (need the design)
 // add tournaments creation (need the design)
+//
+// add separate profile based on the id in the url
 //

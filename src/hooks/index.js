@@ -10,7 +10,7 @@ export function useAuth() {
   const [isAuthenticated, setAuthenticated] = useState(false)
   const [token, setToken] = useState(undefined)
   const [currentUser, setCurrentUser] = useState({})
-  const [avatar, setAvatar] = useState(null)
+  const [currentUserAvatar, setCurrentUserAvatar] = useState(null)
 
   useEffect(function() {
     if (currentUser?.username) {
@@ -18,8 +18,7 @@ export function useAuth() {
         seed: currentUser.username + 'asdf',
         dataUri: true
       })
-      console.log(_avatar)
-      setAvatar(_avatar)
+      setCurrentUserAvatar(_avatar)
     }
   }, [currentUser])
 
@@ -119,14 +118,11 @@ export function useAuth() {
     isLoading: isLoading,
     isAuthenticated: isAuthenticated,
     token: token,
-    setToken: setToken, // to set token from login and update localStorage
-    // in case token expires set it to '' and it will update isAuthenticated
+    setToken: setToken, 
     currentUser: currentUser,
-    avatar: avatar
+    currentUserAvatar: currentUserAvatar
   }
 }
-
-// login and signup functions assume that form data has been sanitized
 
 export function getHeaders(token) {
   return {
@@ -225,5 +221,33 @@ export function useInviteFriend() {
   return async function inviteFriend() {
     return
   }
+}
+
+export function useUser(userId) {
+  const [user, setUser] = useState(null)
+  const [avatar, setAvatar] = useState(null)
+
+  useEffect(function() {
+    if (user?.username) {
+      const _avatar = createAvatar(style, {
+        seed: user.username + 'asdf',
+        dataUri: true
+      })
+      setAvatar(_avatar)
+    }
+  }, [user])
+
+
+  useEffect(function() {
+    if (userId) {
+      ;(async function() {
+        const res = await fetch(`https://api.premiere.sh/users/${userId}`)
+        const _user = await res.json()
+        setUser(_user)
+      })()
+    }
+  }, [userId])
+
+  return { user: user, avatar: avatar }
 }
 

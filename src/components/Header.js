@@ -159,7 +159,11 @@ export default function _Header({ home }) {
   const [navigatorOpen, setNavigatorOpen] = useState(false)
   const ref = useRef()
   const dropdownRef = useRef()
-  const { isAuthenticated, currentUser, avatar } = useContext(AuthenticationContext)
+  const { 
+    isAuthenticated,
+    currentUser,
+    currentUserAvatar 
+  } = useContext(AuthenticationContext)
   const signOut = useSignOut()
 
   useEffect(function () {
@@ -253,10 +257,10 @@ export default function _Header({ home }) {
           ) : (
             <>
               <div 
-                onClick={() => Router.push('/profile')} 
+                onClick={() => Router.push(`/profile/${currentUser?.id}`)} 
                 style={{ cursor: 'pointer', marginTop: 5 }}
               >
-                <Avatar src={avatar} />
+                <Avatar src={currentUserAvatar} />
               </div>
               <LogoutButton onClick={signOut}>
                 log out

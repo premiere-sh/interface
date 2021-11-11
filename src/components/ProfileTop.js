@@ -9,8 +9,9 @@ import Home from 'components/ProfileHome'
 import History from 'components/History'
 import Link from 'next/link'
 import AuthenticationContext from 'contexts/authentication'
-import { useFriends, useStats, useInviteFriend } from 'hooks'
+import { useFriends, useStats, useInviteFriend , useUser } from 'hooks'
 import { AddMember } from 'components/TeamEdit'
+import { useRouter } from 'next/router'
 
 const ProfilePanel = styled(Row)``
 
@@ -114,19 +115,15 @@ const Avatar = styled.img`
 `
 
 export default function ProfileTop() {
+  const router = useRouter() 
+  const { userId } = router.query
+  const { user, avatar } = useUser(userId)
   const [selected, setSelected] = useState('Home')
-  const [profileId, setProfileId] = useState(null)
-  const { currentUser, avatar } = useContext(AuthenticationContext)
-  // there have to be profile pages for all the users
-  // and onclick it takes you to the profile
-  // profiles are based on the id
-  // edit so that it pushes you to the profile id of user, not /profile
+  const { currentUser, isAuthenticated } = useContext(AuthenticationContext)
   const friends = useFriends(currentUser)
   const stats = useStats(currentUser)
   const inviteFriend = useInviteFriend()
 
-  useEffect(function() {
-  }, [])
   return (
     <Column>
       <Wrapper>
@@ -137,8 +134,8 @@ export default function ProfileTop() {
               <Avatar src={avatar} />
             }
             <ProfileInfo>
-              <Name>{currentUser?.username}</Name>
-              <Team>{currentUser?.team}</Team>
+              <Name>{user?.username}</Name>
+              <Team>{user?.team}</Team>
               <ProfileStats>
                 <GreyTextColumn>
                   <GreyText>rank</GreyText>
@@ -156,11 +153,16 @@ export default function ProfileTop() {
             </ProfileInfo>
           </ProfilePanel>
           {
-            currentUser && profileId && currentUser != profileId &&
+            (
+              currentUser && 
+              userId && 
+              currentUser.id != userId &&
+              isAuthenticated 
+            ) &&
               <ArrowColumn>
                 <div 
                   style={{ cursor: 'pointer' }} 
-                  onClick={() => inviteFriend(currentUser, profileId)}
+                  onClick={() => inviteFriend(currentUser, userId)}
                 >
                   <AddMember />
                   <div style={{ marginTop: 10 }}>
