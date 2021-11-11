@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import styled from 'styled-components'
 import { LeaderboardTitle, Row, Column, GradientText } from 'components/common'
+import { useRouter } from 'next/router'
 
 const PlayerRow = styled(Row)``
 
@@ -79,6 +80,12 @@ const CopyLinkText = styled(GradientText)`
   user-select: none;
 `
 
+const Avatar = styled.img`
+  width: 70px;
+  height: 70px;
+  border-radius: 70px;
+`
+
 function CopyLink() {
   return (
     <CopyLinkContainer>
@@ -88,36 +95,42 @@ function CopyLink() {
   )
 }
 
-export default function PlayerOfTheWeek({ player }) {
+export default function PlayerOfTheWeek({ user, avatar }) {
+  const router = useRouter()
   return (
     <div>
       <LeaderboardTitle>Player of the week</LeaderboardTitle>
       <PlayerRow>
-        <div style={{ marginRight: 20 }}>
-          <Image
-            src={'/devonhenry_.svg'}
-            width={86}
-            height={86}
-            alt={'player-of-the-week'}
-          />
+        <div 
+          style={{ marginRight: 20, cursor: 'pointer' }} 
+          onClick={
+            user?.id 
+              ? () => router.push(`/profile/${user.id}`) 
+              : () => null
+          }
+        >
+          {
+            avatar &&
+            <Avatar src={avatar} />
+          }
         </div>
         <Column>
-          <PlayerName>{player.name}</PlayerName>
-          <MemberSince>{player.since}</MemberSince>
+          <PlayerName>{user?.username}</PlayerName>
+          <MemberSince>{user?.since}</MemberSince>
         </Column>
       </PlayerRow>
       <StatsRow>
         <StatColumn>
           <StatHeading>rank</StatHeading>
-          <Stat>{player.rank}</Stat>
+          <Stat>{user?.rank ?? '-'}</Stat>
         </StatColumn>
         <StatColumn>
           <StatHeading>weekly wins</StatHeading>
-          <Stat>{player.weeklyWins}</Stat>
+          <Stat>{user?.weeklyWins ?? '-'}</Stat>
         </StatColumn>
         <StatColumn>
           <StatHeading>$prem earned</StatHeading>
-          <Stat>{player.premEarned}</Stat>
+          <Stat>{user?.premEarned ?? '-'}</Stat>
         </StatColumn>
       </StatsRow>
       <LeaderboardTitle>Share this page</LeaderboardTitle>

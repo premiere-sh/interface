@@ -18,10 +18,6 @@
 //
 // NEW
 //
-// make signup form only accessible if not authenticated
-//
-// use randomized avatars like gh
-//
 // add google, facebook etc signups
 //
 // complete todos in the api bit

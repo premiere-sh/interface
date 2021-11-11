@@ -7,6 +7,7 @@ import Leaderboard from 'components/Leaderboard'
 import PlayerOfTheWeek from 'components/PlayerOfTheWeek'
 import styled from 'styled-components'
 import { getPlayerOfTheWeek } from 'calls'
+import { useUser } from 'hooks'
 
 const ContainerRow = styled(Container)`
   display: flex;
@@ -14,7 +15,8 @@ const ContainerRow = styled(Container)`
   justify-content: space-between;
 `
 
-export default function Leaderboards({ player }) {
+export default function Leaderboards() {
+  const { user, avatar } = useUser(3)
   return (
     <Column>
       <Header />
@@ -26,7 +28,7 @@ export default function Leaderboards({ player }) {
       </Container>
       <ContainerRow>
         <Leaderboard />
-        <PlayerOfTheWeek player={player} />
+        <PlayerOfTheWeek user={user} avatar={avatar} />
       </ContainerRow>
       <div style={{ marginBottom: 150 }}>
         <SocialsSection />
@@ -36,9 +38,3 @@ export default function Leaderboards({ player }) {
   )
 }
 
-export async function getStaticProps(context) {
-  const player = await getPlayerOfTheWeek()
-  return {
-    props: { player }
-  }
-}
