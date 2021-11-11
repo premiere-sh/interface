@@ -41,69 +41,7 @@ const Username = styled.div`
   margin-top: 26.73px;
 `
 
-export default function Friends() {
-  const friends = [
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    }
-  ]
+export default function Friends({ friends }) {
   return (
     <FriendsContainer>
       <Container>
@@ -123,13 +61,10 @@ export default function Friends() {
           {friends?.length &&
             friends.map((friend, key) => (
               <UserColumn style={{ alignItems: 'center' }} key={key}>
-                <Image
-                  src={`/${friend.picture}.svg`}
-                  width={173}
-                  height={173}
-                  alt={'teammate-image'}
-                />
-                <Username>{friend.user}</Username>
+                <div onClick={() => router.push(`/profile/${friend.id}`)}>
+                  <Avatar src={friend.avatar} />
+                </div>
+                <Username>{friend.username}</Username>
               </UserColumn>
             ))}
         </Grid>

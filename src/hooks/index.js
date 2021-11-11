@@ -190,8 +190,17 @@ export function useFriends(user_id) {
   useEffect(function () {
     ;(async function () {
       const res = await fetch(`${BASE_URL}${user_id}/friends/`)
+      let avatar
       if (res.status == 200) {
-        const _friends = await res.json()
+        let _friends = await res.json()
+        _friends = _friends.map(friend => {
+          avatar = createAvatar(style, {
+            seed: user.username + 'asdf',
+            dataUri: true
+          })
+          friend.avatar = avatar
+          return friend
+        })
         setFriends(_friends)
       }
     })()

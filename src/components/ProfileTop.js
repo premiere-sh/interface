@@ -205,7 +205,7 @@ export default function ProfileTop() {
         </ButtonWrapper>
       </Wrapper>
       {selected == 'Teams' && <Teams />}
-      {selected == 'Friends' && <Friends />}
+      {selected == 'Friends' && <Friends friends={friends} />}
       {selected == 'Home' && <Home />}
     </Column>
   )
