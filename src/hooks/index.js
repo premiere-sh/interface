@@ -230,8 +230,36 @@ export function useStats(user_id) {
 }
 
 export function useInviteFriend() {
-  return async function inviteFriend() {
-    return
+  return async function inviteFriend(invitingId, acceptingId, token) {
+    const headers = getHeaders(token)
+    const slug = `users/${acceptingId}/friends/invite/`
+    const res = await fetch(BASE_URL + slug, { 
+      headers: headers,
+      method: 'POST'
+    })
+    if (res.status_code == 200) {
+      return { success: true }
+    } else {
+      const error = await res.json()
+      return { error: error }
+    }
+  }
+}
+
+export function useCreateTournament() {
+  return async function createTournament(tournament, token) {
+    const headers = getHeaders(token)
+    const res = await fetch(BASE_URL + 'tournaments/', { 
+      headers: headers,
+      method: 'POST',
+      body: JSON.stringify(tournament)
+    })
+    if (res.status_code == 200) {
+      return { success: true }
+    } else {
+      const error = await res.json()
+      return { error: error }
+    }
   }
 }
 

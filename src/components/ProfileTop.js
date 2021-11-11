@@ -119,7 +119,7 @@ export default function ProfileTop() {
   const { userId } = router.query
   const { user, avatar } = useUser(userId)
   const [selected, setSelected] = useState('Home')
-  const { currentUser, isAuthenticated } = useContext(AuthenticationContext)
+  const { currentUser, isAuthenticated, token } = useContext(AuthenticationContext)
   const friends = useFriends(user)
   const stats = useStats(user)
   const inviteFriend = useInviteFriend()
@@ -156,7 +156,7 @@ export default function ProfileTop() {
               <ArrowColumn>
                 <div
                   style={{ cursor: 'pointer' }}
-                  onClick={() => inviteFriend(currentUser, userId)}
+                  onClick={() => inviteFriend(currentUser.id, userId, token)}
                 >
                   <AddMember />
                   <div style={{ marginTop: 10 }}>invite friend</div>
@@ -198,7 +198,7 @@ export default function ProfileTop() {
       </Wrapper>
       {selected == 'Teams' && <Teams />}
       {selected == 'Friends' && <Friends friends={friends} />}
-      {selected == 'Home' && <Home />}
+      {selected == 'Home' && <Home friends={friends} />}
     </Column>
   )
 }
