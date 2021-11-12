@@ -183,8 +183,9 @@ export default function ProfileTop() {
         </ButtonWrapper>
       </Wrapper>
       {selected == 'Teams' && <Teams />}
-      {selected == 'Friends' &&
-        <Friends friends={friends} invites={invites} avatars={avatars} />}
+      {selected == 'Friends' && (
+        <Friends friends={friends} invites={invites} avatars={avatars} />
+      )}
       {selected == 'Home' && <Home />}
     </Column>
   )

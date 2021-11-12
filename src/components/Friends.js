@@ -51,14 +51,14 @@ const Avatar = styled.img`
 export default function Friends({ friends, invites, avatars }) {
   return (
     <FriendsContainer>
-      {
-        invites && 
+      {invites && (
         <Container>
           <TextSection>
             <YourFriends>Your invites</YourFriends>
           </TextSection>
           <Grid columns={'repeat(auto-fit, minmax(210px, 1fr))'} gap={'83px'}>
-            {invites?.length && avatars?.length &&
+            {invites?.length &&
+              avatars?.length &&
               zip(invites, avatars).map(([invite, avatar], key) => (
                 <UserColumn style={{ alignItems: 'center' }} key={key}>
                   <div onClick={() => acceptInvite(invite, token)}>
@@ -69,17 +69,12 @@ export default function Friends({ friends, invites, avatars }) {
               ))}
           </Grid>
         </Container>
-      }
+      )}
       <Container>
         <TextSection>
           <YourFriends>Your friends</YourFriends>
           <SearchBox>
-            <Image
-              src={'/search.svg'}
-              width={32}
-              height={32}
-              alt={'search'}
-            />
+            <Image src={'/search.svg'} width={32} height={32} alt={'search'} />
             <Search placeholder={'Search players...'} />
           </SearchBox>
         </TextSection>

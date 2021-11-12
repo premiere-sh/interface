@@ -119,7 +119,9 @@ export default function ProfileTop() {
   const { userId } = router.query
   const { user, avatar } = useUser(userId)
   const [selected, setSelected] = useState('Home')
-  const { currentUser, isAuthenticated, token } = useContext(AuthenticationContext)
+  const { currentUser, isAuthenticated, token } = useContext(
+    AuthenticationContext
+  )
   const friends = useFriends(user)
   const stats = useStats(user)
   const inviteFriend = useInviteFriend()

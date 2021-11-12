@@ -7,12 +7,11 @@ export const BASE_URL = 'https://api.premiere.sh/'
 
 export function zip(arrays) {
   return arrays[0].map((_, i) => {
-    return arrays.map(array => {
+    return arrays.map((array) => {
       return array[i]
     })
   })
 }
-
 
 export function useAuth() {
   const [isLoading, setLoading] = useState(false)
@@ -242,7 +241,7 @@ export function useInviteFriend() {
   return async function inviteFriend(invitingId, acceptingId, token) {
     const headers = getHeaders(token)
     const slug = `users/${acceptingId}/friends/invite/`
-    const res = await fetch(BASE_URL + slug, { 
+    const res = await fetch(BASE_URL + slug, {
       headers: headers,
       method: 'POST'
     })
@@ -258,7 +257,7 @@ export function useInviteFriend() {
 export function useCreateTournament() {
   return async function createTournament(tournament, token) {
     const headers = getHeaders(token)
-    const res = await fetch(BASE_URL + 'tournaments/', { 
+    const res = await fetch(BASE_URL + 'tournaments/', {
       headers: headers,
       method: 'POST',
       body: JSON.stringify(tournament)
@@ -310,36 +309,38 @@ export function useFriendInvites(userId, token) {
   const [avatars, setAvatars] = useState([])
   const [error, setError] = useState(undefined)
   const [accepted, setAccepted] = useState(false)
-  // TODO there has to be a way of accepting those requests 
+  // TODO there has to be a way of accepting those requests
   // and re-fetching the invites aferwards
 
-  useEffect(function() {
-    ;(async function() {
-      if (token && userId) {
-        const headers = getHeaders(token)
-        const res = await fetch(BASE_URL + `users/${userId}/invites/`, { 
-          headers: headers,
-          method: 'GET'
-        })
-        console.log(res.status_code)
-        if (res.status_code == 200) {
-          const _invites = await res.json()
-          const _avatars = _invites.map(invite => {
-            return createAvatar(style, {
-              seed: user.username + 'asdf',
-              dataUri: true
-            })
+  useEffect(
+    function () {
+      ;(async function () {
+        if (token && userId) {
+          const headers = getHeaders(token)
+          const res = await fetch(BASE_URL + `users/${userId}/invites/`, {
+            headers: headers,
+            method: 'GET'
           })
-          setInvites(_invites)
-          setAvatars(_avatars)
-        } else {
-          const _error = await res.json()
-          setError(_error)
+          console.log(res.status_code)
+          if (res.status_code == 200) {
+            const _invites = await res.json()
+            const _avatars = _invites.map((invite) => {
+              return createAvatar(style, {
+                seed: user.username + 'asdf',
+                dataUri: true
+              })
+            })
+            setInvites(_invites)
+            setAvatars(_avatars)
+          } else {
+            const _error = await res.json()
+            setError(_error)
+          }
         }
-      }
-    })()
-  }, [token])
+      })()
+    },
+    [token]
+  )
 
   return { invites, avatars, error }
 }
-
