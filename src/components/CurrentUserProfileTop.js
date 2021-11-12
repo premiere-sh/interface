@@ -12,6 +12,7 @@ import AuthenticationContext from 'contexts/authentication'
 import { useFriends, useStats, useInviteFriend, useUser } from 'hooks'
 import { AddMember } from 'components/TeamEdit'
 import { useRouter } from 'next/router'
+import { useFriendInvites, zip } from 'hooks'
 
 const ProfilePanel = styled(Row)``
 
@@ -116,11 +117,12 @@ const Avatar = styled.img`
 
 export default function ProfileTop() {
   const [selected, setSelected] = useState('Home')
-  const { currentUser, isAuthenticated, currentUserAvatar } = useContext(
+  const { currentUser, isAuthenticated, currentUserAvatar, token } = useContext(
     AuthenticationContext
   )
   const friends = useFriends(currentUser)
   const stats = useStats(currentUser)
+  const { invites, avatars, error } = useFriendInvites(currentUser?.id, token)
 
   return (
     <Column>
@@ -181,7 +183,8 @@ export default function ProfileTop() {
         </ButtonWrapper>
       </Wrapper>
       {selected == 'Teams' && <Teams />}
-      {selected == 'Friends' && <Friends />}
+      {selected == 'Friends' &&
+        <Friends friends={friends} invites={invites} avatars={avatars} />}
       {selected == 'Home' && <Home />}
     </Column>
   )

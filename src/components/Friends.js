@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { Column, Container, Row } from './common'
 import Image from 'next/image'
 import { Grid } from 'styled-css-grid'
+import { zip } from 'hooks'
 
 const UserColumn = styled(Column)``
 
@@ -47,9 +48,28 @@ const Avatar = styled.img`
   border-radius: 170px;
 `
 
-export default function Friends({ friends }) {
+export default function Friends({ friends, invites, avatars }) {
   return (
     <FriendsContainer>
+      {
+        invites && 
+        <Container>
+          <TextSection>
+            <YourFriends>Your invites</YourFriends>
+          </TextSection>
+          <Grid columns={'repeat(auto-fit, minmax(210px, 1fr))'} gap={'83px'}>
+            {invites?.length && avatars?.length &&
+              zip(invites, avatars).map(([invite, avatar], key) => (
+                <UserColumn style={{ alignItems: 'center' }} key={key}>
+                  <div onClick={() => acceptInvite(invite, token)}>
+                    <Avatar src={avatar} />
+                  </div>
+                  <Username>{invite.inviting_friend}</Username>
+                </UserColumn>
+              ))}
+          </Grid>
+        </Container>
+      }
       <Container>
         <TextSection>
           <YourFriends>Your friends</YourFriends>
@@ -58,7 +78,7 @@ export default function Friends({ friends }) {
               src={'/search.svg'}
               width={32}
               height={32}
-              alt={'profile-pic'}
+              alt={'search'}
             />
             <Search placeholder={'Search players...'} />
           </SearchBox>

@@ -5,6 +5,15 @@ import * as style from '@dicebear/avatars-identicon-sprites'
 
 export const BASE_URL = 'https://api.premiere.sh/'
 
+export function zip(arrays) {
+  return arrays[0].map((_, i) => {
+    return arrays.map(array => {
+      return array[i]
+    })
+  })
+}
+
+
 export function useAuth() {
   const [isLoading, setLoading] = useState(false)
   const [isAuthenticated, setAuthenticated] = useState(false)
@@ -295,3 +304,42 @@ export function useUser(userId) {
 
   return { user: user, avatar: avatar }
 }
+
+export function useFriendInvites(userId, token) {
+  const [invites, setInvites] = useState([])
+  const [avatars, setAvatars] = useState([])
+  const [error, setError] = useState(undefined)
+  const [accepted, setAccepted] = useState(false)
+  // TODO there has to be a way of accepting those requests 
+  // and re-fetching the invites aferwards
+
+  useEffect(function() {
+    ;(async function() {
+      if (token && userId) {
+        const headers = getHeaders(token)
+        const res = await fetch(BASE_URL + `users/${userId}/invites/`, { 
+          headers: headers,
+          method: 'GET'
+        })
+        console.log(res.status_code)
+        if (res.status_code == 200) {
+          const _invites = await res.json()
+          const _avatars = _invites.map(invite => {
+            return createAvatar(style, {
+              seed: user.username + 'asdf',
+              dataUri: true
+            })
+          })
+          setInvites(_invites)
+          setAvatars(_avatars)
+        } else {
+          const _error = await res.json()
+          setError(_error)
+        }
+      }
+    })()
+  }, [token])
+
+  return { invites, avatars, error }
+}
+

@@ -134,7 +134,7 @@ export default function Home({ friends }) {
         {friends?.length &&
           friends.slice(0, 5).map((friend, key) => (
             <FriendColumn key={key}>
-              <Avatar src={friend.avatar}>
+              <Avatar src={friend.avatar} />
               <FriendName>{friend.username}</FriendName>
             </FriendColumn>
           ))}
