@@ -85,16 +85,20 @@ const TeammatesRow = styled(Row)`
 
 const TeamWins = styled(Column)`
   margin-left: 74px;
+  margin-right: 95px;
+  @media screen and (max-width: 1100px) {
+    margin-right: 35px;
+  }
 `
 
 const TeamLosses = styled(Column)`
-  margin-left: 95px;
   margin-right: 127px;
+  @media screen and (max-width: 1100px) {
+    margin-right: 35px;
+  }
 `
 
-const TeamPrem = styled(Column)`
-  margin-left: 74px;
-`
+const TeamPrem = styled(Column)``
 
 const ArrowButtonContainer = styled.div`
   margin-left: 74px;

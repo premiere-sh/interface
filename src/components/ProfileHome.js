@@ -17,7 +17,7 @@ const YourWeeklyStats = styled.div`
 const StatsRow = styled(Row)`
   marign-top: 35px;
   justify-content: space-between;
-  width: 758px;
+  max-width: 768px;
 `
 
 const GrayText = styled.div`
@@ -37,7 +37,11 @@ const Numbers = styled.div`
   margin-top: 6px;
 `
 
-const GreyTextColumn = styled(Column)``
+const GreyTextColumn = styled(Column)`
+  @media screen and (max-width: 800px) {
+    margin-right: 50px;
+  }
+`
 
 const TopFriends = styled.div`
   margin-top: 84px;
@@ -53,6 +57,9 @@ const FriendsRow = styled(Row)`
 
 const FriendColumn = styled(Column)`
   margin-right: 43px;
+  @media screen and (max-width: 850px) {
+    margin-right: 20px;
+  }
 `
 
 const FriendName = styled.div`
@@ -76,6 +83,17 @@ const TournamentsColumn = styled(Column)``
 const TournamentsRow = styled(Row)`
   margin-left: 0px;
   justify-content: space-between;
+  @media screen and (max-width: 1550px) {
+    flex-direction: column;
+  }
+`
+
+const TournamentContainer = styled(Column)``
+
+const Spacer = styled.div`
+  @media screen and (max-width: 1550px) {
+    height: 30px;
+  }
 `
 
 const ArrowButtonContainer = styled.div`
@@ -168,7 +186,10 @@ export default function Teams() {
         <RecommendedEvents>Recommended Events</RecommendedEvents>
         <TournamentsRow>
           {tournaments.map((tournament, key) => (
-            <Tournament tournament={tournament} key={key} />
+            <TournamentContainer>
+             <Tournament tournament={tournament} key={key} />
+             <Spacer/>
+            </TournamentContainer>
           ))}
         </TournamentsRow>
       </TournamentsColumn>

@@ -6,10 +6,8 @@ import { ArrowButton } from 'components/Buttons'
 import SmallTournament from 'components/SmallTournament'
 import ReactPlayer from 'react-player'
 
-const EventsContainer = styled(Container)`
-  display: flex;
-  flex-direction: column;
-  width: 1233px;
+const EventsContainer = styled(Column)`
+  width: min(80%, 1400px)
 `
 
 const EventsHeading = styled(Heading)`
@@ -27,22 +25,19 @@ const WatchedTournament = styled(Row)`
   padding-top: 35px;
   padding-bottom: 35px;
   height: 260px;
-  width: 1233px;
+  width: 126%;
   background-color: ${(props) => props.theme.colors.white};
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
 `
 
 const TournamentInfo = styled(Column)`
-  width: 1000px;
+  max-width: 1000px;
 `
 
 const Region = styled.div`
   font-weight: 600;
   font-size: 24px;
-  @media screen and (max-width: 1000px) {
-    font-size: 16px;
-  }
   line-height: 150%;
   color: ${(props) => props.theme.colors.grayish};
   margin-bottom: 24px;
@@ -53,20 +48,32 @@ const Title = styled.div`
   line-height: 48px;
   font-weight: 600;
   margin-bottom: 22px;
+  @media screen and (max-width: 800px) {
+    font-size: 35px;
+  }
 `
 
 const Summary = styled.div`
   width: 832px;
   margin-bottom: 20px;
+  @media screen and (max-width: 1350px) {
+    display: none;
+  }
 `
 
 const ArrowButtonContainer = styled.div`
   display: inline-block;
   padding-top: 10px;
+  @media screen and (max-width: 800px) {
+    width: 250px;
+  }
 `
 
 const CirclesRow = styled(Row)`
   margin-right: 29px;
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+  }
 `
 
 const ShadowCircle = styled(Circle)`
@@ -80,8 +87,22 @@ const Buttons = styled(Row)`
 
 const TournamentsRow = styled(Row)`
   margin-left: 0px;
-  justify-content: space-between;
+  justify-content: space-around;
   margin-top: 155px;
+  width: 126%;
+  @media screen and (max-width: 1550px) {
+    flex-direction: column;
+  }
+`
+
+const Spacer = styled.div`
+  @media screen and (max-width: 1550px) {
+    height: 30px;
+  }
+`
+
+const TournamentContainer = styled(Column)`
+  margin: auto;
 `
 
 const PlayerWrapper = styled.div``
@@ -114,7 +135,7 @@ export default function _UpcomingEvents() {
         <ReactPlayer
           url={'https://www.twitch.tv/izakooo'}
           playing={true}
-          width={1233}
+          width='126%'
           height={788}
           style={{
             borderTopLeftRadius: 25,
@@ -129,6 +150,7 @@ export default function _UpcomingEvents() {
             src={'/csgo.svg'}
             width={167}
             height={260}
+            layout='fixed'
             alt={'watch tournament'}
           />
         </div>
@@ -164,7 +186,10 @@ export default function _UpcomingEvents() {
       <TournamentsRow>
         {tournaments?.length &&
           tournaments.map((tournament, key) => (
-            <SmallTournament tournament={tournament} key={key} />
+            <TournamentContainer>
+              <SmallTournament tournament={tournament} key={key} />
+              <Spacer/>
+            </TournamentContainer>
           ))}
       </TournamentsRow>
     </EventsContainer>

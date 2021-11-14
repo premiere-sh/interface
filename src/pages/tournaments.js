@@ -8,6 +8,13 @@ import SocialsSection from 'components/SocialsSection'
 import GradientDropdown from 'components/GradientDropdown'
 import { Grid, Cell } from 'styled-css-grid'
 import { getTournaments } from 'calls'
+import styled from 'styled-components'
+
+const SubheadingRow = styled(Row)`
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+  }
+`
 
 export default function Tournaments({ tournaments }) {
   const [width, setWidth] = useState(null)
@@ -19,10 +26,10 @@ export default function Tournaments({ tournaments }) {
     <Column>
       <Header />
       <Container>
-        <Row style={{ justifyContent: 'space-between' }}>
+        <SubheadingRow style={{ justifyContent: 'space-between' }}>
           <Subheading>TOURNAMENTS</Subheading>
           <GradientDropdown text={'FILTER BY GAME'} />
-        </Row>
+        </SubheadingRow>
       </Container>
       {tournaments && (
         <>

@@ -8,10 +8,21 @@ import PlayerOfTheWeek from 'components/PlayerOfTheWeek'
 import styled from 'styled-components'
 import { getPlayerOfTheWeek } from 'calls'
 
+const SubheadingRow = styled(Row)`
+  justify-content: space-between;
+  @media screen and (max-width: 800px) {
+    flex-direction: column;
+  }
+`
+
 const ContainerRow = styled(Container)`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media screen and (max-width: 1400px) {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
 `
 
 export default function Leaderboards({ player }) {
@@ -19,10 +30,10 @@ export default function Leaderboards({ player }) {
     <Column>
       <Header />
       <Container>
-        <Row style={{ justifyContent: 'space-between' }}>
+        <SubheadingRow>
           <Subheading>LEADERBOARDS</Subheading>
           <GradientDropdown text={'FILTER BY GAME'} />
-        </Row>
+        </SubheadingRow>
       </Container>
       <ContainerRow>
         <Leaderboard />

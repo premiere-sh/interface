@@ -52,7 +52,9 @@ const Stat = styled.div`
   color: ${(props) => props.theme.colors.black};
 `
 
-const ShareRow = styled(Row)``
+const ShareRow = styled(Row)`
+  margin-bottom: 50px;
+`
 
 const CopyLinkContainer = styled.div`
   width: 183px;

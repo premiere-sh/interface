@@ -13,6 +13,10 @@ const Container = styled(Row)`
 
 const SideColumn = styled(Column)`
   margin-left: 77px;
+  @media screen and (max-width: 1100px) {
+    margin-top: 30px;
+    margin-left: 0px;
+  }
 `
 
 const Heading = styled.div`
@@ -33,6 +37,7 @@ const Subtext = styled.div`
   line-height: 140.62%;
   color: ${(props) => props.theme.colors.black};
   margin-bottom: 50px;
+
 `
 
 const VideoContainer = styled.div`
