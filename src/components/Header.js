@@ -100,9 +100,6 @@ const Avatar = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 40px;
-  @media screen and (max-width: 650px) {
-    transform: translateX(-30px)
-  }
 `
 
 const LogoutButton = styled(LoginButton)`

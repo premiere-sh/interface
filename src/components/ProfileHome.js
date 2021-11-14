@@ -4,9 +4,7 @@ import Image from 'next/image'
 import Tournament from './SmallTournament'
 import { ArrowButton } from 'components/Buttons'
 
-const HomeContainer = styled(Container)`
-  max-width: 758px;
-`
+const HomeContainer = styled(Container)``
 
 const YourWeeklyStats = styled.div`
   margin-top: 15px;
@@ -19,9 +17,7 @@ const YourWeeklyStats = styled.div`
 const StatsRow = styled(Row)`
   marign-top: 35px;
   justify-content: space-between;
-  @media screen and (max-width: 800px) {
-    width: 600px;
-  }
+  width: 758px;
 `
 
 const GrayText = styled.div`
@@ -53,16 +49,10 @@ const TopFriends = styled.div`
 
 const FriendsRow = styled(Row)`
   margin-top: 43px;
-  @media screen and (max-width: 800px) {
-    width: 600px;
-  }
 `
 
 const FriendColumn = styled(Column)`
   margin-right: 43px;
-  @media screen and (max-width: 800px) {
-    margin-right: 25px;
-  }
 `
 
 const FriendName = styled.div`
@@ -86,22 +76,11 @@ const TournamentsColumn = styled(Column)``
 const TournamentsRow = styled(Row)`
   margin-left: 0px;
   justify-content: space-between;
-  @media screen and (max-width: 1300px) {
-    flex-direction: column;
-    justify-content: flex-start;
-  }
 `
 
 const ArrowButtonContainer = styled.div`
   margin-top: 50px;
   display: inline-block;
-`
-
-const Spacer = styled.div`
-  width: 50px;
-  @media screen and (max-width: 1300px) {
-    height: 30px;
-  }
 `
 
 export default function Teams() {
@@ -189,10 +168,7 @@ export default function Teams() {
         <RecommendedEvents>Recommended Events</RecommendedEvents>
         <TournamentsRow>
           {tournaments.map((tournament, key) => (
-            <div>
-              <Tournament tournament={tournament} key={key} />
-              <Spacer />
-            </div>
+            <Tournament tournament={tournament} key={key} />
           ))}
         </TournamentsRow>
       </TournamentsColumn>
