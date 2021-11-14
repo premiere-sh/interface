@@ -26,7 +26,6 @@ const Name = styled.div`
 `
 
 const Wrapper = styled(Container)`
-  border-bottom: 1px solid #e3e3e3;
   margin-bottom: 79px;
 `
 
@@ -75,14 +74,15 @@ const Numbers = styled.div`
 const ButtonWrapper = styled(Row)`
   justify-content: space-between;
   margin-top: 79px;
+  border-bottom: 1px solid #e3e3e3;
 `
 
-const Button = styled.div`
+const Button = styled(Column)`
   font-size: 20px;
   font-weight: 500;
   line-height: 40px;
+  text-align: center;
   letter-spacing: 0.1em;
-  border-bottom: 0px solid;
   border-image-source: linear-gradient(
     266.89deg,
     #982649 -18.13%,
@@ -92,8 +92,15 @@ const Button = styled.div`
   text-transform: uppercase;
   padding: 40px 23px 23px 23px;
   user-select: none;
+  align-items: center;
   &:hover {
     cursor: pointer;
+  }
+  @media screen and (max-width: 1100px) {
+    padding: 40px 15px 23px 15px;
+    font-size: 18px;
+    height: 40px;
+    line-height: 20px;
   }
 `
 
