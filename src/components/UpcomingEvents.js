@@ -185,9 +185,9 @@ export default function _UpcomingEvents() {
       </WatchedTournament>
       <TournamentsRow>
         {tournaments?.length &&
-          tournaments.map((tournament, key) => (
-            <TournamentContainer>
-              <SmallTournament tournament={tournament} key={key} />
+          tournaments.map((tournament, idx) => (
+            <TournamentContainer key={idx}>
+              <SmallTournament tournament={tournament} />
               <Spacer/>
             </TournamentContainer>
           ))}

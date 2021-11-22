@@ -186,8 +186,8 @@ export default function Teams() {
         <RecommendedEvents>Recommended Events</RecommendedEvents>
         <TournamentsRow>
           {tournaments.map((tournament, key) => (
-            <TournamentContainer>
-             <Tournament tournament={tournament} key={key} />
+            <TournamentContainer key={key}>
+             <Tournament tournament={tournament} />
              <Spacer/>
             </TournamentContainer>
           ))}
