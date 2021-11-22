@@ -5,23 +5,33 @@ import * as style from '@dicebear/avatars-identicon-sprites'
 
 export const BASE_URL = 'https://api.premiere.sh/'
 
+export function zip(arrays) {
+  return arrays[0].map((_, i) => {
+    return arrays.map((array) => {
+      return array[i]
+    })
+  })
+}
+
 export function useAuth() {
   const [isLoading, setLoading] = useState(false)
   const [isAuthenticated, setAuthenticated] = useState(false)
   const [token, setToken] = useState(undefined)
   const [currentUser, setCurrentUser] = useState({})
-  const [avatar, setAvatar] = useState(null)
+  const [currentUserAvatar, setCurrentUserAvatar] = useState(null)
 
-  useEffect(function() {
-    if (currentUser?.username) {
-      const _avatar = createAvatar(style, {
-        seed: currentUser.username + 'asdf',
-        dataUri: true
-      })
-      console.log(_avatar)
-      setAvatar(_avatar)
-    }
-  }, [currentUser])
+  useEffect(
+    function () {
+      if (currentUser?.username) {
+        const _avatar = createAvatar(style, {
+          seed: currentUser.username + 'asdf',
+          dataUri: true
+        })
+        setCurrentUserAvatar(_avatar)
+      }
+    },
+    [currentUser]
+  )
 
   useEffect(() => {
     ;(async function () {
@@ -119,14 +129,11 @@ export function useAuth() {
     isLoading: isLoading,
     isAuthenticated: isAuthenticated,
     token: token,
-    setToken: setToken, // to set token from login and update localStorage
-    // in case token expires set it to '' and it will update isAuthenticated
+    setToken: setToken,
     currentUser: currentUser,
-    avatar: avatar
+    currentUserAvatar: currentUserAvatar
   }
 }
-
-// login and signup functions assume that form data has been sanitized
 
 export function getHeaders(token) {
   return {
@@ -194,8 +201,17 @@ export function useFriends(user_id) {
   useEffect(function () {
     ;(async function () {
       const res = await fetch(`${BASE_URL}${user_id}/friends/`)
+      let avatar
       if (res.status == 200) {
-        const _friends = await res.json()
+        let _friends = await res.json()
+        _friends = _friends.map((friend) => {
+          avatar = createAvatar(style, {
+            seed: user.username + 'asdf',
+            dataUri: true
+          })
+          friend.avatar = avatar
+          return friend
+        })
         setFriends(_friends)
       }
     })()
@@ -222,8 +238,109 @@ export function useStats(user_id) {
 }
 
 export function useInviteFriend() {
-  return async function inviteFriend() {
-    return
+  return async function inviteFriend(invitingId, acceptingId, token) {
+    const headers = getHeaders(token)
+    const slug = `users/${acceptingId}/friends/invite/`
+    const res = await fetch(BASE_URL + slug, {
+      headers: headers,
+      method: 'POST'
+    })
+    if (res.status_code == 200) {
+      return { success: true }
+    } else {
+      const error = await res.json()
+      return { error: error }
+    }
   }
 }
 
+export function useCreateTournament() {
+  return async function createTournament(tournament, token) {
+    const headers = getHeaders(token)
+    const res = await fetch(BASE_URL + 'tournaments/', {
+      headers: headers,
+      method: 'POST',
+      body: JSON.stringify(tournament)
+    })
+    if (res.status_code == 200) {
+      return { success: true }
+    } else {
+      const error = await res.json()
+      return { error: error }
+    }
+  }
+}
+
+export function useUser(userId) {
+  const [user, setUser] = useState(null)
+  const [avatar, setAvatar] = useState(null)
+
+  useEffect(
+    function () {
+      if (user?.username) {
+        const _avatar = createAvatar(style, {
+          seed: user.username + 'asdf',
+          dataUri: true
+        })
+        setAvatar(_avatar)
+      }
+    },
+    [user]
+  )
+
+  useEffect(
+    function () {
+      if (userId) {
+        ;(async function () {
+          const res = await fetch(`https://api.premiere.sh/users/${userId}`)
+          const _user = await res.json()
+          setUser(_user)
+        })()
+      }
+    },
+    [userId]
+  )
+
+  return { user: user, avatar: avatar }
+}
+
+export function useFriendInvites(userId, token) {
+  const [invites, setInvites] = useState([])
+  const [avatars, setAvatars] = useState([])
+  const [error, setError] = useState(undefined)
+  const [accepted, setAccepted] = useState(false)
+  // TODO there has to be a way of accepting those requests
+  // and re-fetching the invites aferwards
+
+  useEffect(
+    function () {
+      ;(async function () {
+        if (token && userId) {
+          const headers = getHeaders(token)
+          const res = await fetch(BASE_URL + `users/${userId}/invites/`, {
+            headers: headers,
+            method: 'GET'
+          })
+          console.log(res.status_code)
+          if (res.status_code == 200) {
+            const _invites = await res.json()
+            const _avatars = _invites.map((invite) => {
+              return createAvatar(style, {
+                seed: user.username + 'asdf',
+                dataUri: true
+              })
+            })
+            setInvites(_invites)
+            setAvatars(_avatars)
+          } else {
+            const _error = await res.json()
+            setError(_error)
+          }
+        }
+      })()
+    },
+    [token]
+  )
+
+  return { invites, avatars, error }
+}

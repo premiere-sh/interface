@@ -12,6 +12,7 @@ import AuthenticationContext from 'contexts/authentication'
 import { useFriends, useStats, useInviteFriend, useUser } from 'hooks'
 import { AddMember } from 'components/TeamEdit'
 import { useRouter } from 'next/router'
+import { useFriendInvites, zip } from 'hooks'
 
 const ProfilePanel = styled(Row)``
 
@@ -27,6 +28,7 @@ const Name = styled.div`
 `
 
 const Wrapper = styled(Container)`
+  border-bottom: 1px solid #e3e3e3;
   margin-bottom: 79px;
 `
 
@@ -75,16 +77,14 @@ const Numbers = styled.div`
 const ButtonWrapper = styled(Row)`
   justify-content: space-between;
   margin-top: 79px;
-  border-bottom: 1px solid #e3e3e3;
 `
 
-const Button = styled(Column)`
+const Button = styled.div`
   font-size: 20px;
   font-weight: 500;
   line-height: 40px;
   letter-spacing: 0.1em;
   border-bottom: 0px solid;
-  text-align: center;
   border-image-source: linear-gradient(
     266.89deg,
     #982649 -18.13%,
@@ -96,13 +96,6 @@ const Button = styled(Column)`
   user-select: none;
   &:hover {
     cursor: pointer;
-  }
-  @media screen and (max-width: 1100px) {
-    padding: 40px 15px 23px 15px;
-    font-size: 18px;
-    height: 30px;
-    line-height: 20px;
-    justify-content: center;
   }
 `
 
@@ -123,26 +116,23 @@ const Avatar = styled.img`
 `
 
 export default function ProfileTop() {
-  const router = useRouter()
-  const { userId } = router.query
-  const { user, avatar } = useUser(userId)
   const [selected, setSelected] = useState('Home')
-  const { currentUser, isAuthenticated, token } = useContext(
+  const { currentUser, isAuthenticated, currentUserAvatar, token } = useContext(
     AuthenticationContext
   )
-  const friends = useFriends(user)
-  const stats = useStats(user)
-  const inviteFriend = useInviteFriend()
+  const friends = useFriends(currentUser)
+  const stats = useStats(currentUser)
+  const { invites, avatars, error } = useFriendInvites(currentUser?.id, token)
 
   return (
     <Column>
       <Wrapper>
         <SpaceBetween>
           <ProfilePanel>
-            {avatar && <Avatar src={avatar} />}
+            {currentUserAvatar && <Avatar src={currentUserAvatar} />}
             <ProfileInfo>
-              <Name>{user?.username}</Name>
-              <Team>{user?.team}</Team>
+              <Name>{currentUser?.username}</Name>
+              <Team>{currentUser?.team}</Team>
               <ProfileStats>
                 <GreyTextColumn>
                   <GreyText>rank</GreyText>
@@ -159,20 +149,6 @@ export default function ProfileTop() {
               </ProfileStats>
             </ProfileInfo>
           </ProfilePanel>
-          {currentUser &&
-            userId &&
-            currentUser.id != userId &&
-            isAuthenticated && (
-              <ArrowColumn>
-                <div
-                  style={{ cursor: 'pointer' }}
-                  onClick={() => inviteFriend(currentUser.id, userId, token)}
-                >
-                  <AddMember />
-                  <div style={{ marginTop: 10 }}>invite friend</div>
-                </div>
-              </ArrowColumn>
-            )}
         </SpaceBetween>
         <ButtonWrapper>
           <ButtonHome
@@ -207,8 +183,10 @@ export default function ProfileTop() {
         </ButtonWrapper>
       </Wrapper>
       {selected == 'Teams' && <Teams />}
-      {selected == 'Friends' && <Friends friends={friends} />}
-      {selected == 'Home' && <Home friends={friends} />}
+      {selected == 'Friends' && (
+        <Friends friends={friends} invites={invites} avatars={avatars} />
+      )}
+      {selected == 'Home' && <Home />}
     </Column>
   )
 }

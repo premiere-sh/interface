@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import styled from 'styled-components'
 import { LeaderboardTitle, Row, Column, GradientText } from 'components/common'
+import { useRouter } from 'next/router'
 
 const Container = styled.div`
   margin-bottom: 150px;
@@ -55,34 +56,41 @@ const Stat = styled.div`
   color: ${(props) => props.theme.colors.black};
 `
 
-export default function BigPlayerOfTheWeek({ player }) {
+const Avatar = styled.img`
+  width: 220px;
+  height: 220px;
+  border-radius: 220px;
+`
+
+export default function BigPlayerOfTheWeek({ user, avatar }) {
+  const router = useRouter()
   return (
     <Container>
       <LeaderboardTitle>Player of the week</LeaderboardTitle>
       <PlayerRow>
-        <div style={{ marginRight: 40 }}>
-          <Image
-            src={'/devonhenry_.svg'}
-            width={220}
-            height={220}
-            alt={'player-of-the-week'}
-          />
+        <div
+          style={{ marginRight: 60, cursor: 'pointer' }}
+          onClick={
+            user?.id ? () => router.push(`/profile/${user.id}`) : () => null
+          }
+        >
+          {avatar && <Avatar src={avatar} />}
         </div>
         <Column>
-          <PlayerName>{player.name}</PlayerName>
-          <MemberSince>{player.since}</MemberSince>
+          <PlayerName>{user?.username}</PlayerName>
+          <MemberSince>{user?.since}</MemberSince>
           <StatsRow>
             <StatColumn>
               <StatHeading>rank</StatHeading>
-              <Stat>{player.rank}</Stat>
+              <Stat>{user?.rank ?? '-'}</Stat>
             </StatColumn>
             <StatColumn>
               <StatHeading>weekly wins</StatHeading>
-              <Stat>{player.weeklyWins}</Stat>
+              <Stat>{user?.weeklyWins ?? '-'}</Stat>
             </StatColumn>
             <StatColumn>
               <StatHeading>$prem earned</StatHeading>
-              <Stat>{player.premEarned}</Stat>
+              <Stat>{user?.premEarned ?? '-'}</Stat>
             </StatColumn>
           </StatsRow>
         </Column>

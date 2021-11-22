@@ -105,8 +105,12 @@ const Avatar = styled.img`
   }
 `
 
-const LogoutButton = styled(LoginButton)`
+const AvatarPlaceholder = styled.div`
+  height: 40px;
+  width: 40px;
 `
+
+const LogoutButton = styled(LoginButton)``
 
 function Navigator({ isAuthenticated, currentUser }) {
   return (
@@ -157,7 +161,9 @@ export default function _Header({ home }) {
   const [navigatorOpen, setNavigatorOpen] = useState(false)
   const ref = useRef()
   const dropdownRef = useRef()
-  const { isAuthenticated, currentUser, avatar } = useContext(AuthenticationContext)
+  const { isAuthenticated, currentUser, currentUserAvatar } = useContext(
+    AuthenticationContext
+  )
   const signOut = useSignOut()
 
   useEffect(function () {
@@ -239,25 +245,26 @@ export default function _Header({ home }) {
         </Link>
       </LinksBit>
       <SignupBit>
-          {!isAuthenticated ? (
+        {!isAuthenticated ? (
+          <>
+            <AvatarPlaceholder />
             <Link href={'/login'}>
               <a>
                 <LoginButton>login</LoginButton>
               </a>
             </Link>
-          ) : (
-            <>
-              <div 
-                onClick={() => Router.push('/profile')} 
-                style={{ cursor: 'pointer', marginTop: 5 }}
-              >
-                <Avatar src={avatar} />
-              </div>
-              <LogoutButton>
-                log out
-              </LogoutButton>
-            </>
-          )}
+          </>
+        ) : (
+          <>
+            <div
+              onClick={() => Router.push(`/profile`)}
+              style={{ cursor: 'pointer', marginTop: 5 }}
+            >
+              <Avatar src={currentUserAvatar} />
+            </div>
+            <LogoutButton onClick={signOut}>log out</LogoutButton>
+          </>
+        )}
       </SignupBit>
     </Header>
   )

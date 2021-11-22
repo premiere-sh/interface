@@ -101,30 +101,13 @@ const ArrowButtonContainer = styled.div`
   display: inline-block;
 `
 
-export default function Teams() {
-  const friends = [
-    {
-      name: 'devonhenry_',
-      image: 'devonhenry_'
-    },
-    {
-      name: 'devonhenry_',
-      image: 'devonhenry_'
-    },
-    {
-      name: 'devonhenry_',
-      image: 'devonhenry_'
-    },
-    {
-      name: 'devonhenry_',
-      image: 'devonhenry_'
-    },
-    {
-      name: 'devonhenry_',
-      image: 'devonhenry_'
-    }
-  ]
+const Avatar = styled.img`
+  width: 90px;
+  height: 90px;
+  border-radius: 90px;
+`
 
+export default function Home({ friends }) {
   const tournament = {
     game: 'csgo',
     region: 'USA + Europe',
@@ -167,15 +150,10 @@ export default function Teams() {
       <TopFriends>Top friends</TopFriends>
       <FriendsRow>
         {friends?.length &&
-          friends.map((friend, key) => (
+          friends.slice(0, 5).map((friend, key) => (
             <FriendColumn key={key}>
-              <Image
-                src={`/${friend.image}.svg`}
-                width={89.74}
-                height={89.74}
-                alt={'friend-image'}
-              />
-              <FriendName>{friend.name}</FriendName>
+              <Avatar src={friend.avatar} />
+              <FriendName>{friend.username}</FriendName>
             </FriendColumn>
           ))}
       </FriendsRow>

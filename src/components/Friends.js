@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { Column, Container, Row } from './common'
 import Image from 'next/image'
 import { Grid } from 'styled-css-grid'
+import { zip } from 'hooks'
 
 const UserColumn = styled(Column)``
 
@@ -41,81 +42,39 @@ const Username = styled.div`
   margin-top: 26.73px;
 `
 
-export default function Friends() {
-  const friends = [
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    },
-    {
-      picture: 'devonhenry_',
-      user: 'devonhenry_'
-    }
-  ]
+const Avatar = styled.img`
+  width: 170px;
+  height: 170px;
+  border-radius: 170px;
+`
+
+export default function Friends({ friends, invites, avatars }) {
   return (
     <FriendsContainer>
+      {invites && (
+        <Container>
+          <TextSection>
+            <YourFriends>Your invites</YourFriends>
+          </TextSection>
+          <Grid columns={'repeat(auto-fit, minmax(210px, 1fr))'} gap={'83px'}>
+            {invites?.length &&
+              avatars?.length &&
+              zip(invites, avatars).map(([invite, avatar], key) => (
+                <UserColumn style={{ alignItems: 'center' }} key={key}>
+                  <div onClick={() => acceptInvite(invite, token)}>
+                    <Avatar src={avatar} />
+                  </div>
+                  <Username>{invite.inviting_friend}</Username>
+                </UserColumn>
+              ))}
+          </Grid>
+        </Container>
+      )}
       <Container>
         <TextSection>
           <YourFriends>Your friends</YourFriends>
           <SearchBox>
-            <Image
-              src={'/search.svg'}
-              width={32}
-              height={32}
-              alt={'profile-pic'}
-            />
+            <Image src={'/search.svg'} width={32} height={32} alt={'search'} />
             <Search placeholder={'Search players...'} />
           </SearchBox>
         </TextSection>
@@ -123,13 +82,10 @@ export default function Friends() {
           {friends?.length &&
             friends.map((friend, key) => (
               <UserColumn style={{ alignItems: 'center' }} key={key}>
-                <Image
-                  src={`/${friend.picture}.svg`}
-                  width={173}
-                  height={173}
-                  alt={'teammate-image'}
-                />
-                <Username>{friend.user}</Username>
+                <div onClick={() => router.push(`/profile/${friend.id}`)}>
+                  <Avatar src={friend.avatar} />
+                </div>
+                <Username>{friend.username}</Username>
               </UserColumn>
             ))}
         </Grid>
