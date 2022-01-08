@@ -17,28 +17,6 @@
         "premiereb82b65cbb82b65cb": {
           "facebookAppId": "414492653691433"
         }
-      },
-      "function": {
-        "premiereb82b65cbb82b65cbDefineAuthChallenge": {
-          "deploymentBucketName": "amplify-premiere-dev-185839-deployment",
-          "s3Key": "amplify-builds/premiereb82b65cbb82b65cbDefineAuthChallenge-5373627a736b4b32396b-build.zip"
-        },
-        "premiereb82b65cbb82b65cbCreateAuthChallenge": {
-          "deploymentBucketName": "amplify-premiere-dev-185839-deployment",
-          "s3Key": "amplify-builds/premiereb82b65cbb82b65cbCreateAuthChallenge-2f387a463448376c4546-build.zip"
-        },
-        "premiereb82b65cbb82b65cbVerifyAuthChallengeResponse": {
-          "RECAPTCHASECRET": "",
-          "deploymentBucketName": "amplify-premiere-dev-185839-deployment",
-          "s3Key": "amplify-builds/premiereb82b65cbb82b65cbVerifyAuthChallengeResponse-58476437687555565370-build.zip"
-        },
-        "premiereb82b65cbb82b65cbCustomMessage": {
-          "REDIRECTURL": "https://premiere.sh/",
-          "EMAILSUBJECT": "",
-          "EMAILMESSAGE": "",
-          "deploymentBucketName": "amplify-premiere-dev-185839-deployment",
-          "s3Key": "amplify-builds/premiereb82b65cbb82b65cbCustomMessage-6c45364a676a56724d50-build.zip"
-        }
       }
     }
   }

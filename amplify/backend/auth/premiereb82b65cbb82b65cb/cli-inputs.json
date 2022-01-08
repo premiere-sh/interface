@@ -16,9 +16,14 @@
     "smsVerificationMessage": "Your verification code is {####}",
     "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
-    "defaultPasswordPolicy": false,
+    "defaultPasswordPolicy": true,
     "passwordPolicyMinLength": 8,
-    "passwordPolicyCharacters": [],
+    "passwordPolicyCharacters": [
+      "Requires Lowercase",
+      "Requires Uppercase",
+      "Requires Numbers",
+      "Requires Symbols"
+    ],
     "requiredAttributes": [
       "birthdate",
       "email",
@@ -43,33 +48,15 @@
     "resourceName": "premiereb82b65cbb82b65cb",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
-    "thirdPartyAuth": true,
-    "authProviders": [
-      "graph.facebook.com"
-    ],
+    "thirdPartyAuth": false,
+    "authProviders": [],
     "usernameAttributes": [
       "email"
     ],
     "userPoolGroups": false,
     "adminQueries": true,
-    "triggers": {
-      "CreateAuthChallenge": [
-        "captcha-create-challenge"
-      ],
-      "CustomMessage": [
-        "verification-link"
-      ],
-      "DefineAuthChallenge": [
-        "captcha-define-challenge"
-      ],
-      "VerifyAuthChallengeResponse": [
-        "captcha-verify"
-      ]
-    },
-    "hostedUI": true,
-    "hostedUIDomainName": "premiere",
-    "authProvidersUserPool": [],
-    "hostedUIProviderMeta": "[]",
+    "triggers": {},
+    "hostedUI": false,
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "verificationBucketName": "premiereb82b65cbb82b65cbverificationbucket",
@@ -88,47 +75,8 @@
       ]
     },
     "breakCircularDependency": true,
-    "dependsOn": [
-      {
-        "category": "function",
-        "resourceName": "premiereb82b65cbb82b65cbDefineAuthChallenge",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
-      },
-      {
-        "category": "function",
-        "resourceName": "premiereb82b65cbb82b65cbCreateAuthChallenge",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
-      },
-      {
-        "category": "function",
-        "resourceName": "premiereb82b65cbb82b65cbVerifyAuthChallengeResponse",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
-      },
-      {
-        "category": "function",
-        "resourceName": "premiereb82b65cbb82b65cbCustomMessage",
-        "triggerProvider": "Cognito",
-        "attributes": [
-          "Arn",
-          "Name"
-        ]
-      }
-    ],
+    "dependsOn": [],
     "permissions": [],
-    "authTriggerConnections": "[\n  {\n    \"triggerType\": \"CreateAuthChallenge\",\n    \"lambdaFunctionName\": \"premiereb82b65cbb82b65cbCreateAuthChallenge\"\n  },\n  {\n    \"triggerType\": \"CustomMessage\",\n    \"lambdaFunctionName\": \"premiereb82b65cbb82b65cbCustomMessage\"\n  },\n  {\n    \"triggerType\": \"DefineAuthChallenge\",\n    \"lambdaFunctionName\": \"premiereb82b65cbb82b65cbDefineAuthChallenge\"\n  },\n  {\n    \"triggerType\": \"VerifyAuthChallengeResponse\",\n    \"lambdaFunctionName\": \"premiereb82b65cbb82b65cbVerifyAuthChallengeResponse\"\n  }\n]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://premiere.sh/\"],\"LogoutURLs\":[\"https://premiere.sh/\"]}",
     "parentStack": {
       "Ref": "AWS::StackId"
     }
