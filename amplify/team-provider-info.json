@@ -10,6 +10,25 @@
       "StackName": "amplify-premiere-dev-185839",
       "StackId": "arn:aws:cloudformation:eu-west-2:118170873718:stack/amplify-premiere-dev-185839/9e446110-70ac-11ec-ae16-06fe9382edf8",
       "AmplifyAppId": "daelkqsyx6l5z"
+    },
+    "categories": {
+      "auth": {
+        "premiereb82b65cbb82b65cb": {
+          "facebookAppId": "414492653691433"
+        }
+      },
+      "function": {
+        "premiereb82b65cbb82b65cbDefineAuthChallenge": {},
+        "premiereb82b65cbb82b65cbCreateAuthChallenge": {},
+        "premiereb82b65cbb82b65cbVerifyAuthChallengeResponse": {
+          "RECAPTCHASECRET": ""
+        },
+        "premiereb82b65cbb82b65cbCustomMessage": {
+          "REDIRECTURL": "https://premiere.sh/",
+          "EMAILSUBJECT": "",
+          "EMAILMESSAGE": ""
+        }
+      }
     }
   }
 }
