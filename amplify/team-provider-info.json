@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-premiere-dev-185839-unauthRole",
       "StackName": "amplify-premiere-dev-185839",
       "StackId": "arn:aws:cloudformation:eu-west-2:118170873718:stack/amplify-premiere-dev-185839/9e446110-70ac-11ec-ae16-06fe9382edf8",
-      "AmplifyAppId": "daelkqsyx6l5z"
+      "AmplifyAppId": "daelkqsyx6l5z",
+      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-premiere-dev-185839-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
       "auth": {
@@ -18,15 +19,25 @@
         }
       },
       "function": {
-        "premiereb82b65cbb82b65cbDefineAuthChallenge": {},
-        "premiereb82b65cbb82b65cbCreateAuthChallenge": {},
+        "premiereb82b65cbb82b65cbDefineAuthChallenge": {
+          "deploymentBucketName": "amplify-premiere-dev-185839-deployment",
+          "s3Key": "amplify-builds/premiereb82b65cbb82b65cbDefineAuthChallenge-5373627a736b4b32396b-build.zip"
+        },
+        "premiereb82b65cbb82b65cbCreateAuthChallenge": {
+          "deploymentBucketName": "amplify-premiere-dev-185839-deployment",
+          "s3Key": "amplify-builds/premiereb82b65cbb82b65cbCreateAuthChallenge-2f387a463448376c4546-build.zip"
+        },
         "premiereb82b65cbb82b65cbVerifyAuthChallengeResponse": {
-          "RECAPTCHASECRET": ""
+          "RECAPTCHASECRET": "",
+          "deploymentBucketName": "amplify-premiere-dev-185839-deployment",
+          "s3Key": "amplify-builds/premiereb82b65cbb82b65cbVerifyAuthChallengeResponse-58476437687555565370-build.zip"
         },
         "premiereb82b65cbb82b65cbCustomMessage": {
           "REDIRECTURL": "https://premiere.sh/",
           "EMAILSUBJECT": "",
-          "EMAILMESSAGE": ""
+          "EMAILMESSAGE": "",
+          "deploymentBucketName": "amplify-premiere-dev-185839-deployment",
+          "s3Key": "amplify-builds/premiereb82b65cbb82b65cbCustomMessage-6c45364a676a56724d50-build.zip"
         }
       }
     }
