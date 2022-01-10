@@ -1,4 +1,4 @@
-import { types } from "./auth.actions"
+import { types } from './auth.actions'
 
 const initialState = {
   isLoading: false,
@@ -7,7 +7,7 @@ const initialState = {
 }
 
 export const reducer = (state = initialState, action) => {
-  console.log("result:", action?.payload?.result)
+  console.log('result:', action?.payload?.result)
   switch (action.type) {
     case types.SIGN_IN:
       return {

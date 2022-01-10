@@ -1,5 +1,5 @@
-import styled from "styled-components"
-import { GradientText } from "components/common"
+import styled from 'styled-components'
+import { GradientText } from 'components/common'
 
 export const Entry = styled.div`
   height: 130px;
