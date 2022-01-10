@@ -105,13 +105,15 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-export default ({ Component, pageProps }) => (
-  <>
-    <GlobalStyle />
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </Provider>
-  </>
-)
+export default function App({ Component, pageProps }) {
+  return (
+    <>
+      <GlobalStyle />
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </Provider>
+    </>
+  )
+}
