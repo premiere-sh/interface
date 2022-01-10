@@ -26,7 +26,7 @@ export const types = {
   RESEND_SIGN_UP_CODE_FAIL: "[Account] Resend Sign Up Code fail",
   UPDATE_USER_ATTRIBUTES: "[Account] Update User Attributes",
   UPDATE_USER_ATTRIBUTES_SUCCESS: "[Account] Update User Attributes success",
-  UPDATE_USER_ATTRIBUTES_FAIL: "[Account] Update User Attributes fail",
+  UPDATE_USER_ATTRIBUTES_FAIL: "[Account] Update User Attributes fail"
 }
 
 export const signInPersist = payload => ({

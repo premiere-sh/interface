@@ -1,8 +1,8 @@
-import Header from 'components/Header'
-import Footer from 'components/Footer'
-import Login from 'components/Login'
-import { Column } from 'components/common'
-import SocialsSection from 'components/SocialsSection'
+import Header from "components/Header"
+import Footer from "components/Footer"
+import Login from "components/Login"
+import { Column } from "components/common"
+import SocialsSection from "components/SocialsSection"
 
 export default function LoginPage() {
   return (

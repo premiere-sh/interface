@@ -1,6 +1,7 @@
 # Premiere
 
-A crypto web-app enabling gamers to participate in tournaments and receive $Premiere for their wins.
+A crypto web-app enabling gamers to participate in tournaments and receive
+$Premiere for their wins.
 
 ### Run the development server:
 

@@ -1,7 +1,7 @@
-import Image from 'next/image'
-import styled from 'styled-components'
-import { LeaderboardTitle, Row, Column, GradientText } from 'components/common'
-import { useRouter } from 'next/router'
+import Image from "next/image"
+import styled from "styled-components"
+import { LeaderboardTitle, Row, Column, GradientText } from "components/common"
+import { useRouter } from "next/router"
 
 const PlayerRow = styled(Row)``
 
@@ -16,7 +16,7 @@ const PlayerName = styled.div`
   font-weight: bold;
   font-size: 36px;
   line-height: 100%;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
   margin-bottom: 8px;
 `
 
@@ -26,7 +26,7 @@ const MemberSince = styled.div`
   font-weight: 600;
   font-size: 18px;
   line-height: 150%;
-  color: ${(props) => props.theme.colors.gray};
+  color: ${props => props.theme.colors.gray};
 `
 
 const StatColumn = styled(Column)`
@@ -40,7 +40,7 @@ const StatHeading = styled.div`
   font-size: 16px;
   line-height: 150%;
   letter-spacing: 0.1em;
-  color: ${(props) => props.theme.colors.gray};
+  color: ${props => props.theme.colors.gray};
   text-transform: uppercase;
 `
 
@@ -50,7 +50,7 @@ const Stat = styled.div`
   font-weight: 600;
   font-size: 18px;
   line-height: 150%;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
 `
 
 const ShareRow = styled(Row)`
@@ -91,7 +91,7 @@ const Avatar = styled.img`
 function CopyLink() {
   return (
     <CopyLinkContainer>
-      <Image src={'/copy_link.svg'} width={24} height={24} alt={'copy-link'} />
+      <Image src={"/copy_link.svg"} width={24} height={24} alt={"copy-link"} />
       <CopyLinkText>copy link</CopyLinkText>
     </CopyLinkContainer>
   )
@@ -104,7 +104,7 @@ export default function PlayerOfTheWeek({ user, avatar }) {
       <LeaderboardTitle>Player of the week</LeaderboardTitle>
       <PlayerRow>
         <div
-          style={{ marginRight: 20, cursor: 'pointer' }}
+          style={{ marginRight: 20, cursor: "pointer" }}
           onClick={
             user?.id ? () => router.push(`/profile/${user.id}`) : () => null
           }
@@ -119,34 +119,34 @@ export default function PlayerOfTheWeek({ user, avatar }) {
       <StatsRow>
         <StatColumn>
           <StatHeading>rank</StatHeading>
-          <Stat>{user?.rank ?? '-'}</Stat>
+          <Stat>{user?.rank ?? "-"}</Stat>
         </StatColumn>
         <StatColumn>
           <StatHeading>weekly wins</StatHeading>
-          <Stat>{user?.weeklyWins ?? '-'}</Stat>
+          <Stat>{user?.weeklyWins ?? "-"}</Stat>
         </StatColumn>
         <StatColumn>
           <StatHeading>$prem earned</StatHeading>
-          <Stat>{user?.premEarned ?? '-'}</Stat>
+          <Stat>{user?.premEarned ?? "-"}</Stat>
         </StatColumn>
       </StatsRow>
       <LeaderboardTitle>Share this page</LeaderboardTitle>
       <ShareRow>
         <CopyLink />
-        <a style={{ marginTop: 12, marginLeft: 10, cursor: 'pointer' }}>
+        <a style={{ marginTop: 12, marginLeft: 10, cursor: "pointer" }}>
           <Image
-            src={'/instagram_button.svg'}
+            src={"/instagram_button.svg"}
             width={64}
             height={64}
-            alt={'button'}
+            alt={"button"}
           />
         </a>
-        <a style={{ marginTop: 12, cursor: 'pointer' }}>
+        <a style={{ marginTop: 12, cursor: "pointer" }}>
           <Image
-            src={'/twitter_button.svg'}
+            src={"/twitter_button.svg"}
             width={64}
             height={64}
-            alt={'button'}
+            alt={"button"}
           />
         </a>
       </ShareRow>

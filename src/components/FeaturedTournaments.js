@@ -1,8 +1,8 @@
-import styled from 'styled-components'
-import FeaturedTournament from 'components/FeaturedTournament'
-import { ArrowButton } from 'components/Buttons'
-import { HomeHeading } from 'components/common'
-import Link from 'next/link'
+import styled from "styled-components"
+import FeaturedTournament from "components/FeaturedTournament"
+import { ArrowButton } from "components/Buttons"
+import { HomeHeading } from "components/common"
+import Link from "next/link"
 
 const HorizontalScrollView = styled.div`
   width: 100%;
@@ -50,9 +50,9 @@ export default function FeaturedTournaments({ tournaments }) {
         </HorizontalScrollView>
       </Container>
       <ButtonContainer>
-        <Link href={'/tournaments'}>
+        <Link href={"/tournaments"}>
           <a>
-            <ArrowButton text={'view all tournaments'} />
+            <ArrowButton text={"view all tournaments"} />
           </a>
         </Link>
       </ButtonContainer>

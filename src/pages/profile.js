@@ -1,8 +1,8 @@
-import Header from 'components/Header'
-import Teams from 'components/Teams'
-import Footer from 'components/Footer'
-import SocialsSection from 'components/SocialsSection'
-import CurrentUserProfileTop from 'components/CurrentUserProfileTop'
+import Header from "components/Header"
+import Teams from "components/Teams"
+import Footer from "components/Footer"
+import SocialsSection from "components/SocialsSection"
+import CurrentUserProfileTop from "components/CurrentUserProfileTop"
 
 export default function Profile() {
   return (

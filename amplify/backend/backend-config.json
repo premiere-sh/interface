@@ -8,25 +8,15 @@
       "customAuth": true,
       "frontendAuthConfig": {
         "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
-        "signupAttributes": [
-          "BIRTHDATE",
-          "EMAIL",
-          "PREFERRED_USERNAME"
-        ],
+        "usernameAttributes": ["EMAIL"],
+        "signupAttributes": ["BIRTHDATE", "EMAIL", "PREFERRED_USERNAME"],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": []
         },
         "mfaConfiguration": "OPTIONAL",
-        "mfaTypes": [
-          "SMS"
-        ],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
+        "mfaTypes": ["SMS"],
+        "verificationMechanisms": ["EMAIL"]
       }
     }
   }

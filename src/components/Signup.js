@@ -1,4 +1,4 @@
-import { Row, GradientText, Column } from 'components/common'
+import { Row, GradientText, Column } from "components/common"
 import {
   Heading,
   Caption,
@@ -6,13 +6,13 @@ import {
   Entry,
   Input,
   SmallInput
-} from 'components/Forms'
-import styled from 'styled-components'
-import Link from 'next/link'
+} from "components/Forms"
+import styled from "styled-components"
+import Link from "next/link"
 // TODO use this when isLoading is there
 // import { Dots } from 'react-activity'
-import * as Yup from 'yup'
-import { useFormik } from 'formik'
+import * as Yup from "yup"
+import { useFormik } from "formik"
 
 const DateInput = styled(SmallInput)`
   padding-right: 15px;
@@ -51,8 +51,8 @@ export default function Signup() {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 
   const passwordMessage =
-    'Password should contain at least one ' +
-    'capital letter, one special character and one number'
+    "Password should contain at least one " +
+    "capital letter, one special character and one number"
 
   const matchValidation = password => password == formik.values.password
 
@@ -62,33 +62,33 @@ export default function Signup() {
     return dateOfBirth <= date18YrsAgo
   }
 
-  const over18 = 'You have to be over 18 years old'
+  const over18 = "You have to be over 18 years old"
 
-  const noMatch = 'Passwords do not match'
+  const noMatch = "Passwords do not match"
 
   const formik = useFormik({
     initialValues: {
-      username: '',
-      birthDate: '',
-      email: '',
-      password: ''
+      username: "",
+      birthDate: "",
+      email: "",
+      password: ""
     },
 
     validationSchema: Yup.object({
-      username: Yup.string().required('Username is required'),
+      username: Yup.string().required("Username is required"),
       birthDate: Yup.date()
-        .required('Birthdate is required')
-        .test('isAdult', over18, value => ageValidation(value)),
+        .required("Birthdate is required")
+        .test("isAdult", over18, value => ageValidation(value)),
       email: Yup.string()
-        .email('Email is not valid')
-        .required('Email is required'),
+        .email("Email is not valid")
+        .required("Email is required"),
       password: Yup.string()
-        .required('No password provided')
-        .min(8, 'Password is too short - should be minimum of 8 characters')
+        .required("No password provided")
+        .min(8, "Password is too short - should be minimum of 8 characters")
         .matches(passwordValidation, passwordMessage),
       confirmPassword: Yup.string()
         .required()
-        .test('confirmPassword', noMatch, value => matchValidation(value))
+        .test("confirmPassword", noMatch, value => matchValidation(value))
     }),
 
     onSubmit: values => {
@@ -177,7 +177,7 @@ export default function Signup() {
         <SubmitEntry type="submit">Submit</SubmitEntry>
         <LoginIfGotAnAccount>
           Already have an account?
-          <GradientText style={{ display: 'inline', marginLeft: 5 }}>
+          <GradientText style={{ display: "inline", marginLeft: 5 }}>
             <Link href="/login">Log In</Link>
           </GradientText>
         </LoginIfGotAnAccount>

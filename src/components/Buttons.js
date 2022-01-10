@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import { GradientText } from 'components/common'
-import Image from 'next/image'
-import Link from 'next/link'
+import styled from "styled-components"
+import { GradientText } from "components/common"
+import Image from "next/image"
+import Link from "next/link"
 
 export const Button = styled.button`
   --gradient: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
@@ -13,13 +13,13 @@ export const Button = styled.button`
   font-size: 16px;
   line-height: 150%;
   letter-spacing: 0.1em;
-  color: ${(props) => props.theme.colors.white};
+  color: ${props => props.theme.colors.white};
   border: 0;
   &:hover {
     background: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    border: 1px ${(props) => props.theme.colors.ruby} solid;
+    border: 1px ${props => props.theme.colors.ruby} solid;
   }
   text-transform: uppercase;
   cursor: pointer;
@@ -78,7 +78,7 @@ export function LoginButton({ text, disabled }) {
 
 export function ViewTournamentsButton() {
   return (
-    <Link href={'/tournaments'}>
+    <Link href={"/tournaments"}>
       <a>
         <ViewTournaments>view tournaments</ViewTournaments>
       </a>
@@ -92,10 +92,10 @@ export function ArrowButton({ text }) {
       {text}
       <div style={{ marginBottom: 10, marginLeft: 15 }}>
         <Image
-          src={'/arrow-right-gradient.svg'}
+          src={"/arrow-right-gradient.svg"}
           width={18}
           height={12}
-          alt={'arrow-right'}
+          alt={"arrow-right"}
         />
       </div>
     </ArrowButtonContainer>

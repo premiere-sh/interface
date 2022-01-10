@@ -5,9 +5,9 @@ import {
   Telegram,
   Youtube,
   SocialsDivider
-} from 'components/Socials'
-import { Row as _Row, Column as _Column } from 'components/common'
-import styled from 'styled-components'
+} from "components/Socials"
+import { Row as _Row, Column as _Column } from "components/common"
+import styled from "styled-components"
 
 const Row = styled(_Row)`
   height: 125px;
@@ -34,7 +34,7 @@ const Text1 = styled.div`
   font-size: 24px;
   line-height: 150%;
   text-align: center;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
 `
 
 const Text2 = styled.div`
@@ -43,7 +43,7 @@ const Text2 = styled.div`
   font-weight: bold;
   font-size: 45px;
   line-height: 100%;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
 `
 
 const SocialsRow = styled(_Row)`
@@ -70,7 +70,9 @@ export default function SocialsSection() {
         </Column>
       </_Row>
       <SocialsDividerContainer>
-        <SocialsDivider style={{ position: 'relative', alignSelf: 'center' }} />
+        <SocialsDivider
+          style={{ position: "relative", alignSelf: "center" }}
+        />
       </SocialsDividerContainer>
       <SocialsRow>
         <Instagram />

@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import { Row, Column } from './common'
-import { Heading, Input } from './Forms'
-import Image from 'next/image'
+import styled from "styled-components"
+import { Row, Column } from "./common"
+import { Heading, Input } from "./Forms"
+import Image from "next/image"
 
 const EditColumn = styled(Column)`
   width: 541px;
@@ -29,7 +29,7 @@ const InputName = styled.textarea`
   font-weight: 500;
   font-size: 16px;
   line-height: 140.62%;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
   padding-left: 25px;
   resize: none;
   padding-top: 16px;
@@ -52,7 +52,7 @@ const InputDescription = styled.textarea`
   font-weight: 500;
   font-size: 16px;
   line-height: 140.62%;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
   padding-left: 25px;
   resize: none;
   padding-top: 16px;
@@ -82,7 +82,7 @@ export const AddMember = styled.div`
   border: 2px solid #982649;
   position: relative;
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     left: 50%;
     top: 34px;
@@ -92,7 +92,7 @@ export const AddMember = styled.div`
     background: #982649;
   }
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     left: 34px;
@@ -113,9 +113,9 @@ const RemoveMember = styled.div`
   border: 1px solid #982649;
   position: relative;
   transform: translateX(-100%) translateY(-31px) rotate(45deg);
-  background: ${(props) => props.theme.colors.white};
+  background: ${props => props.theme.colors.white};
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     left: 50%;
     top: 6px;
@@ -125,7 +125,7 @@ const RemoveMember = styled.div`
     background: #982649;
   }
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     left: 6px;
@@ -139,13 +139,13 @@ const RemoveMember = styled.div`
 export default function _TeamEdit() {
   const teammates = [
     {
-      user: 'devonhenry_'
+      user: "devonhenry_"
     },
     {
-      user: 'devonhenry_'
+      user: "devonhenry_"
     },
     {
-      user: 'devonhenry_'
+      user: "devonhenry_"
     }
   ]
 
@@ -154,11 +154,11 @@ export default function _TeamEdit() {
       <EditYourTeam>edit your team</EditYourTeam>
       <Wrapper>
         <SubHeading>Team Name</SubHeading>
-        <InputName placeholder={'Enter your team name'} />
+        <InputName placeholder={"Enter your team name"} />
       </Wrapper>
       <Wrapper>
         <SubHeading>Team Description</SubHeading>
-        <InputDescription placeholder={'Enter your team description'} />
+        <InputDescription placeholder={"Enter your team description"} />
       </Wrapper>
       <Wrapper>
         <SubHeading>Team Members</SubHeading>
@@ -170,7 +170,7 @@ export default function _TeamEdit() {
                   src={`/${teammate.user}.svg`}
                   width={90}
                   height={90}
-                  alt={'teammate-image'}
+                  alt={"teammate-image"}
                 />
                 <RemoveMember />
               </MembersRow>

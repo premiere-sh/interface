@@ -1,25 +1,25 @@
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
-import '@fontsource/inter/900.css'
-import '@fontsource/inter/800.css'
-import '@fontsource/inter/700.css'
-import '@fontsource/inter/600.css'
-import '@fontsource/inter/500.css'
-import '@fontsource/inter/400.css'
-import 'react-activity/dist/Dots.css'
-import { Provider } from 'react-redux'
-import store from 'store'
+import { createGlobalStyle, ThemeProvider } from "styled-components"
+import "@fontsource/inter/900.css"
+import "@fontsource/inter/800.css"
+import "@fontsource/inter/700.css"
+import "@fontsource/inter/600.css"
+import "@fontsource/inter/500.css"
+import "@fontsource/inter/400.css"
+import "react-activity/dist/Dots.css"
+import { Provider } from "react-redux"
+import store from "store"
 
-const THEME = 'light'
+const THEME = "light"
 
 const theme = {
   colors: {
-    black: '#0c0a09',
-    gray: '#7e7f83',
-    cultured: '#f3f3f4',
-    ruby: '#982649',
-    red: '#f71735',
-    white: '#ffffff',
-    grayish: '#7B7B7B'
+    black: "#0c0a09",
+    gray: "#7e7f83",
+    cultured: "#f3f3f4",
+    ruby: "#982649",
+    red: "#f71735",
+    white: "#ffffff",
+    grayish: "#7B7B7B"
   }
 }
 
@@ -62,7 +62,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1, h2, h3, h4, h5, p {
-    color: ${THEME === 'light' ? theme.colors.black : theme.colors.white};
+    color: ${THEME === "light" ? theme.colors.black : theme.colors.white};
     margin: 0;
     padding: 0;
   }

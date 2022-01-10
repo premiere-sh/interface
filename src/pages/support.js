@@ -1,8 +1,8 @@
-import Header from 'components/Header'
-import Footer from 'components/Footer'
-import { Column, Container } from 'components/common'
-import SocialsSection from 'components/SocialsSection'
-import SupportSection from 'components/SupportSection'
+import Header from "components/Header"
+import Footer from "components/Footer"
+import { Column, Container } from "components/common"
+import SocialsSection from "components/SocialsSection"
+import SupportSection from "components/SupportSection"
 
 export default function Support() {
   return (

@@ -7,10 +7,7 @@ export const getIsLoading = createSelector(
   state => state?.isLoading
 )
 
-export const getAccountData = createSelector(
-  authState,
-  state => state?.data
-)
+export const getAccountData = createSelector(authState, state => state?.data)
 
 export const getUsername = createSelector(
   getAccountData,

@@ -6,16 +6,11 @@ import saga from "./saga"
 
 const sagaMiddleware = createSagaMiddleware()
 
-const middleware = [
-  sagaMiddleware
-]
+const middleware = [sagaMiddleware]
 
 const enhancer = composeWithDevTools({})(applyMiddleware(...middleware))
 
-const store = createStore(
-  reducer,
-  enhancer
-)
+const store = createStore(reducer, enhancer)
 
 sagaMiddleware.run(saga)
 

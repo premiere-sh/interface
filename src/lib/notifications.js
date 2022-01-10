@@ -82,7 +82,7 @@ const NOTIFICATIONS = {
   deactivateAccountSuccess: {
     type: "success",
     message: "You have successfully deactivated your account"
-  },
+  }
 }
 
 export const get = code => NOTIFICATIONS[code] || NOTIFICATIONS.generalError

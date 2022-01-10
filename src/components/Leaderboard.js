@@ -1,6 +1,6 @@
-import Image from 'next/image'
-import styled from 'styled-components'
-import { LeaderboardTitle } from 'components/common'
+import Image from "next/image"
+import styled from "styled-components"
+import { LeaderboardTitle } from "components/common"
 
 const Table = styled.table`
   margin-bottom: 100px;
@@ -8,7 +8,7 @@ const Table = styled.table`
 `
 
 const HeadRow = styled.tr`
-  border-bottom: 1px solid ${(props) => props.theme.colors.ruby};
+  border-bottom: 1px solid ${props => props.theme.colors.ruby};
   height: 40px;
 `
 
@@ -50,40 +50,40 @@ const TableHead = styled.thead``
 export default function Leaderboard() {
   const entries = [
     {
-      user: 'devonhenry_',
-      points: '321,142,104'
+      user: "devonhenry_",
+      points: "321,142,104"
     },
     {
-      user: 'devonhenry_',
-      points: '321,142,104'
+      user: "devonhenry_",
+      points: "321,142,104"
     },
     {
-      user: 'devonhenry_',
-      points: '321,142,104'
+      user: "devonhenry_",
+      points: "321,142,104"
     },
     {
-      user: 'devonhenry_',
-      points: '321,142,104'
+      user: "devonhenry_",
+      points: "321,142,104"
     },
     {
-      user: 'devonhenry_',
-      points: '321,142,104'
+      user: "devonhenry_",
+      points: "321,142,104"
     },
     {
-      user: 'devonhenry_',
-      points: '321,142,104'
+      user: "devonhenry_",
+      points: "321,142,104"
     },
     {
-      user: 'devonhenry_',
-      points: '321,142,104'
+      user: "devonhenry_",
+      points: "321,142,104"
     },
     {
-      user: 'devonhenry_',
-      points: '321,142,104'
+      user: "devonhenry_",
+      points: "321,142,104"
     },
     {
-      user: 'devonhenry_',
-      points: '321,142,104'
+      user: "devonhenry_",
+      points: "321,142,104"
     }
   ]
 
@@ -105,10 +105,10 @@ export default function Leaderboard() {
               <User>
                 <div style={{ marginRight: 12, marginTop: 5 }}>
                   <Image
-                    src={'/' + entry.user + '.svg'}
+                    src={"/" + entry.user + ".svg"}
                     width={32}
                     height={32}
-                    alt={'user'}
+                    alt={"user"}
                   />
                 </div>
                 {entry.user}

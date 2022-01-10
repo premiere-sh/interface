@@ -1,8 +1,8 @@
-import styled from 'styled-components'
-import { LoginButton } from 'components/Buttons'
-import { Heading, Caption, Subtext, Entry, Input } from 'components/Forms'
-import { GradientText } from 'components/common'
-import Link from 'next/link'
+import styled from "styled-components"
+import { LoginButton } from "components/Buttons"
+import { Heading, Caption, Subtext, Entry, Input } from "components/Forms"
+import { GradientText } from "components/common"
+import Link from "next/link"
 
 const FormContainer = styled.form`
   margin: auto;
@@ -36,7 +36,7 @@ export default function Login() {
       </SubmitEntry>
       <SignupIfNotGotAnAccount>
         Don&apos;t have an account?
-        <GradientText style={{ display: 'inline', marginLeft: 5 }}>
+        <GradientText style={{ display: "inline", marginLeft: 5 }}>
           <Link href="/signup">Sign up</Link>
         </GradientText>
       </SignupIfNotGotAnAccount>

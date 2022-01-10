@@ -1,8 +1,8 @@
-import styled from 'styled-components'
-import GameTile from 'components/GameTile'
-import { ArrowButton } from 'components/Buttons'
-import { HomeHeading } from 'components/common'
-import Link from 'next/link'
+import styled from "styled-components"
+import GameTile from "components/GameTile"
+import { ArrowButton } from "components/Buttons"
+import { HomeHeading } from "components/common"
+import Link from "next/link"
 
 const HorizontalScrollView = styled.div`
   width: 100%;
@@ -44,9 +44,9 @@ export default function FeaturedGames({ games }) {
         </HorizontalScrollView>
       </Container>
       <ButtonContainer>
-        <Link href={'/games'}>
+        <Link href={"/games"}>
           <a>
-            <ArrowButton text={'view all games'} />
+            <ArrowButton text={"view all games"} />
           </a>
         </Link>
       </ButtonContainer>

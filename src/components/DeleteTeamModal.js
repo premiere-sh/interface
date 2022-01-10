@@ -1,7 +1,7 @@
-import Modal from 'react-modal'
-import styled from 'styled-components'
-import { Button as BaseButton } from 'components/Buttons'
-import { Center, Column, Row } from './common'
+import Modal from "react-modal"
+import styled from "styled-components"
+import { Button as BaseButton } from "components/Buttons"
+import { Center, Column, Row } from "./common"
 
 const Button = styled(BaseButton)`
   margin-bottom: 49px;
@@ -15,7 +15,7 @@ const Cancel = styled(Button)`
   background: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  border: 1px ${(props) => props.theme.colors.ruby} solid;
+  border: 1px ${props => props.theme.colors.ruby} solid;
   width: 178px;
   &:hover {
     -webkit-background-clip: initial;
@@ -40,14 +40,14 @@ const SpaceBetween = styled(Row)`
 export default function DeleteTeamModal({ isOpen, setOpen }) {
   const style = {
     content: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
       width: 674,
       height: 205,
-      margin: 'auto',
+      margin: "auto",
       borderRadius: 15,
-      boxShadow: '0px 8px 50px 2px #00000040'
+      boxShadow: "0px 8px 50px 2px #00000040"
     }
   }
   return (

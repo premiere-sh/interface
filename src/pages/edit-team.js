@@ -1,7 +1,7 @@
-import Header from 'components/Header'
-import Footer from 'components/Footer'
-import SocialsSection from 'components/SocialsSection'
-import TeamEdit from 'components/TeamEdit'
+import Header from "components/Header"
+import Footer from "components/Footer"
+import SocialsSection from "components/SocialsSection"
+import TeamEdit from "components/TeamEdit"
 
 export default function Profile() {
   return (

@@ -1,13 +1,13 @@
-import { useState, useEffect, useRef } from 'react'
-import Head from 'next/head'
-import Link from 'next/link'
-import styled from 'styled-components'
-import Image from 'next/image'
-import { Row } from 'components/common'
-import Dropdown, { DropdownText } from 'components/Dropdown'
-import { Button, SignupButton } from 'components/Buttons'
-import LogoHeader from 'components/LogoHeader'
-import Router from 'next/router'
+import { useState, useEffect, useRef } from "react"
+import Head from "next/head"
+import Link from "next/link"
+import styled from "styled-components"
+import Image from "next/image"
+import { Row } from "components/common"
+import Dropdown, { DropdownText } from "components/Dropdown"
+import { Button, SignupButton } from "components/Buttons"
+import LogoHeader from "components/LogoHeader"
+import Router from "next/router"
 
 const Header = styled(Row)`
   justify-content: space-between;
@@ -20,7 +20,7 @@ const Header = styled(Row)`
     width: 480px;
     padding: 0;
   }
-  margin-bottom: ${(props) => (props.home ? '80px' : '150px')};
+  margin-bottom: ${props => (props.home ? "80px" : "150px")};
 `
 
 const LogoBit = styled(Row)`
@@ -114,33 +114,33 @@ function Navigator({ isAuthenticated, currentUser }) {
   return (
     <NavigatorContainer>
       <LinksContainer>
-        <Link href={'/games'}>
+        <Link href={"/games"}>
           <a>
             <DropdownText>GAMES</DropdownText>
           </a>
         </Link>
-        <Link href={'/tournaments'}>
+        <Link href={"/tournaments"}>
           <a>
             <DropdownText>TOURNAMENTS</DropdownText>
           </a>
         </Link>
-        <Link href={'/leaderboards'}>
+        <Link href={"/leaderboards"}>
           <a>
             <DropdownText>LEADERBOARDS</DropdownText>
           </a>
         </Link>
-        <Link href={'/support'}>
+        <Link href={"/support"}>
           <a>
             <DropdownText>SUPPORT</DropdownText>
           </a>
         </Link>
-        <Link href={'/events'}>
+        <Link href={"/events"}>
           <a>
             <DropdownText>EVENTS</DropdownText>
           </a>
         </Link>
         {!isAuthenticated ? (
-          <Link href={'/login'}>
+          <Link href={"/login"}>
             <a>
               <LoginButton>login</LoginButton>
             </a>
@@ -169,10 +169,10 @@ export default function _Header({ home }) {
       )
         setNavigatorOpen(false)
     }
-    document.addEventListener('mousedown', handleOutsideClick)
+    document.addEventListener("mousedown", handleOutsideClick)
 
     return function () {
-      document.removeEventListener('mousedown', handleOutsideClick)
+      document.removeEventListener("mousedown", handleOutsideClick)
     }
   }, [])
 
@@ -194,13 +194,13 @@ export default function _Header({ home }) {
           onClick={() => setNavigatorOpen(!navigatorOpen)}
         >
           <Image
-            src={navigatorOpen ? '/navigator_open.svg' : '/navigator.svg'}
+            src={navigatorOpen ? "/navigator_open.svg" : "/navigator.svg"}
             width={24}
             height={24}
-            alt={'navigator'}
+            alt={"navigator"}
           />
         </LinksDropdown>
-        <Link href={'/'}>
+        <Link href={"/"}>
           <a>
             <LogoHeader />
           </a>
@@ -208,27 +208,27 @@ export default function _Header({ home }) {
       </LogoBit>
       {navigatorOpen && <Navigator ref={ref} />}
       <LinksBit>
-        <Link href={'/games'}>
+        <Link href={"/games"}>
           <a>
             <DropdownText>GAMES</DropdownText>
           </a>
         </Link>
-        <Link href={'/tournaments'}>
+        <Link href={"/tournaments"}>
           <a>
             <DropdownText>TOURNAMENTS</DropdownText>
           </a>
         </Link>
-        <Link href={'/leaderboards'}>
+        <Link href={"/leaderboards"}>
           <a>
             <DropdownText>LEADERBOARDS</DropdownText>
           </a>
         </Link>
-        <Link href={'/support'}>
+        <Link href={"/support"}>
           <a>
             <DropdownText>SUPPORT</DropdownText>
           </a>
         </Link>
-        <Link href={'/events'}>
+        <Link href={"/events"}>
           <a>
             <DropdownText>EVENTS</DropdownText>
           </a>
@@ -238,7 +238,7 @@ export default function _Header({ home }) {
         {!isAuthenticated ? (
           <>
             <AvatarPlaceholder />
-            <Link href={'/login'}>
+            <Link href={"/login"}>
               <a>
                 <LoginButton>login</LoginButton>
               </a>
@@ -248,7 +248,7 @@ export default function _Header({ home }) {
           <>
             <div
               onClick={() => Router.push(`/profile`)}
-              style={{ cursor: 'pointer', marginTop: 5 }}
+              style={{ cursor: "pointer", marginTop: 5 }}
             >
               {/*<Avatar src={currentUserAvatar} /> */}
             </div>
