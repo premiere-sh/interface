@@ -1,5 +1,3 @@
-import { AuthenticationProvider } from 'contexts/authentication'
-import { WaitingProvider } from 'contexts/waiting'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import '@fontsource/inter/900.css'
 import '@fontsource/inter/800.css'
@@ -101,7 +99,7 @@ const GlobalStyle = createGlobalStyle`
   p {
     font-weight: 500;
     font-size: 16px;
-    line-height: 150%;
+    line-height: 150%
   }
 `
 
@@ -109,13 +107,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <WaitingProvider>
-        <AuthenticationProvider>
+
+
           <ThemeProvider theme={theme}>
             <Component {...pageProps} />
           </ThemeProvider>
-        </AuthenticationProvider>
-      </WaitingProvider>
     </>
   )
 }
