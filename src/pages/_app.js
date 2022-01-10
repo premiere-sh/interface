@@ -6,6 +6,8 @@ import '@fontsource/inter/600.css'
 import '@fontsource/inter/500.css'
 import '@fontsource/inter/400.css'
 import 'react-activity/dist/Dots.css'
+import { Provider } from 'react-redux'
+import store from 'store'
 
 const THEME = 'light'
 
@@ -103,17 +105,13 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-function MyApp({ Component, pageProps }) {
-  return (
-    <>
-      <GlobalStyle />
-
-
-          <ThemeProvider theme={theme}>
-            <Component {...pageProps} />
-          </ThemeProvider>
-    </>
-  )
-}
-
-export default MyApp
+export default ({ Component, pageProps }) => (
+  <>
+    <GlobalStyle />
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </Provider>
+  </>
+)

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useContext } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import styled from 'styled-components'
@@ -7,8 +7,6 @@ import { Row } from 'components/common'
 import Dropdown, { DropdownText } from 'components/Dropdown'
 import { Button, SignupButton } from 'components/Buttons'
 import LogoHeader from 'components/LogoHeader'
-import AuthenticationContext from 'contexts/authentication'
-import { useSignOut } from 'hooks'
 import Router from 'next/router'
 
 const Header = styled(Row)`
@@ -161,10 +159,6 @@ export default function _Header({ home }) {
   const [navigatorOpen, setNavigatorOpen] = useState(false)
   const ref = useRef()
   const dropdownRef = useRef()
-  const { isAuthenticated, currentUser, currentUserAvatar } = useContext(
-    AuthenticationContext
-  )
-  const signOut = useSignOut()
 
   useEffect(function () {
     function handleOutsideClick(event) {
@@ -181,6 +175,8 @@ export default function _Header({ home }) {
       document.removeEventListener('mousedown', handleOutsideClick)
     }
   }, [])
+
+  const isAuthenticated = true
 
   return (
     <Header home={home}>
@@ -210,13 +206,7 @@ export default function _Header({ home }) {
           </a>
         </Link>
       </LogoBit>
-      {navigatorOpen && (
-        <Navigator
-          ref={ref}
-          currentUser={currentUser}
-          isAuthenticated={isAuthenticated}
-        />
-      )}
+      {navigatorOpen && <Navigator ref={ref} />}
       <LinksBit>
         <Link href={'/games'}>
           <a>
@@ -260,9 +250,9 @@ export default function _Header({ home }) {
               onClick={() => Router.push(`/profile`)}
               style={{ cursor: 'pointer', marginTop: 5 }}
             >
-              <Avatar src={currentUserAvatar} />
+              {/*<Avatar src={currentUserAvatar} /> */}
             </div>
-            <LogoutButton onClick={signOut}>log out</LogoutButton>
+            <LogoutButton>log out</LogoutButton>
           </>
         )}
       </SignupBit>

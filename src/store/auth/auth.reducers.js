@@ -1,4 +1,4 @@
-import { types } from "./auth.actions"
+import { types } from './auth.actions'
 
 const initialState = {
   isLoading: false,
@@ -7,7 +7,7 @@ const initialState = {
 }
 
 export const reducer = (state = initialState, action) => {
-  console.log("result:", action.payload.result)
+  console.log('result:', action?.payload?.result)
   switch (action.type) {
     case types.SIGN_IN:
       return {
@@ -51,13 +51,13 @@ export const reducer = (state = initialState, action) => {
     case types.SIGN_UP:
       return {
         ...state,
-        isLoading: true,
+        isLoading: true
       }
 
     case types.SIGN_UP_SUCCESS:
       return {
         ...state,
-        isLoading: false,
+        isLoading: false
       }
 
     case types.SIGN_UP_FAIL:
@@ -76,7 +76,7 @@ export const reducer = (state = initialState, action) => {
     case types.CONFIRM_SIGN_UP_SUCCESS:
       return {
         ...state,
-        isLoading: false,
+        isLoading: false
       }
 
     case types.CONFIRM_SIGN_UP_FAIL:

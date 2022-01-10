@@ -1,12 +1,12 @@
-import { takeLatest, put, select, delay } from "redux-saga/effects"
-import { Auth } from "aws-amplify"
-import AWS from "aws-sdk"
+import { takeLatest, put, select, delay } from 'redux-saga/effects'
+import { Auth } from 'aws-amplify'
+import AWS from 'aws-sdk'
 
-import * as Actions from "./auth.actions"
+import * as Actions from './auth.actions'
 
-import { notifications } from "lib"
+import * as notifications from 'lib/notifications'
 
-AWS.config.update({ region: "eu-west-2" })
+AWS.config.update({ region: 'eu-west-2' })
 
 export function* signInPersistSaga() {
   try {
@@ -33,9 +33,9 @@ export function* signInSaga({ payload }) {
     yield put(Actions.signInSuccess({ result: res }))
     yield delay(1000)
   } catch (e) {
-    console.log("signInSaga", e)
+    console.log('signInSaga', e)
     let result = payload
-    if (e.code !== "UserNotConfirmedException") result = null
+    if (e.code !== 'UserNotConfirmedException') result = null
     yield put(
       Actions.signInFail({
         result
@@ -49,7 +49,7 @@ export function* signOutSaga() {
     yield Auth.signOut()
     yield put(
       Actions.signOutSuccess({
-        notification: notifications.get("signOutSuccess")
+        notification: notifications.get('signOutSuccess')
       })
     )
   } catch (e) {
@@ -64,8 +64,8 @@ export function* signUpSaga({ payload }) {
       username: emailAddress,
       password: payload.password,
       attributes: {
-        email: emailAddress,
-        // TODO add 
+        email: emailAddress
+        // TODO add
       }
     }
     const res = yield Auth.signUp(signupParams)
@@ -79,7 +79,7 @@ export function* signUpSaga({ payload }) {
       })
     )
   } catch (e) {
-    console.log("signUpSaga", e)
+    console.log('signUpSaga', e)
     yield put(Actions.signUpFail({ notification: notifications.get(e.code) }))
   }
 }
@@ -87,7 +87,7 @@ export function* signUpSaga({ payload }) {
 export function* confirmSignUpSaga({ payload }) {
   try {
     const res = yield Auth.confirmSignUp(payload.username, payload.code)
-    if (res === "SUCCESS") {
+    if (res === 'SUCCESS') {
       const user = yield select(getTempCredentials)
       const signInRes = yield Auth.signIn({
         username: user.username.toLowerCase(),
@@ -95,7 +95,7 @@ export function* confirmSignUpSaga({ payload }) {
       })
       yield put(
         Actions.confirmSignUpSuccess({
-          notification: notifications.get("confirmSignUpSuccess")
+          notification: notifications.get('confirmSignUpSuccess')
         })
       )
       yield put(Actions.signInSuccess({ result: signInRes }))
@@ -104,16 +104,16 @@ export function* confirmSignUpSaga({ payload }) {
       const profileParams = {
         ...payload,
         cognitoId: attributes.sub,
-        accountType: attributes["custom:account_type"],
+        accountType: attributes['custom:account_type'],
         email: attributes.email,
         firstName: attributes.given_name,
         lastName: attributes.family_name,
-        businessCode: attributes["custom:business_code"]
+        businessCode: attributes['custom:business_code']
       }
       yield put(ProfileActions.createProfile(profileParams))
     }
   } catch (e) {
-    console.log("confirmSignUpSaga", e)
+    console.log('confirmSignUpSaga', e)
     yield put(
       Actions.confirmSignUpFail({ notification: notifications.get(e.code) })
     )
@@ -126,13 +126,13 @@ export function* changePasswordSaga({ payload }) {
     yield Auth.changePassword(user, payload.oldPassword, payload.newPassword)
     yield put(
       Actions.changePasswordSuccess({
-        notification: notifications.get("changePasswordSuccess")
+        notification: notifications.get('changePasswordSuccess')
       })
     )
   } catch (e) {
     yield put(
       Actions.changePasswordFail({
-        notification: notifications.get("changePasswordFail")
+        notification: notifications.get('changePasswordFail')
       })
     )
   }
@@ -145,7 +145,7 @@ export function* forgotPasswordSaga({ payload }) {
     yield put(
       Actions.forgotPasswordSuccess({
         result: username,
-        notification: notifications.get("forgotPasswordSuccess")
+        notification: notifications.get('forgotPasswordSuccess')
       })
     )
   } catch (e) {
@@ -164,11 +164,11 @@ export function* resetPasswordSaga({ payload }) {
     yield Auth.forgotPasswordSubmit(user, payload.code, payload.newPassword)
     yield put(
       Actions.resetPasswordSuccess({
-        notification: notifications.get("resetPasswordSuccess")
+        notification: notifications.get('resetPasswordSuccess')
       })
     )
   } catch (e) {
-    console.log("resetPasswordFail", { e })
+    console.log('resetPasswordFail', { e })
     yield put(
       Actions.resetPasswordFail({ notification: notifications.get(e.code) })
     )
@@ -180,11 +180,11 @@ export function* resendSignUpCodeSaga({ payload }) {
     yield Auth.resendSignUp(payload)
     yield put(
       Actions.resendSignUpCodeSuccess({
-        notification: notifications.get("resendSignUpCodeSuccess")
+        notification: notifications.get('resendSignUpCodeSuccess')
       })
     )
   } catch (e) {
-    console.log("resendSignUpCodeSaga", { e })
+    console.log('resendSignUpCodeSaga', { e })
     yield Actions.resendSignUpCodeFail({
       notification: notifications.get(e.code)
     })
@@ -196,7 +196,7 @@ export function* updateUserAttributesSaga({ payload }) {
     const user = yield Auth.currentAuthenticatedUser()
     yield put(ProfileActions.updateProfile({ id: user.username, ...payload }))
   } catch (e) {
-    console.log("updateUserAttributesSaga", { e })
+    console.log('updateUserAttributesSaga', { e })
     yield put(
       Actions.updateUserAttributesFail({
         notification: notifications.get(e.code)

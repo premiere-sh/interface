@@ -7,22 +7,19 @@ import FeaturedGames from 'components/FeaturedGames'
 import FeaturedTournaments from 'components/FeaturedTournaments'
 import SocialsSection from 'components/SocialsSection'
 import BigPlayerOfTheWeek from 'components/BigPlayerOfTheWeek'
-import { getGames, getTournaments, getPlayerOfTheWeek } from 'calls'
-import { useUser } from 'hooks'
 
-export default function Home({ games, tournaments }) {
-  const { user, avatar } = useUser(3)
+export default function Home() {
   return (
     <Column>
       <Header home={true} />
       <Container>
         <HomeHeading />
-        {/*<WelcomeToPremiere />*/}
+        <WelcomeToPremiere />
       </Container>
-      <FeaturedGames games={games} />
-      <FeaturedTournaments tournaments={tournaments} />
+      <FeaturedGames />
+      <FeaturedTournaments />
       <Container>
-        <BigPlayerOfTheWeek user={user} avatar={avatar} />
+        <BigPlayerOfTheWeek />
       </Container>
       <div style={{ marginBottom: 150 }}>
         <SocialsSection />
@@ -30,12 +27,4 @@ export default function Home({ games, tournaments }) {
       <Footer />
     </Column>
   )
-}
-
-export async function getStaticProps(context) {
-  const games = await getGames()
-  const tournaments = await getTournaments()
-  return {
-    props: { games, tournaments }
-  }
 }
