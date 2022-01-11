@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => ({
   onSubmit: values => dispatch(signIn(values))
 })
 
-const FormContainer = styled.div`
+const FormContainer = styled.div`    console.log("signInSaga", e)
   margin: auto;
 `
 
@@ -40,10 +40,7 @@ function Login({ isLoading, onSubmit }) {
       password: ""
     },
 
-    onSubmit: values => {
-      console.log(values)
-      console.log(formik.errors)
-    }
+    onSubmit: values => onSubmit(values)
   })
 
   return (

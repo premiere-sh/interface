@@ -16,14 +16,9 @@
     "smsVerificationMessage": "Your verification code is {####}",
     "emailVerificationSubject": "Your verification code",
     "emailVerificationMessage": "Your verification code is {####}",
-    "defaultPasswordPolicy": true,
+    "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
-    "passwordPolicyCharacters": [
-      "Requires Lowercase",
-      "Requires Uppercase",
-      "Requires Numbers",
-      "Requires Symbols"
-    ],
+    "passwordPolicyCharacters": [],
     "requiredAttributes": [
       "birthdate",
       "email",
@@ -48,8 +43,6 @@
     "resourceName": "premiereb82b65cbb82b65cb",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "manual",
-    "thirdPartyAuth": false,
-    "authProviders": [],
     "usernameAttributes": [
       "email"
     ],
@@ -79,6 +72,8 @@
     "permissions": [],
     "parentStack": {
       "Ref": "AWS::StackId"
-    }
+    },
+    "authProviders": [],
+    "thirdPartyAuth": false
   }
 }

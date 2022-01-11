@@ -1,7 +1,8 @@
-import { types } from './auth.actions'
+import { types } from "./auth.actions"
 
 const initialState = {
   isLoading: false,
+  tempCredentials: null,
   resetUsername: null,
   data: null
 }
@@ -27,6 +28,7 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
+        tempCredentials: action.payload.result,
         data: null
       }
     case types.SIGN_OUT:
@@ -38,7 +40,6 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-
         data: null
       }
     case types.SIGN_OUT_FAIL:
@@ -50,32 +51,37 @@ export const reducer = (state = initialState, action) => {
     case types.SIGN_UP:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        tempCredentials: action.payload.result
       }
 
     case types.SIGN_UP_SUCCESS:
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        tempCredentials: action.payload.result
       }
 
     case types.SIGN_UP_FAIL:
       return {
         ...state,
         isLoading: false,
-        data: null
+        data: null,
+        tempCredentials: null
       }
 
     case types.CONFIRM_SIGN_UP:
       return {
         ...state,
-        isLoading: true
+        isLoading: true,
+        tempCredentials: action.payload.result
       }
 
     case types.CONFIRM_SIGN_UP_SUCCESS:
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        tempCredentials: null
       }
 
     case types.CONFIRM_SIGN_UP_FAIL:
@@ -99,7 +105,8 @@ export const reducer = (state = initialState, action) => {
     case types.CHANGE_PASSWORD_FAIL:
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        tempCredentials: action.payload.result
       }
 
     case types.FORGOT_PASSWORD:
@@ -119,7 +126,8 @@ export const reducer = (state = initialState, action) => {
     case types.FORGOT_PASSWORD_FAIL:
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        tempCredentials: null
       }
     case types.RESET_PASSWORD:
       return {
@@ -131,13 +139,15 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         resetUsername: null,
-        isLoading: false
+        isLoading: false,
+        tempCredentials: null
       }
 
     case types.RESET_PASSWORD_FAIL:
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        tempCredentials: null
       }
     case types.UPDATE_USER_ATTRIBUTES:
       return {

@@ -13,7 +13,7 @@ import { Dots } from "react-activity"
 import * as Yup from "yup"
 import { useFormik } from "formik"
 import { connect } from "react-redux"
-import { getIsLoading } from "store/auth/auth.selectors"
+import { getIsLoading, getTempCredentials } from "store/auth/auth.selectors"
 import { signUp } from "store/auth/auth.actions"
 import { SignupButtonLarge } from "components/Buttons"
 import DatePicker from "react-datepicker"
@@ -21,7 +21,8 @@ import "react-datepicker/dist/react-datepicker.css"
 import { formContainer } from "aws-amplify"
 
 const mapStateToProps = state => ({
-  isLoading: getIsLoading(state)
+  isLoading: getIsLoading(state),
+  tempCredentials: getTempCredentials(state)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -206,7 +207,7 @@ function Signup({ isLoading, onSubmit }) {
               ) : null}
             </Entry>
             <SubmitEntry>
-              <SignupButtonLarge type="submit" text="Sign up" />
+              <SignupButtonLarge href="/ConfirmEmail" type="submit" />
             </SubmitEntry>
             <LoginIfGotAnAccount>
               Already have an account?
