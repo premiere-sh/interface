@@ -1,4 +1,4 @@
-import { types } from "./auth.actions"
+import { types } from './auth.actions'
 
 const initialState = {
   isLoading: false,
@@ -73,8 +73,8 @@ export const reducer = (state = initialState, action) => {
     case types.CONFIRM_SIGN_UP:
       return {
         ...state,
-        isLoading: true,
-        tempCredentials: action.payload.result
+        isLoading: true
+        // tempCredentials: action.payload.result
       }
 
     case types.CONFIRM_SIGN_UP_SUCCESS:

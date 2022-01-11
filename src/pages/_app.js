@@ -7,9 +7,10 @@ import '@fontsource/inter/500.css'
 import '@fontsource/inter/400.css'
 import 'react-activity/dist/Dots.css'
 import { Provider } from 'react-redux'
-import store from 'store'
 import { Amplify } from 'aws-amplify'
 import config from 'aws-exports'
+import { PersistGate } from 'redux-persist/integration/react'
+import persistantStore from 'store'
 
 Amplify.configure(config)
 
@@ -109,14 +110,19 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
+const { store, persistor } = persistantStore()
+
 export default function App({ Component, pageProps }) {
+  console.log(store)
   return (
     <>
       <GlobalStyle />
       <Provider store={store}>
-        <ThemeProvider theme={theme}>
-          <Component {...pageProps} />
-        </ThemeProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeProvider theme={theme}>
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </PersistGate>
       </Provider>
     </>
   )

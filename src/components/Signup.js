@@ -1,4 +1,4 @@
-import { Row, GradientText, Column } from "components/common"
+import { Row, GradientText, Column } from 'components/common'
 import {
   Heading,
   Caption,
@@ -6,19 +6,19 @@ import {
   Entry,
   Input,
   SmallInput
-} from "components/Forms"
-import styled from "styled-components"
-import Link from "next/link"
-import { Dots } from "react-activity"
-import * as Yup from "yup"
-import { useFormik } from "formik"
-import { connect } from "react-redux"
-import { getIsLoading, getTempCredentials } from "store/auth/auth.selectors"
-import { signUp } from "store/auth/auth.actions"
-import { SignupButtonLarge } from "components/Buttons"
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
-import { formContainer } from "aws-amplify"
+} from 'components/Forms'
+import styled from 'styled-components'
+import Link from 'next/link'
+import { Dots } from 'react-activity'
+import * as Yup from 'yup'
+import { useFormik } from 'formik'
+import { connect } from 'react-redux'
+import { getIsLoading, getTempCredentials } from 'store/auth/auth.selectors'
+import { signUp } from 'store/auth/auth.actions'
+import { SignupButtonLarge } from 'components/Buttons'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+import { formContainer } from 'aws-amplify'
 
 const mapStateToProps = state => ({
   isLoading: getIsLoading(state),
@@ -83,8 +83,8 @@ function Signup({ isLoading, onSubmit }) {
     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 
   const passwordMessage =
-    "Password should contain at least one " +
-    "capital letter, one special character and one number"
+    'Password should contain at least one ' +
+    'capital letter, one special character and one number'
 
   const ageValidation = dateOfBirth => {
     const date18YrsAgo = new Date()
@@ -92,35 +92,35 @@ function Signup({ isLoading, onSubmit }) {
     return dateOfBirth <= date18YrsAgo
   }
 
-  const over18 = "You have to be over 18 years old"
+  const over18 = 'You have to be over 18 years old'
 
-  const noMatch = "Passwords do not match"
+  const noMatch = 'Passwords do not match'
 
   const formik = useFormik({
     initialValues: {
-      username: "sampleUsername",
+      username: 'sampleUsername',
       birthDate: new Date(),
-      email: "piotrek8598@gmail.com",
-      password: "Password!2",
-      confirmPassword: "Password!2"
+      email: 'piotrek8598@gmail.com',
+      password: 'Password!2',
+      confirmPassword: 'Password!2'
     },
 
     validationSchema: Yup.object({
-      username: Yup.string().required("Username is required"),
+      username: Yup.string().required('Username is required'),
       birthDate: Yup.date()
-        .required("Birthdate is required")
-        .test("isAdult", over18, value => ageValidation(value)),
+        .required('Birthdate is required')
+        .test('isAdult', over18, value => ageValidation(value)),
       email: Yup.string()
-        .email("Email is not valid")
-        .required("Email is required"),
+        .email('Email is not valid')
+        .required('Email is required'),
       password: Yup.string()
-        .required("No password provided")
-        .min(8, "Password is too short - should be minimum of 8 characters")
+        .required('No password provided')
+        .min(8, 'Password is too short - should be minimum of 8 characters')
         .matches(passwordValidation, passwordMessage),
       confirmPassword: Yup.string()
         .required()
         .test(
-          "confirmPassword",
+          'confirmPassword',
           noMatch,
           password => password === formik.values.password
         )
@@ -130,7 +130,7 @@ function Signup({ isLoading, onSubmit }) {
   })
 
   return (
-    <formContainer>
+    <FormContainer>
       {!isLoading ? (
         <Form onSubmit={formik.handleSubmit}>
           <Heading>sign up</Heading>
@@ -155,7 +155,7 @@ function Signup({ isLoading, onSubmit }) {
               <StyledDatePicker
                 showYearSelect
                 selected={formik.values.birthDate}
-                onChange={value => formik.setFieldValue("birthDate", value)}
+                onChange={value => formik.setFieldValue('birthDate', value)}
               />
               {formik.touched.birthDate && formik.errors.birthDate ? (
                 <Alert>{formik.errors.birthDate}</Alert>
@@ -211,7 +211,7 @@ function Signup({ isLoading, onSubmit }) {
             </SubmitEntry>
             <LoginIfGotAnAccount>
               Already have an account?
-              <GradientText style={{ display: "inline", marginLeft: 5 }}>
+              <GradientText style={{ display: 'inline', marginLeft: 5 }}>
                 <Link href="/login">Log In</Link>
               </GradientText>
             </LoginIfGotAnAccount>
@@ -220,7 +220,7 @@ function Signup({ isLoading, onSubmit }) {
       ) : (
         <Dots />
       )}
-    </formContainer>
+    </FormContainer>
   )
 }
 

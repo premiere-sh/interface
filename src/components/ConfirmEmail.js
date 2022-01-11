@@ -1,44 +1,24 @@
-import { Row, GradientText, Column, Container } from "components/common"
-import {
-  Heading,
-  Caption,
-  Subtext,
-  Entry,
-  Input,
-  SmallInput
-} from "components/Forms"
-import styled from "styled-components"
-import Link from "next/link"
-import { Dots } from "react-activity"
-import { useFormik } from "formik"
-import { connect } from "react-redux"
-import { getIsLoading, getTempCredentials } from "store/auth/auth.selectors"
-import { confirmSignUp } from "store/auth/auth.actions"
-import { SignupButtonLarge } from "components/Buttons"
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
-import { formContainer } from "aws-amplify"
+import { Heading, Caption, Subtext, Entry, SmallInput } from 'components/Forms'
+import styled from 'styled-components'
+import { Dots } from 'react-activity'
+import { useFormik } from 'formik'
+import { connect } from 'react-redux'
+import { getIsLoading } from 'store/auth/auth.selectors'
+import { confirmSignUp } from 'store/auth/auth.actions'
+import { SignupButtonLarge } from 'components/Buttons'
+import 'react-datepicker/dist/react-datepicker.css'
 
 const mapStateToProps = state => ({
-  isLoading: getIsLoading(state),
-  tempCredentials: getTempCredentials(state)
+  isLoading: getIsLoading(state)
 })
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: values => dispatch(confirmSignUp(values))
 })
 
-const RowEntry = styled(Row)`
-  height: 130px;
-  width: 589px;
-  margin: auto;
-`
-
 const FormContainer = styled.div`
   margin: auto;
 `
-
-const ColumnEntry = styled(Column)``
 
 const SubmitEntry = styled(Entry)`
   margin-top: 40px;
@@ -47,11 +27,10 @@ const SubmitEntry = styled(Entry)`
 
 const Form = styled.form``
 
-function ConfirmEmail({ isLoading, onSubmit, tempCredentials }) {
+function ConfirmEmail({ isLoading, onSubmit }) {
   const formik = useFormik({
     initialValues: {
-      username: tempCredentials?.username,
-      code: ""
+      code: ''
     },
 
     onSubmit: values => onSubmit(values)
