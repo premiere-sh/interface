@@ -58,21 +58,20 @@ export function* signOutSaga() {
 
 export function* signUpSaga({ payload }) {
   try {
-    const emailAddress = payload?.email?.toLowerCase()
-    const signupParams = {
-      username: emailAddress,
+    const input = {
+      username: payload.email,
       password: payload.password,
+      birth_date: payload.birthDate,
       attributes: {
-        email: emailAddress
-        // TODO add
+        preferred_username: payload.username
       }
     }
-    const res = yield Auth.signUp(signupParams)
+    const res = yield Auth.signUp(input)
+    console.log(res)
     yield put(
       Actions.signUpSuccess({
         result: {
-          ...payload,
-          username: signupParams.username,
+          username: payload.username,
           cognitoId: res.userSub
         }
       })

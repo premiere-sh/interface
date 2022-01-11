@@ -7,7 +7,6 @@ const initialState = {
 }
 
 export const reducer = (state = initialState, action) => {
-  console.log('result:', action?.payload?.result)
   switch (action.type) {
     case types.SIGN_IN:
       return {
