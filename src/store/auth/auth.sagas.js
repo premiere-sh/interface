@@ -30,7 +30,6 @@ export function* signInSaga({ payload }) {
       username: payload.username.toLowerCase(),
       password: payload.password
     })
-    console.log('res', res)
     yield put(Actions.signInSuccess({ result: res }))
     yield delay(1000)
   } catch (e) {
@@ -69,17 +68,15 @@ export function* signUpSaga({ payload }) {
       }
     }
     const res = yield Auth.signUp(input)
-    console.log(res)
     yield put(
       Actions.signUpSuccess({
         result: {
-          username: payload.username,
+          username: payload.email,
           cognitoId: res.userSub
         }
       })
     )
     const tempCredentials = yield select(getTempCredentials)
-    console.log('tempCredntialjkhhkjs', tempCredentials)
   } catch (e) {
     console.log('signUpSaga', e)
     yield put(Actions.signUpFail({ notification: notifications.get(e.code) }))
@@ -88,12 +85,12 @@ export function* signUpSaga({ payload }) {
 
 export function* confirmSignUpSaga({ payload }) {
   try {
-    const tempCredentials = yield select(getTempCredentials)
-    console.log('tempCreds', tempCredentials)
+    const user = yield select(getTempCredentials)
+    console.log('tempCreds', user)
     // TODO get email to temp credentials and use it to signup
     // should then work
     const res = yield Auth.confirmSignUp(
-      tempCredentials.username,
+      user.username,
       payload.code
     )
     if (res === 'SUCCESS') {
