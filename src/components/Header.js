@@ -8,6 +8,18 @@ import Dropdown, { DropdownText } from "components/Dropdown"
 import { Button, SignupButton } from "components/Buttons"
 import LogoHeader from "components/LogoHeader"
 import Router from "next/router"
+import { signOut } from "store/auth/auth.actions"
+import { getAccountData } from "store/auth/auth.selectors"
+import { connect } from "react-redux"
+import { Auth } from "aws-amplify"
+
+const mapStateToProps = state => ({
+  accountData: getAccountData(state)
+})
+
+const mapDispatchToProps = dispatch => ({
+  onSignOut: values => dispatch(signOut(values))
+})
 
 const Header = styled(Row)`
   justify-content: space-between;
@@ -110,7 +122,7 @@ const AvatarPlaceholder = styled.div`
 
 const LogoutButton = styled(LoginButton)``
 
-function Navigator({ isAuthenticated, currentUser }) {
+function Navigator({ accountData, onSignOut }) {
   return (
     <NavigatorContainer>
       <LinksContainer>
@@ -139,23 +151,22 @@ function Navigator({ isAuthenticated, currentUser }) {
             <DropdownText>EVENTS</DropdownText>
           </a>
         </Link>
-        {!isAuthenticated ? (
+        {accountData ? (
+          <LogoutButton onClick={onSignOut}>log out</LogoutButton>
+        ) : (
           <Link href={"/login"}>
             <a>
-              <LoginButton>login</LoginButton>
+              <LoginButton>log in</LoginButton>
             </a>
+  try {
           </Link>
-        ) : (
-          <div style={{ marginLeft: 15 }}>
-            Logged in as <b>{currentUser.username}</b>
-          </div>
         )}
       </LinksContainer>
     </NavigatorContainer>
   )
 }
 
-export default function _Header({ home }) {
+function _Header({ home, onSignOut, accountData }) {
   const [navigatorOpen, setNavigatorOpen] = useState(false)
   const ref = useRef()
   const dropdownRef = useRef()
@@ -206,7 +217,9 @@ export default function _Header({ home }) {
           </a>
         </Link>
       </LogoBit>
-      {navigatorOpen && <Navigator ref={ref} />}
+      {navigatorOpen && (
+        <Navigator accountData={accountData} onSignOut={onSignOut} ref={ref} />
+      )}
       <LinksBit>
         <Link href={"/games"}>
           <a>
@@ -252,10 +265,21 @@ export default function _Header({ home }) {
             >
               {/*<Avatar src={currentUserAvatar} /> */}
             </div>
-            <LogoutButton>log out</LogoutButton>
+            {accountData ? (
+              <LogoutButton onClick={onSignOut}>log out</LogoutButton>
+            ) : (
+              <Link href={"/login"}>
+                <a>
+                  <LoginButton>log in</LoginButton>
+                </a>
+              </Link>
+            )}
           </>
         )}
       </SignupBit>
     </Header>
   )
 }
+
+try {
+export default connect(mapStateToProps, mapDispatchToProps)(_Header)
