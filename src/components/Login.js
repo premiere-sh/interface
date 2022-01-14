@@ -7,17 +7,20 @@ import { useFormik } from "formik"
 import { Dots } from "react-activity"
 import { connect } from "react-redux"
 import { signIn } from "store/auth/auth.actions"
-import { getIsLoading } from "store/auth/auth.selectors"
+import { getAccountData, getIsLoading } from "store/auth/auth.selectors"
+import { useRouter } from "next/router"
+import { useEffect } from "react"
 
 const mapStateToProps = state => ({
-  isLoading: getIsLoading(state)
+  isLoading: getIsLoading(state),
+  accountData: getAccountData(state)
 })
 
 const mapDispatchToProps = dispatch => ({
   onSubmit: values => dispatch(signIn(values))
 })
 
-const FormContainer = styled.div`    console.log("signInSaga", e)
+const FormContainer = styled.div`
   margin: auto;
 `
 
@@ -33,7 +36,8 @@ const SignupIfNotGotAnAccount = styled.div`
   justify-content: center;
 `
 
-function Login({ isLoading, onSubmit }) {
+function Login({ isLoading, onSubmit, accountData }) {
+  const router = useRouter()
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -43,6 +47,11 @@ function Login({ isLoading, onSubmit }) {
     onSubmit: values => onSubmit(values)
   })
 
+  useEffect(() => {
+    if (accountData?.username && router) {
+      router.push("/profile")
+    }
+  }, [router, accountData])
   return (
     <FormContainer>
       {!isLoading ? (
