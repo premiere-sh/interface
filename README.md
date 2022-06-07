@@ -1,11 +1,10 @@
-# Premiere
+# ♦️ Premiere Interface
 
 A crypto web-app enabling gamers to participate in tournaments and receive $Premiere for their wins.
 
-### Run the development server:
+## Usage
 
-```bash
-npm run dev
-# or
+```
+yarn
 yarn dev
 ```
