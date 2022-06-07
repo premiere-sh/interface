@@ -225,11 +225,10 @@ export function useStats(user_id) {
 
   useEffect(function () {
     ;(async function () {
-      return
       const res = await fetch(`${BASE_URL}${user_id}/stats/`)
       if (res.status == 200) {
         const _stats = await res.json()
-        setFriends(_stats)
+        setStats(_stats)
       }
     })()
   }, [])
@@ -292,7 +291,7 @@ export function useUser(userId) {
     function () {
       if (userId) {
         ;(async function () {
-          const res = await fetch(`https://api.premiere.sh/users/${userId}`)
+          const res = await fetch(BASE_URL + `users/${userId}`)
           const _user = await res.json()
           setUser(_user)
         })()
