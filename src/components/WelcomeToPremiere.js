@@ -25,7 +25,7 @@ const Heading = styled.div`
   font-weight: 600;
   font-size: 32px;
   line-height: 39px;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
   margin-bottom: 20px;
 `
 
@@ -35,9 +35,8 @@ const Subtext = styled.div`
   font-weight: 500;
   font-size: 16px;
   line-height: 140.62%;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
   margin-bottom: 50px;
-
 `
 
 const VideoContainer = styled.div`
@@ -62,7 +61,7 @@ const Caption = styled.div`
 function Video({ src, caption }) {
   const vid = useRef()
 
-  useEffect(function () {
+  useEffect(() => {
     vid.current.play()
   }, [])
 
@@ -72,11 +71,11 @@ function Video({ src, caption }) {
         ref={vid}
         width={584}
         height={373}
-        muted={true}
+        muted
         controls={false}
-        loop={true}
+        loop
       >
-        <source src={src} type={'video/mp4'} />
+        <source src={src} type="video/mp4" />
       </video>
       <Caption>
         <GradientText>{caption}</GradientText>
@@ -89,8 +88,8 @@ export default function WelcomeToPremiere() {
   return (
     <Container>
       <Video
-        src={'https://media.w3.org/2010/05/sintel/trailer.mp4'}
-        caption={'Featured clip - @devonhenry_'}
+        src="https://media.w3.org/2010/05/sintel/trailer.mp4"
+        caption="Featured clip - @devonhenry_"
       />
       <SideColumn>
         <Heading>Welcome to Premiere</Heading>
@@ -100,7 +99,7 @@ export default function WelcomeToPremiere() {
           ...Premiere is a ...Premiere is a ...Premiere is a ...Premiere is a
           ...Premiere is a ...Premiere is a ...
         </Subtext>
-        <ArrowButton text={'meet the team'} />
+        <ArrowButton text="meet the team" />
       </SideColumn>
     </Container>
   )

@@ -44,9 +44,9 @@ export default function FeaturedGames({ games }) {
         </HorizontalScrollView>
       </Container>
       <ButtonContainer>
-        <Link href={'/games'}>
+        <Link href="/games">
           <a>
-            <ArrowButton text={'view all games'} />
+            <ArrowButton text="view all games" />
           </a>
         </Link>
       </ButtonContainer>

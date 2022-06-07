@@ -43,16 +43,16 @@ export default function FeaturedTournaments({ tournaments }) {
               <FeaturedTournamentContainer key={key}>
                 <FeaturedTournament
                   tournament={tournament}
-                  roundBorders={true}
+                  roundBorders
                 />
               </FeaturedTournamentContainer>
             ))}
         </HorizontalScrollView>
       </Container>
       <ButtonContainer>
-        <Link href={'/tournaments'}>
+        <Link href="/tournaments">
           <a>
-            <ArrowButton text={'view all tournaments'} />
+            <ArrowButton text="view all tournaments" />
           </a>
         </Link>
       </ButtonContainer>

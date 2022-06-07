@@ -1,0 +1,12 @@
+{
+  "AppSyncApiName": "premiere",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authpremiereb82b65cbb82b65cb",
+      "Outputs.UserPoolId"
+    ]
+  },
+  "AuthModeLastUpdated": "2022-01-14T23:38:02.816Z"
+}

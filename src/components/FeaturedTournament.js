@@ -17,15 +17,15 @@ const Row = styled.div`
 
 const TournamentContainer = styled(Container)`
   height: 262px;
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${props => props.theme.colors.white};
   position: relative;
   width: 453px;
   cursor: pointer;
   border: 1px solid transparent;
   &:hover {
-    border: 1px solid ${(props) => props.theme.colors.ruby};
+    border: 1px solid ${props => props.theme.colors.ruby};
   }
-  border-radius: ${(props) => (props.roundBorders ? '10px' : '0')};
+  border-radius: ${props => (props.roundBorders ? '10px' : '0')};
   overflow: hidden;
 `
 
@@ -36,7 +36,7 @@ const SubText = styled.div`
     font-size: 16px;
   }
   line-height: 150%;
-  color: ${(props) => props.theme.colors.grayish};
+  color: ${props => props.theme.colors.grayish};
 `
 
 const TitleContainer = styled.div`
@@ -49,13 +49,13 @@ const Title = styled.div`
   font-weight: 600;
   font-size: 24px;
   line-height: 150%;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
 `
 
 const InfoText = styled.div`
   font-size: 18px;
   line-height: 150%;
-  color: ${(props) => props.theme.colors.grayish};
+  color: ${props => props.theme.colors.grayish};
 `
 
 const InfoColumn = styled(Column)`
@@ -89,8 +89,8 @@ export default function FeaturedTournament({ tournament, roundBorders }) {
         <ImageContainer>
           <Image
             src={`/${tournament.game}.svg`}
-            alt={'tournament_pic'}
-            layout={'fill'}
+            alt="tournament_pic"
+            layout="fill"
           />
         </ImageContainer>
         <InfoColumn>

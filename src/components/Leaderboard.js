@@ -8,7 +8,7 @@ const Table = styled.table`
 `
 
 const HeadRow = styled.tr`
-  border-bottom: 1px solid ${(props) => props.theme.colors.ruby};
+  border-bottom: 1px solid ${props => props.theme.colors.ruby};
   height: 40px;
 `
 
@@ -105,10 +105,10 @@ export default function Leaderboard() {
               <User>
                 <div style={{ marginRight: 12, marginTop: 5 }}>
                   <Image
-                    src={'/' + entry.user + '.svg'}
+                    src={`/${entry.user}.svg`}
                     width={32}
                     height={32}
-                    alt={'user'}
+                    alt="user"
                   />
                 </div>
                 {entry.user}

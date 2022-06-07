@@ -1,8 +1,7 @@
-import styled from 'styled-components'
-import { Column, Container, Row } from './common'
-import Image from 'next/image'
-import { Grid } from 'styled-css-grid'
-import { zip } from 'hooks'
+import styled from "styled-components"
+import Image from "next/image"
+import { Grid } from "styled-css-grid"
+import { Column, Container, Row } from "./common"
 
 const UserColumn = styled(Column)``
 
@@ -56,11 +55,11 @@ export default function Friends({ friends, invites, avatars }) {
           <TextSection>
             <YourFriends>Your invites</YourFriends>
           </TextSection>
-          <Grid columns={'repeat(auto-fit, minmax(210px, 1fr))'} gap={'83px'}>
+          <Grid columns="repeat(auto-fit, minmax(210px, 1fr))" gap="83px">
             {invites?.length &&
               avatars?.length &&
               zip(invites, avatars).map(([invite, avatar], key) => (
-                <UserColumn style={{ alignItems: 'center' }} key={key}>
+                <UserColumn style={{ alignItems: "center" }} key={key}>
                   <div onClick={() => acceptInvite(invite, token)}>
                     <Avatar src={avatar} />
                   </div>
@@ -74,14 +73,14 @@ export default function Friends({ friends, invites, avatars }) {
         <TextSection>
           <YourFriends>Your friends</YourFriends>
           <SearchBox>
-            <Image src={'/search.svg'} width={32} height={32} alt={'search'} />
-            <Search placeholder={'Search players...'} />
+            <Image src="/search.svg" width={32} height={32} alt="search" />
+            <Search placeholder="Search players..." />
           </SearchBox>
         </TextSection>
-        <Grid columns={'repeat(auto-fit, minmax(210px, 1fr))'} gap={'83px'}>
+        <Grid columns="repeat(auto-fit, minmax(210px, 1fr))" gap="83px">
           {friends?.length &&
             friends.map((friend, key) => (
-              <UserColumn style={{ alignItems: 'center' }} key={key}>
+              <UserColumn style={{ alignItems: "center" }} key={key}>
                 <div onClick={() => router.push(`/profile/${friend.id}`)}>
                   <Avatar src={friend.avatar} />
                 </div>

@@ -1,23 +1,23 @@
-import Image from 'next/image'
-import styled from 'styled-components'
-import { Subheading as _Heading, Column, Row } from 'components/common'
+import Image from "next/image"
+import styled from "styled-components"
+import { Subheading as _Heading, Column, Row } from "components/common"
 
 const supportSquares = [
   {
-    image: 'twitter',
-    heading: 'Message us on Twitter',
+    image: "twitter",
+    heading: "Message us on Twitter",
     text: `DM our Twitter Support account and we’ll get back to you as soon
       as possible.`
   },
   {
-    image: 'mail',
-    heading: 'Email us',
+    image: "mail",
+    heading: "Email us",
     text: `Click here to email us - we’ll aim to get back to you as soon as
       possible.`
   },
   {
-    image: 'dc',
-    heading: 'Join our Discord',
+    image: "dc",
+    heading: "Join our Discord",
     text: `We have an active group of moderators available for support on
       our discord channel.`
   }
@@ -39,7 +39,7 @@ const SupportSquareContainer = styled(Column)`
   box-sizing: border-box;
   border-radius: 5px;
   &:hover {
-    border: 1px solid ${(props) => props.theme.colors.ruby};
+    border: 1px solid ${props => props.theme.colors.ruby};
   }
   cursor: pointer;
   justify-content: revert;
@@ -62,7 +62,7 @@ const Subheading = styled.div`
   font-weight: 500;
   font-size: 16px;
   line-height: 140.62%;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
 `
 
 const SupportSquareHeading = styled.div`
@@ -71,7 +71,7 @@ const SupportSquareHeading = styled.div`
   font-weight: 600;
   font-size: 24px;
   line-height: 150%;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
   margin-bottom: 15px;
 `
 
@@ -82,7 +82,7 @@ const SupportSquareText = styled.div`
   font-size: 16px;
   line-height: 140.62%;
   text-align: center;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
   width: 307px;
 `
 

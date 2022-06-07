@@ -16,7 +16,7 @@ export default function GradientDropdown({ text }) {
   return (
     <Row>
       <div style={{ marginBottom: 76, marginRight: 22 }}>
-        <Image src={'/dropdown.svg'} width={16} height={16} alt={'dropdown'} />
+        <Image src="/dropdown.svg" width={16} height={16} alt="dropdown" />
       </div>
       <Text>{text}</Text>
     </Row>

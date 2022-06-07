@@ -80,7 +80,12 @@ const Text = styled.div`
 
 function FooterDivider() {
   return (
-    <Image src={'/footer_divider.svg'} width={5} height={310} alt={'divider'} />
+    <Image
+      src="/footer_divider.svg"
+      width={5}
+      height={310}
+      alt="divider"
+    />
   )
 }
 
@@ -103,27 +108,27 @@ export default function _Footer() {
         <Row>
           <Column>
             <Heading>Explore</Heading>
-            <Link href={'/games'}>
+            <Link href="/games">
               <a>
                 <Text>Games</Text>
               </a>
             </Link>
-            <Link href={'/tournaments'}>
+            <Link href="/tournaments">
               <a>
                 <Text>Tournaments</Text>
               </a>
             </Link>
-            <Link href={'/leaderboards'}>
+            <Link href="/leaderboards">
               <a>
                 <Text>Leaderboards</Text>
               </a>
             </Link>
-            <Link href={'/support'}>
+            <Link href="/support">
               <a>
                 <Text>Support</Text>
               </a>
             </Link>
-            <Link href={'/'}>
+            <Link href="/">
               <a>
                 <Text>Premiere Stream</Text>
               </a>
@@ -131,7 +136,7 @@ export default function _Footer() {
           </Column>
           <Column style={{ marginLeft: 40 }}>
             <Heading>Useful links</Heading>
-            <Link href={'/login'}>
+            <Link href="/login">
               <a>
                 <Text>Login</Text>
               </a>

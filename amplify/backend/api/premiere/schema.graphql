@@ -1,0 +1,84 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+
+type Tournament
+  @model
+  @auth(
+    rules: [
+      { allow: owner, operations: [create, read, update, delete] }
+      { allow: private, operations: [create, read] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  players: [Player] @manyToMany(relationName: "TournamentPlayer")
+  region: String
+  name: String
+  description: String
+  game: Game
+  time: AWSDateTime
+  prize: Float
+  prize_currency: String
+  creator: String
+  platform: String
+}
+
+type Player
+  @model
+  @aws_iam
+  @aws_cognito_user_pools
+  @searchable
+  @auth(
+    rules: [
+      {
+        allow: owner
+        operations: [create, read, update, delete]
+        ownerField: "id"
+      }
+      { allow: private, operations: [create, read] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  userId: ID
+  username: String
+  email: AWSEmail
+  date_of_birth: AWSDateTime
+  password: String
+  # TODO profile_pic
+  is_active: Boolean
+  tournaments: [Tournament] @manyToMany(relationName: "TournamentPlayer")
+  points: Int
+  accounts: [GameAccount] @hasMany
+  title: String!
+  teams: [Team] @manyToMany(relationName: "TeamMember")
+  friends: [Player] @hasMany
+}
+
+type GameAccount @model {
+  tag: String
+  platform: String
+}
+
+type Game {
+  name: String
+  platform: String
+}
+
+type Team
+  @model
+  @auth(
+    rules: [
+      {
+        allow: owner
+        ownerField: "creator"
+        operations: [create, read, update, delete]
+      }
+      { allow: private, operations: [create, read] }
+      { allow: public, operations: [read] }
+    ]
+  ) {
+  id: ID!
+  creator: ID!
+  players: [Player] @manyToMany(relationName: "TeamMember")
+}

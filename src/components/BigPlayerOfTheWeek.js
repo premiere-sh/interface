@@ -19,7 +19,7 @@ const PlayerName = styled.div`
   font-weight: bold;
   font-size: 36px;
   line-height: 100%;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
   margin-bottom: 8px;
 `
 
@@ -29,7 +29,7 @@ const MemberSince = styled.div`
   font-weight: 600;
   font-size: 18px;
   line-height: 150%;
-  color: ${(props) => props.theme.colors.gray};
+  color: ${props => props.theme.colors.gray};
 `
 
 const StatColumn = styled(Column)`
@@ -43,7 +43,7 @@ const StatHeading = styled.div`
   font-size: 16px;
   line-height: 150%;
   letter-spacing: 0.1em;
-  color: ${(props) => props.theme.colors.gray};
+  color: ${props => props.theme.colors.gray};
   text-transform: uppercase;
 `
 
@@ -53,7 +53,7 @@ const Stat = styled.div`
   font-weight: 600;
   font-size: 18px;
   line-height: 150%;
-  color: ${(props) => props.theme.colors.black};
+  color: ${props => props.theme.colors.black};
 `
 
 const Avatar = styled.img`

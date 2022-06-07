@@ -15,7 +15,7 @@ const Cancel = styled(Button)`
   background: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  border: 1px ${(props) => props.theme.colors.ruby} solid;
+  border: 1px ${props => props.theme.colors.ruby} solid;
   width: 178px;
   &:hover {
     -webkit-background-clip: initial;

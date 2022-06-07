@@ -1,13 +1,13 @@
-import styled from 'styled-components'
-import { Column, Row, Container, Circle } from 'components/common'
-import { Heading, Subtext } from 'components/Forms'
-import Image from 'next/image'
-import { ArrowButton } from 'components/Buttons'
-import SmallTournament from 'components/SmallTournament'
-import ReactPlayer from 'react-player'
+import styled from "styled-components"
+import { Column, Row, Circle } from "components/common"
+import { Heading, Subtext } from "components/Forms"
+import Image from "next/image"
+import { ArrowButton } from "components/Buttons"
+import SmallTournament from "components/SmallTournament"
+import ReactPlayer from "react-player"
 
 const EventsContainer = styled(Column)`
-  width: min(80%, 1400px)
+  width: min(80%, 1400px);
 `
 
 const EventsHeading = styled(Heading)`
@@ -26,7 +26,7 @@ const WatchedTournament = styled(Row)`
   padding-bottom: 35px;
   height: 260px;
   width: 126%;
-  background-color: ${(props) => props.theme.colors.white};
+  background-color: ${props => props.theme.colors.white};
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
 `
@@ -39,7 +39,7 @@ const Region = styled.div`
   font-weight: 600;
   font-size: 24px;
   line-height: 150%;
-  color: ${(props) => props.theme.colors.grayish};
+  color: ${props => props.theme.colors.grayish};
   margin-bottom: 24px;
 `
 
@@ -109,17 +109,17 @@ const PlayerWrapper = styled.div``
 
 export default function _UpcomingEvents() {
   const tournament = {
-    game: 'csgo',
-    region: 'USA + Europe',
-    title: '5v5 | Search & Destroy | FACEIT',
+    game: "csgo",
+    region: "USA + Europe",
+    title: "5v5 | Search & Destroy | FACEIT",
     summary: `This is where a summary of the featured tournament will go. This is
       where a summary of the featured tournament will go. This is where a summary
       of the featured tournament will go. This is where a summary of the featured
       tournament will go. This is where a summary of the featured tournament will
       go.`,
-    date: '24/08/2021',
-    time: '9:15pm',
-    prize: '$1,250'
+    date: "24/08/2021",
+    time: "9:15pm",
+    prize: "$1,250"
   }
 
   const tournaments = [tournament, tournament]
@@ -133,25 +133,25 @@ export default function _UpcomingEvents() {
       </EventsSubtext>
       <PlayerWrapper>
         <ReactPlayer
-          url={'https://www.twitch.tv/izakooo'}
-          playing={true}
-          width='126%'
+          url="https://www.twitch.tv/izakooo"
+          playing
+          width="126%"
           height={788}
           style={{
             borderTopLeftRadius: 25,
             borderTopRightRadius: 25,
-            overflow: 'hidden'
+            overflow: "hidden"
           }}
         />
       </PlayerWrapper>
       <WatchedTournament>
         <div style={{ marginLeft: 40, marginRight: 38 }}>
           <Image
-            src={'/csgo.svg'}
+            src="/csgo.svg"
             width={167}
             height={260}
-            layout='fixed'
-            alt={'watch tournament'}
+            layout="fixed"
+            alt="watch tournament"
           />
         </div>
         <TournamentInfo>
@@ -160,23 +160,18 @@ export default function _UpcomingEvents() {
           <Summary>{tournament.summary}</Summary>
           <Buttons>
             <ArrowButtonContainer>
-              <ArrowButton text={'watch live on twitch.tv'} />
+              <ArrowButton text="watch live on twitch.tv" />
             </ArrowButtonContainer>
             <CirclesRow>
               <ShadowCircle>
-                <Image
-                  src={'/laptop.svg'}
-                  width={24}
-                  height={24}
-                  alt={'laptop'}
-                />
+                <Image src="/laptop.svg" width={24} height={24} alt="laptop" />
               </ShadowCircle>
               <ShadowCircle>
                 <Image
-                  src={'/logo-xbox.svg'}
+                  src="/logo-xbox.svg"
                   width={24}
                   height={24}
-                  alt={'xbox'}
+                  alt="xbox"
                 />
               </ShadowCircle>
             </CirclesRow>
@@ -188,7 +183,7 @@ export default function _UpcomingEvents() {
           tournaments.map((tournament, idx) => (
             <TournamentContainer key={idx}>
               <SmallTournament tournament={tournament} />
-              <Spacer/>
+              <Spacer />
             </TournamentContainer>
           ))}
       </TournamentsRow>

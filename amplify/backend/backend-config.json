@@ -1,0 +1,59 @@
+{
+  "function": {},
+  "auth": {
+    "premiereb82b65cbb82b65cb": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": true,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "BIRTHDATE",
+          "EMAIL",
+          "PREFERRED_USERNAME"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OPTIONAL",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      }
+    }
+  },
+  "api": {
+    "premiere": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authpremiereb82b65cbb82b65cb"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 7,
+                "apiKeyExpirationDate": "2022-01-21T23:38:01.239Z",
+                "description": ""
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

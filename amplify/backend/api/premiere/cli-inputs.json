@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "premiere",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/piotrostrowski/premiere/amplify/backend/api/premiere/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authpremiereb82b65cbb82b65cb"
+    },
+    "conflictResolution": {},
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 7,
+        "apiKeyExpirationDate": "2022-01-21T23:38:01.239Z",
+        "keyDescription": ""
+      }
+    ]
+  }
+}

@@ -1,5 +1,3 @@
-import { AuthenticationProvider } from 'contexts/authentication'
-import { WaitingProvider } from 'contexts/waiting'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import '@fontsource/inter/900.css'
 import '@fontsource/inter/800.css'
@@ -8,6 +6,13 @@ import '@fontsource/inter/600.css'
 import '@fontsource/inter/500.css'
 import '@fontsource/inter/400.css'
 import 'react-activity/dist/Dots.css'
+import { Provider } from 'react-redux'
+import { Amplify } from 'aws-amplify'
+import config from 'aws-exports'
+import { PersistGate } from 'redux-persist/integration/react'
+import persistantStore from 'store'
+
+Amplify.configure(config)
 
 const THEME = 'light'
 
@@ -101,23 +106,24 @@ const GlobalStyle = createGlobalStyle`
   p {
     font-weight: 500;
     font-size: 16px;
-    line-height: 150%;
+    line-height: 150%
   }
 `
 
-function MyApp({ Component, pageProps }) {
+const { store, persistor } = persistantStore()
+
+export default function App({ Component, pageProps }) {
+  console.log(store)
   return (
     <>
       <GlobalStyle />
-      <WaitingProvider>
-        <AuthenticationProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
           <ThemeProvider theme={theme}>
             <Component {...pageProps} />
           </ThemeProvider>
-        </AuthenticationProvider>
-      </WaitingProvider>
+        </PersistGate>
+      </Provider>
     </>
   )
 }
-
-export default MyApp
