@@ -165,8 +165,8 @@ export default function Home({ friends }) {
         <TournamentsRow>
           {tournaments.map((tournament, key) => (
             <TournamentContainer key={key}>
-             <Tournament tournament={tournament} />
-             <Spacer/>
+              <Tournament tournament={tournament} />
+              <Spacer />
             </TournamentContainer>
           ))}
         </TournamentsRow>

@@ -7,7 +7,7 @@ import SmallTournament from 'components/SmallTournament'
 import ReactPlayer from 'react-player'
 
 const EventsContainer = styled(Column)`
-  width: min(80%, 1400px)
+  width: min(80%, 1400px);
 `
 
 const EventsHeading = styled(Heading)`
@@ -135,7 +135,7 @@ export default function _UpcomingEvents() {
         <ReactPlayer
           url={'https://www.twitch.tv/izakooo'}
           playing={true}
-          width='126%'
+          width="126%"
           height={788}
           style={{
             borderTopLeftRadius: 25,
@@ -150,7 +150,7 @@ export default function _UpcomingEvents() {
             src={'/csgo.svg'}
             width={167}
             height={260}
-            layout='fixed'
+            layout="fixed"
             alt={'watch tournament'}
           />
         </div>
@@ -188,7 +188,7 @@ export default function _UpcomingEvents() {
           tournaments.map((tournament, idx) => (
             <TournamentContainer key={idx}>
               <SmallTournament tournament={tournament} />
-              <Spacer/>
+              <Spacer />
             </TournamentContainer>
           ))}
       </TournamentsRow>

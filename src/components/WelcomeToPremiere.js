@@ -37,7 +37,6 @@ const Subtext = styled.div`
   line-height: 140.62%;
   color: ${(props) => props.theme.colors.black};
   margin-bottom: 50px;
-
 `
 
 const VideoContainer = styled.div`
