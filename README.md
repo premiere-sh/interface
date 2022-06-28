@@ -53,3 +53,19 @@ and [Prettier](https://prettier.io/) (code formatter):
 ```sh
 yarn prettier --write .
 ```
+
+## TODOs
+
+- prem earned delete for now
+- for now solos only so no teams in the interface
+- recommended events:
+
+```jsx
+events.map((event) => Date.now() - event.startDate < thresh
+```
+
+- add google, facebook etc signups
+- mobile scaling
+- add friends mechanisms (need the design)
+- add tournaments creation (need the design)
+- add separate profile based on the id in the url
