@@ -2,13 +2,6 @@
 
 [![License](https://img.shields.io/github/license/premiere-sh/interface?color=blue)](https://github.com/premiere-sh/interface/blob/master/LICENSE)
 
-A crypto web-app enabling gamers to participate in tournaments and receive
-`$PREM` for their wins.
-
-## Contributing
-
-See [CONTRIBUTING.md](https://github.com/premiere-sh/interface/blob/master/CONTRIBUTING.md)
-
 ## Development
 
 ### Requirements
