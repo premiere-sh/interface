@@ -1,10 +1,55 @@
-# ♦️ Premiere Interface
+# Premiere Protocol Interface
 
-A crypto web-app enabling gamers to participate in tournaments and receive `$PREM` for their wins.
+[![License](https://img.shields.io/github/license/premiere-sh/interface?color=blue)](https://github.com/premiere-sh/interface/blob/master/LICENSE)
 
-## Usage
+A crypto web-app enabling gamers to participate in tournaments and receive
+`$PREM` for their wins.
 
-```
+## Contributing
+
+See [CONTRIBUTING.md](https://github.com/premiere-sh/interface/blob/master/CONTRIBUTING.md)
+
+## Development
+
+### Requirements
+
+- [node](https://nodejs.org/en/) (ideally version 18 or greater, my advice
+  would be to use [nvm](https://github.com/nvm-sh/nvm))
+- [yarn](https://yarnpkg.com/)
+
+### Workflow
+
+In order to install dependencies:
+
+```sh
 yarn
+```
+
+Then, to start the development server (default port is 3000)
+
+```sh
 yarn dev
+```
+
+After running the above command a development server can be accessed in the
+browser under url `http://localhost:3000`. The NextJS supports hot reload but
+for some changes to populate you might need to re-run the development server.
+
+In order to check if the website builds right (in case the build as part of the PR
+CI/CD fails), one can run
+
+```sh
+yarn build
+```
+
+Other useful commands involve running [ESLint](https://eslint.org/) (static analysis):
+
+```sh
+yarn lint
+```
+
+and [Prettier](https://prettier.io/) (code formatter):
+
+```sh
+yarn prettier --write .
 ```
