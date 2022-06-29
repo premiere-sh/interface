@@ -52,13 +52,13 @@ yarn prettier --write .
 - prem earned delete for now
 - for now solos only so no teams in the interface
 - recommended events:
-
 ```jsx
 events.map((event) => Date.now() - event.startDate < thresh
 ```
-
-- add google, facebook etc signups
-- mobile scaling
-- add friends mechanisms (need the design)
-- add tournaments creation (need the design)
-- add separate profile based on the id in the url
+- Bring the mozilla observatory rating up (currently at D+)
+- Check if Google Lighthouse score can be improved
+- Add google, facebook etc signups
+- Improve mobile scaling of some components
+- Add friends mechanisms (need the design)
+- Add tournaments creation (need the design)
+- Add separate profile based on the id in the url
