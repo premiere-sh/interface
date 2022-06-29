@@ -62,3 +62,4 @@ events.map((event) => Date.now() - event.startDate < thresh
 - Add friends mechanisms (need the design)
 - Add tournaments creation (need the design)
 - Add separate profile based on the id in the url
+- Optimize image loading
