@@ -45,9 +45,7 @@ export default function Login() {
     handleSubmit,
     formState: { errors }
   } = useForm()
-  const { isAuthenticated, setToken, currentUser } = useContext(
-    AuthenticationContext
-  )
+  const { setToken } = useContext(AuthenticationContext)
   const [errorMessage, setErrorMessage] = useState('')
   const [waiting, setWaiting] = useContext(WaitingContext)
   const signIn = useSignIn()

@@ -117,7 +117,7 @@ const Avatar = styled.img`
 
 export default function ProfileTop() {
   const [selected, setSelected] = useState('Home')
-  const { currentUser, isAuthenticated, currentUserAvatar, token } = useContext(
+  const { currentUser, currentUserAvatar, token } = useContext(
     AuthenticationContext
   )
   const friends = useFriends(currentUser)

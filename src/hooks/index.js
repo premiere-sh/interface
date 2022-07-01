@@ -200,7 +200,7 @@ export function useFriends(user_id) {
 
   useEffect(function () {
     ;(async function () {
-      const res = await fetch(`${BASE_URL}${user_id}/friends/`)
+      const res = await fetch(`${BASE_URL}users/${user_id.id}/friends/`)
       let avatar
       if (res.status == 200) {
         let _friends = await res.json()
@@ -223,15 +223,22 @@ export function useFriends(user_id) {
 export function useStats(user_id) {
   const [stats, setStats] = useState({})
 
-  useEffect(function () {
-    ;(async function () {
-      const res = await fetch(`${BASE_URL}${user_id}/stats/`)
-      if (res.status == 200) {
-        const _stats = await res.json()
-        setStats(_stats)
-      }
-    })()
-  }, [])
+  useEffect(
+    function () {
+      ;(async function () {
+        if (user_id?.id !== undefined) {
+          const res = await fetch(`${BASE_URL}users/${user_id.id}/stats/`)
+          console.log('userId', user_id)
+          console.log('userId', user_id.id)
+          if (res.status == 200) {
+            const _stats = await res.json()
+            setStats(_stats)
+          }
+        }
+      })()
+    },
+    [user_id]
+  )
 
   return stats
 }
