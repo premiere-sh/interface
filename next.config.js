@@ -31,8 +31,7 @@ module.exports = withPWA({
               manifestSrc: "'self'",
               mediaSrc: "'self'",
               workerSrc: '"self"'
-            },
-            reportOnly: false
+            }
           },
           forceHTTPSRedirect: [
             true,
