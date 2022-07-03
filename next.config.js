@@ -14,7 +14,7 @@ module.exports = withPWA({
   async headers() {
     return [
       {
-        source: '/',
+        source: '/(.*)',
         headers: createSecureHeaders({
           contentSecurityPolicy: {
             directives: {
