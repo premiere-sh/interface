@@ -1,6 +1,7 @@
 const withPWA = require('next-pwa')
 const runtimeCaching = require('next-pwa/cache')
 const { createSecureHeaders } = require('next-secure-headers')
+const { createHash, BinaryLike } = require('crypto')
 
 module.exports = {
   reactStrictMode: true,
@@ -14,28 +15,24 @@ module.exports = withPWA({
   async headers() {
     return [
       {
-        source: '/(.*)',
+        source: '/',
         headers: createSecureHeaders({
           contentSecurityPolicy: {
             directives: {
-              defaultSrc: 'self',
-              scriptSrc: [
-                'report-sample',
-                'self',
-                '//player.twitch.tv/js/embed/v1.js'
-              ],
-              styleSrc: ['report-sample', 'self'],
+              defaultSrc: 'none',
+              scriptSrc: ["'self'", 'unsafe-inline'],
+              styleSrc: ["'self'", 'unsafe-inline'],
               objectSrc: 'none',
-              baseUri: 'self',
-              connectSrc: ['self', '//api.premiere.sh'],
-              fontSrc: 'self',
-              frameSrc: ['self', '//player.twitch.tv'],
-              imgSrc: 'self',
-              manifestSrc: 'self',
-              mediaSrc: 'self',
-              reportUri: '//62c07ccc9bc141b6c53719a4.endpoint.csper.io/?v=6',
-              workerSrc: 'self'
-            }
+              baseURI: "'self'",
+              connectSrc: ["'self'", '//api.premiere.sh'],
+              fontSrc: ["'self'", 'data:'],
+              frameSrc: ["'self'", '//player.twitch.tv'],
+              imgSrc: ["'self'", 'data: blob'],
+              manifestSrc: "'self'",
+              mediaSrc: "'self'",
+              workerSrc: '"self"'
+            },
+            reportOnly: false
           },
           forceHTTPSRedirect: [
             true,
