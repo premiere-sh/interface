@@ -16,7 +16,7 @@ export const getCSPHeaders = (inlineScriptSource) => {
   csp.push(`default-src 'self'`)
   csp.push(`script-src ${scriptSource} `)
   csp.push(`style-src 'self' 'unsafe-inline'`)
-  csp.push(`connect-src 'self' `)
+  csp.push(`connect-src 'self' '//api.premiere.sh'`)
   csp.push(`img-src 'self' data: blob:`)
   csp.push(`font-src 'self' data:`)
   csp.push(`frame-src *`)
