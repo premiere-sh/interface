@@ -10,6 +10,7 @@ import AuthenticationContext from 'contexts/authentication'
 import WaitingContext from 'contexts/waiting'
 import Router from 'next/router'
 import { Dots } from 'react-activity'
+import SocialsSignup from 'components/SocialsSignup'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -104,11 +105,11 @@ export default function Login() {
       {errorMessage && (
         <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
       )}
+      <SocialsSignup />
       <SignupIfNotGotAnAccount>
-        Don&apos;t have an account?
         <GradientText style={{ display: 'inline', marginLeft: 5 }}>
           <Link href={'/signup'}>
-            <a>Sign up</a>
+            <a>Sign up with e-mail</a>
           </Link>
         </GradientText>
       </SignupIfNotGotAnAccount>

@@ -118,6 +118,7 @@ yarn-error.log*
 
 *.swp
 local_db
+
 **/public/workbox-*.js
 **/public/sw.js
 **/public/worker-*.js
