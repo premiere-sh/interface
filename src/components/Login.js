@@ -11,6 +11,7 @@ import WaitingContext from 'contexts/waiting'
 import Router from 'next/router'
 import { Dots } from 'react-activity'
 import SocialsSignup from 'components/SocialsSignup'
+import { toast } from 'react-toastify'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -31,38 +32,24 @@ const SignupIfNotGotAnAccount = styled.div`
   justify-content: center;
 `
 
-const ErrorMessageContainer = styled.div`
-  color: ${(props) => props.theme.colors.red};
-  line-height: 19px;
-  font-size: 16px;
-  display: flex;
-  justify-content: center;
-  height: 40px;
-`
-
 export default function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm()
-  const { isAuthenticated, setToken, currentUser } = useContext(
-    AuthenticationContext
-  )
-  const [errorMessage, setErrorMessage] = useState('')
+  const { setToken } = useContext(AuthenticationContext)
   const [waiting, setWaiting] = useContext(WaitingContext)
   const signIn = useSignIn()
 
   const onSubmit = async (data) => {
-    setErrorMessage('')
     setWaiting(true)
     const { error, token } = await signIn(data)
     if (error) {
-      setErrorMessage(error)
+      toast.error(error)
       setWaiting(false)
     } else if (token) {
       setToken(token)
-      setErrorMessage('')
       setWaiting(false)
       Router.push(`/profile`)
     }
@@ -102,17 +89,7 @@ export default function Login() {
           <LoginButton type={'submit'} text={'log in'} />
         )}
       </SubmitEntry>
-      <ErrorMessageContainer>
-        {errorMessage && errorMessage}
-      </ErrorMessageContainer>
       <SocialsSignup />
-      <SignupIfNotGotAnAccount>
-        <GradientText style={{ display: 'inline', marginLeft: 5 }}>
-          <Link href={'/signup'}>
-            <a>Sign up with e-mail</a>
-          </Link>
-        </GradientText>
-      </SignupIfNotGotAnAccount>
     </FormContainer>
   )
 }

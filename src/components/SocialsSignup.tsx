@@ -5,31 +5,31 @@ import {
   signInWithPopup,
   signOut,
   GoogleAuthProvider,
-  FacebookAuthProvider,
   User,
   Auth,
   updateCurrentUser,
-  AuthProvider
+  AuthProvider,
+  TwitterAuthProvider,
+  GithubAuthProvider
 } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 
 import Spinner from 'react-activity/dist/Spinner'
-import 'react-activity/dist/Spinner.css'
 
 const SocialsSignupContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-around;
+  flex-direction: row;
+  height: 120px;
 `
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 60px;
   width: 80px;
   height: 80px;
   background-color: #fff;
@@ -40,8 +40,9 @@ const ButtonContainer = styled.div`
 export default function SocialsSignup() {
   const [user, setUser] = useState<User>()
   const [auth, setAuth] = useState<Auth>()
-  const router = useRouter()
   const [loading, setLoading] = useState<boolean>(false)
+
+  const router = useRouter()
 
   useEffect(() => {
     if (auth) {
@@ -61,10 +62,11 @@ export default function SocialsSignup() {
       const result = await signInWithPopup(auth, provider)
       if (result?.user) {
         setUser(result.user)
-        router.push('/')
+        router.push('/profile')
       }
     } catch (error) {
       setLoading(false)
+      console.log(error)
       toast.error(`Error signing in with ${provider.providerId} provider`)
     }
     setLoading(false)
@@ -91,22 +93,42 @@ export default function SocialsSignup() {
           ) : (
             <>
               <ButtonContainer
-                onClick={() => signInWithProvider(new FacebookAuthProvider())}
+                onClick={() => signInWithProvider(new TwitterAuthProvider())}
               >
                 <img
-                  src="/facebook.svg"
-                  width={100}
-                  height={100}
-                  alt="facebook"
+                  src="/twitter-signup.svg"
+                  width={55}
+                  height={55}
+                  alt="twitter-signup"
                 />
               </ButtonContainer>
               <ButtonContainer
                 onClick={() => signInWithProvider(new GoogleAuthProvider())}
               >
-                <img src="/google.svg" width={55} height={55} alt="google" />
+                <img
+                  src="/google.svg"
+                  width={55}
+                  height={55}
+                  alt="google-signup"
+                />
               </ButtonContainer>
-              <ButtonContainer>
-                <img src="/apple.svg" width={55} height={50} alt="apple" />
+              <ButtonContainer
+                onClick={() => signInWithProvider(new GithubAuthProvider())}
+              >
+                <img
+                  src="/github.svg"
+                  width={55}
+                  height={50}
+                  alt="github-signup"
+                />
+              </ButtonContainer>
+              <ButtonContainer onClick={() => router.push('/signup')}>
+                <img
+                  src="/mail-signup.svg"
+                  width={55}
+                  height={55}
+                  alt="regular-mail-signup"
+                />
               </ButtonContainer>
             </>
           )}

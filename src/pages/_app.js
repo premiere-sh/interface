@@ -11,6 +11,7 @@ import 'react-activity/dist/Dots.css'
 
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import 'react-activity/dist/Spinner.css'
 
 const THEME = 'light'
 
