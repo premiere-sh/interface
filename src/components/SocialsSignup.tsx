@@ -1,22 +1,14 @@
 import styled from 'styled-components'
-import { app } from '../firebase'
 import {
-  getAuth,
-  signInWithPopup,
-  signOut,
   GoogleAuthProvider,
-  User,
-  Auth,
-  updateCurrentUser,
-  AuthProvider,
   TwitterAuthProvider,
   GithubAuthProvider
 } from 'firebase/auth'
-import { useEffect, useState } from 'react'
+import { useContext } from 'react'
 import { useRouter } from 'next/router'
-import { toast } from 'react-toastify'
 
 import Spinner from 'react-activity/dist/Spinner'
+import AuthenticationContext from 'contexts/authentication'
 
 const SocialsSignupContainer = styled.div`
   display: flex;
@@ -38,44 +30,9 @@ const ButtonContainer = styled.div`
 `
 
 export default function SocialsSignup() {
-  const [user, setUser] = useState<User>()
-  const [auth, setAuth] = useState<Auth>()
-  const [loading, setLoading] = useState<boolean>(false)
-
   const router = useRouter()
-
-  useEffect(() => {
-    if (auth) {
-      const unsubscribe = auth.onAuthStateChanged((user) => setUser(user))
-      return () => unsubscribe()
-    }
-  }, [auth])
-
-  useEffect(() => {
-    setAuth(getAuth(app))
-    setUser(auth?.currentUser)
-  }, [user, auth])
-
-  const signInWithProvider = async (provider: AuthProvider) => {
-    try {
-      setLoading(true)
-      const result = await signInWithPopup(auth, provider)
-      if (result?.user) {
-        setUser(result.user)
-        router.push('/profile')
-      }
-    } catch (error) {
-      setLoading(false)
-      console.log(error)
-      toast.error(`Error signing in with ${provider.providerId} provider`)
-    }
-    setLoading(false)
-  }
-
-  const logout = async () => {
-    signOut(auth)
-    updateCurrentUser(auth, user)
-  }
+  const { loading, user, setLoading, setUser, logout, signInWithProvider } =
+    useContext(AuthenticationContext)
 
   return (
     <SocialsSignupContainer>

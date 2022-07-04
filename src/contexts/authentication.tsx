@@ -1,30 +1,27 @@
 import { createContext, Dispatch, SetStateAction } from 'react'
-import { useAuth } from 'hooks'
-
-export interface User {
-  id: string
-  email: string
-  username: string
-  platform: string | null
-  points: number
-  tag: string | null
-  tournaments: string
-}
+import { useAuth } from 'hooks/use-auth'
+import { AuthProvider, User } from 'firebase/auth'
 
 interface IAuthenticationContext {
-  isLoading: boolean
-  isAuthenticated: boolean
-  token: string | null
-  setToken: Dispatch<SetStateAction<string>>
-  user: User | null
+  signInWithProvider: (provider: AuthProvider) => Promise<void>
+  loading: boolean
+  setLoading: Dispatch<SetStateAction<boolean>>
+  user: User
+  setUser: Dispatch<SetStateAction<User>>
+  logout: () => void
+  userAvatar: string
+  token: string
 }
 
 export const AuthenticationContext = createContext<IAuthenticationContext>({
-  isLoading: false,
-  isAuthenticated: false,
-  token: null,
-  setToken: () => {},
-  user: null
+  signInWithProvider: () => Promise.resolve(),
+  loading: false,
+  setLoading: () => {},
+  user: null,
+  setUser: () => {},
+  logout: () => {},
+  userAvatar: '',
+  token: ''
 })
 
 export const AuthenticationProvider = ({ children }: any) => {
