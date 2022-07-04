@@ -10,10 +10,18 @@ import {
 } from 'components/Forms'
 import { SignupButtonLarge as SignupButton } from 'components/Buttons'
 import styled from 'styled-components'
-import { useForm } from 'react-hook-form'
+import { useForm, Resolver } from 'react-hook-form'
 import Link from 'next/link'
 import AuthenticationContext from 'contexts/authentication'
 import { Dots } from 'react-activity'
+
+interface FormValues {
+  email: string
+  username: string
+  password: string
+  date: string
+  confirm: string
+}
 
 const FormContainer = styled.form`
   margin: auto;
@@ -56,7 +64,7 @@ export default function Signup() {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm()
+  } = useForm<FormValues>()
   const { loading, signUp, user } = useContext(AuthenticationContext)
   const [password, setPassword] = useState('')
 
