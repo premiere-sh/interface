@@ -8,10 +8,10 @@ import {
   FacebookAuthProvider,
   User,
   Auth,
-  onAuthStateChanged,
   updateCurrentUser
 } from 'firebase/auth'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 
 const SocialsSignupContainer = styled.div`
   display: flex;
@@ -35,6 +35,7 @@ const ButtonContainer = styled.div`
 export default function SocialsSignup() {
   const [user, setUser] = useState<User>()
   const [auth, setAuth] = useState<Auth>()
+  const router = useRouter()
 
   useEffect(() => {
     if (auth) {
@@ -52,6 +53,7 @@ export default function SocialsSignup() {
     const result = await signInWithPopup(auth, new GoogleAuthProvider())
     if (result?.user) {
       setUser(result.user)
+      router.push('/')
     }
   }
 
@@ -60,6 +62,7 @@ export default function SocialsSignup() {
     const result = await signInWithPopup(auth, new FacebookAuthProvider())
     if (result?.user) {
       setUser(result.user)
+      router.push('/')
     }
   }
 
