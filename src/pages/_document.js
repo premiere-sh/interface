@@ -1,13 +1,7 @@
 import React from 'react'
-import Document, {
-  Html,
-  Head,
-  Main,
-  NextScript,
-  DocumentContext,
-  DocumentInitialProps
-} from 'next/document'
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 import { ServerStyleSheet } from 'styled-components'
+import { getCSPHeaders } from 'csp'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
@@ -40,7 +34,15 @@ export default class MyDocument extends Document {
   render() {
     return (
       <Html lang="en-GB">
-        <Head />
+        <Head>
+          <meta name="referrer" content="strict-origin" />
+          <meta
+            httpEquiv="Content-Security-Policy"
+            content={getCSPHeaders(
+              NextScript.getInlineScriptSource(this.props)
+            )}
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />
