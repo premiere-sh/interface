@@ -72,8 +72,12 @@ export function DashboardButton() {
   return <Dashboard>dashboard</Dashboard>
 }
 
-export function LoginButton({ text, disabled }) {
-  return <Login disabled={disabled}>{text}</Login>
+export function LoginButton({ text, disabled, ...props }) {
+  return (
+    <Login disabled={disabled} {...props}>
+      {text}
+    </Login>
+  )
 }
 
 export function ViewTournamentsButton() {
