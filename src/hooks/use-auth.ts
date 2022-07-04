@@ -39,7 +39,7 @@ export function useAuth() {
 
   useEffect(() => {
     if (auth) {
-      const unsubscribe = auth.onAuthStateChanged((user) => setUser(user))
+      const unsubscribe = auth?.onAuthStateChanged((user) => setUser(user))
       return () => unsubscribe()
     }
   }, [auth])
@@ -50,8 +50,10 @@ export function useAuth() {
   }, [user, auth])
 
   const logout = async () => {
-    signOut(auth)
-    updateCurrentUser(auth, user)
+    if (auth) {
+      signOut(auth)
+      updateCurrentUser(auth, user)
+    }
   }
 
   const signInWithProvider = async (provider: AuthProvider) => {

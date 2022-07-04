@@ -2,7 +2,14 @@ import styled from 'styled-components'
 import { Column, Container, Row } from './common'
 import Image from 'next/image'
 import { Grid } from 'styled-css-grid'
-import { zip } from 'hooks'
+
+function zip(arrays) {
+  return arrays[0].map((_, i) => {
+    return arrays.map((array) => {
+      return array[i]
+    })
+  })
+}
 
 const UserColumn = styled(Column)``
 

@@ -10,7 +10,7 @@ import {
 } from 'components/Forms'
 import { SignupButtonLarge as SignupButton } from 'components/Buttons'
 import styled from 'styled-components'
-import { useForm, Resolver } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import Link from 'next/link'
 import AuthenticationContext from 'contexts/authentication'
 import { Dots } from 'react-activity'
