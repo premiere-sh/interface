@@ -8,10 +8,15 @@ import {
   FacebookAuthProvider,
   User,
   Auth,
-  updateCurrentUser
+  updateCurrentUser,
+  AuthProvider
 } from 'firebase/auth'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
+
+import Spinner from 'react-activity/dist/Spinner'
+import 'react-activity/dist/Spinner.css'
 
 const SocialsSignupContainer = styled.div`
   display: flex;
@@ -36,6 +41,7 @@ export default function SocialsSignup() {
   const [user, setUser] = useState<User>()
   const [auth, setAuth] = useState<Auth>()
   const router = useRouter()
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     if (auth) {
@@ -49,21 +55,19 @@ export default function SocialsSignup() {
     setUser(auth?.currentUser)
   }, [user, auth])
 
-  const signInWithGoogle = async () => {
-    const result = await signInWithPopup(auth, new GoogleAuthProvider())
-    if (result?.user) {
-      setUser(result.user)
-      router.push('/')
+  const signInWithProvider = async (provider: AuthProvider) => {
+    try {
+      setLoading(true)
+      const result = await signInWithPopup(auth, provider)
+      if (result?.user) {
+        setUser(result.user)
+        router.push('/')
+      }
+    } catch (error) {
+      setLoading(false)
+      toast.error(`Error signing in with ${provider.providerId} provider`)
     }
-  }
-
-  const signInWithFacebook = async () => {
-    const auth = getAuth(app)
-    const result = await signInWithPopup(auth, new FacebookAuthProvider())
-    if (result?.user) {
-      setUser(result.user)
-      router.push('/')
-    }
+    setLoading(false)
   }
 
   const logout = async () => {
@@ -82,15 +86,30 @@ export default function SocialsSignup() {
         </div>
       ) : (
         <>
-          <ButtonContainer onClick={() => signInWithFacebook()}>
-            <img src="/facebook.svg" width={100} height={100} alt="facebook" />
-          </ButtonContainer>
-          <ButtonContainer onClick={() => signInWithGoogle()}>
-            <img src="/google.svg" width={55} height={55} alt="google" />
-          </ButtonContainer>
-          <ButtonContainer>
-            <img src="/apple.svg" width={55} height={50} alt="apple" />
-          </ButtonContainer>
+          {loading ? (
+            <Spinner />
+          ) : (
+            <>
+              <ButtonContainer
+                onClick={() => signInWithProvider(new FacebookAuthProvider())}
+              >
+                <img
+                  src="/facebook.svg"
+                  width={100}
+                  height={100}
+                  alt="facebook"
+                />
+              </ButtonContainer>
+              <ButtonContainer
+                onClick={() => signInWithProvider(new GoogleAuthProvider())}
+              >
+                <img src="/google.svg" width={55} height={55} alt="google" />
+              </ButtonContainer>
+              <ButtonContainer>
+                <img src="/apple.svg" width={55} height={50} alt="apple" />
+              </ButtonContainer>
+            </>
+          )}
         </>
       )}
     </SocialsSignupContainer>

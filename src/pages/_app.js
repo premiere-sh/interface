@@ -9,6 +9,9 @@ import '@fontsource/inter/500.css'
 import '@fontsource/inter/400.css'
 import 'react-activity/dist/Dots.css'
 
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 const THEME = 'light'
 
 const theme = {
@@ -116,6 +119,7 @@ function MyApp({ Component, pageProps }) {
           </ThemeProvider>
         </AuthenticationProvider>
       </WaitingProvider>
+      <ToastContainer />
     </>
   )
 }

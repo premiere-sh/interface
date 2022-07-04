@@ -122,3 +122,4 @@ local_db
 **/public/workbox-*.js
 **/public/sw.js
 **/public/worker-*.js
+**/public/sw.map.js
