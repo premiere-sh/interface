@@ -2,10 +2,11 @@ import { useState, useEffect, useContext } from 'react'
 import AuthenticationContext from 'contexts/authentication'
 import { createAvatar } from '@dicebear/avatars'
 import * as style from '@dicebear/avatars-identicon-sprites'
+import { User } from '../contexts/authentication'
 
 export const BASE_URL = 'https://api.premiere.sh/'
 
-export function zip(arrays) {
+export function zip(arrays: Array<Array<any>>) {
   return arrays[0].map((_, i) => {
     return arrays.map((array) => {
       return array[i]
@@ -17,20 +18,20 @@ export function useAuth() {
   const [isLoading, setLoading] = useState(false)
   const [isAuthenticated, setAuthenticated] = useState(false)
   const [token, setToken] = useState(undefined)
-  const [currentUser, setCurrentUser] = useState({})
-  const [currentUserAvatar, setCurrentUserAvatar] = useState(null)
+  const [user, setUser] = useState<User>()
+  const [userAvatar, setUserAvatar] = useState(null)
 
   useEffect(
     function () {
-      if (currentUser?.username) {
+      if (user?.username) {
         const _avatar = createAvatar(style, {
-          seed: currentUser.username + 'asdf',
+          seed: user.username + 'asdf',
           dataUri: true
         })
-        setCurrentUserAvatar(_avatar)
+        setUserAvatar(_avatar)
       }
     },
-    [currentUser]
+    [user]
   )
 
   useEffect(() => {
@@ -53,8 +54,8 @@ export function useAuth() {
           } else if (res.status == 200) {
             setAuthenticated(true)
             window.localStorage.setItem('token', token)
-            const _currentUser = await res.json()
-            setCurrentUser(_currentUser)
+            const _user = await res.json()
+            setUser(_user)
             console.log(window.localStorage)
           }
 
@@ -75,8 +76,8 @@ export function useAuth() {
           } else if (res.status == 200) {
             setAuthenticated(true)
             window.localStorage.setItem('token', token)
-            const _currentUser = await res.json()
-            setCurrentUser(_currentUser)
+            const _user = await res.json()
+            setUser(_user)
           }
 
           // there is an existing token and no local token
@@ -94,8 +95,8 @@ export function useAuth() {
           } else if (res.status == 200) {
             setAuthenticated(true)
             setToken(storedToken)
-            const _currentUser = await res.json()
-            setCurrentUser(_currentUser)
+            const _user = await res.json()
+            setUser(_user)
           }
 
           // there is an only the local token
@@ -114,8 +115,8 @@ export function useAuth() {
           } else if (res.status == 200) {
             setAuthenticated(true)
             setToken(storedToken)
-            const _currentUser = await res.json()
-            setCurrentUser(_currentUser)
+            const _user = await res.json()
+            setUser(_user)
           }
         }
       } catch (err) {
@@ -126,12 +127,12 @@ export function useAuth() {
   }, [token])
 
   return {
-    isLoading: isLoading,
-    isAuthenticated: isAuthenticated,
-    token: token,
-    setToken: setToken,
-    currentUser: currentUser,
-    currentUserAvatar: currentUserAvatar
+    isLoading,
+    isAuthenticated,
+    token,
+    setToken,
+    user,
+    userAvatar
   }
 }
 
@@ -195,18 +196,18 @@ export function useSignOut() {
   }
 }
 
-export function useFriends(user_id) {
+export function useFriends(user: any) {
   const [friends, setFriends] = useState([])
 
   useEffect(function () {
     ;(async function () {
-      const res = await fetch(`${BASE_URL}${user_id}/friends/`)
-      let avatar
+      const res = await fetch(`${BASE_URL}${user?.user_id}/friends/`)
+      let avatar: any
       if (res.status == 200) {
         let _friends = await res.json()
-        _friends = _friends.map((friend) => {
+        _friends = _friends.map((friend: any) => {
           avatar = createAvatar(style, {
-            seed: user.username + 'asdf',
+            seed: user?.username + 'asdf',
             dataUri: true
           })
           friend.avatar = avatar
@@ -237,14 +238,18 @@ export function useStats(user_id) {
 }
 
 export function useInviteFriend() {
-  return async function inviteFriend(invitingId, acceptingId, token) {
+  return async function inviteFriend(
+    invitingId: any,
+    acceptingId: any,
+    token: any
+  ) {
     const headers = getHeaders(token)
     const slug = `users/${acceptingId}/friends/invite/`
     const res = await fetch(BASE_URL + slug, {
       headers: headers,
       method: 'POST'
     })
-    if (res.status_code == 200) {
+    if (res.status == 200) {
       return { success: true }
     } else {
       const error = await res.json()
@@ -261,7 +266,7 @@ export function useCreateTournament() {
       method: 'POST',
       body: JSON.stringify(tournament)
     })
-    if (res.status_code == 200) {
+    if (res.status == 200) {
       return { success: true }
     } else {
       const error = await res.json()
@@ -303,7 +308,7 @@ export function useUser(userId) {
   return { user: user, avatar: avatar }
 }
 
-export function useFriendInvites(userId, token) {
+export function useFriendInvites(user: any, token: any) {
   const [invites, setInvites] = useState([])
   const [avatars, setAvatars] = useState([])
   const [error, setError] = useState(undefined)
@@ -314,16 +319,18 @@ export function useFriendInvites(userId, token) {
   useEffect(
     function () {
       ;(async function () {
-        if (token && userId) {
+        if (token && user?.user_id) {
           const headers = getHeaders(token)
-          const res = await fetch(BASE_URL + `users/${userId}/invites/`, {
-            headers: headers,
-            method: 'GET'
-          })
-          console.log(res.status_code)
-          if (res.status_code == 200) {
+          const res = await fetch(
+            BASE_URL + `users/${user?.user_id}/invites/`,
+            {
+              headers: headers,
+              method: 'GET'
+            }
+          )
+          if (res.status == 200) {
             const _invites = await res.json()
-            const _avatars = _invites.map((invite) => {
+            const _avatars = _invites.map((invite: any) => {
               return createAvatar(style, {
                 seed: user.username + 'asdf',
                 dataUri: true
