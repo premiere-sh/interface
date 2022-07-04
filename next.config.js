@@ -1,7 +1,5 @@
 const withPWA = require('next-pwa')
 const runtimeCaching = require('next-pwa/cache')
-const { createSecureHeaders } = require('next-secure-headers')
-const { createHash, BinaryLike } = require('crypto')
 
 module.exports = {
   reactStrictMode: true,
@@ -16,31 +14,48 @@ module.exports = withPWA({
     return [
       {
         source: '/',
-        headers: createSecureHeaders({
-          contentSecurityPolicy: {
-            directives: {
-              defaultSrc: 'none',
-              scriptSrc: ["'self'", 'unsafe-inline'],
-              styleSrc: ["'self'", 'unsafe-inline'],
-              objectSrc: 'none',
-              baseURI: "'self'",
-              connectSrc: ["'self'", '//api.premiere.sh'],
-              fontSrc: ["'self'", 'data:'],
-              frameSrc: ["'self'", '//player.twitch.tv'],
-              imgSrc: ["'self'", 'data: blob'],
-              manifestSrc: "'self'",
-              mediaSrc: "'self'",
-              workerSrc: '"self"'
-            }
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: '*'
           },
-          forceHTTPSRedirect: [
-            true,
-            { maxAge: 31536000, includeSubDomains: true, preload: true }
-          ],
-          frameGuard: 'sameorigin',
-          xssProtection: 'block-rendering',
-          referrerPolicy: 'same-origin'
-        })
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, PUT, DELETE, PATCH, OPTIONS'
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value: 'X-Requested-With, content-type'
+          },
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN'
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block'
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=31536000; includeSubDomains; preload'
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'same-origin'
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff'
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN'
+          }
+        ]
       }
     ]
   },
