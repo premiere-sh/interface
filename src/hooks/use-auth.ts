@@ -9,7 +9,9 @@ import {
   updateCurrentUser,
   User,
   AuthProvider,
-  signInWithPopup
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
 } from 'firebase/auth'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
@@ -68,7 +70,41 @@ export function useAuth() {
     setLoading(false)
   }
 
+  const signIn = async (email: string, password: string) => {
+    try {
+      setLoading(true)
+      const result = await signInWithEmailAndPassword(auth, email, password)
+      if (result?.user) {
+        setUser(result.user)
+        router.push('/profile')
+      }
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+      toast.error(`Error signing in with email: ${email}`)
+    }
+    setLoading(false)
+  }
+
+  const signUp = async (email: string, password: string) => {
+    try {
+      setLoading(true)
+      const result = await createUserWithEmailAndPassword(auth, email, password)
+      if (result?.user) {
+        setUser(result.user)
+        router.push('/profile')
+      }
+    } catch (error) {
+      setLoading(false)
+      console.log(error)
+      toast.error(`Error signing up with email: ${email}`)
+    }
+    setLoading(false)
+  }
+
   return {
+    signIn,
+    signUp,
     signInWithProvider,
     loading,
     setLoading,
