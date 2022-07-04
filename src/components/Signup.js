@@ -218,9 +218,9 @@ export default function Signup() {
               text={waiting ? <Dots /> : 'sign up'}
             />
           </SubmitEntry>
-          {errorMessage && (
-            <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
-          )}
+          <ErrorMessageContainer>
+            {errorMessage && errorMessage}
+          </ErrorMessageContainer>
           <LoginIfGotAnAccount>
             Already have an account?
             <GradientText style={{ display: 'inline', marginLeft: 5 }}>

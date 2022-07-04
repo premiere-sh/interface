@@ -35,9 +35,9 @@ const ErrorMessageContainer = styled.div`
   color: ${(props) => props.theme.colors.red};
   line-height: 19px;
   font-size: 16px;
-  margin-bottom: 20px;
   display: flex;
   justify-content: center;
+  height: 40px;
 `
 
 export default function Login() {
@@ -102,9 +102,9 @@ export default function Login() {
           <LoginButton type={'submit'} text={'log in'} />
         )}
       </SubmitEntry>
-      {errorMessage && (
-        <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
-      )}
+      <ErrorMessageContainer>
+        {errorMessage && errorMessage}
+      </ErrorMessageContainer>
       <SocialsSignup />
       <SignupIfNotGotAnAccount>
         <GradientText style={{ display: 'inline', marginLeft: 5 }}>
