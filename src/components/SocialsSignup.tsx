@@ -31,64 +31,42 @@ const ButtonContainer = styled.div`
 
 export default function SocialsSignup() {
   const router = useRouter()
-  const { loading, user, setLoading, setUser, logout, signInWithProvider } =
-    useContext(AuthenticationContext)
+  const { loading, signInWithProvider } = useContext(AuthenticationContext)
 
   return (
     <SocialsSignupContainer>
-      {user ? (
-        <div>
-          <p>{user.displayName}</p>
-          <p>{user.email}</p>
-          {user.photoURL && <img src={user.photoURL} width={30} height={30} />}
-          <div onClick={logout}>Sign out</div>
-        </div>
+      {loading ? (
+        <Spinner />
       ) : (
         <>
-          {loading ? (
-            <Spinner />
-          ) : (
-            <>
-              <ButtonContainer
-                onClick={() => signInWithProvider(new TwitterAuthProvider())}
-              >
-                <img
-                  src="/twitter-signup.svg"
-                  width={55}
-                  height={55}
-                  alt="twitter-signup"
-                />
-              </ButtonContainer>
-              <ButtonContainer
-                onClick={() => signInWithProvider(new GoogleAuthProvider())}
-              >
-                <img
-                  src="/google.svg"
-                  width={55}
-                  height={55}
-                  alt="google-signup"
-                />
-              </ButtonContainer>
-              <ButtonContainer
-                onClick={() => signInWithProvider(new GithubAuthProvider())}
-              >
-                <img
-                  src="/github.svg"
-                  width={55}
-                  height={50}
-                  alt="github-signup"
-                />
-              </ButtonContainer>
-              <ButtonContainer onClick={() => router.push('/signup')}>
-                <img
-                  src="/mail-signup.svg"
-                  width={55}
-                  height={55}
-                  alt="regular-mail-signup"
-                />
-              </ButtonContainer>
-            </>
-          )}
+          <ButtonContainer
+            onClick={() => signInWithProvider(new TwitterAuthProvider())}
+          >
+            <img
+              src="/twitter-signup.svg"
+              width={55}
+              height={55}
+              alt="twitter-signup"
+            />
+          </ButtonContainer>
+          <ButtonContainer
+            onClick={() => signInWithProvider(new GoogleAuthProvider())}
+          >
+            <img src="/google.svg" width={55} height={55} alt="google-signup" />
+          </ButtonContainer>
+          <ButtonContainer
+            onClick={() => signInWithProvider(new GithubAuthProvider())}
+          >
+            <img src="/github.svg" width={55} height={50} alt="github-signup" />
+          </ButtonContainer>
+          <ButtonContainer onClick={() => router.push('/signup')}>
+            <img
+              src="/mail-signup.svg"
+              width={55}
+              height={55}
+              alt="regular-mail-signup"
+            />
+          </ButtonContainer>
         </>
       )}
     </SocialsSignupContainer>

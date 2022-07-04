@@ -1,10 +1,8 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import styled from 'styled-components'
 import { LoginButton } from 'components/Buttons'
 import { Heading, Caption, Subtext, Entry, Input } from 'components/Forms'
 import { useForm } from 'react-hook-form'
-import { GradientText } from 'components/common'
-import Link from 'next/link'
 import { useSignIn } from 'hooks'
 import AuthenticationContext from 'contexts/authentication'
 import WaitingContext from 'contexts/waiting'
@@ -25,11 +23,6 @@ const SubmitEntry = styled(Entry)`
 const ErrorMessage = styled.p`
   margin-top: 8px;
   color: ${(props) => props.theme.colors.red};
-`
-
-const SignupIfNotGotAnAccount = styled.div`
-  display: flex;
-  justify-content: center;
 `
 
 export default function Login() {
