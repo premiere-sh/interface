@@ -77,6 +77,7 @@ const Numbers = styled.div`
 const ButtonWrapper = styled(Row)`
   justify-content: space-between;
   margin-top: 79px;
+  width: 800px;
 `
 
 const Button = styled.div`
@@ -163,12 +164,7 @@ export default function ProfileTop() {
           >
             event history
           </Button>
-          <Button
-            style={{ borderBottom: `${selected == 'Teams' ? 1 : 0}px solid` }}
-            onClick={() => setSelected('Teams')}
-          >
-            teams
-          </Button>
+     
           <Button
             style={{ borderBottom: `${selected == 'Friends' ? 1 : 0}px solid` }}
             onClick={() => setSelected('Friends')}

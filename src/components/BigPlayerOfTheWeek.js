@@ -88,10 +88,6 @@ export default function BigPlayerOfTheWeek({ user, avatar }) {
               <StatHeading>weekly wins</StatHeading>
               <Stat>{user?.weeklyWins ?? '-'}</Stat>
             </StatColumn>
-            <StatColumn>
-              <StatHeading>$prem earned</StatHeading>
-              <Stat>{user?.premEarned ?? '-'}</Stat>
-            </StatColumn>
           </StatsRow>
         </Column>
       </PlayerRow>
