@@ -49,17 +49,4 @@ yarn prettier --write .
 
 ## TODOs
 
-- prem earned delete for now
-- for now solos only so no teams in the interface
-- recommended events:
-```jsx
-events.map((event) => Date.now() - event.startDate < thresh
-```
-- Bring the mozilla observatory rating up (currently at D+)
-- Check if Google Lighthouse score can be improved
-- Add google, facebook etc signups
-- Improve mobile scaling of some components
-- Add friends mechanisms (need the design)
-- Add tournaments creation (need the design)
-- Add separate profile based on the id in the url
-- Optimize image loading
+Join our [Slack](https://join.slack.com/t/aso-ltd/shared_invite/zt-1bktroyrp-D2sSgK38OwU4193cIyHmbg) and I will add you to the Jira board!

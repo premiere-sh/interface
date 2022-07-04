@@ -9,6 +9,10 @@ import '@fontsource/inter/500.css'
 import '@fontsource/inter/400.css'
 import 'react-activity/dist/Dots.css'
 
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import 'react-activity/dist/Spinner.css'
+
 const THEME = 'light'
 
 const theme = {
@@ -97,7 +101,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 20px;
     line-height: 24px;
   }
-  
+
   p {
     font-weight: 500;
     font-size: 16px;
@@ -116,6 +120,7 @@ function MyApp({ Component, pageProps }) {
           </ThemeProvider>
         </AuthenticationProvider>
       </WaitingProvider>
+      <ToastContainer />
     </>
   )
 }
