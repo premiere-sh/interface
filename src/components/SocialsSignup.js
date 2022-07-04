@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { firebase } from '../firebase'
+import { auth } from 'firebase/auth'
 
 const SocialsSignupContainer = styled.div`
   display: flex;
@@ -20,6 +22,7 @@ const ButtonContainer = styled.div`
 `
 
 export default function SocialsSignup() {
+  firebase.auth()
   return (
     <SocialsSignupContainer>
       <ButtonContainer>
