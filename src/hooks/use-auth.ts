@@ -59,12 +59,13 @@ export function useAuth() {
       setLoading(true)
       const result = await signInWithPopup(auth, provider)
       if (result?.user) {
-        setUser(result.user)
+        const _token = await result?.user?.getIdToken()
+        setToken(_token)
+        setUser(result?.user)
         router.push('/profile')
       }
     } catch (error) {
       setLoading(false)
-      console.log(error)
       toast.error(`Error signing in with ${provider.providerId} provider`)
     }
     setLoading(false)
@@ -75,6 +76,8 @@ export function useAuth() {
       setLoading(true)
       const result = await signInWithEmailAndPassword(auth, email, password)
       if (result?.user) {
+        const _token = await result.user.getIdToken()
+        setToken(_token)
         setUser(result.user)
         router.push('/profile')
       }
@@ -91,6 +94,8 @@ export function useAuth() {
       setLoading(true)
       const result = await createUserWithEmailAndPassword(auth, email, password)
       if (result?.user) {
+        const _token = await result.user.getIdToken()
+        setToken(_token)
         setUser(result.user)
         router.push('/profile')
       }

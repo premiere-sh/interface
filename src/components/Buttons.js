@@ -64,8 +64,8 @@ export function SignupButton({ text, disabled }) {
   return <Signup disabled={disabled}>{text}</Signup>
 }
 
-export function SignupButtonLarge() {
-  return <SignupLarge>sign up</SignupLarge>
+export function SignupButtonLarge({ ...props }) {
+  return <SignupLarge {...props}>sign up</SignupLarge>
 }
 
 export function DashboardButton() {
