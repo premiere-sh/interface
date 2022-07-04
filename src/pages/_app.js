@@ -97,7 +97,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 20px;
     line-height: 24px;
   }
-  
+
   p {
     font-weight: 500;
     font-size: 16px;
