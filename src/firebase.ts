@@ -1,7 +1,8 @@
-import { initializeApp } from 'firebase'
-import { getAnalytics } from 'firebase/analytics'
+import firebase from '@firebase/app'
+import '@firebase/auth'
+import { getAnalytics } from '@firebase/analytics'
 
-const app = initializeApp({
+const app = firebase.initializeApp({
   apiKey: 'AIzaSyAXrmMuj7gjo8s6Wryn85hYMFuSXzDPIQc',
   authDomain: 'premiere-6c19e.firebaseapp.com',
   projectId: 'premiere-6c19e',
@@ -12,3 +13,5 @@ const app = initializeApp({
 })
 
 const analytics = getAnalytics(app)
+
+export { firebase, analytics, app }
