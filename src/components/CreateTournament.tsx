@@ -1,16 +1,11 @@
 import { useState, useContext } from 'react'
 import styled from 'styled-components'
-import { LoginButton } from 'components/Buttons'
 import { Heading, Caption, Subtext, Entry, Input } from 'components/Forms'
 import { useForm } from 'react-hook-form'
 import { Column, Row } from 'components/common'
-import Link from 'next/link'
-import { useSignIn } from 'hooks'
 import AuthenticationContext from 'contexts/authentication'
 import WaitingContext from 'contexts/waiting'
-import Router from 'next/router'
-import { Dots } from 'react-activity'
-import SelectSearch from 'react-select-search'
+import Select from 'react-select'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -63,14 +58,11 @@ const DescriptionInput = styled.textarea`
 
 const DescriptionEntry = styled(Entry)``
 
-const Select = styled.select`
-  width: 232px;
-  height: 60px;
-`
-
-const Option = styled.option``
-
 const InputRow = styled(Row)``
+
+const TournamentEntry = styled(Entry)`
+  margin-left: 50px;
+`
 
 interface Tournament {
   region: string
@@ -94,23 +86,58 @@ export default function CreateTournament() {
   const { user } = useContext(AuthenticationContext)
   const [errorMessage, setErrorMessage] = useState('')
   const [waiting, setWaiting] = useContext(WaitingContext)
-
   const onSubmit = async (data: Tournament) => {
     const creator = user
     const tournamentData = { ...data, creator: creator, users: '' }
     console.log('tournaent', tournamentData)
   }
 
-  const gameOptions = [
-    { name: 'COD', value: 'COD' },
-    { name: 'RL', value: 'RL' }
+  const regionOptions: { label: string; value: string }[] = [
+    { label: 'international', value: 'international' },
+    { label: 'Europe', value: 'Europe' },
+    { label: 'North America', value: 'North America' },
+    { label: 'Asia', value: 'Asia' },
+    { label: 'Australia', value: 'Australia' }
   ]
+
+  const colourStyles = {
+    control: (styles, state) => ({
+      ...styles,
+      width: '232px',
+      height: '60px',
+      fontFamily: 'Inter',
+      fontWeight: '500',
+      border: state.isFocused ? '3px black solid' : 0,
+      boxShadow: 0,
+      '&:hover': {
+        ...styles[':hover'],
+        border: state.isFocused ? '3px black solid' : 0
+      }
+    }),
+    option: (styles) => {
+      return {
+        ...styles,
+        width: '100%',
+        height: '55px',
+        alignItems: 'center',
+        lineHeight: '40px',
+        fontFamily: 'Inter',
+        fontWeight: '500',
+        color: (props) => props.theme.colors.black,
+        backgroundColor: '#ffffff',
+        ':hover': {
+          ...styles[':hover'],
+          backgroundColor: 'lightgray'
+        }
+      }
+    }
+  }
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <Heading>Create Tournament</Heading>
       <Subtext>Create your own tournament on Premiere!</Subtext>
-      <Row>
-        <Entry>
+      <InputRow>
+        <TournamentEntry>
           <Caption>name</Caption>
           <Input
             required={true}
@@ -118,30 +145,27 @@ export default function CreateTournament() {
             type={'text'}
             placeholder={'Name'}
           />
-        </Entry>
-        <Entry>
+        </TournamentEntry>
+        <TournamentEntry>
           <Caption>region</Caption>
-          <SmallInput required={true} {...register('region')} type={'select'} />
-        </Entry>
-        <Entry>
+          <Select options={regionOptions} styles={colourStyles} />
+        </TournamentEntry>
+        <TournamentEntry>
           <Caption>game</Caption>
-          <Select required={true} {...register('game')}>
-            <Option value="COD">COD</Option>
-            <Option value="RL">RL</Option>
-          </Select>
-        </Entry>
-      </Row>
+          <Select options={regionOptions} styles={colourStyles} />
+        </TournamentEntry>
+      </InputRow>
       <Row>
-        <DescriptionEntry>
+        <TournamentEntry>
           <Caption>description</Caption>
           <DescriptionInput
             required={true}
             {...register('description')}
             placeholder={'Description'}
           />
-        </DescriptionEntry>
+        </TournamentEntry>
         <Column>
-          <Entry>
+          <TournamentEntry>
             <Caption>time</Caption>
             <SmallInput
               required={true}
@@ -149,8 +173,8 @@ export default function CreateTournament() {
               type={'text'}
               placeholder={'Enter time'}
             />
-          </Entry>
-          <Entry>
+          </TournamentEntry>
+          <TournamentEntry>
             <Caption>prize</Caption>
             <SmallInput
               required={true}
@@ -158,10 +182,10 @@ export default function CreateTournament() {
               type={'text'}
               placeholder={'Enter prize'}
             />
-          </Entry>
+          </TournamentEntry>
         </Column>
         <Column>
-          <Entry>
+          <TournamentEntry>
             <Caption>prize currency</Caption>
             <SmallInput
               required={true}
@@ -169,8 +193,8 @@ export default function CreateTournament() {
               type={'text'}
               placeholder={'Enter your prize currency'}
             />
-          </Entry>
-          <Entry>
+          </TournamentEntry>
+          <TournamentEntry>
             <Caption>platform</Caption>
             <SmallInput
               required={true}
@@ -178,16 +202,10 @@ export default function CreateTournament() {
               type={'text'}
               placeholder={'Enter platform'}
             />
-          </Entry>
+          </TournamentEntry>
         </Column>
       </Row>
-      <SubmitEntry>
-        {waiting ? (
-          <LoginButton text={<Dots />} disabled={true} />
-        ) : (
-          <LoginButton type={'submit'} text={'Create tournament'} />
-        )}
-      </SubmitEntry>
+      <SubmitEntry></SubmitEntry>
       {errorMessage && (
         <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
       )}
