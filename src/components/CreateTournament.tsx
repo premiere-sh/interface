@@ -2,10 +2,13 @@ import { useState, useContext } from 'react'
 import styled from 'styled-components'
 import { Heading, Caption, Subtext, Entry, Input } from 'components/Forms'
 import { useForm } from 'react-hook-form'
-import { Column, Row } from 'components/common'
+import { Column, Row, Circle } from 'components/common'
 import AuthenticationContext from 'contexts/authentication'
 import WaitingContext from 'contexts/waiting'
 import Select from 'react-select'
+import Image from 'next/image'
+import Checkbox, { CheckboxProps } from 'components/Checkbox'
+import { LoginButton } from './Buttons'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -63,6 +66,20 @@ const InputRow = styled(Row)``
 const TournamentEntry = styled(Entry)`
   margin-left: 50px;
 `
+
+const CheckboxRow = styled(Row)`
+  width: 232px;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 8px;
+  margin: auto;
+`
+
+const ImageCircle = styled(Circle)`
+  box-shadow: 0px 4px 8px 0px #0000000d;
+`
+
+const CheckboxInput = styled(Checkbox)<CheckboxProps>``
 
 interface Tournament {
   region: string
@@ -195,17 +212,27 @@ export default function CreateTournament() {
             />
           </TournamentEntry>
           <TournamentEntry>
-            <Caption>platform</Caption>
-            <SmallInput
-              required={true}
-              {...register('platform')}
-              type={'text'}
-              placeholder={'Enter platform'}
-            />
+            <Caption>Available on</Caption>
+            <CheckboxRow>
+              <ImageCircle>
+                <Image src={'/laptop.svg'} width={20} height={20} alt={'pc'} />
+              </ImageCircle>
+              <CheckboxInput {...register('platform')} value={'pc'} />
+              <ImageCircle>
+                <Image src={'/xbox.svg'} width={20} height={20} alt={'xbox'} />
+              </ImageCircle>
+              <CheckboxInput {...register('platform')} value={'xbox'} />
+              <ImageCircle>
+                <Image src={'/ps.svg'} width={20} height={20} alt={'ps'} />
+              </ImageCircle>
+              <CheckboxInput {...register('platform')} value={'ps'} />
+            </CheckboxRow>
           </TournamentEntry>
         </Column>
       </Row>
-      <SubmitEntry></SubmitEntry>
+      <SubmitEntry>
+        <LoginButton type={'submit'} text={'log in'} disabled={false} />
+      </SubmitEntry>
       {errorMessage && (
         <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
       )}
