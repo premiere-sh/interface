@@ -9,6 +9,7 @@ import Select from 'react-select'
 import Image from 'next/image'
 import Checkbox, { CheckboxProps } from 'components/Checkbox'
 import { LoginButton } from './Buttons'
+import GameTile from 'components/GameTile'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -44,7 +45,7 @@ const SmallInput = styled(Input)`
 
 const DescriptionInput = styled.textarea`
   width: 589px;
-  height: 100%;
+  height: 201px;
   resize: none;
   background: #ffffff;
   border: 1px solid #eaeaea;
@@ -57,30 +58,55 @@ const DescriptionInput = styled.textarea`
   line-height: 140.62%;
   color: ${(props) => props.theme.colors.black};
   padding-left: 25px;
+  padding-top: 15px;
+  line-height: 125%;
 `
 
-const DescriptionEntry = styled(Entry)``
-
-const InputRow = styled(Row)``
+const DescriptionEntry = styled(Entry)`
+  margin-right: 50px;
+  margin-bottom: 50px;
+  height: 232px;
+`
 
 const TournamentEntry = styled(Entry)`
-  margin-left: 50px;
+  margin-right: 50px;
+  margin-bottom: 50px;
+  height: 91px;
 `
 
 const CheckboxRow = styled(Row)`
   width: 232px;
-  justify-content: space-between;
-  align-items: center;
   padding-top: 8px;
-  margin: auto;
+  justify-content: space-between;
 `
 
 const ImageCircle = styled(Circle)`
   box-shadow: 0px 4px 8px 0px #0000000d;
 `
 
+const DateEntry = styled(TournamentEntry)`
+  margin-right: 22px;
+`
+
+const DateInput = styled(Input)`
+  width: 140px;
+  padding-right: 10px;
+`
+
+const TimeInput = styled(Input)`
+  width: 70px;
+`
+
+const InputColumn = styled(Column)``
+
 const CheckboxInput = styled(Checkbox)<CheckboxProps>``
 
+const PrizeInput = styled(SmallInput)`
+  background-image: url(eth.svg);
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 7%;
+`
 interface Tournament {
   region: string
   name: string
@@ -117,18 +143,49 @@ export default function CreateTournament() {
     { label: 'Australia', value: 'Australia' }
   ]
 
-  const colourStyles = {
+  const timeOptions: { label: string; value: string }[] = []
+
+  const gameOptions: { label: any; value: string }[] = [
+    {
+      label: <GameTile game={'cs-go'} caption={''} />,
+      value: 'cs-go'
+    },
+    {
+      label: <GameTile game={'rl'} caption={''} />,
+      value: 'rl'
+    },
+    {
+      label: <GameTile game={'cod'} caption={''} />,
+      value: 'cod'
+    },
+    {
+      label: <GameTile game={'mc'} caption={''} />,
+      value: 'mc'
+    },
+    {
+      label: <GameTile game={'dirt'} caption={''} />,
+      value: 'dirt'
+    }
+  ]
+
+  const regionStyles = {
     control: (styles, state) => ({
       ...styles,
       width: '232px',
       height: '60px',
       fontFamily: 'Inter',
       fontWeight: '500',
-      border: state.isFocused ? '3px black solid' : 0,
+      fontStyle: 'normal',
+      fontSize: '16px',
+      border: state.isFocused ? '2px black solid' : 0,
       boxShadow: 0,
+      paddingLeft: '15px',
+      lineHeight: '140.62%',
+      broderRadius: '5px',
+      boxSizing: 'border-box',
       '&:hover': {
         ...styles[':hover'],
-        border: state.isFocused ? '3px black solid' : 0
+        border: state.isFocused ? '2px black solid' : 0
       }
     }),
     option: (styles) => {
@@ -149,67 +206,79 @@ export default function CreateTournament() {
       }
     }
   }
+
+  const gameStyles = {
+    control: (styles, state) => ({
+      ...styles,
+      width: '232px',
+      height: '60px',
+      fontFamily: 'Inter',
+      fontWeight: '500',
+      fontStyle: 'normal',
+      fontSize: '16px',
+      border: state.isFocused ? '2px black solid' : 0,
+      boxShadow: 0,
+      paddingLeft: '15px',
+      lineHeight: '140.62%',
+      broderRadius: '5px',
+      boxSizing: 'border-box',
+      '&:hover': {
+        ...styles[':hover'],
+        border: state.isFocused ? '2px black solid' : 0
+      }
+    }),
+    option: (styles) => {
+      return {
+        ...styles,
+        wdith: '211px',
+        height: '296px'
+      }
+    }
+  }
+
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <Heading>Create Tournament</Heading>
       <Subtext>Create your own tournament on Premiere!</Subtext>
-      <InputRow>
-        <TournamentEntry>
-          <Caption>name</Caption>
-          <Input
-            required={true}
-            {...register('name')}
-            type={'text'}
-            placeholder={'Name'}
-          />
-        </TournamentEntry>
-        <TournamentEntry>
-          <Caption>region</Caption>
-          <Select options={regionOptions} styles={colourStyles} />
-        </TournamentEntry>
-        <TournamentEntry>
-          <Caption>game</Caption>
-          <Select options={regionOptions} styles={colourStyles} />
-        </TournamentEntry>
-      </InputRow>
       <Row>
-        <TournamentEntry>
-          <Caption>description</Caption>
-          <DescriptionInput
-            required={true}
-            {...register('description')}
-            placeholder={'Description'}
-          />
-        </TournamentEntry>
-        <Column>
+        <InputColumn>
+          <TournamentEntry>
+            <Caption>name</Caption>
+            <Input required={true} {...register('name')} type={'text'} />
+          </TournamentEntry>
+          <DescriptionEntry>
+            <Caption>description</Caption>
+            <DescriptionInput required={true} {...register('description')} />
+          </DescriptionEntry>
+        </InputColumn>
+        <InputColumn>
+          <TournamentEntry>
+            <Caption>region</Caption>
+            <Select options={regionOptions} styles={regionStyles} />
+          </TournamentEntry>
           <TournamentEntry>
             <Caption>time</Caption>
-            <SmallInput
-              required={true}
-              {...register('time')}
-              type={'text'}
-              placeholder={'Enter time'}
-            />
+            <SmallInput required={true} {...register('time')} type={'text'} />
+          </TournamentEntry>
+          <Row>
+            <DateEntry>
+              <Caption>date</Caption>
+              <DateInput required={true} {...register('date')} type={'date'} />
+            </DateEntry>
+            <TournamentEntry>
+              <Caption>time</Caption>
+              <TimeInput required={true} {...register('time')} type={'text'} />
+            </TournamentEntry>
+          </Row>
+        </InputColumn>
+        <InputColumn>
+          <TournamentEntry>
+            <Caption>game</Caption>
+            <Select options={gameOptions} styles={gameStyles} />
           </TournamentEntry>
           <TournamentEntry>
             <Caption>prize</Caption>
-            <SmallInput
-              required={true}
-              {...register('prize')}
-              type={'text'}
-              placeholder={'Enter prize'}
-            />
-          </TournamentEntry>
-        </Column>
-        <Column>
-          <TournamentEntry>
-            <Caption>prize currency</Caption>
-            <SmallInput
-              required={true}
-              {...register('prize_currency')}
-              type={'text'}
-              placeholder={'Enter your prize currency'}
-            />
+            <PrizeInput required={true} {...register('prize')} type={'text'} />
           </TournamentEntry>
           <TournamentEntry>
             <Caption>Available on</Caption>
@@ -228,7 +297,7 @@ export default function CreateTournament() {
               <CheckboxInput {...register('platform')} value={'ps'} />
             </CheckboxRow>
           </TournamentEntry>
-        </Column>
+        </InputColumn>
       </Row>
       <SubmitEntry>
         <LoginButton type={'submit'} text={'log in'} disabled={false} />

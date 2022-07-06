@@ -20,7 +20,7 @@ const Label = styled.label<LabelProps>`
 const rotate = keyframes`
  from {
     opacity: 0;
-    transform: rotate(45deg);
+    transform: rotate(135deg);
   }
   to {
     opacity: 1;
@@ -54,7 +54,8 @@ const Indicator = styled.div`
 
   ${Input}:checked + &::after {
     display: block;
-    left: 0.3em;
+    top: 0.05em;
+    left: 0.28em;
     width: 15%;
     height: 60%;
     border: solid #263238;
