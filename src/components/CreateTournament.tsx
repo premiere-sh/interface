@@ -10,6 +10,7 @@ import Image from 'next/image'
 import Checkbox, { CheckboxProps } from 'components/Checkbox'
 import { LoginButton } from './Buttons'
 import GameTile from 'components/GameTile'
+import moment from 'moment'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -85,16 +86,12 @@ const ImageCircle = styled(Circle)`
 `
 
 const DateEntry = styled(TournamentEntry)`
-  margin-right: 22px;
+  margin-right: 50px;
 `
 
 const DateInput = styled(Input)`
-  width: 140px;
-  padding-right: 10px;
-`
-
-const TimeInput = styled(Input)`
-  width: 70px;
+  width: 232px;
+  padding-right: 15px;
 `
 
 const InputColumn = styled(Column)``
@@ -143,7 +140,24 @@ export default function CreateTournament() {
     { label: 'Australia', value: 'Australia' }
   ]
 
-  const timeOptions: { label: string; value: string }[] = []
+  const getTimes = () => {
+    const timeOptions: { label: string; value: string }[] = []
+    const hours = Array.from(
+      {
+        length: 48
+      },
+      (_, hour) =>
+        moment({
+          hour: Math.floor(hour / 2),
+          minutes: hour % 2 === 0 ? 0 : 30
+        }).format('HH:mm')
+    )
+
+    for (var i = 0; i < hours.length; i++) {
+      timeOptions.push({ label: hours[i], value: hours[i] })
+    }
+    return timeOptions
+  }
 
   const gameOptions: { label: any; value: string }[] = [
     {
@@ -258,18 +272,12 @@ export default function CreateTournament() {
           </TournamentEntry>
           <TournamentEntry>
             <Caption>time</Caption>
-            <SmallInput required={true} {...register('time')} type={'text'} />
+            <Select options={getTimes()} styles={regionStyles} />
           </TournamentEntry>
-          <Row>
-            <DateEntry>
-              <Caption>date</Caption>
-              <DateInput required={true} {...register('date')} type={'date'} />
-            </DateEntry>
-            <TournamentEntry>
-              <Caption>time</Caption>
-              <TimeInput required={true} {...register('time')} type={'text'} />
-            </TournamentEntry>
-          </Row>
+          <DateEntry>
+            <Caption>date</Caption>
+            <DateInput required={true} {...register('date')} type={'date'} />
+          </DateEntry>
         </InputColumn>
         <InputColumn>
           <TournamentEntry>
