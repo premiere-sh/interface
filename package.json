@@ -23,11 +23,13 @@
     "react-bootstrap": "^2.0.0",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.18.0",
+    "react-horizontal-scrolling-menu": "^3.1.0",
     "react-modal": "^3.14.3",
     "react-player": "^2.9.0",
     "react-select": "^5.4.0",
     "react-select-search": "^3.0.10",
     "react-select-search-nextjs-typescript": "^3.0.7",
+    "react-tabs": "^5.1.0",
     "react-toastify": "^9.0.5",
     "styled-components": "^5.2.3",
     "styled-css-grid": "^1.2.1"

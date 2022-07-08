@@ -11,6 +11,7 @@ import Checkbox, { CheckboxProps } from 'components/Checkbox'
 import { LoginButton } from './Buttons'
 import GameTile from 'components/GameTile'
 import moment from 'moment'
+import { ScrollMenu } from 'react-horizontal-scrolling-menu'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -103,6 +104,12 @@ const PrizeInput = styled(SmallInput)`
   background-repeat: no-repeat;
   background-position: right 15px center;
   background-size: 7%;
+  padding-right: 50px;
+  ::-webkit-inner-spin-button,
+  ::-webkit-outer-spin-button {
+    opacity: 1;
+    transform: scale(1.5);
+  }
 `
 interface Tournament {
   region: string
@@ -282,11 +289,57 @@ export default function CreateTournament() {
         <InputColumn>
           <TournamentEntry>
             <Caption>game</Caption>
-            <Select options={gameOptions} styles={gameStyles} />
+            <ScrollMenu>
+              <Image
+                src={'/dirt.svg'}
+                width={60}
+                height={60}
+                alt={'pc'}
+                objectFit={'cover'}
+                objectPosition={'0 -2px'}
+                style={{
+                  borderRadius: '20px'
+                }}
+              />
+              <Image
+                src={'/rl.svg'}
+                width={60}
+                height={60}
+                alt={'pc'}
+                objectFit={'cover'}
+                objectPosition={'0 -2px'}
+                style={{ borderRadius: '20px' }}
+              />
+              <Image
+                src={'/cod.svg'}
+                width={60}
+                height={60}
+                alt={'pc'}
+                objectFit={'cover'}
+                objectPosition={'0 50%'}
+                style={{ borderRadius: '20px' }}
+              />
+              <Image
+                src={'/csgo.svg'}
+                width={60}
+                height={60}
+                alt={'pc'}
+                objectFit={'cover'}
+                objectPosition={'0 100%'}
+                style={{ borderRadius: '20px' }}
+              />
+            </ScrollMenu>
           </TournamentEntry>
           <TournamentEntry>
             <Caption>prize</Caption>
-            <PrizeInput required={true} {...register('prize')} type={'text'} />
+            <PrizeInput
+              required={true}
+              {...register('prize')}
+              type={'number'}
+              min={0.0001}
+              step={0.0001}
+              max={1}
+            />
           </TournamentEntry>
           <TournamentEntry>
             <Caption>Available on</Caption>
