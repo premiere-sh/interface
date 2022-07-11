@@ -108,10 +108,7 @@ const GameEntry = styled(TournamentEntry)`
   width: 232px;
 `
 
-const GameRow = styled(motion.div)`
-  display: flex;
-  flex-direction: row;
-`
+const GameRow = styled(Row)``
 
 const CreateTournamentHeading = styled(Heading)`
   text-align: left;

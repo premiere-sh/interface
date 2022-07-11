@@ -5,8 +5,11 @@ import { Row } from 'components/common'
 import Image from 'next/image'
 import { Heading } from 'components/Forms'
 import { Button } from 'components/Buttons'
+import { motion } from 'framer-motion'
 
-const GamesRow = styled(Row)`
+const GamesRow = styled(motion.div)`
+  display: flex;
+  flex-direction: row;
   align-items: end;
   &:hover {
     cursor: pointer;
@@ -24,11 +27,13 @@ const GameModal = styled(Modal)`
   background: #ffffff;
   border: 1px solid black;
   padding: 50px 40px 0px 40px;
+  z-index: 50;
 `
 
 const Dots = styled.div`
   font-size: 40px;
   margin-bottom: -5px;
+  margin-left: 3px;
 `
 
 const SelectGameRow = styled(Row)`
@@ -64,16 +69,20 @@ const Tile = styled.div`
   }
 `
 
-function Game({ game }) {
-  return (
-    <Tile>
-      <Image src={'/' + game + '.svg'} width={211} height={292} alt={'game'} />
-    </Tile>
-  )
-}
+const ImageWrapper = styled(motion.div)``
+
+const GameImage = styled.div`
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  border-right: 7px solid rgb(243, 243, 244);
+  background: no-repeat center;
+  background-size: 70px;
+`
 
 export default function SelectGameModal() {
   const [modalIsOpen, setIsOpen] = useState(false)
+  const [isHover, setHover] = useState(false)
 
   function openModal() {
     setIsOpen(true)
@@ -87,13 +96,13 @@ export default function SelectGameModal() {
 
   const games = [
     {
-      name: 'csgo'
-    },
-    {
       name: 'rl'
     },
     {
       name: 'dirt'
+    },
+    {
+      name: 'csgo'
     },
     {
       name: 'cod'
@@ -102,35 +111,47 @@ export default function SelectGameModal() {
 
   return (
     <div>
-      <GamesRow onClick={openModal}>
-        {games
-          .map((games, idx) =>
-            idx < 3 ? (
-              <Image
-                src={`/${games.name}.svg`}
-                width={60}
-                height={60}
-                alt={games.name}
-                objectFit={'cover'}
+      <GamesRow
+        onClick={openModal}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
+        {games.map((games, idx) =>
+          idx < 3 ? (
+            <ImageWrapper
+              style={{
+                zIndex: 3 - idx
+              }}
+              initial={false}
+              animate={{ marginRight: isHover ? 0 : -15 }}
+            >
+              <GameImage
                 style={{
-                  borderRadius: 15
+                  backgroundImage: `url('/${games.name}.svg')`
                 }}
-                key={idx}
               />
-            ) : null
-          )
-          .sort(() => Math.random() - 0.5)}
+            </ImageWrapper>
+          ) : null
+        )}
         <Dots>...</Dots>
       </GamesRow>
       <GameModal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
+        style={{ overlay: { zIndex: 30 } }}
       >
         <Heading>Select Game</Heading>
         <SelectGameRow>
           {games.map((games, idx) => (
-            <Game game={games.name} key={idx} />
+            <Tile key={idx}>
+              <Image
+                src={'/' + games.name + '.svg'}
+                width={211}
+                height={292}
+                alt={'game'}
+              />
+            </Tile>
           ))}
         </SelectGameRow>
         <ButtonsRow>
