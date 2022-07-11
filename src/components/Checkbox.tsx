@@ -14,7 +14,6 @@ const Label = styled.label<LabelProps>`
   position: relative;
   display: inline-block;
   cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
-  margin: 0.6em 1em;
 `
 
 const rotate = keyframes`

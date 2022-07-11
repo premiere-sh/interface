@@ -11,25 +11,17 @@ import Checkbox, { CheckboxProps } from 'components/Checkbox'
 import { LoginButton } from './Buttons'
 import GameTile from 'components/GameTile'
 import moment from 'moment'
-import { ScrollMenu } from 'react-horizontal-scrolling-menu'
+import SelectGameModal from 'components/SelectGameModal'
 
 const FormContainer = styled.form`
   margin: auto;
+  width: 1153px;
 `
 
 const SubmitEntry = styled(Entry)`
-  margin-top: 40px;
   height: 85px;
-`
-
-const ErrorMessage = styled.p`
-  margin-top: 8px;
-  color: ${(props) => props.theme.colors.red};
-`
-
-const SignupIfNotGotAnAccount = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: end;
 `
 
 const ErrorMessageContainer = styled.div`
@@ -111,6 +103,24 @@ const PrizeInput = styled(SmallInput)`
     transform: scale(1.5);
   }
 `
+
+const GameEntry = styled(TournamentEntry)`
+  width: 232px;
+`
+
+const GameRow = styled(motion.div)`
+  display: flex;
+  flex-direction: row;
+`
+
+const CreateTournamentHeading = styled(Heading)`
+  text-align: left;
+`
+
+const CreateButton = styled(LoginButton)`
+  width: 514px;
+`
+
 interface Tournament {
   region: string
   name: string
@@ -228,39 +238,9 @@ export default function CreateTournament() {
     }
   }
 
-  const gameStyles = {
-    control: (styles, state) => ({
-      ...styles,
-      width: '232px',
-      height: '60px',
-      fontFamily: 'Inter',
-      fontWeight: '500',
-      fontStyle: 'normal',
-      fontSize: '16px',
-      border: state.isFocused ? '2px black solid' : 0,
-      boxShadow: 0,
-      paddingLeft: '15px',
-      lineHeight: '140.62%',
-      broderRadius: '5px',
-      boxSizing: 'border-box',
-      '&:hover': {
-        ...styles[':hover'],
-        border: state.isFocused ? '2px black solid' : 0
-      }
-    }),
-    option: (styles) => {
-      return {
-        ...styles,
-        wdith: '211px',
-        height: '296px'
-      }
-    }
-  }
-
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
-      <Heading>Create Tournament</Heading>
-      <Subtext>Create your own tournament on Premiere!</Subtext>
+      <CreateTournamentHeading>Create Tournament</CreateTournamentHeading>
       <Row>
         <InputColumn>
           <TournamentEntry>
@@ -287,49 +267,12 @@ export default function CreateTournament() {
           </DateEntry>
         </InputColumn>
         <InputColumn>
-          <TournamentEntry>
+          <GameEntry>
             <Caption>game</Caption>
-            <ScrollMenu>
-              <Image
-                src={'/dirt.svg'}
-                width={60}
-                height={60}
-                alt={'pc'}
-                objectFit={'cover'}
-                objectPosition={'0 -2px'}
-                style={{
-                  borderRadius: '20px'
-                }}
-              />
-              <Image
-                src={'/rl.svg'}
-                width={60}
-                height={60}
-                alt={'pc'}
-                objectFit={'cover'}
-                objectPosition={'0 -2px'}
-                style={{ borderRadius: '20px' }}
-              />
-              <Image
-                src={'/cod.svg'}
-                width={60}
-                height={60}
-                alt={'pc'}
-                objectFit={'cover'}
-                objectPosition={'0 50%'}
-                style={{ borderRadius: '20px' }}
-              />
-              <Image
-                src={'/csgo.svg'}
-                width={60}
-                height={60}
-                alt={'pc'}
-                objectFit={'cover'}
-                objectPosition={'0 100%'}
-                style={{ borderRadius: '20px' }}
-              />
-            </ScrollMenu>
-          </TournamentEntry>
+            <GameRow>
+              <SelectGameModal />
+            </GameRow>
+          </GameEntry>
           <TournamentEntry>
             <Caption>prize</Caption>
             <PrizeInput
@@ -361,7 +304,7 @@ export default function CreateTournament() {
         </InputColumn>
       </Row>
       <SubmitEntry>
-        <LoginButton type={'submit'} text={'log in'} disabled={false} />
+        <CreateButton type={'submit'} text={'Create'} disabled={false} />
       </SubmitEntry>
       {errorMessage && (
         <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
