@@ -214,7 +214,7 @@ export default function CreateTournament() {
       platform: selectedPlatform,
       game: selectedGame
     }
-    console.log('tournaent', tournamentData)
+    console.log('tournament', tournamentData)
   }
 
   const regionOptions: Region[] = [
@@ -309,6 +309,7 @@ export default function CreateTournament() {
               options={getTimes()}
               styles={regionStyles}
               onChange={handleTimeSelect}
+              placeholder={'00:00'}
             />
           </TournamentEntry>
           <DateEntry>
@@ -337,7 +338,7 @@ export default function CreateTournament() {
               min={0.0001}
               step={0.0001}
               max={1}
-              placeholder={'0.0000'}
+              placeholder={'0.0001'}
             />
           </TournamentEntry>
           <TournamentEntry>

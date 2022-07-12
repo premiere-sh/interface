@@ -57,7 +57,7 @@ const ButtonsRow = styled(Row)`
   position: absolute;
   right: 50px;
 `
-const Tile = styled.div`
+const Tile = styled(motion.div)`
   width: 211;
   height: 292;
   border-radius: 5px;
@@ -78,6 +78,10 @@ const GameImage = styled.div`
   background-size: 70px;
 `
 
+const GameSelectButton = styled.button`
+  all: unset;
+`
+
 const SelectedGameImage = styled.div`
   height: 60px;
   width: 60px;
@@ -85,69 +89,59 @@ const SelectedGameImage = styled.div`
   border-right: 7px solid rgb(243, 243, 244);
   background: no-repeat center;
   background-size: 70px;
-  &: before {
-
-  }
 `
 
 const GameInput = styled.input``
 
-function OpenModalButton({ openModal, games }) {
-  const [isHover, setHover] = useState(false)
-
-  return (
-    <GamesRow
-      onClick={openModal}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
-      {games.map((games, idx) =>
-        idx < 3 ? (
-          <ImageWrapper
-            style={{
-              zIndex: 3 - idx
-            }}
-            initial={false}
-            animate={{ marginRight: isHover ? 0 : -15 }}
-            key={idx}
-          >
-            <GameImage
-              style={{
-                backgroundImage: `url('/${games.name}.svg')`
-              }}
-            />
-          </ImageWrapper>
-        ) : null
-      )}
-      <Dots initial={false} animate={{ marginLeft: isHover ? -10 : 5 }}>
-        ...
-      </Dots>
-    </GamesRow>
-  )
+const variants = {
+  animation: {
+    scale: [1, 0.75],
+    transition: { duration: 0.5 }
+  }
 }
 
-function OpenModalButtonSelected({ openModal, selectedGame }) {
+function OpenModalButton({ openModal, games, selectedGame }) {
   const [isHover, setHover] = useState(false)
-
   return (
     <GamesRow
       onClick={openModal}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
-      <ImageWrapper
-        style={{
-          zIndex: 3
-        }}
-        initial={false}
-        animate={{ marginRight: isHover ? 0 : -15 }}
-      >
-        <SelectedGameImage
+      {selectedGame ? (
+        <ImageWrapper
           style={{
-            backgroundImage: `url('/${selectedGame}.svg')`
+            zIndex: 3
           }}
-        />
-      </ImageWrapper>
+          initial={false}
+          animate={{ marginRight: isHover ? 0 : -15 }}
+        >
+          <SelectedGameImage
+            style={{
+              backgroundImage: `url('/${selectedGame}.svg')`
+            }}
+          />
+        </ImageWrapper>
+      ) : (
+        games.map((games, idx) =>
+          idx < 3 ? (
+            <ImageWrapper
+              style={{
+                zIndex: 3 - idx
+              }}
+              initial={false}
+              animate={{ marginRight: isHover ? 0 : -15 }}
+              key={idx}
+            >
+              <GameImage
+                style={{
+                  backgroundImage: `url('/${games.name}.svg')`
+                }}
+              />
+            </ImageWrapper>
+          ) : null
+        )
+      )}
       <Dots initial={false} animate={{ marginLeft: isHover ? -10 : 5 }}>
         ...
       </Dots>
@@ -162,34 +156,27 @@ export default function SelectGameModal({
   cancel
 }) {
   const [modalIsOpen, setIsOpen] = useState(false)
+  const [game, setGame] = useState('')
 
   const openModal = () => {
     setIsOpen(true)
   }
 
-  const afterOpenModal = () => {}
-
   const closeModal = () => {
     setIsOpen(false)
+    setGame('')
   }
 
   return (
     <div>
-      {selectedGame ? (
-        <OpenModalButtonSelected
-          openModal={openModal}
-          selectedGame={selectedGame}
-        />
-      ) : (
-        <OpenModalButton openModal={openModal} games={games} />
-      )}
+      <OpenModalButton
+        openModal={openModal}
+        games={games}
+        selectedGame={selectedGame}
+      />
       <GameModal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
-        onRequestClose={() => {
-          closeModal()
-          cancel()
-        }}
+        onRequestClose={closeModal}
         ariaHideApp={false}
         style={{ overlay: { zIndex: 30 } }}
         games={games}
@@ -197,16 +184,21 @@ export default function SelectGameModal({
         <Heading>Select Game</Heading>
         <SelectGameRow>
           {games.map((games, idx) => (
-            <Tile key={idx}>
-              <GameInput
-                type={'image'}
-                src={'/' + games.name + '.svg'}
-                width={211}
-                height={292}
-                onClick={handleGameSelect}
-                value={games.name}
-              />
-            </Tile>
+            <GameSelectButton key={idx} onClick={() => setGame(games.name)}>
+              <Tile
+                variants={variants}
+                animate={game == games.name ? 'animation' : ''}
+              >
+                <GameInput
+                  type={'image'}
+                  src={'/' + games.name + '.svg'}
+                  width={211}
+                  height={292}
+                  onClick={handleGameSelect}
+                  value={games.name}
+                />
+              </Tile>
+            </GameSelectButton>
           ))}
         </SelectGameRow>
         <ButtonsRow>
