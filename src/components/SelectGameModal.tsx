@@ -176,7 +176,10 @@ export default function SelectGameModal({
       />
       <GameModal
         isOpen={modalIsOpen}
-        onRequestClose={closeModal}
+        onRequestClose={() => {
+          closeModal()
+          cancel()
+        }}
         ariaHideApp={false}
         style={{ overlay: { zIndex: 30 } }}
         games={games}
