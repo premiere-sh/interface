@@ -2,7 +2,7 @@ import Modal from 'react-modal'
 import { useState } from 'react'
 import styled from 'styled-components'
 import { Row } from 'components/common'
-import { Heading, Input } from 'components/Forms'
+import { Heading } from 'components/Forms'
 import { Button } from 'components/Buttons'
 import { motion } from 'framer-motion'
 
