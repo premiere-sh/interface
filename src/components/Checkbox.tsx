@@ -74,22 +74,25 @@ export interface CheckboxProps {
   name: string
   disabled?: boolean
   checked?: boolean
+  onChange?: any
 }
 
 export default function Checkbox({
   value,
   name,
   disabled,
-  checked
+  checked,
+  onChange
 }: CheckboxProps) {
   return (
     <Label disabled={disabled}>
       <Input
-        type="checkbox"
+        type="radio"
         name={name}
         value={value}
         disabled={disabled}
         checked={checked}
+        onChange={onChange}
       />
       <Indicator />
     </Label>

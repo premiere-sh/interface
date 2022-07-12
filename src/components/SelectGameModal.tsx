@@ -30,10 +30,9 @@ const GameModal = styled(Modal)`
   z-index: 50;
 `
 
-const Dots = styled.div`
+const Dots = styled(motion.div)`
   font-size: 40px;
   margin-bottom: -5px;
-  margin-left: 3px;
 `
 
 const SelectGameRow = styled(Row)`
@@ -80,18 +79,25 @@ const GameImage = styled.div`
   background-size: 70px;
 `
 
-export default function SelectGameModal() {
+export default function SelectGameModal(value, onChange) {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [isHover, setHover] = useState(false)
+  const [selectedGame, setSelectedGame] = useState('')
 
-  function openModal() {
+  const openModal = () => {
     setIsOpen(true)
   }
 
-  function afterOpenModal() {}
+  const afterOpenModal = () => {}
 
-  function closeModal() {
+  const closeModal = () => {
     setIsOpen(false)
+  }
+
+  const handleClick = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target as HTMLInputElement
+
+    console.log(value)
   }
 
   const games = [
@@ -129,22 +135,26 @@ export default function SelectGameModal() {
                 style={{
                   backgroundImage: `url('/${games.name}.svg')`
                 }}
+                onClick={onChange}
               />
             </ImageWrapper>
           ) : null
         )}
-        <Dots>...</Dots>
+        <Dots initial={false} animate={{ marginLeft: isHover ? -10 : 5 }}>
+          ...
+        </Dots>
       </GamesRow>
       <GameModal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
+        ariaHideApp={false}
         style={{ overlay: { zIndex: 30 } }}
       >
         <Heading>Select Game</Heading>
         <SelectGameRow>
           {games.map((games, idx) => (
-            <Tile key={idx}>
+            <Tile key={idx} onClick={(e) => handleClick(e)}>
               <Image
                 src={'/' + games.name + '.svg'}
                 width={211}

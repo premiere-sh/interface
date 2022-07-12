@@ -131,6 +131,21 @@ interface Tournament {
   platform: string
 }
 
+interface Region {
+  label: string
+  value: string
+}
+
+interface Time {
+  label: string
+  value: string
+}
+
+interface Games {
+  label: any
+  value: string
+}
+
 export default function CreateTournament() {
   const {
     register,
@@ -139,14 +154,12 @@ export default function CreateTournament() {
   } = useForm()
   const { user } = useContext(AuthenticationContext)
   const [errorMessage, setErrorMessage] = useState('')
-  const [waiting, setWaiting] = useContext(WaitingContext)
-  const onSubmit = async (data: Tournament) => {
-    const creator = user
-    const tournamentData = { ...data, creator: creator, users: '' }
-    console.log('tournaent', tournamentData)
-  }
+  const [selectedRegion, setSelectedRegion] = useState('international')
+  const [selectedPlatform, setSelectedPlatform] = useState('')
+  const [selectedTime, setSelectedTime] = useState('')
+  const [selectedGame, setSelectedGame] = useState('')
 
-  const regionOptions: { label: string; value: string }[] = [
+  const regionOptions: Region[] = [
     { label: 'international', value: 'international' },
     { label: 'Europe', value: 'Europe' },
     { label: 'North America', value: 'North America' },
@@ -154,8 +167,21 @@ export default function CreateTournament() {
     { label: 'Australia', value: 'Australia' }
   ]
 
+  const handleRegionSelect = (newValue: Region) => {
+    setSelectedRegion(newValue.value)
+  }
+
+  const handleTimeSelect = (newValue: Region) => {
+    setSelectedTime(newValue.value)
+  }
+
+  const handlePlatformSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = (e.target as HTMLInputElement).value
+    setSelectedPlatform(value)
+  }
+
   const getTimes = () => {
-    const timeOptions: { label: string; value: string }[] = []
+    const timeOptions: Time[] = []
     const hours = Array.from(
       {
         length: 48
@@ -166,14 +192,31 @@ export default function CreateTournament() {
           minutes: hour % 2 === 0 ? 0 : 30
         }).format('HH:mm')
     )
-
     for (var i = 0; i < hours.length; i++) {
       timeOptions.push({ label: hours[i], value: hours[i] })
     }
     return timeOptions
   }
 
-  const gameOptions: { label: any; value: string }[] = [
+  const getDate = (date: number) => {
+    const dateTime: number = Date.parse(date + ' ' + selectedTime) / 1000
+    return dateTime
+  }
+
+  const onSubmit = async (data: Tournament) => {
+    const tournamentData = {
+      ...data,
+      creator: user,
+      users: '',
+      region: selectedRegion,
+      time: getDate(data.time),
+      platform: selectedPlatform,
+      game: ''
+    }
+    console.log('tournaent', tournamentData)
+  }
+
+  const gameOptions: Games[] = [
     {
       label: <GameTile game={'cs-go'} caption={''} />,
       value: 'cs-go'
@@ -252,15 +295,24 @@ export default function CreateTournament() {
         <InputColumn>
           <TournamentEntry>
             <Caption>region</Caption>
-            <Select options={regionOptions} styles={regionStyles} />
+            <Select
+              options={regionOptions}
+              styles={regionStyles}
+              onChange={handleRegionSelect}
+              placeholder={'international'}
+            />
           </TournamentEntry>
           <TournamentEntry>
             <Caption>time</Caption>
-            <Select options={getTimes()} styles={regionStyles} />
+            <Select
+              options={getTimes()}
+              styles={regionStyles}
+              onChange={handleTimeSelect}
+            />
           </TournamentEntry>
           <DateEntry>
             <Caption>date</Caption>
-            <DateInput required={true} {...register('date')} type={'date'} />
+            <DateInput required={true} {...register('time')} type={'date'} />
           </DateEntry>
         </InputColumn>
         <InputColumn>
@@ -287,15 +339,27 @@ export default function CreateTournament() {
               <ImageCircle>
                 <Image src={'/laptop.svg'} width={20} height={20} alt={'pc'} />
               </ImageCircle>
-              <CheckboxInput {...register('platform')} value={'pc'} />
+              <CheckboxInput
+                {...register('platform')}
+                value={'pc'}
+                onChange={(e) => handlePlatformSelect(e)}
+              />
               <ImageCircle>
                 <Image src={'/xbox.svg'} width={20} height={20} alt={'xbox'} />
               </ImageCircle>
-              <CheckboxInput {...register('platform')} value={'xbox'} />
+              <CheckboxInput
+                {...register('platform')}
+                value={'xbox'}
+                onChange={(e) => handlePlatformSelect(e)}
+              />
               <ImageCircle>
                 <Image src={'/ps.svg'} width={20} height={20} alt={'ps'} />
               </ImageCircle>
-              <CheckboxInput {...register('platform')} value={'ps'} />
+              <CheckboxInput
+                {...register('platform')}
+                value={'ps'}
+                onChange={(e) => handlePlatformSelect(e)}
+              />
             </CheckboxRow>
           </TournamentEntry>
         </InputColumn>
