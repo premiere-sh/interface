@@ -159,14 +159,6 @@ export default function CreateTournament() {
   const [selectedTime, setSelectedTime] = useState('')
   const [selectedGame, setSelectedGame] = useState('')
 
-  const regionOptions: Region[] = [
-    { label: 'international', value: 'international' },
-    { label: 'Europe', value: 'Europe' },
-    { label: 'North America', value: 'North America' },
-    { label: 'Asia', value: 'Asia' },
-    { label: 'Australia', value: 'Australia' }
-  ]
-
   const handleRegionSelect = (newValue: Region) => {
     setSelectedRegion(newValue.value)
   }
@@ -178,6 +170,11 @@ export default function CreateTournament() {
   const handlePlatformSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = (e.target as HTMLInputElement).value
     setSelectedPlatform(value)
+  }
+
+  const handleGameSelect = (e: React.MouseEvent<HTMLInputElement>) => {
+    const value = (e.target as HTMLInputElement).value
+    setSelectedGame(value)
   }
 
   const getTimes = () => {
@@ -211,10 +208,18 @@ export default function CreateTournament() {
       region: selectedRegion,
       time: getDate(data.time),
       platform: selectedPlatform,
-      game: ''
+      game: selectedGame
     }
     console.log('tournaent', tournamentData)
   }
+
+  const regionOptions: Region[] = [
+    { label: 'international', value: 'international' },
+    { label: 'Europe', value: 'Europe' },
+    { label: 'North America', value: 'North America' },
+    { label: 'Asia', value: 'Asia' },
+    { label: 'Australia', value: 'Australia' }
+  ]
 
   const gameOptions: Games[] = [
     {
@@ -319,7 +324,7 @@ export default function CreateTournament() {
           <GameEntry>
             <Caption>game</Caption>
             <GameRow>
-              <SelectGameModal />
+              <SelectGameModal handleGameSelect={(e) => handleGameSelect(e)} />
             </GameRow>
           </GameEntry>
           <TournamentEntry>

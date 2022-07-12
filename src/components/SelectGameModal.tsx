@@ -2,8 +2,7 @@ import Modal from 'react-modal'
 import { useState } from 'react'
 import styled from 'styled-components'
 import { Row } from 'components/common'
-import Image from 'next/image'
-import { Heading } from 'components/Forms'
+import { Heading, Input } from 'components/Forms'
 import { Button } from 'components/Buttons'
 import { motion } from 'framer-motion'
 
@@ -79,10 +78,11 @@ const GameImage = styled.div`
   background-size: 70px;
 `
 
-export default function SelectGameModal(value, onChange) {
+const GameInput = styled.input``
+
+export default function SelectGameModal({ handleGameSelect }) {
   const [modalIsOpen, setIsOpen] = useState(false)
   const [isHover, setHover] = useState(false)
-  const [selectedGame, setSelectedGame] = useState('')
 
   const openModal = () => {
     setIsOpen(true)
@@ -92,12 +92,6 @@ export default function SelectGameModal(value, onChange) {
 
   const closeModal = () => {
     setIsOpen(false)
-  }
-
-  const handleClick = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target as HTMLInputElement
-
-    console.log(value)
   }
 
   const games = [
@@ -135,7 +129,6 @@ export default function SelectGameModal(value, onChange) {
                 style={{
                   backgroundImage: `url('/${games.name}.svg')`
                 }}
-                onClick={onChange}
               />
             </ImageWrapper>
           ) : null
@@ -154,12 +147,14 @@ export default function SelectGameModal(value, onChange) {
         <Heading>Select Game</Heading>
         <SelectGameRow>
           {games.map((games, idx) => (
-            <Tile key={idx} onClick={(e) => handleClick(e)}>
-              <Image
+            <Tile key={idx}>
+              <GameInput
+                type={'image'}
                 src={'/' + games.name + '.svg'}
                 width={211}
                 height={292}
-                alt={'game'}
+                onClick={handleGameSelect}
+                value={games.name}
               />
             </Tile>
           ))}
