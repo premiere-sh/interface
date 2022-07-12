@@ -142,8 +142,7 @@ interface Time {
 }
 
 interface Games {
-  label: any
-  value: string
+  name: string
 }
 
 export default function CreateTournament() {
@@ -175,6 +174,11 @@ export default function CreateTournament() {
   const handleGameSelect = (e: React.MouseEvent<HTMLInputElement>) => {
     const value = (e.target as HTMLInputElement).value
     setSelectedGame(value)
+    console.log(selectedGame)
+  }
+
+  const cancel = () => {
+    setSelectedGame('')
   }
 
   const getTimes = () => {
@@ -221,26 +225,18 @@ export default function CreateTournament() {
     { label: 'Australia', value: 'Australia' }
   ]
 
-  const gameOptions: Games[] = [
+  const games: Games[] = [
     {
-      label: <GameTile game={'cs-go'} caption={''} />,
-      value: 'cs-go'
+      name: 'rl'
     },
     {
-      label: <GameTile game={'rl'} caption={''} />,
-      value: 'rl'
+      name: 'dirt'
     },
     {
-      label: <GameTile game={'cod'} caption={''} />,
-      value: 'cod'
+      name: 'csgo'
     },
     {
-      label: <GameTile game={'mc'} caption={''} />,
-      value: 'mc'
-    },
-    {
-      label: <GameTile game={'dirt'} caption={''} />,
-      value: 'dirt'
+      name: 'cod'
     }
   ]
 
@@ -324,7 +320,12 @@ export default function CreateTournament() {
           <GameEntry>
             <Caption>game</Caption>
             <GameRow>
-              <SelectGameModal handleGameSelect={(e) => handleGameSelect(e)} />
+              <SelectGameModal
+                handleGameSelect={(e) => handleGameSelect(e)}
+                selectedGame={selectedGame}
+                games={games}
+                cancel={cancel}
+              />
             </GameRow>
           </GameEntry>
           <TournamentEntry>
@@ -336,6 +337,7 @@ export default function CreateTournament() {
               min={0.0001}
               step={0.0001}
               max={1}
+              placeholder={'0.0000'}
             />
           </TournamentEntry>
           <TournamentEntry>

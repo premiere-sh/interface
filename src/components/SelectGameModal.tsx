@@ -78,11 +78,90 @@ const GameImage = styled.div`
   background-size: 70px;
 `
 
+const SelectedGameImage = styled.div`
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  border-right: 7px solid rgb(243, 243, 244);
+  background: no-repeat center;
+  background-size: 70px;
+  &: before {
+
+  }
+`
+
 const GameInput = styled.input``
 
-export default function SelectGameModal({ handleGameSelect }) {
-  const [modalIsOpen, setIsOpen] = useState(false)
+function OpenModalButton({ openModal, games }) {
   const [isHover, setHover] = useState(false)
+
+  return (
+    <GamesRow
+      onClick={openModal}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      {games.map((games, idx) =>
+        idx < 3 ? (
+          <ImageWrapper
+            style={{
+              zIndex: 3 - idx
+            }}
+            initial={false}
+            animate={{ marginRight: isHover ? 0 : -15 }}
+            key={idx}
+          >
+            <GameImage
+              style={{
+                backgroundImage: `url('/${games.name}.svg')`
+              }}
+            />
+          </ImageWrapper>
+        ) : null
+      )}
+      <Dots initial={false} animate={{ marginLeft: isHover ? -10 : 5 }}>
+        ...
+      </Dots>
+    </GamesRow>
+  )
+}
+
+function OpenModalButtonSelected({ openModal, selectedGame }) {
+  const [isHover, setHover] = useState(false)
+
+  return (
+    <GamesRow
+      onClick={openModal}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      <ImageWrapper
+        style={{
+          zIndex: 3
+        }}
+        initial={false}
+        animate={{ marginRight: isHover ? 0 : -15 }}
+      >
+        <SelectedGameImage
+          style={{
+            backgroundImage: `url('/${selectedGame}.svg')`
+          }}
+        />
+      </ImageWrapper>
+      <Dots initial={false} animate={{ marginLeft: isHover ? -10 : 5 }}>
+        ...
+      </Dots>
+    </GamesRow>
+  )
+}
+
+export default function SelectGameModal({
+  handleGameSelect,
+  selectedGame,
+  games,
+  cancel
+}) {
+  const [modalIsOpen, setIsOpen] = useState(false)
 
   const openModal = () => {
     setIsOpen(true)
@@ -94,55 +173,26 @@ export default function SelectGameModal({ handleGameSelect }) {
     setIsOpen(false)
   }
 
-  const games = [
-    {
-      name: 'rl'
-    },
-    {
-      name: 'dirt'
-    },
-    {
-      name: 'csgo'
-    },
-    {
-      name: 'cod'
-    }
-  ]
-
   return (
     <div>
-      <GamesRow
-        onClick={openModal}
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-      >
-        {games.map((games, idx) =>
-          idx < 3 ? (
-            <ImageWrapper
-              style={{
-                zIndex: 3 - idx
-              }}
-              initial={false}
-              animate={{ marginRight: isHover ? 0 : -15 }}
-            >
-              <GameImage
-                style={{
-                  backgroundImage: `url('/${games.name}.svg')`
-                }}
-              />
-            </ImageWrapper>
-          ) : null
-        )}
-        <Dots initial={false} animate={{ marginLeft: isHover ? -10 : 5 }}>
-          ...
-        </Dots>
-      </GamesRow>
+      {selectedGame ? (
+        <OpenModalButtonSelected
+          openModal={openModal}
+          selectedGame={selectedGame}
+        />
+      ) : (
+        <OpenModalButton openModal={openModal} games={games} />
+      )}
       <GameModal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
-        onRequestClose={closeModal}
+        onRequestClose={() => {
+          closeModal()
+          cancel()
+        }}
         ariaHideApp={false}
         style={{ overlay: { zIndex: 30 } }}
+        games={games}
       >
         <Heading>Select Game</Heading>
         <SelectGameRow>
@@ -160,7 +210,14 @@ export default function SelectGameModal({ handleGameSelect }) {
           ))}
         </SelectGameRow>
         <ButtonsRow>
-          <CancelButton onClick={closeModal}>Cancel</CancelButton>
+          <CancelButton
+            onClick={() => {
+              closeModal()
+              cancel()
+            }}
+          >
+            Cancel
+          </CancelButton>
           <SelectButton onClick={closeModal}>Select</SelectButton>
         </ButtonsRow>
       </GameModal>
