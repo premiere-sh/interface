@@ -94,9 +94,13 @@ const SelectedGameImage = styled.div`
 const GameInput = styled.input``
 
 const variants = {
-  animation: {
+  select: {
     scale: [1, 0.75],
-    transition: { duration: 0.5 }
+    transition: { duration: 0.5 },
+    unselect: {
+      scale: [1, 0.75],
+      transition: { duration: 0.5 }
+    }
   }
 }
 
@@ -167,6 +171,11 @@ export default function SelectGameModal({
     setGame('')
   }
 
+  const selectGame = (newGame: string) => {
+    setGame(newGame)
+    game == newGame ? setGame('') : setGame(newGame)
+  }
+
   return (
     <div>
       <OpenModalButton
@@ -187,10 +196,15 @@ export default function SelectGameModal({
         <Heading>Select Game</Heading>
         <SelectGameRow>
           {games.map((games, idx) => (
-            <GameSelectButton key={idx} onClick={() => setGame(games.name)}>
+            <GameSelectButton
+              key={idx}
+              onClick={() => {
+                selectGame(games.name)
+              }}
+            >
               <Tile
                 variants={variants}
-                animate={game == games.name ? 'animation' : ''}
+                animate={game == games.name ? 'select' : 'unselect'}
               >
                 <GameInput
                   type={'image'}
