@@ -7,18 +7,24 @@ const Heading = styled.div`
   font-family: Inter;
   font-style: italic;
   font-weight: bold;
-  font-size: 78px;
+  font-size: 3rem;
   line-height: 150%;
   letter-spacing: 0.055em;
   color: ${(props) => props.theme.colors.black};
   text-transform: uppercase;
   margin-bottom: 10px;
+  @media screen and (max-width: 736px) {
+    margin:auto;
+  }
 `
 
 const Container = styled(Row)`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 150px;
+  @media screen and (max-width: 736px) {
+    display: block;
+  }
 `
 
 const SideColumn = styled(Column)``
@@ -31,6 +37,9 @@ const Subheading = styled.div`
   line-height: 150%;
   color: ${(props) => props.theme.colors.black};
   margin-bottom: 70px;
+  @media screen and (max-width: 736px) {
+    text-align: center;
+  }
 `
 
 export default function HomeHeading() {
