@@ -125,10 +125,6 @@ export default function PlayerOfTheWeek({ user, avatar }) {
           <StatHeading>weekly wins</StatHeading>
           <Stat>{user?.weeklyWins ?? '-'}</Stat>
         </StatColumn>
-        <StatColumn>
-          <StatHeading>$prem earned</StatHeading>
-          <Stat>{user?.premEarned ?? '-'}</Stat>
-        </StatColumn>
       </StatsRow>
       <LeaderboardTitle>Share this page</LeaderboardTitle>
       <ShareRow>

@@ -4,7 +4,6 @@ import { Column, Container, Row } from 'components/common'
 import Image from 'next/image'
 import { useState } from 'react'
 import Friends from 'components/Friends'
-import Teams from 'components/Teams'
 import Home from 'components/ProfileHome'
 import History from 'components/History'
 import Link from 'next/link'
@@ -142,7 +141,6 @@ export default function ProfileTop() {
             {avatar && <Avatar src={avatar} />}
             <ProfileInfo>
               <Name>{user?.username}</Name>
-              <Team>{user?.team}</Team>
               <ProfileStats>
                 <GreyTextColumn>
                   <GreyText>rank</GreyText>
@@ -188,12 +186,6 @@ export default function ProfileTop() {
             event history
           </Button>
           <Button
-            style={{ borderBottom: `${selected == 'Teams' ? 1 : 0}px solid` }}
-            onClick={() => setSelected('Teams')}
-          >
-            teams
-          </Button>
-          <Button
             style={{ borderBottom: `${selected == 'Friends' ? 1 : 0}px solid` }}
             onClick={() => setSelected('Friends')}
           >
@@ -206,7 +198,6 @@ export default function ProfileTop() {
           </Link>
         </ButtonWrapper>
       </Wrapper>
-      {selected == 'Teams' && <Teams />}
       {selected == 'Friends' && <Friends friends={friends} />}
       {selected == 'Home' && <Home friends={friends} />}
     </Column>

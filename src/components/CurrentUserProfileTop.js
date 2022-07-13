@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import { Column, Container, Row } from 'components/common'
 import { useState } from 'react'
 import Friends from 'components/Friends'
-import Teams from 'components/Teams'
 import Home from 'components/ProfileHome'
 import Link from 'next/link'
 import AuthenticationContext from 'contexts/authentication'
@@ -73,6 +72,7 @@ const Numbers = styled.div`
 const ButtonWrapper = styled(Row)`
   justify-content: space-between;
   margin-top: 79px;
+  width: 800px;
 `
 
 const Button = styled.div`
@@ -126,7 +126,6 @@ export default function ProfileTop() {
             {userAvatar && user && <Avatar src={userAvatar} />}
             <ProfileInfo>
               <Name>{user?.username || user?.email}</Name>
-              <Team>{user?.team ?? 'ASO LTD'}</Team>
               <ProfileStats>
                 <GreyTextColumn>
                   <GreyText>rank</GreyText>
@@ -158,12 +157,6 @@ export default function ProfileTop() {
             event history
           </Button>
           <Button
-            style={{ borderBottom: `${selected == 'Teams' ? 1 : 0}px solid` }}
-            onClick={() => setSelected('Teams')}
-          >
-            teams
-          </Button>
-          <Button
             style={{ borderBottom: `${selected == 'Friends' ? 1 : 0}px solid` }}
             onClick={() => setSelected('Friends')}
           >
@@ -176,7 +169,6 @@ export default function ProfileTop() {
           </Link>
         </ButtonWrapper>
       </Wrapper>
-      {selected == 'Teams' && <Teams />}
       {selected == 'Friends' && (
         <Friends friends={friends} invites={invites} avatars={avatars} />
       )}
