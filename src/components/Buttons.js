@@ -49,6 +49,9 @@ const SignupLarge = styled(Button)`
 const ViewTournaments = styled(Button)`
   width: 252px;
   height: 36px;
+  @media screen and (max-width: 736px) {
+    margin:auto;
+  }
 `
 
 const ArrowButtonContainer = styled(GradientText)`
@@ -82,10 +85,8 @@ export function LoginButton({ text, disabled, ...props }) {
 
 export function ViewTournamentsButton() {
   return (
-    <Link href={'/tournaments'}>
-      <a>
-        <ViewTournaments>view tournaments</ViewTournaments>
-      </a>
+    <Link href={'/tournaments'} >
+      <ViewTournaments>view tournaments</ViewTournaments>   
     </Link>
   )
 }
