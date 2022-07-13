@@ -20,6 +20,9 @@ const SubmitEntry = styled(Entry)`
   height: 85px;
   display: flex;
   justify-content: end;
+  @media screen and (max-width: 1300px) {
+    justify-content: center;
+  }
 `
 
 const ErrorMessageContainer = styled.div`
@@ -110,11 +113,22 @@ const GameRow = styled(Row)``
 
 const CreateTournamentHeading = styled(Heading)`
   text-align: left;
+  @media screen and (max-width: 1300px) {
+    text-align: center;
+  }
 `
 
 const CreateButton = styled(LoginButton)`
   width: 514px;
 `
+
+const EntryRow = styled(Row)`
+  @media screen and (max-width: 1300px) {
+    flex-direction: column;
+  }
+`
+
+const InputRow = styled(Row)``
 
 interface Tournament {
   region: string
@@ -280,7 +294,7 @@ export default function CreateTournament() {
   return (
     <FormContainer onSubmit={handleSubmit(onSubmit)}>
       <CreateTournamentHeading>Create Tournament</CreateTournamentHeading>
-      <Row>
+      <EntryRow>
         <InputColumn>
           <TournamentEntry>
             <Caption>name</Caption>
@@ -291,85 +305,97 @@ export default function CreateTournament() {
             <DescriptionInput required={true} {...register('description')} />
           </DescriptionEntry>
         </InputColumn>
-        <InputColumn>
-          <TournamentEntry>
-            <Caption>region</Caption>
-            <Select
-              options={regionOptions}
-              styles={regionStyles}
-              onChange={handleRegionSelect}
-              placeholder={'international'}
-            />
-          </TournamentEntry>
-          <TournamentEntry>
-            <Caption>time</Caption>
-            <Select
-              options={getTimes()}
-              styles={regionStyles}
-              onChange={handleTimeSelect}
-              placeholder={'00:00'}
-            />
-          </TournamentEntry>
-          <DateEntry>
-            <Caption>date</Caption>
-            <DateInput required={true} {...register('time')} type={'date'} />
-          </DateEntry>
-        </InputColumn>
-        <InputColumn>
-          <GameEntry>
-            <Caption>game</Caption>
-            <GameRow>
-              <SelectGameModal
-                handleGameSelect={(e) => handleGameSelect(e)}
-                selectedGame={selectedGame}
-                games={games}
-                cancel={cancel}
+        <InputRow>
+          <InputColumn>
+            <TournamentEntry>
+              <Caption>region</Caption>
+              <Select
+                options={regionOptions}
+                styles={regionStyles}
+                onChange={handleRegionSelect}
+                placeholder={'international'}
               />
-            </GameRow>
-          </GameEntry>
-          <TournamentEntry>
-            <Caption>prize</Caption>
-            <PrizeInput
-              required={true}
-              {...register('prize')}
-              type={'number'}
-              min={0.0001}
-              step={0.0001}
-              max={1}
-              placeholder={'0.0001'}
-            />
-          </TournamentEntry>
-          <TournamentEntry>
-            <Caption>Available on</Caption>
-            <CheckboxRow>
-              <ImageCircle>
-                <Image src={'/laptop.svg'} width={20} height={20} alt={'pc'} />
-              </ImageCircle>
-              <CheckboxInput
-                {...register('platform')}
-                value={'pc'}
-                onChange={(e) => handlePlatformSelect(e)}
+            </TournamentEntry>
+            <TournamentEntry>
+              <Caption>time</Caption>
+              <Select
+                options={getTimes()}
+                styles={regionStyles}
+                onChange={handleTimeSelect}
+                placeholder={'00:00'}
               />
-              <ImageCircle>
-                <Image src={'/xbox.svg'} width={20} height={20} alt={'xbox'} />
-              </ImageCircle>
-              <CheckboxInput
-                {...register('platform')}
-                value={'xbox'}
-                onChange={(e) => handlePlatformSelect(e)}
+            </TournamentEntry>
+            <DateEntry>
+              <Caption>date</Caption>
+              <DateInput required={true} {...register('time')} type={'date'} />
+            </DateEntry>
+          </InputColumn>
+          <InputColumn>
+            <GameEntry>
+              <Caption>game</Caption>
+              <GameRow>
+                <SelectGameModal
+                  handleGameSelect={(e) => handleGameSelect(e)}
+                  selectedGame={selectedGame}
+                  games={games}
+                  cancel={cancel}
+                />
+              </GameRow>
+            </GameEntry>
+            <TournamentEntry>
+              <Caption>prize</Caption>
+              <PrizeInput
+                required={true}
+                {...register('prize')}
+                type={'number'}
+                min={0.0001}
+                step={0.0001}
+                max={1}
+                placeholder={'0.0001'}
               />
-              <ImageCircle>
-                <Image src={'/ps.svg'} width={20} height={20} alt={'ps'} />
-              </ImageCircle>
-              <CheckboxInput
-                {...register('platform')}
-                value={'ps'}
-                onChange={(e) => handlePlatformSelect(e)}
-              />
-            </CheckboxRow>
-          </TournamentEntry>
-        </InputColumn>
-      </Row>
+            </TournamentEntry>
+            <TournamentEntry>
+              <Caption>Available on</Caption>
+              <CheckboxRow>
+                <ImageCircle>
+                  <Image
+                    src={'/laptop.svg'}
+                    width={20}
+                    height={20}
+                    alt={'pc'}
+                  />
+                </ImageCircle>
+                <CheckboxInput
+                  {...register('platform')}
+                  value={'pc'}
+                  onChange={(e) => handlePlatformSelect(e)}
+                />
+                <ImageCircle>
+                  <Image
+                    src={'/xbox.svg'}
+                    width={20}
+                    height={20}
+                    alt={'xbox'}
+                  />
+                </ImageCircle>
+                <CheckboxInput
+                  {...register('platform')}
+                  value={'xbox'}
+                  onChange={(e) => handlePlatformSelect(e)}
+                />
+                <ImageCircle>
+                  <Image src={'/ps.svg'} width={20} height={20} alt={'ps'} />
+                </ImageCircle>
+                <CheckboxInput
+                  {...register('platform')}
+                  value={'ps'}
+                  onChange={(e) => handlePlatformSelect(e)}
+                />
+              </CheckboxRow>
+            </TournamentEntry>
+          </InputColumn>
+        </InputRow>
+      </EntryRow>
       <SubmitEntry>
         <CreateButton type={'submit'} text={'Create'} disabled={false} />
       </SubmitEntry>

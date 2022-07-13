@@ -36,8 +36,7 @@ const Dots = styled(motion.div)`
 
 const SelectGameRow = styled(Row)`
   height: 292px;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  justify-content: space-around;
 `
 
 const CancelButton = styled(Button)`
@@ -58,10 +57,10 @@ const ButtonsRow = styled(Row)`
   right: 50px;
 `
 const Tile = styled(motion.div)`
-  width: 211;
-  height: 292;
-  border-radius: 5px;
-  position: relative;
+  width: 150px;
+  height: 220px;
+  border-radius: 30px;
+  overflow: hidden;
   &:hover {
     opacity: 0.8;
   }
@@ -91,15 +90,17 @@ const SelectedGameImage = styled.div`
   background-size: 70px;
 `
 
-const GameInput = styled.input``
+const GameInput = styled.input`
+  object-fit: cover;
+`
 
 const variants = {
   select: {
     scale: [1, 0.75],
-    transition: { duration: 0.5 },
+    transition: { duration: 0.2 },
     unselect: {
-      scale: [1, 0.75],
-      transition: { duration: 0.5 }
+      scale: [0.75, 1],
+      transition: { duration: 0.2 }
     }
   }
 }
@@ -209,8 +210,8 @@ export default function SelectGameModal({
                 <GameInput
                   type={'image'}
                   src={'/' + games.name + '.svg'}
-                  width={211}
-                  height={292}
+                  width={150}
+                  height={220}
                   onClick={handleGameSelect}
                   value={games.name}
                 />
