@@ -17,10 +17,6 @@ const Header = styled(Row)`
   padding-right: 30px;
   width: min(80%, 1400px);
   margin: auto;
-  @media screen and (max-width: 600px) {
-    width: 480px;
-    padding: 0;
-  }
   margin-bottom: ${(props) => (props.home ? '80px' : '150px')};
 `
 
