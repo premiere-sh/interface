@@ -21,12 +21,6 @@ const Header = styled(Row)`
 `
 
 const LogoBit = styled(Row)`
-  min-width: 205px;
-  margin-right: 50px;
-  @media screen and (max-width: 600px) {
-    margin-right: 0px;
-    margin-left: 25px;
-  }
 `
 
 const LinksBit = styled(Row)`
@@ -191,8 +185,8 @@ export default function _Header({ home }) {
         >
           <Image
             src={navigatorOpen ? '/navigator_open.svg' : '/navigator.svg'}
-            width={24}
-            height={24}
+            width={34}
+            height={34}
             alt={'navigator'}
           />
         </LinksDropdown>
