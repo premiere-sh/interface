@@ -14,14 +14,17 @@ import SelectGameModal from 'components/SelectGameModal'
 const FormContainer = styled.form`
   margin: auto;
   width: 1153px;
+  @media screen and (max-width: 1300px) {
+    width: 589px;
+  }
 `
 
 const SubmitEntry = styled(Entry)`
   height: 85px;
+  width: 100%;
   display: flex;
   justify-content: end;
   @media screen and (max-width: 1300px) {
-    justify-content: center;
   }
 `
 
@@ -61,12 +64,18 @@ const DescriptionEntry = styled(Entry)`
   margin-right: 50px;
   margin-bottom: 50px;
   height: 232px;
+  @media screen and (max-width: 1300px) {
+    margin-right: 0;
+  }
 `
 
 const TournamentEntry = styled(Entry)`
-  margin-right: 50px;
   margin-bottom: 50px;
   height: 91px;
+  @media screen and (max-width: 1300px) {
+    margin-right: 0px;
+    margin-left: 0px;
+  }
 `
 
 const CheckboxRow = styled(Row)`
@@ -79,8 +88,13 @@ const ImageCircle = styled(Circle)`
   box-shadow: 0px 4px 8px 0px #0000000d;
 `
 
-const DateEntry = styled(TournamentEntry)`
+const DateEntry = styled(TournamentEntry)``
+
+const TournamentNameEntry = styled(TournamentEntry)`
   margin-right: 50px;
+  @media screen and (max-width: 1300px) {
+    margin-right: 0px;
+  }
 `
 
 const DateInput = styled(Input)`
@@ -88,7 +102,9 @@ const DateInput = styled(Input)`
   padding-right: 15px;
 `
 
-const InputColumn = styled(Column)``
+const InputColumn = styled(Column)`
+  align-items: start;
+`
 
 const CheckboxInput = styled(Checkbox)<CheckboxProps>``
 
@@ -112,14 +128,17 @@ const GameEntry = styled(TournamentEntry)`
 const GameRow = styled(Row)``
 
 const CreateTournamentHeading = styled(Heading)`
+  width: 589px;
   text-align: left;
   @media screen and (max-width: 1300px) {
-    text-align: center;
   }
 `
 
 const CreateButton = styled(LoginButton)`
   width: 514px;
+  @media screen and (max-width: 1300px) {
+    width: 589px;
+  }
 `
 
 const EntryRow = styled(Row)`
@@ -128,7 +147,10 @@ const EntryRow = styled(Row)`
   }
 `
 
-const InputRow = styled(Row)``
+const InputRow = styled(Row)`
+  width: 589px;
+  justify-content: space-between;
+`
 
 interface Tournament {
   region: string
@@ -296,10 +318,10 @@ export default function CreateTournament() {
       <CreateTournamentHeading>Create Tournament</CreateTournamentHeading>
       <EntryRow>
         <InputColumn>
-          <TournamentEntry>
+          <TournamentNameEntry>
             <Caption>name</Caption>
             <Input required={true} {...register('name')} type={'text'} />
-          </TournamentEntry>
+          </TournamentNameEntry>
           <DescriptionEntry>
             <Caption>description</Caption>
             <DescriptionInput required={true} {...register('description')} />

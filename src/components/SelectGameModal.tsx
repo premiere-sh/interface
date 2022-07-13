@@ -27,6 +27,9 @@ const GameModal = styled(Modal)`
   border: 1px solid black;
   padding: 50px 40px 0px 40px;
   z-index: 50;
+  @media screen and (max-width: 1100px) {
+    width: 550px;
+  }
 `
 
 const Dots = styled(motion.div)`
