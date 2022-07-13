@@ -136,10 +136,6 @@ export default function Home({ friends }) {
           <Numbers>3</Numbers>
         </GreyTextColumn>
         <GreyTextColumn>
-          <GrayText>$prem earned</GrayText>
-          <Numbers>2310994</Numbers>
-        </GreyTextColumn>
-        <GreyTextColumn>
           <GrayText>usd earned</GrayText>
           <Numbers>$4,301</Numbers>
         </GreyTextColumn>
