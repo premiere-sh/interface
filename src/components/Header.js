@@ -210,9 +210,9 @@ export default function _Header({ home }) {
         <Navigator
           ref={ref}
           currentUser={user}
-          isAuthenticated={user.isAuthenticated}
+          isAuthenticated={user ? user.isAuthenticated : null}
         />
-      )}
+      ) }
       <LinksBit>
         <Link href={'/games'}>
           <a>
