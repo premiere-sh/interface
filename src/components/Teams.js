@@ -122,6 +122,7 @@ const DeleteTeam = styled(GradientText)`
 `
 
 export default function Teams() {
+  // Teams Component Already exist
   const [isOpen, setOpen] = useState(false)
 
   const teammates = [
