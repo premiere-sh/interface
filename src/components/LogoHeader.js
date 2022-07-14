@@ -11,6 +11,8 @@ const LogoHeader = styled.div`
   letter-spacing: 0.2em;
   color: ${(props) => props.theme.colors.black};
   user-select: none;
+  @media screen and (max-width: 480px) {
+    display: none;
 `
 
 export default function _LogoHeader() {
