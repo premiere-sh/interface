@@ -8,6 +8,8 @@ import Link from 'next/link'
 import AuthenticationContext from 'contexts/authentication'
 import { useFriends, useStats } from 'hooks'
 import { useFriendInvites } from 'hooks'
+import Image from 'next/image'
+import UploadAvatar from './UploadAvatar'
 
 const ProfilePanel = styled(Row)``
 
@@ -108,7 +110,12 @@ const ButtonEvents = styled(Button)`
 const Avatar = styled.img`
   width: 200px;
   height: 200px;
-  border-radius: 200px;
+  border-radius: 50%;
+`
+
+const EditProfileButton = styled.button`
+  width: 100px;
+  height: 100px;
 `
 
 export default function ProfileTop() {
@@ -117,13 +124,42 @@ export default function ProfileTop() {
   const friends = useFriends(user)
   const stats = useStats(user)
   const { invites, avatars } = useFriendInvites(user?.id, token)
+  const [editMode, setEditMode] = useState(false)
+  const [avatar, setAvatar] = useState('')
+  const [tempAvatar, setTempAvatar] = useState('')
+
+  const handleEdit = () => {
+    setEditMode(!editMode)
+    setAvatar(userAvatar)
+    setTempAvatar(userAvatar)
+  }
+
+  const handleUploadImage = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const uploadedAvatar = e.target.files[0].name
+      setTempAvatar(uploadedAvatar)
+    }
+  }
+
+  const handleSaveImage = (e) => {
+    setEditMode(false)
+    setAvatar(tempAvatar)
+  }
 
   return (
     <Column>
       <Wrapper>
         <SpaceBetween>
           <ProfilePanel>
-            {userAvatar && user && <Avatar src={userAvatar} />}
+            {userAvatar && user && !editMode ? (
+              <Avatar src={avatar} />
+            ) : (
+              <UploadAvatar
+                handleUploadImage={handleUploadImage}
+                handleSaveImage={handleSaveImage}
+                tempAvatar={tempAvatar}
+              />
+            )}
             <ProfileInfo>
               <Name>{user?.username || user?.email}</Name>
               <ProfileStats>
@@ -141,6 +177,7 @@ export default function ProfileTop() {
                 </GreyTextColumn>
               </ProfileStats>
             </ProfileInfo>
+            <EditProfileButton onClick={handleEdit} />
           </ProfilePanel>
         </SpaceBetween>
         <ButtonWrapper>
