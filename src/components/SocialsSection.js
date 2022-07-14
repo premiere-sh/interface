@@ -18,9 +18,6 @@ const Row = styled(_Row)`
     flex-direction: column;
     height: 200px;
   }
-  @media screen and (max-width: 450px) {
-    width: 500px;
-  }
 `
 
 const Column = styled(_Column)`
@@ -31,19 +28,26 @@ const Text1 = styled.div`
   font-family: Inter;
   font-style: normal;
   font-weight: normal;
-  font-size: 24px;
+  font-size: 1.5em;
   line-height: 150%;
   text-align: center;
   color: ${(props) => props.theme.colors.black};
+  @media screen and (max-width: 1065px) {
+    font-size: 1.2em
+  }
 `
 
 const Text2 = styled.div`
   font-family: Inter;
   font-style: italic;
   font-weight: bold;
-  font-size: 45px;
+  font-size: 3em;
   line-height: 100%;
   color: ${(props) => props.theme.colors.black};
+  @media screen and (max-width: 1065px) {
+    font-size: 35px;
+    text-align: center;
+  }
 `
 
 const SocialsRow = styled(_Row)`
