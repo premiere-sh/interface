@@ -8,14 +8,14 @@ import Link from 'next/link'
 import AuthenticationContext from 'contexts/authentication'
 import { useFriends, useStats } from 'hooks'
 import { useFriendInvites } from 'hooks'
+import AvatarEditor from 'react-avatar-editor'
+import { Button as EditImageButton } from 'components/Buttons'
+import { Box, Slider } from '@material-ui/core'
 import Image from 'next/image'
-import UploadAvatar from './UploadAvatar'
 
 const ProfilePanel = styled(Row)``
 
-const SpaceBetween = styled(Row)`
-  justify-content: space-between;
-`
+const SpaceBetween = styled(Row)``
 
 const Name = styled.div`
   font-size: 36px;
@@ -74,7 +74,7 @@ const Numbers = styled.div`
 const ButtonWrapper = styled(Row)`
   justify-content: space-between;
   margin-top: 79px;
-  width: 800px;
+  width: 100%;
 `
 
 const Button = styled.div`
@@ -113,10 +113,9 @@ const Avatar = styled.img`
   border-radius: 50%;
 `
 
-const EditProfileButton = styled.button`
-  width: 100px;
-  height: 100px;
-`
+const EditProfileButton = styled.div``
+
+const Editor = styled(AvatarEditor)``
 
 export default function ProfileTop() {
   const [selected, setSelected] = useState('Home')
@@ -124,26 +123,64 @@ export default function ProfileTop() {
   const friends = useFriends(user)
   const stats = useStats(user)
   const { invites, avatars } = useFriendInvites(user?.id, token)
-  const [editMode, setEditMode] = useState(false)
-  const [avatar, setAvatar] = useState('')
-  const [tempAvatar, setTempAvatar] = useState('')
+  var editor = ''
+  const [tempAvatar, setTempAvatar] = useState(userAvatar)
+  const [picture, setPicture] = useState({
+    cropperOpen: false,
+    img: tempAvatar,
+    zoom: 1,
+    croppedImg: ''
+  })
 
-  const handleEdit = () => {
-    setEditMode(!editMode)
-    setAvatar(userAvatar)
-    setTempAvatar(userAvatar)
+  const handleSlider = (event, value) => {
+    setPicture({
+      ...picture,
+      zoom: value
+    })
   }
 
-  const handleUploadImage = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      const uploadedAvatar = e.target.files[0].name
-      setTempAvatar(uploadedAvatar)
+  const handleCancel = () => {
+    setPicture({
+      ...picture,
+      cropperOpen: false
+    })
+  }
+
+  const setEditorRef = (ed) => {
+    editor = ed
+  }
+
+  const handleSave = (e) => {
+    if (setEditorRef) {
+      const canvasScaled = editor.getImageScaledToCanvas()
+      const croppedImg = canvasScaled.toDataURL()
+
+      setPicture({
+        ...picture,
+        img: null,
+        cropperOpen: false,
+        croppedImg: croppedImg
+      })
     }
   }
 
-  const handleSaveImage = (e) => {
-    setEditMode(false)
-    setAvatar(tempAvatar)
+  const handleFileChange = (e) => {
+    let url = URL.createObjectURL(e.target.files[0])
+    setTempAvatar(url)
+    console.log(url)
+    setPicture({
+      ...picture,
+      img: url
+    })
+  }
+
+  const handleEditMode = () => {
+    setPicture({
+      ...picture,
+      cropperOpen: !picture.cropperOpen,
+      img: tempAvatar,
+      zoom: 1
+    })
   }
 
   return (
@@ -151,14 +188,44 @@ export default function ProfileTop() {
       <Wrapper>
         <SpaceBetween>
           <ProfilePanel>
-            {userAvatar && user && !editMode ? (
-              <Avatar src={avatar} />
-            ) : (
-              <UploadAvatar
-                handleUploadImage={handleUploadImage}
-                handleSaveImage={handleSaveImage}
-                tempAvatar={tempAvatar}
+            {userAvatar && user && !picture.cropperOpen ? (
+              <Avatar
+                src={picture.croppedImg ? picture.croppedImg : userAvatar}
               />
+            ) : (
+              <Box display="block">
+                <Editor
+                  ref={setEditorRef}
+                  image={picture.img}
+                  width={200}
+                  height={200}
+                  border={25}
+                  borderRadius={100}
+                  color={[255, 255, 255, 0.6]} // RGBA
+                  rotate={0}
+                  scale={picture.zoom}
+                />
+                <Slider
+                  aria-label="raceSlider"
+                  value={picture.zoom}
+                  min={1}
+                  max={5}
+                  step={0.1}
+                  onChange={handleSlider}
+                  sx={{ color: 'black' }}
+                ></Slider>
+                <Box>
+                  <EditImageButton variant="contained" onClick={handleCancel}>
+                    Cancel
+                  </EditImageButton>
+                  <EditImageButton onClick={handleSave}>Save</EditImageButton>
+                </Box>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                />
+              </Box>
             )}
             <ProfileInfo>
               <Name>{user?.username || user?.email}</Name>
@@ -177,7 +244,15 @@ export default function ProfileTop() {
                 </GreyTextColumn>
               </ProfileStats>
             </ProfileInfo>
-            <EditProfileButton onClick={handleEdit} />
+            <EditProfileButton>
+              <Image
+                src={'/edit_profile.svg'}
+                width={32}
+                height={32}
+                alt={'edit'}
+                onClick={handleEditMode}
+              />
+            </EditProfileButton>
           </ProfilePanel>
         </SpaceBetween>
         <ButtonWrapper>
