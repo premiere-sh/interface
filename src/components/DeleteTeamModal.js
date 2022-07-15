@@ -37,7 +37,11 @@ const SpaceBetween = styled(Row)`
   justify-content: center;
 `
 
-export default function DeleteTeamModal({ isOpen, setOpen }) {
+export default function DeleteTeamModal({
+  deleteTeamHandler,
+  isOpen,
+  setOpen
+}) {
   const style = {
     content: {
       display: 'flex',
@@ -61,7 +65,14 @@ export default function DeleteTeamModal({ isOpen, setOpen }) {
         <Question>Are you sure you want to delete this team?</Question>
         <SpaceBetween>
           <Cancel onClick={() => setOpen(false)}>no, cancel</Cancel>
-          <Button onClick={() => setOpen(false)}>yes, delete it</Button>
+          <Button
+            onClick={() => {
+              deleteTeamHandler()
+              setOpen(false)
+            }}
+          >
+            yes, delete it
+          </Button>
         </SpaceBetween>
       </Column>
     </Modal>
