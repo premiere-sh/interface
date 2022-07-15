@@ -49,6 +49,9 @@ const SignupLarge = styled(Button)`
 const ViewTournaments = styled(Button)`
   width: 252px;
   height: 36px;
+  @media screen and (max-width: 736px) {
+    margin:auto;
+  }
 `
 
 const ArrowButtonContainer = styled(GradientText)`
@@ -64,24 +67,26 @@ export function SignupButton({ text, disabled }) {
   return <Signup disabled={disabled}>{text}</Signup>
 }
 
-export function SignupButtonLarge() {
-  return <SignupLarge>sign up</SignupLarge>
+export function SignupButtonLarge({ ...props }) {
+  return <SignupLarge {...props}>sign up</SignupLarge>
 }
 
 export function DashboardButton() {
   return <Dashboard>dashboard</Dashboard>
 }
 
-export function LoginButton({ text, disabled }) {
-  return <Login disabled={disabled}>{text}</Login>
+export function LoginButton({ text, disabled, ...props }) {
+  return (
+    <Login disabled={disabled} {...props}>
+      {text}
+    </Login>
+  )
 }
 
 export function ViewTournamentsButton() {
   return (
-    <Link href={'/tournaments'}>
-      <a>
-        <ViewTournaments>view tournaments</ViewTournaments>
-      </a>
+    <Link href={'/tournaments'} >
+      <ViewTournaments>view tournaments</ViewTournaments>   
     </Link>
   )
 }

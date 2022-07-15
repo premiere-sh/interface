@@ -1,18 +1,13 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext } from 'react'
 import styled from 'styled-components'
 import { Column, Container, Row } from 'components/common'
-import Image from 'next/image'
 import { useState } from 'react'
 import Friends from 'components/Friends'
-import Teams from 'components/Teams'
 import Home from 'components/ProfileHome'
-import History from 'components/History'
 import Link from 'next/link'
 import AuthenticationContext from 'contexts/authentication'
-import { useFriends, useStats, useInviteFriend, useUser } from 'hooks'
-import { AddMember } from 'components/TeamEdit'
-import { useRouter } from 'next/router'
-import { useFriendInvites, zip } from 'hooks'
+import { useFriends, useStats } from 'hooks'
+import { useFriendInvites } from 'hooks'
 
 const ProfilePanel = styled(Row)``
 
@@ -77,6 +72,7 @@ const Numbers = styled.div`
 const ButtonWrapper = styled(Row)`
   justify-content: space-between;
   margin-top: 79px;
+  width: 800px;
 `
 
 const Button = styled.div`
@@ -117,22 +113,19 @@ const Avatar = styled.img`
 
 export default function ProfileTop() {
   const [selected, setSelected] = useState('Home')
-  const { currentUser, currentUserAvatar, token } = useContext(
-    AuthenticationContext
-  )
-  const friends = useFriends(currentUser)
-  const stats = useStats(currentUser)
-  const { invites, avatars, error } = useFriendInvites(currentUser?.id, token)
+  const { user, userAvatar, token } = useContext(AuthenticationContext)
+  const friends = useFriends(user)
+  const stats = useStats(user)
+  const { invites, avatars } = useFriendInvites(user?.id, token)
 
   return (
     <Column>
       <Wrapper>
         <SpaceBetween>
           <ProfilePanel>
-            {currentUserAvatar && <Avatar src={currentUserAvatar} />}
+            {userAvatar && user && <Avatar src={userAvatar} />}
             <ProfileInfo>
-              <Name>{currentUser?.username}</Name>
-              <Team>{currentUser?.team}</Team>
+              <Name>{user?.username || user?.email}</Name>
               <ProfileStats>
                 <GreyTextColumn>
                   <GreyText>rank</GreyText>
@@ -164,12 +157,6 @@ export default function ProfileTop() {
             event history
           </Button>
           <Button
-            style={{ borderBottom: `${selected == 'Teams' ? 1 : 0}px solid` }}
-            onClick={() => setSelected('Teams')}
-          >
-            teams
-          </Button>
-          <Button
             style={{ borderBottom: `${selected == 'Friends' ? 1 : 0}px solid` }}
             onClick={() => setSelected('Friends')}
           >
@@ -182,7 +169,6 @@ export default function ProfileTop() {
           </Link>
         </ButtonWrapper>
       </Wrapper>
-      {selected == 'Teams' && <Teams />}
       {selected == 'Friends' && (
         <Friends friends={friends} invites={invites} avatars={avatars} />
       )}

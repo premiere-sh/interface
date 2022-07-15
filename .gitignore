@@ -118,4 +118,9 @@ yarn-error.log*
 
 *.swp
 local_db
-cypress/videos
+
+public/workbox-*.js
+public/sw.js
+public/worker-*.js
+public/*.js.map
+public/*.css.map

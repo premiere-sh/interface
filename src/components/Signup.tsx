@@ -1,6 +1,5 @@
 import { useState, useContext } from 'react'
-import { SignupButtonLarge } from 'components/Buttons'
-import { Row, GradientText } from 'components/common'
+import { GradientText } from 'components/common'
 import {
   Heading,
   Caption,
@@ -13,11 +12,16 @@ import { SignupButtonLarge as SignupButton } from 'components/Buttons'
 import styled from 'styled-components'
 import { useForm } from 'react-hook-form'
 import Link from 'next/link'
-import { useSignUp, useSignIn } from 'hooks'
 import AuthenticationContext from 'contexts/authentication'
-import Router from 'next/router'
 import { Dots } from 'react-activity'
-import WaitingContext from 'contexts/waiting'
+
+interface FormValues {
+  email: string
+  username: string
+  password: string
+  date: string
+  confirm: string
+}
 
 const FormContainer = styled.form`
   margin: auto;
@@ -55,45 +59,21 @@ const LoginIfGotAnAccount = styled.div`
   justify-content: center;
 `
 
-const ErrorMessageContainer = styled.div`
-  color: ${(props) => props.theme.colors.red};
-  line-height: 19px;
-  font-size: 16px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-`
-
 export default function Signup() {
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm()
-  const { isAuthenticated, setToken, currentUser } = useContext(
-    AuthenticationContext
-  )
+  } = useForm<FormValues>()
+  const { loading, signUp, user } = useContext(AuthenticationContext)
   const [password, setPassword] = useState('')
-  const [errorMessage, setErrorMessage] = useState('')
-  const [waiting, setWaiting] = useContext(WaitingContext)
-  const signUp = useSignUp()
-  const signIn = useSignIn()
 
-  const onSubmit = async (data) => {
-    setErrorMessage('')
-    setWaiting(true)
+  const onSubmit = async (data: any) => {
+    /*
     data.date_of_birth = parseInt(new Date(data.date).getTime() / 1000)
     delete data['date']
-    const { error, token } = await signUp(data)
-    if (error) {
-      setErrorMessage(error)
-      setWaiting(false)
-    } else if (token) {
-      setToken(token)
-      setErrorMessage('')
-      setWaiting(false)
-      Router.push(`/profile`)
-    }
+    */
+    await signUp(data.email, data.password)
   }
 
   const inUse = (inputValue) => {
@@ -127,7 +107,9 @@ export default function Signup() {
   }
 
   const checkMatch = (inputValue) => {
+    // TODO this is not right @oliwierostro
     setPassword(inputValue)
+    return true
   }
 
   const match = (inputValue) => {
@@ -136,7 +118,7 @@ export default function Signup() {
 
   return (
     <>
-      {!isAuthenticated ? (
+      {!user ? (
         <FormContainer onSubmit={handleSubmit(onSubmit)}>
           <Heading>sign up</Heading>
           <Subtext>Premiere is only available to users that are 18+</Subtext>
@@ -180,7 +162,7 @@ export default function Signup() {
               required={true}
               {...register('password', {
                 minLength: 8,
-                validate: { uppercase, number, special, checkMatch, inUse }
+                validate: { uppercase, number, special, inUse, checkMatch }
               })}
               type={'password'}
               placeholder={'Enter your password'}
@@ -213,16 +195,13 @@ export default function Signup() {
           </Entry>
           <SubmitEntry>
             <SignupButton
-              type={'submit'}
-              disabled={waiting}
-              text={waiting ? <Dots /> : 'sign up'}
+              type="submit"
+              disabled={loading}
+              text={loading ? <Dots /> : 'sign up'}
             />
           </SubmitEntry>
-          {errorMessage && (
-            <ErrorMessageContainer>{errorMessage}</ErrorMessageContainer>
-          )}
           <LoginIfGotAnAccount>
-            Already have an account?
+            Already havean account?
             <GradientText style={{ display: 'inline', marginLeft: 5 }}>
               <Link href={'/login'}>
                 <a> Log In</a>

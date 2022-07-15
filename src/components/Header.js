@@ -4,11 +4,10 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import Image from 'next/image'
 import { Row } from 'components/common'
-import Dropdown, { DropdownText } from 'components/Dropdown'
-import { Button, SignupButton } from 'components/Buttons'
+import { DropdownText } from 'components/Dropdown'
+import { Button } from 'components/Buttons'
 import LogoHeader from 'components/LogoHeader'
 import AuthenticationContext from 'contexts/authentication'
-import { useSignOut } from 'hooks'
 import Router from 'next/router'
 
 const Header = styled(Row)`
@@ -18,20 +17,10 @@ const Header = styled(Row)`
   padding-right: 30px;
   width: min(80%, 1400px);
   margin: auto;
-  @media screen and (max-width: 600px) {
-    width: 480px;
-    padding: 0;
-  }
   margin-bottom: ${(props) => (props.home ? '80px' : '150px')};
 `
 
 const LogoBit = styled(Row)`
-  min-width: 205px;
-  margin-right: 50px;
-  @media screen and (max-width: 600px) {
-    margin-right: 0px;
-    margin-left: 25px;
-  }
 `
 
 const LinksBit = styled(Row)`
@@ -161,10 +150,7 @@ export default function _Header({ home }) {
   const [navigatorOpen, setNavigatorOpen] = useState(false)
   const ref = useRef()
   const dropdownRef = useRef()
-  const { isAuthenticated, currentUser, currentUserAvatar } = useContext(
-    AuthenticationContext
-  )
-  const signOut = useSignOut()
+  const { logout, user, userAvatar } = useContext(AuthenticationContext)
 
   useEffect(function () {
     function handleOutsideClick(event) {
@@ -199,8 +185,8 @@ export default function _Header({ home }) {
         >
           <Image
             src={navigatorOpen ? '/navigator_open.svg' : '/navigator.svg'}
-            width={24}
-            height={24}
+            width={34}
+            height={34}
             alt={'navigator'}
           />
         </LinksDropdown>
@@ -213,10 +199,10 @@ export default function _Header({ home }) {
       {navigatorOpen && (
         <Navigator
           ref={ref}
-          currentUser={currentUser}
-          isAuthenticated={isAuthenticated}
+          currentUser={user}
+          isAuthenticated={user ? user.isAuthenticated : null}
         />
-      )}
+      ) }
       <LinksBit>
         <Link href={'/games'}>
           <a>
@@ -245,7 +231,7 @@ export default function _Header({ home }) {
         </Link>
       </LinksBit>
       <SignupBit>
-        {!isAuthenticated ? (
+        {!user ? (
           <>
             <AvatarPlaceholder />
             <Link href={'/login'}>
@@ -260,9 +246,9 @@ export default function _Header({ home }) {
               onClick={() => Router.push(`/profile`)}
               style={{ cursor: 'pointer', marginTop: 5 }}
             >
-              <Avatar src={currentUserAvatar} />
+              <Avatar src={userAvatar} />
             </div>
-            <LogoutButton onClick={signOut}>log out</LogoutButton>
+            <LogoutButton onClick={logout}>log out</LogoutButton>
           </>
         )}
       </SignupBit>
