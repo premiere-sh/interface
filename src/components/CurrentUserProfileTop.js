@@ -8,10 +8,13 @@ import Link from 'next/link'
 import AuthenticationContext from 'contexts/authentication'
 import { useFriends, useStats } from 'hooks'
 import { useFriendInvites } from 'hooks'
+import Teams from 'components/Teams'
 
 const ProfilePanel = styled(Row)``
 
 const SpaceBetween = styled(Row)`
+  display: flex;
+  flex: 1;
   justify-content: space-between;
 `
 
@@ -23,6 +26,9 @@ const Name = styled.div`
 `
 
 const Wrapper = styled(Container)`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   border-bottom: 1px solid #e3e3e3;
   margin-bottom: 79px;
 `
@@ -70,9 +76,10 @@ const Numbers = styled.div`
 `
 
 const ButtonWrapper = styled(Row)`
+  display: flex;
+  flex: 1;
   justify-content: space-between;
   margin-top: 79px;
-  width: 800px;
 `
 
 const Button = styled.div`
@@ -157,6 +164,12 @@ export default function ProfileTop() {
             event history
           </Button>
           <Button
+            style={{ borderBottom: `${selected == 'Teams' ? 1 : 0}px solid` }}
+            onClick={() => setSelected('Teams')}
+          >
+            Teams
+          </Button>
+          <Button
             style={{ borderBottom: `${selected == 'Friends' ? 1 : 0}px solid` }}
             onClick={() => setSelected('Friends')}
           >
@@ -172,6 +185,7 @@ export default function ProfileTop() {
       {selected == 'Friends' && (
         <Friends friends={friends} invites={invites} avatars={avatars} />
       )}
+      {selected == 'Teams' && <Teams />}
       {selected == 'Home' && <Home />}
     </Column>
   )
