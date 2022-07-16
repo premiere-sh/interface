@@ -12,7 +12,6 @@ import AvatarEditor from 'react-avatar-editor'
 import { Button as AvatarButton } from 'components/Buttons'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import ZoomSlider from './ZoomSlider'
 
 const ProfilePanel = styled(Row)`
   width: 100%;
@@ -164,7 +163,16 @@ const SliderText = styled.div`
   text-transform: uppercase;
 `
 
-const EditImageButton = styled(AvatarButton)`
+const CancelImageButton = styled(AvatarButton)`
+  width: 95px;
+  height: 30px;
+  background: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border: 1px ${(props) => props.theme.colors.ruby} solid;
+`
+
+const SaveImageButton = styled(AvatarButton)`
   width: 95px;
   height: 30px;
 `
@@ -181,7 +189,6 @@ const ImageInputContainer = styled.label`
   font-size: 16px;
   line-height: 40px;
   letter-spacing: 0.1em;
-  color: ${(props) => props.theme.colors.white};
   background: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -200,6 +207,37 @@ const ButtonsRow = styled(Row)`
   width: 200px;
   justify-content: space-between;
   margin-bottom: 10px;
+`
+
+const Slider = styled.input`
+  -webkit-appearance: none;
+  &::-webkit-slider-runnable-track {
+    background-image: linear-gradient(
+      266.89deg,
+      #982649 -18.13%,
+      #f71735 120.14%
+    );
+    border-radius: 5px;
+    height: 10px;
+  }
+
+  &::-webkit-slider-thumb {
+    position: relative;
+    appearance: none;
+    height: 25px;
+    width: 25px;
+    background: white;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 5px solid #0000;
+    border-radius: 50%;
+    background: linear-gradient(white, white) padding-box,
+    linear-gradient(
+      266.89deg,
+      #982649 -18.13%,
+      #f71735 120.14%
+    ); border-box;
+  }
 `
 
 export default function ProfileTop() {
@@ -255,7 +293,8 @@ export default function ProfileTop() {
       setTempAvatar(url)
       setPicture({
         ...picture,
-        img: url
+        img: url,
+        zoom: 1
       })
     }
   }
@@ -265,7 +304,7 @@ export default function ProfileTop() {
       ...picture,
       cropperOpen: !picture.cropperOpen,
       img: tempAvatar ? tempAvatar : userAvatar,
-      zoom: picture.zoom
+      zoom: 1
     })
   }
 
@@ -345,14 +384,21 @@ export default function ProfileTop() {
         >
           <SliderEntry>
             <SliderText>Drag and resize</SliderText>
-            <ZoomSlider handleSlider={handleSlider} />
+            <Slider
+              type={'range'}
+              onChange={handleSlider}
+              value={picture.zoom}
+              min={1}
+              max={5}
+              step={0.1}
+            />
           </SliderEntry>
           <EditAvatarButtons>
             <ButtonsRow>
-              <EditImageButton variant="contained" onClick={handleCancel}>
+              <CancelImageButton variant="contained" onClick={handleCancel}>
                 Cancel
-              </EditImageButton>
-              <EditImageButton onClick={handleSave}>Save</EditImageButton>
+              </CancelImageButton>
+              <SaveImageButton onClick={handleSave}>Save</SaveImageButton>
             </ButtonsRow>
             <ImageInputContainer>
               <ImageInput
