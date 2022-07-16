@@ -120,54 +120,70 @@ const DeleteTeam = styled(GradientText)`
   margin-right: 17px;
   text-transform: uppercase;
 `
+const teammates = [
+  {
+    user: 'devonhenry_'
+  },
+  {
+    user: 'devonhenry_'
+  },
+  {
+    user: 'devonhenry_'
+  }
+]
+
+const dummyTeams = [
+  {
+    id: 1,
+    name: '[INSERT TEAM NAME]',
+    wins: 123,
+    losses: 4,
+    prem: 1234567
+  },
+  {
+    id: 2,
+    name: '[INSERT TEAM NAME]',
+    wins: 123,
+    losses: 4,
+    prem: 1234567
+  },
+  {
+    id: 3,
+    name: '[INSERT TEAM NAME]',
+    wins: 123,
+    losses: 4,
+    prem: 1234567
+  }
+]
 
 export default function Teams() {
   const [isOpen, setOpen] = useState(false)
+  const [deleteId, setDeleteId] = useState(0)
+  const [teams, setTeams] = useState(dummyTeams)
 
-  const teammates = [
-    {
-      user: 'devonhenry_'
-    },
-    {
-      user: 'devonhenry_'
-    },
-    {
-      user: 'devonhenry_'
-    }
-  ]
-
-  const teams = [
-    {
-      name: '[INSERT TEAM NAME]',
-      wins: 123,
-      losses: 4,
-      prem: 1234567
-    },
-    {
-      name: '[INSERT TEAM NAME]',
-      wins: 123,
-      losses: 4,
-      prem: 1234567
-    },
-    {
-      name: '[INSERT TEAM NAME]',
-      wins: 123,
-      losses: 4,
-      prem: 1234567
-    }
-  ]
+  function deleteTeamHandler() {
+    setTeams(
+      teams.filter((ele) => {
+        return ele.id != deleteId
+      })
+    )
+  }
 
   return (
     <TeamsContainer>
-      <DeleteTeamModal isOpen={isOpen} setOpen={setOpen} />
+      <DeleteTeamModal
+        deleteTeamHandler={deleteTeamHandler}
+        isOpen={isOpen}
+        setOpen={setOpen}
+      />
       {teams?.length &&
         teams.map((team, key) => (
           <Box key={key}>
             <Spacer>
               <TeammatesRow>
                 {teammates?.length &&
-                  teammates.map((teammate) => (
-                    <div style={{ marginRight: 27 }} key={key}>
+                  teammates.map((teammate, index) => (
+                    <div style={{ marginRight: 27 }} key={index}>
                       <Image
                         src={`/${teammate.user}.svg`}
                         width={89.74}
@@ -196,7 +212,9 @@ export default function Teams() {
                 </Xbox>
               </IconsRow>
             </Spacer>
-            <TeamName>{team.name}</TeamName>
+            <TeamName>
+              {team.name}: {team.id}
+            </TeamName>
             <TeamInfo>
               <TeamWins>
                 <GreyText>team wins</GreyText>
@@ -222,7 +240,12 @@ export default function Teams() {
                 </a>
               </Link>
               <ArrowButtonContainer>
-                <Button onClick={() => setOpen(true)}>
+                <Button
+                  onClick={() => {
+                    setOpen(true)
+                    setDeleteId(team.id)
+                  }}
+                >
                   <ArrowButton text={'Delete Team'} />
                 </Button>
               </ArrowButtonContainer>

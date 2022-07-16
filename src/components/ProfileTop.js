@@ -1,16 +1,20 @@
-import { useContext, useEffect, useRef } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
+import { useFriends, useStats, useInviteFriend, useUser } from 'hooks'
 import styled from 'styled-components'
-import { Column, Container, Row } from 'components/common'
+
+//Next
 import Image from 'next/image'
-import { useState } from 'react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+
+//Components
+import { Column, Container, Row } from 'components/common'
 import Friends from 'components/Friends'
 import Home from 'components/ProfileHome'
 import History from 'components/History'
-import Link from 'next/link'
 import AuthenticationContext from 'contexts/authentication'
-import { useFriends, useStats, useInviteFriend, useUser } from 'hooks'
 import { AddMember } from 'components/TeamEdit'
-import { useRouter } from 'next/router'
+import Teams from 'components/Teams'
 
 const ProfilePanel = styled(Row)``
 
@@ -186,6 +190,12 @@ export default function ProfileTop() {
             event history
           </Button>
           <Button
+            style={{ borderBottom: `${selected == 'Teams' ? 1 : 0}px solid` }}
+            onClick={() => setSelected('Teams')}
+          >
+            Teams
+          </Button>
+          <Button
             style={{ borderBottom: `${selected == 'Friends' ? 1 : 0}px solid` }}
             onClick={() => setSelected('Friends')}
           >
@@ -199,6 +209,7 @@ export default function ProfileTop() {
         </ButtonWrapper>
       </Wrapper>
       {selected == 'Friends' && <Friends friends={friends} />}
+      {selected == 'Teams' && <Teams />}
       {selected == 'Home' && <Home friends={friends} />}
     </Column>
   )
