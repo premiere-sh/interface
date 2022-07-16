@@ -7,7 +7,7 @@ export const Entry = styled.div`
 `
 
 export const Input = styled.input`
-  min-width: 360px;
+  width: 560px;
   height: 60px;
   background: #ffffff;
   border: 1px solid #eaeaea;
@@ -20,6 +20,9 @@ export const Input = styled.input`
   line-height: 140.62%;
   color: ${(props) => props.theme.colors.black};
   padding-left: 25px;
+  @media screen and (max-width: 900px) {
+    width: 360px;
+  }
 `
 
 export const SmallInput = styled(Input)`
