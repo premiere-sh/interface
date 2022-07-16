@@ -12,6 +12,7 @@ import AvatarEditor from 'react-avatar-editor'
 import { Button as AvatarButton } from 'components/Buttons'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import Teams from 'components/Teams'
 
 const ProfilePanel = styled(Row)`
   width: 100%;
@@ -34,6 +35,9 @@ const Name = styled.div`
 `
 
 const Wrapper = styled(Container)`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   border-bottom: 1px solid #e3e3e3;
   margin-bottom: 79px;
 `
@@ -81,6 +85,8 @@ const Numbers = styled.div`
 `
 
 const ButtonWrapper = styled(Row)`
+  display: flex;
+  flex: 1;
   justify-content: space-between;
   margin-top: 79px;
   width: 100%;
@@ -424,6 +430,12 @@ export default function ProfileTop() {
             event history
           </Button>
           <Button
+            style={{ borderBottom: `${selected == 'Teams' ? 1 : 0}px solid` }}
+            onClick={() => setSelected('Teams')}
+          >
+            Teams
+          </Button>
+          <Button
             style={{ borderBottom: `${selected == 'Friends' ? 1 : 0}px solid` }}
             onClick={() => setSelected('Friends')}
           >
@@ -439,6 +451,7 @@ export default function ProfileTop() {
       {selected == 'Friends' && (
         <Friends friends={friends} invites={invites} avatars={avatars} />
       )}
+      {selected == 'Teams' && <Teams />}
       {selected == 'Home' && <Home />}
     </Column>
   )
