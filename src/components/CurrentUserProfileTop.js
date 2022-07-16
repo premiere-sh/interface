@@ -9,10 +9,10 @@ import AuthenticationContext from 'contexts/authentication'
 import { useFriends, useStats } from 'hooks'
 import { useFriendInvites } from 'hooks'
 import AvatarEditor from 'react-avatar-editor'
-import { Button as EditImageButton } from 'components/Buttons'
-import { Box, Slider } from '@material-ui/core'
+import { Button as AvatarButton } from 'components/Buttons'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import ZoomSlider from './ZoomSlider'
 
 const ProfilePanel = styled(Row)`
   width: 100%;
@@ -121,6 +121,7 @@ const Avatar = styled.img`
   display: block;
   border-radius: 50%;
   z-index: 10;
+  border: 3px solid #982649;
 `
 
 const AvatarContainer = styled.div`
@@ -138,17 +139,68 @@ const EditAvatarRow = styled(Row)`
 const EditAvatarColumn = styled(motion.div)`
   display: flex;
   flex-direction: column;
-  height: 220px;
+  height: 160px;
   justify-content: space-around;
   width: 180px;
   z-index: 1;
+  width: 200px;
+  margin-left: 20px;
 `
 
-const EditAvatarButtons = styled(Row)`
+const EditAvatarButtons = styled(Column)``
+
+const SliderText = styled.div`
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 40px;
+  letter-spacing: 0.07em;
+  border-bottom: 0px solid;
+  border-image-source: linear-gradient(
+    266.89deg,
+    #982649 -18.13%,
+    #f71735 120.14%
+  );
+  border-image-slice: 1;
+  text-transform: uppercase;
+`
+
+const EditImageButton = styled(AvatarButton)`
+  width: 95px;
+  height: 30px;
+`
+
+const SliderEntry = styled(Column)``
+
+const ImageInputContainer = styled.label`
+  width: 196px;
+  height: 40px;
+  border-radius: 5px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 40px;
+  letter-spacing: 0.1em;
+  color: ${(props) => props.theme.colors.white};
+  background: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border: 1px ${(props) => props.theme.colors.ruby} solid;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  text-align: center;
+`
+
+const ImageInput = styled.input`
+  display: none;
+`
+
+const ButtonsRow = styled(Row)`
+  width: 200px;
   justify-content: space-between;
+  margin-bottom: 10px;
 `
-
-const SliderText = styled.div``
 
 export default function ProfileTop() {
   const [selected, setSelected] = useState('Home')
@@ -158,18 +210,17 @@ export default function ProfileTop() {
   const { invites, avatars } = useFriendInvites(user?.id, token)
   var editor = ''
   const [tempAvatar, setTempAvatar] = useState(userAvatar)
-  const [zoom, setZoom] = useState(1)
   const [picture, setPicture] = useState({
     cropperOpen: false,
-    img: tempAvatar,
+    img: null,
     zoom: 1,
-    croppedImg: ''
+    croppedImg: null
   })
 
-  const handleSlider = (event, value) => {
+  const handleSlider = (e) => {
     setPicture({
       ...picture,
-      zoom: value
+      zoom: e.target.value
     })
   }
 
@@ -189,9 +240,9 @@ export default function ProfileTop() {
       const canvasScaled = editor.getImageScaledToCanvas()
       const croppedImg = canvasScaled.toDataURL()
 
+      setTempAvatar(picture.img)
       setPicture({
         ...picture,
-        img: null,
         cropperOpen: false,
         croppedImg: croppedImg
       })
@@ -199,21 +250,22 @@ export default function ProfileTop() {
   }
 
   const handleFileChange = (e) => {
-    let url = URL.createObjectURL(e.target.files[0])
-    setTempAvatar(url)
-    console.log(url)
-    setPicture({
-      ...picture,
-      img: url
-    })
+    if (e.target.files.length !== 0) {
+      const url = URL.createObjectURL(e.target.files[0])
+      setTempAvatar(url)
+      setPicture({
+        ...picture,
+        img: url
+      })
+    }
   }
 
   const handleEditMode = () => {
-    setZoom(picture.zoom)
     setPicture({
       ...picture,
       cropperOpen: !picture.cropperOpen,
-      img: tempAvatar
+      img: tempAvatar ? tempAvatar : userAvatar,
+      zoom: picture.zoom
     })
   }
 
@@ -224,7 +276,11 @@ export default function ProfileTop() {
           <ProfileData>
             {userAvatar && user && !picture.cropperOpen ? (
               <AvatarContainer>
-                <Avatar src={picture.croppedImg} />
+                <Avatar
+                  src={picture?.croppedImg ? picture?.croppedImg : userAvatar}
+                  width={220}
+                  height={220}
+                />
               </AvatarContainer>
             ) : (
               <EditAvatarRow display="block">
@@ -233,39 +289,14 @@ export default function ProfileTop() {
                   image={picture.img}
                   width={220}
                   height={220}
-                  border={0}
+                  border={3}
                   borderRadius={150}
-                  color={[243, 243, 244, 0.9]} // RGBA
+                  color={[243, 243, 244, 1]} // RGBA
                   rotate={0}
                   scale={picture.zoom}
                 />
               </EditAvatarRow>
             )}
-            <EditAvatarColumn
-              initial={false}
-              animate={{ marginLeft: !picture.cropperOpen ? -200 : 30 }}
-              transition={{
-                ease: 'easeOut',
-                duration: 0.25
-              }}
-            >
-              <SliderText>Drag and resize</SliderText>
-              <Slider
-                aria-label="raceSlider"
-                value={picture.zoom}
-                min={1}
-                max={5}
-                step={0.1}
-                onChange={handleSlider}
-              ></Slider>
-              <EditAvatarButtons>
-                <EditImageButton variant="contained" onClick={handleCancel}>
-                  Cancel
-                </EditImageButton>
-                <EditImageButton onClick={handleSave}>Save</EditImageButton>
-              </EditAvatarButtons>
-              <input type="file" accept="image/*" onChange={handleFileChange} />
-            </EditAvatarColumn>
             <ProfileInfo>
               <Name>{user?.username || user?.email}</Name>
               <ProfileStats>
@@ -304,6 +335,35 @@ export default function ProfileTop() {
             </EditProfileButton>
           </ProfileButtons>
         </ProfilePanel>
+        <EditAvatarColumn
+          initial={false}
+          animate={{ marginTop: !picture.cropperOpen ? -200 : 30 }}
+          transition={{
+            ease: 'easeOut',
+            duration: 0.25
+          }}
+        >
+          <SliderEntry>
+            <SliderText>Drag and resize</SliderText>
+            <ZoomSlider handleSlider={handleSlider} />
+          </SliderEntry>
+          <EditAvatarButtons>
+            <ButtonsRow>
+              <EditImageButton variant="contained" onClick={handleCancel}>
+                Cancel
+              </EditImageButton>
+              <EditImageButton onClick={handleSave}>Save</EditImageButton>
+            </ButtonsRow>
+            <ImageInputContainer>
+              <ImageInput
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+              />{' '}
+              Choose picture
+            </ImageInputContainer>
+          </EditAvatarButtons>
+        </EditAvatarColumn>
         <ButtonWrapper>
           <ButtonHome
             style={{ borderBottom: `${selected == 'Home' ? 1 : 0}px solid` }}
