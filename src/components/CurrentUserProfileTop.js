@@ -9,6 +9,7 @@ import AuthenticationContext from 'contexts/authentication'
 import { useFriends, useStats } from 'hooks'
 import { useFriendInvites } from 'hooks'
 import Teams from 'components/Teams'
+import EventHistory from 'components/ProfileHistory'
 
 const ProfilePanel = styled(Row)``
 
@@ -187,6 +188,7 @@ export default function ProfileTop() {
       )}
       {selected == 'Teams' && <Teams />}
       {selected == 'Home' && <Home />}
+      {selected == 'History' && <EventHistory />} 
     </Column>
   )
 }
