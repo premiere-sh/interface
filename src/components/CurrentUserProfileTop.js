@@ -12,11 +12,10 @@ import Teams from 'components/Teams'
 
 const ProfilePanel = styled(Row)``
 
-const SpaceBetween = styled(Row)`
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-`
+const SpaceBetween = styled(Row)``
+// display: flex;
+// flex: 1;
+// justify-content: space-between;
 
 const Name = styled.div`
   font-size: 36px;
@@ -80,6 +79,7 @@ const ButtonWrapper = styled(Row)`
   flex: 1;
   justify-content: space-between;
   margin-top: 79px;
+  width: 100%;
 `
 
 const Button = styled.div`
