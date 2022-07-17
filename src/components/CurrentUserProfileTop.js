@@ -13,7 +13,6 @@ import { Button as AvatarButton } from 'components/Buttons'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import Teams from 'components/Teams'
-import DragDropFile from './DragDrop'
 
 const ProfilePanel = styled(Row)`
   width: 100%;
@@ -246,13 +245,6 @@ const Slider = styled.input`
     ); border-box;
   }
 `
-
-const DragWrapper = styled.div`
-  border: 10px solid black;
-`
-
-const fileTypes = ['JPEG', 'PNG', 'JPG']
-
 export default function ProfileTop() {
   const [selected, setSelected] = useState('Home')
   const { user, userAvatar, token } = useContext(AuthenticationContext)
@@ -336,9 +328,6 @@ export default function ProfileTop() {
               </AvatarContainer>
             ) : (
               <EditAvatarRow display="block">
-                <DragWrapper>
-                  <DragDropFile />
-                </DragWrapper>
                 <AvatarEditor
                   ref={setEditorRef}
                   image={picture.img}
