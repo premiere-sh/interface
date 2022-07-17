@@ -10,6 +10,7 @@ import { useFriends, useStats } from 'hooks'
 import { useFriendInvites } from 'hooks'
 import Teams from 'components/Teams'
 import EventHistory from 'components/ProfileHistory'
+import { ShareButton } from 'components/Buttons'
 
 const ProfilePanel = styled(Row)``
 
@@ -49,6 +50,11 @@ const ProfileInfo = styled(Column)`
 `
 
 const ProfileStats = styled(Row)``
+
+const ProfileButtons = styled(Row)`
+  display: flex;
+  flex-direction: column;
+  `
 
 const GreyTextColumn = styled(Column)`
   margin-right: 42px;
@@ -150,6 +156,9 @@ export default function ProfileTop() {
               </ProfileStats>
             </ProfileInfo>
           </ProfilePanel>
+          <ProfileButtons>
+            <ShareButton/>
+          </ProfileButtons>
         </SpaceBetween>
         <ButtonWrapper>
           <ButtonHome
