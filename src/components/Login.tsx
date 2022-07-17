@@ -6,6 +6,8 @@ import { useForm } from 'react-hook-form'
 import AuthenticationContext from 'contexts/authentication'
 import { Dots } from 'react-activity'
 import SocialsSignup from 'components/SocialsSignup'
+import { GradientText } from 'components/common'
+import Link from 'next/link'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -19,6 +21,26 @@ const SubmitEntry = styled(Entry)`
 const ErrorMessage = styled.p`
   margin-top: 8px;
   color: ${(props) => props.theme.colors.red};
+`
+const SingUpNoAccount = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+`
+const ContextForgotPassword = styled.div`
+  text-align: center;
+  text-decoration-line: underline;
+  color: #8d8d8d;
+  display: flex;
+  justify-content: flex-end;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 140.62%;
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export default function Login() {
@@ -60,6 +82,9 @@ export default function Login() {
           </ErrorMessage>
         )}
       </Entry>
+      <Link href={'#'}>
+        <ContextForgotPassword>Forgot your password?</ContextForgotPassword>
+      </Link>
       <SubmitEntry>
         {loading ? (
           <LoginButton text={<Dots />} disabled />
@@ -68,6 +93,14 @@ export default function Login() {
         )}
       </SubmitEntry>
       <SocialsSignup />
+      <SingUpNoAccount>
+        New to Premiere?
+        <GradientText style={{ display: 'inline', marginLeft: 5 }}>
+          <Link href={'/signup'}>
+            <a> Sign up here</a>
+          </Link>
+        </GradientText>
+      </SingUpNoAccount>
     </FormContainer>
   )
 }
