@@ -134,7 +134,7 @@ export default function ProfileTop() {
     AuthenticationContext
   )
   const friends = useFriends(user)
-  const stats = useStats(user)
+  const stats = useStats(currentUser || user)
   const inviteFriend = useInviteFriend()
 
   return (

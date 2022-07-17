@@ -121,6 +121,41 @@ const DeleteTeam = styled(GradientText)`
   margin-right: 17px;
   text-transform: uppercase;
 `
+const teammates = [
+  {
+    user: 'devonhenry_'
+  },
+  {
+    user: 'devonhenry_'
+  },
+  {
+    user: 'devonhenry_'
+  }
+]
+
+const dummyTeams = [
+  {
+    id: 1,
+    name: '[INSERT TEAM NAME]',
+    wins: 123,
+    losses: 4,
+    prem: 1234567
+  },
+  {
+    id: 2,
+    name: '[INSERT TEAM NAME]',
+    wins: 123,
+    losses: 4,
+    prem: 1234567
+  },
+  {
+    id: 3,
+    name: '[INSERT TEAM NAME]',
+    wins: 123,
+    losses: 4,
+    prem: 1234567
+  }
+]
 
 export default function Teams() {
   const [isOpen, setOpen] = useState(false)
@@ -138,6 +173,7 @@ export default function Teams() {
         isOpen={isOpen}
         setOpen={setOpen}
       />
+
       {teamCtx.teams?.length &&
         teamCtx.teams.map((team, key) => (
           <Box key={key}>
