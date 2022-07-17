@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import styled from 'styled-components'
 import { Column, Container, Row, GradientText, Circle } from 'components/common'
 import Image from 'next/image'
 import { ArrowButton } from 'components/Buttons'
 import DeleteTeamModal from 'components/DeleteTeamModal'
 import Link from 'next/link'
+import TeamContext from '../contexts/teamsContext'
 
 const Button = styled.div``
 
@@ -120,53 +121,14 @@ const DeleteTeam = styled(GradientText)`
   margin-right: 17px;
   text-transform: uppercase;
 `
-const teammates = [
-  {
-    user: 'devonhenry_'
-  },
-  {
-    user: 'devonhenry_'
-  },
-  {
-    user: 'devonhenry_'
-  }
-]
-
-const dummyTeams = [
-  {
-    id: 1,
-    name: '[INSERT TEAM NAME]',
-    wins: 123,
-    losses: 4,
-    prem: 1234567
-  },
-  {
-    id: 2,
-    name: '[INSERT TEAM NAME]',
-    wins: 123,
-    losses: 4,
-    prem: 1234567
-  },
-  {
-    id: 3,
-    name: '[INSERT TEAM NAME]',
-    wins: 123,
-    losses: 4,
-    prem: 1234567
-  }
-]
 
 export default function Teams() {
   const [isOpen, setOpen] = useState(false)
   const [deleteId, setDeleteId] = useState(0)
-  const [teams, setTeams] = useState(dummyTeams)
+  const teamCtx = useContext(TeamContext)
 
   function deleteTeamHandler() {
-    setTeams(
-      teams.filter((ele) => {
-        return ele.id != deleteId
-      })
-    )
+    teamCtx.deleteTeam(deleteId)
   }
 
   return (
@@ -176,13 +138,13 @@ export default function Teams() {
         isOpen={isOpen}
         setOpen={setOpen}
       />
-      {teams?.length &&
-        teams.map((team, key) => (
+      {teamCtx.teams?.length &&
+        teamCtx.teams.map((team, key) => (
           <Box key={key}>
             <Spacer>
               <TeammatesRow>
-                {teammates?.length &&
-                  teammates.map((teammate, index) => (
+                {team.teammates?.length &&
+                  team.teammates.map((teammate, index) => (
                     <div style={{ marginRight: 27 }} key={index}>
                       <Image
                         src={`/${teammate.user}.svg`}
@@ -230,7 +192,12 @@ export default function Teams() {
               </TeamPrem>
             </TeamInfo>
             <GradientTextRow>
-              <Link href={'edit-team'}>
+              <Link
+                href={{
+                  pathname: 'edit-team',
+                  query: { id: team.id }
+                }}
+              >
                 <a>
                   <ArrowButtonContainer>
                     <Button>

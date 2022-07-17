@@ -2,6 +2,10 @@ import styled from 'styled-components'
 import { Row, Column } from './common'
 import { Heading, Input } from './Forms'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { useEffect, useContext, useState } from 'react'
+import TeamContext from '../contexts/teamsContext'
+import { Button } from 'components/Buttons'
 
 const EditColumn = styled(Column)`
   width: 541px;
@@ -69,7 +73,9 @@ const SubHeading = styled.div`
   font-weight: 600;
 `
 
-const Members = styled(Row)``
+const Members = styled(Row)`
+  margin-bottom: 31px;
+`
 
 const MembersRow = styled(Row)`
   margin-right: 3px;
@@ -135,30 +141,108 @@ const RemoveMember = styled.div`
     background: #982649;
   }
 `
+const MyButton = styled(Button)`
+  height: 36px;
+`
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+const SearchInput = styled(InputName)`
+  margin-bottom: 1rem;
+  border: none;
+  width: 100%;
+`
+const SearchWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+`
+const SearchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+const SearchElement = styled.div`
+  display: flex;
+  margin-bottom: 0.5rem;
+  margin-left: 27px;
+  margin-right: 27px;
+  &:hover {
+    background: lightgray;
+    cursor: pointer;
+  }
+`
+
+function List(props) {
+  const teamCtx = useContext(TeamContext)
+
+  //create a new array by filtering the original array
+  const filteredData = teamCtx.allTeammates.filter((el) => {
+    //if no input the return the original
+    if (props.input === '') {
+      return el
+    }
+    //return the item which contains the user input
+    else {
+      return el.user.toLowerCase().includes(props.input)
+    }
+  })
+  return (
+    <SearchContainer>
+      {filteredData.map((item, index) => (
+        <SearchElement
+          onClick={() => {
+            props.onClickHandler(item)
+          }}
+          key={index}
+        >
+          {item.user}: {item.id}
+        </SearchElement>
+      ))}
+      <SearchElement onClick={props.onClose}>Cancel</SearchElement>
+    </SearchContainer>
+  )
+}
 
 export default function _TeamEdit() {
-  const teammates = [
-    {
-      user: 'devonhenry_'
-    },
-    {
-      user: 'devonhenry_'
-    },
-    {
-      user: 'devonhenry_'
-    }
-  ]
+  const [isOpen, setIsOpen] = useState(false)
+  const [teammates, setTeammates] = useState([])
+  const [inputText, setInputText] = useState('')
+  const router = useRouter()
+  const dataId = Number(router.query.id)
+  const teamCtx = useContext(TeamContext)
 
+  useEffect(() => {
+    if (dataId) {
+      const findTeam = teamCtx.teamsUpdated.findIndex(
+        (team) => team.id == dataId
+      )
+      setTeammates(teamCtx.teamsUpdated[findTeam].teammates)
+    } else {
+      setTeammates([])
+    }
+  }, [teamCtx.teamsUpdated])
   return (
     <EditColumn>
       <EditYourTeam>edit your team</EditYourTeam>
       <Wrapper>
         <SubHeading>Team Name</SubHeading>
-        <InputName placeholder={'Enter your team name'} />
+        <InputName
+          onChange={(event) => {
+            teamCtx.onChangeName(dataId, event.target.value)
+          }}
+          placeholder={'Enter your team name'}
+        />
       </Wrapper>
       <Wrapper>
         <SubHeading>Team Description</SubHeading>
-        <InputDescription placeholder={'Enter your team description'} />
+        <InputDescription
+          onChange={(event) => {
+            teamCtx.onChangeDis(dataId, event.target.value)
+          }}
+          placeholder={'Enter your team description'}
+        />
       </Wrapper>
       <Wrapper>
         <SubHeading>Team Members</SubHeading>
@@ -172,12 +256,59 @@ export default function _TeamEdit() {
                   height={90}
                   alt={'teammate-image'}
                 />
-                <RemoveMember />
+                <RemoveMember
+                  onClick={() => {
+                    teamCtx.removeMember(dataId, teammate.id)
+                  }}
+                />
               </MembersRow>
             ))}
-          <AddMember />
+          <AddMember
+            onClick={() => {
+              setIsOpen(true)
+            }}
+          />
         </Members>
+        {isOpen && (
+          <SearchWrapper>
+            <SearchInput
+              onChange={(event) => {
+                var lowerCase = event.target.value.toLowerCase()
+                setInputText(lowerCase)
+              }}
+              placeholder={'Search'}
+            />
+            <List
+              onClickHandler={(memberTeammate) => {
+                teamCtx.addMember(dataId, memberTeammate)
+                setIsOpen(false)
+              }}
+              onClose={() => {
+                setIsOpen(false)
+              }}
+              input={inputText}
+            />
+          </SearchWrapper>
+        )}
       </Wrapper>
+      <ButtonWrapper>
+        <MyButton
+          onClick={() => {
+            teamCtx.discardChanges()
+            router.push('profile')
+          }}
+        >
+          Discard Changes
+        </MyButton>
+        <MyButton
+          onClick={() => {
+            teamCtx.saveChanges()
+            router.push('profile')
+          }}
+        >
+          Save Changes
+        </MyButton>
+      </ButtonWrapper>
     </EditColumn>
   )
 }
