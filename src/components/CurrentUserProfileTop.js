@@ -20,6 +20,7 @@ const ProfilePanel = styled(Row)`
   height: 220px;
 `
 
+
 const ProfileData = styled(Row)``
 
 const ProfileButtons = styled(Column)`
