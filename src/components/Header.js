@@ -17,7 +17,7 @@ const Header = styled(Row)`
   padding-right: 30px;
   width: min(80%, 1400px);
   margin: auto;
-  margin-bottom: ${(props) => (props.home ? '80px' : '150px')};
+  margin-bottom: ${(props) => (props.home ? '80px' : '60px')};
 `
 
 const LogoBit = styled(Row)`
