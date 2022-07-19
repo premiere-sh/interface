@@ -13,6 +13,8 @@ import { Button as AvatarButton } from 'components/Buttons'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import Teams from 'components/Teams'
+import EventHistory from 'components/ProfileHistory'
+import { ShareButton } from 'components/Buttons'
 
 const ProfilePanel = styled(Row)`
   width: 100%;
@@ -20,14 +22,13 @@ const ProfilePanel = styled(Row)`
   height: 220px;
 `
 
-
 const ProfileData = styled(Row)``
-
+/*
 const ProfileButtons = styled(Column)`
   height: 220px;
   justify-content: space-between;
 `
-
+*/
 const Name = styled.div`
   font-size: 36px;
   line-height: 36px;
@@ -58,6 +59,11 @@ const ProfileInfo = styled(Column)`
 `
 
 const ProfileStats = styled(Row)``
+
+const ProfileButtons = styled(Row)`
+  display: flex;
+  flex-direction: column;
+  `
 
 const GreyTextColumn = styled(Column)`
   margin-right: 42px;
@@ -136,6 +142,8 @@ const AvatarContainer = styled.div`
 `
 
 const EditProfileButton = styled.div``
+
+const ShareProfileButton = styled.div``
 
 const EditAvatarRow = styled(Row)`
   z-index: 12;
@@ -379,6 +387,9 @@ export default function ProfileTop() {
                 alt={'placeholder'}
               />
             </EditProfileButton>
+            <ShareProfileButton>
+              <ShareButton/>
+            </ShareProfileButton>
           </ProfileButtons>
         </ProfilePanel>
         <EditAvatarColumn
@@ -454,6 +465,7 @@ export default function ProfileTop() {
       )}
       {selected == 'Teams' && <Teams />}
       {selected == 'Home' && <Home />}
+      {selected == 'History' && <EventHistory />} 
     </Column>
   )
 }

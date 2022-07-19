@@ -16,6 +16,11 @@ const SocialsSignupContainer = styled.div`
   justify-content: space-around;
   flex-direction: row;
   height: 120px;
+  width: 600px;
+  margin:auto;
+  @media screen and (max-width: 900px) {
+    width: 360px;
+  }
 `
 
 const ButtonContainer = styled.div`
@@ -27,6 +32,7 @@ const ButtonContainer = styled.div`
   background-color: #fff;
   border-radius: 10%;
   cursor: pointer;
+  margin:5px;
 `
 
 export default function SocialsSignup() {
