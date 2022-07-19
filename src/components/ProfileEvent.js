@@ -200,8 +200,8 @@ export default function ProfileEvent({ event }) {
           </PlayerStats>
           <HeaderRow>
             <UsersRow>
-              {event.users.map((user)=>{
-                return(<User>
+              {event.users.map((user, index)=>{
+                return(<User key = {index}>
                   <div style={{ marginRight: 12, marginTop: 5 }}>
                     <Image
                       src={'/' + user.profile + '.svg'}

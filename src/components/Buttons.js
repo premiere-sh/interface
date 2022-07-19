@@ -101,50 +101,48 @@ export function ShareButton(){
   const SocialsRow = styled(_Row)`
   width: 306px;
   justify-content: space-between;
-  padding: 20px;
-  border-radius:25px;
 
+  border-radius:25px;
+  background-color: rgb(243, 243, 244);
   display: ${selected == false ? 'none' :  'flex'};
   position: absolute;
-  top: -65px;
+  top: -35px;
+  margin-right:20px;
 `
  const ShareContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
   position: relative;
-  margin-right:20px;
+  
 `
-
-
- 
 
   return(
     <ShareContainer>
-    <SocialsRow>
-      <a href='https://discord.com' target='_blank'>
-        <Image src={'/dc.svg'} width={34} height={34} alt={'social'} />
-      </a>
-      <a href='https://www.instagram.com' target='_blank'>
-        <Image src={'/ig.svg'} width={34} height={34} alt={'social'} />
-      </a>  
-      <a href='https://twitter.com/intent/tweet?via=premiere_sh&text=Some%20tweet%20text%20here' target='_blank'>
-        <Image src={'/twitter.svg'} width={34} height={34} alt={'social'} />
-      </a>
-      <a href='https://telegram.org' target='_blank'>
-        <Image src={'/tg.svg'} width={34} height={34} alt={'social'} />
-      </a>  
-      <a href='https://www.youtube.com' target='_blank'>
-        <Image src={'/yt.svg'} width={34} height={34} alt={'social'} />
-      </a>  
-    </SocialsRow> 
+      <SocialsRow>
+        <a href='https://discord.com'>
+          <Image src={'/dc.svg'} width={32} height={32} alt={'social'} />
+        </a>
+        <a href='https://www.instagram.com'>
+          <Image src={'/ig.svg'} width={34} height={34} alt={'social'} />
+        </a>  
+        <a href='https://twitter.com/intent/tweet?via=premiere_sh&text=Some%20tweet%20text%20here'>
+          <Image src={'/twitter.svg'} width={34} height={34} alt={'social'} />
+        </a>
+        <a href='https://telegram.org'>
+          <Image src={'/tg.svg'} width={34} height={34} alt={'social'} />
+        </a>  
+        <a href='https://www.youtube.com'>
+          <Image src={'/yt.svg'} width={34} height={34} alt={'social'} />
+        </a>  
+      </SocialsRow> 
     
       <a onClick={() => setSelected(!selected)}>
         <Image
           src={'/share.svg'}
-          width={34}
-          height={34}
-          alt={'arrow-right'}
+          width={30}
+          height={30}
+          alt={'share-button'}
         />
       </a> 
     </ShareContainer> )

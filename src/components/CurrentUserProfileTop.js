@@ -8,18 +8,28 @@ import Link from 'next/link'
 import AuthenticationContext from 'contexts/authentication'
 import { useFriends, useStats } from 'hooks'
 import { useFriendInvites } from 'hooks'
+import AvatarEditor from 'react-avatar-editor'
+import { Button as AvatarButton } from 'components/Buttons'
+import Image from 'next/image'
+import { motion } from 'framer-motion'
 import Teams from 'components/Teams'
 import EventHistory from 'components/ProfileHistory'
 import { ShareButton } from 'components/Buttons'
 
-const ProfilePanel = styled(Row)``
-
-const SpaceBetween = styled(Row)`
-  display: flex;
-  flex: 1;
+const ProfilePanel = styled(Row)`
+  width: 100%;
   justify-content: space-between;
+  height: 220px;
 `
 
+
+const ProfileData = styled(Row)``
+/*
+const ProfileButtons = styled(Column)`
+  height: 220px;
+  justify-content: space-between;
+`
+*/
 const Name = styled.div`
   font-size: 36px;
   line-height: 36px;
@@ -87,6 +97,7 @@ const ButtonWrapper = styled(Row)`
   flex: 1;
   justify-content: space-between;
   margin-top: 79px;
+  width: 100%;
 `
 
 const Button = styled.div`
@@ -120,9 +131,129 @@ const ButtonEvents = styled(Button)`
 `
 
 const Avatar = styled.img`
+  display: block;
+  border-radius: 50%;
+  z-index: 10;
+  border: 3px solid #982649;
+`
+
+const AvatarContainer = styled.div`
+  z-index: 11;
+  background: rgb(243, 243, 244);
+`
+
+const EditProfileButton = styled.div``
+
+const ShareProfileButton = styled.div``
+
+const EditAvatarRow = styled(Row)`
+  z-index: 12;
+  background: rgb(243, 243, 244);
+`
+
+const EditAvatarColumn = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  height: 160px;
+  justify-content: space-around;
+  width: 180px;
+  z-index: 1;
   width: 200px;
-  height: 200px;
-  border-radius: 200px;
+  margin-left: 20px;
+`
+
+const EditAvatarButtons = styled(Column)``
+
+const SliderText = styled.div`
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 40px;
+  letter-spacing: 0.07em;
+  border-bottom: 0px solid;
+  border-image-source: linear-gradient(
+    266.89deg,
+    #982649 -18.13%,
+    #f71735 120.14%
+  );
+  border-image-slice: 1;
+  text-transform: uppercase;
+`
+
+const CancelImageButton = styled(AvatarButton)`
+  width: 95px;
+  height: 30px;
+  background: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border: 1px ${(props) => props.theme.colors.ruby} solid;
+`
+
+const SaveImageButton = styled(AvatarButton)`
+  width: 95px;
+  height: 30px;
+`
+
+const SliderEntry = styled(Column)``
+
+const ImageInputContainer = styled.label`
+  width: 196px;
+  height: 40px;
+  border-radius: 5px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 40px;
+  letter-spacing: 0.1em;
+  background: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border: 1px ${(props) => props.theme.colors.ruby} solid;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  text-align: center;
+`
+
+const ImageInput = styled.input`
+  display: none;
+`
+
+const ButtonsRow = styled(Row)`
+  width: 200px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+`
+
+const Slider = styled.input`
+  -webkit-appearance: none;
+  &::-webkit-slider-runnable-track {
+    background-image: linear-gradient(
+      266.89deg,
+      #982649 -18.13%,
+      #f71735 120.14%
+    );
+    border-radius: 5px;
+    height: 10px;
+  }
+
+  &::-webkit-slider-thumb {
+    position: relative;
+    appearance: none;
+    height: 25px;
+    width: 25px;
+    background: white;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 5px solid #0000;
+    border-radius: 50%;
+    background: linear-gradient(white, white) padding-box,
+    linear-gradient(
+      266.89deg,
+      #982649 -18.13%,
+      #f71735 120.14%
+    ); border-box;
+  }
 `
 
 export default function ProfileTop() {
@@ -131,13 +262,96 @@ export default function ProfileTop() {
   const friends = useFriends(user)
   const stats = useStats(user)
   const { invites, avatars } = useFriendInvites(user?.id, token)
+  var editor = ''
+  const [tempAvatar, setTempAvatar] = useState(userAvatar)
+  const [picture, setPicture] = useState({
+    cropperOpen: false,
+    img: null,
+    zoom: 1,
+    croppedImg: null
+  })
+
+  const handleSlider = (e) => {
+    setPicture({
+      ...picture,
+      zoom: e.target.value
+    })
+  }
+
+  const handleCancel = () => {
+    setPicture({
+      ...picture,
+      cropperOpen: false
+    })
+  }
+
+  const setEditorRef = (ed) => {
+    editor = ed
+  }
+
+  const handleSave = (e) => {
+    if (setEditorRef) {
+      const canvasScaled = editor.getImageScaledToCanvas()
+      const croppedImg = canvasScaled.toDataURL()
+
+      setTempAvatar(picture.img)
+      setPicture({
+        ...picture,
+        cropperOpen: false,
+        croppedImg: croppedImg
+      })
+    }
+  }
+
+  const handleFileChange = (e) => {
+    if (e.target.files.length !== 0) {
+      const url = URL.createObjectURL(e.target.files[0])
+      setTempAvatar(url)
+      setPicture({
+        ...picture,
+        img: url,
+        zoom: 1
+      })
+    }
+  }
+
+  const handleEditMode = () => {
+    setPicture({
+      ...picture,
+      cropperOpen: !picture.cropperOpen,
+      img: tempAvatar ? tempAvatar : userAvatar,
+      zoom: 1
+    })
+  }
 
   return (
     <Column>
       <Wrapper>
-        <SpaceBetween>
-          <ProfilePanel>
-            {userAvatar && user && <Avatar src={userAvatar} />}
+        <ProfilePanel>
+          <ProfileData>
+            {userAvatar && user && !picture.cropperOpen ? (
+              <AvatarContainer>
+                <Avatar
+                  src={picture?.croppedImg ? picture?.croppedImg : userAvatar}
+                  width={220}
+                  height={220}
+                />
+              </AvatarContainer>
+            ) : (
+              <EditAvatarRow display="block">
+                <AvatarEditor
+                  ref={setEditorRef}
+                  image={picture.img}
+                  width={220}
+                  height={220}
+                  border={3}
+                  borderRadius={150}
+                  color={[243, 243, 244, 1]} // RGBA
+                  rotate={0}
+                  scale={picture.zoom}
+                />
+              </EditAvatarRow>
+            )}
             <ProfileInfo>
               <Name>{user?.username || user?.email}</Name>
               <ProfileStats>
@@ -155,11 +369,66 @@ export default function ProfileTop() {
                 </GreyTextColumn>
               </ProfileStats>
             </ProfileInfo>
-          </ProfilePanel>
+          </ProfileData>
           <ProfileButtons>
-            <ShareButton/>
+            <EditProfileButton>
+              <Image
+                src={'/edit_profile.svg'}
+                width={32}
+                height={32}
+                alt={'edit'}
+                onClick={handleEditMode}
+              />
+            </EditProfileButton>
+            <EditProfileButton>
+              <Image
+                src={'/edit_profile.svg'}
+                width={32}
+                height={32}
+                alt={'placeholder'}
+              />
+            </EditProfileButton>
+            <ShareProfileButton>
+              <ShareButton/>
+            </ShareProfileButton>
           </ProfileButtons>
-        </SpaceBetween>
+        </ProfilePanel>
+        <EditAvatarColumn
+          initial={false}
+          animate={{ marginTop: !picture.cropperOpen ? -200 : 30 }}
+          transition={{
+            ease: 'easeOut',
+            duration: 0.25
+          }}
+        >
+          <SliderEntry>
+            <SliderText>Drag and resize</SliderText>
+            <Slider
+              type={'range'}
+              onChange={handleSlider}
+              value={picture.zoom}
+              min={1}
+              max={5}
+              step={0.1}
+            />
+          </SliderEntry>
+          <EditAvatarButtons>
+            <ButtonsRow>
+              <CancelImageButton variant="contained" onClick={handleCancel}>
+                Cancel
+              </CancelImageButton>
+              <SaveImageButton onClick={handleSave}>Save</SaveImageButton>
+            </ButtonsRow>
+            <ImageInputContainer>
+              <ImageInput
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+              />{' '}
+              Choose picture
+            </ImageInputContainer>
+          </EditAvatarButtons>
+        </EditAvatarColumn>
         <ButtonWrapper>
           <ButtonHome
             style={{ borderBottom: `${selected == 'Home' ? 1 : 0}px solid` }}
