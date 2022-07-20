@@ -17,7 +17,7 @@ export default function Home({ games, tournaments }) {
       <Header home={true} />
       <Container>
         <HomeHeading />
-        {/*<WelcomeToPremiere />*/}
+        <WelcomeToPremiere />
       </Container>
       <FeaturedGames games={games} />
       <FeaturedTournaments tournaments={tournaments} />
