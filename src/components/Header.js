@@ -184,7 +184,10 @@ export default function _Header({ home }) {
   
     return(
       <SearchContainer>
-        <a onClick={() => setShowSearchBar(!showSearchBar)}>
+        <a onClick={() => {
+          setShowSearchBar(!showSearchBar)
+          setNavigatorOpen(false)
+        }}>
       <Image
             src={'/search-icon.svg'}
             width={30}
