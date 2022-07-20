@@ -213,7 +213,10 @@ export default function _Header({ home }) {
       <LogoBit>
         <LinksDropdown
           ref={dropdownRef}
-          onClick={() => setNavigatorOpen(!navigatorOpen)}
+          onClick={() => {
+            setNavigatorOpen(!navigatorOpen)
+            setShowSearchBar(false)
+          }}
         >
           <Image
             src={navigatorOpen ? '/navigator_open.svg' : '/navigator.svg'}
