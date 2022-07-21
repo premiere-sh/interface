@@ -265,10 +265,11 @@ export default function _Header({ home }) {
           </a>
         </Link>
       </LinksBit>
-      <SearchButton/>
+    
       <SignupBit>
         {!user ? (
           <>
+            <SearchButton/>
             <AvatarPlaceholder />
             <Link href={'/login'}>
               <a>
@@ -278,6 +279,7 @@ export default function _Header({ home }) {
           </>
         ) : (
           <>
+            <SearchButton/>
             <div
               onClick={() => Router.push(`/profile`)}
               style={{ cursor: 'pointer', marginTop: 5 }}
