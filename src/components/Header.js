@@ -9,6 +9,12 @@ import { Button } from 'components/Buttons'
 import LogoHeader from 'components/LogoHeader'
 import AuthenticationContext from 'contexts/authentication'
 import Router from 'next/router'
+import SearchBar from 'components/SearchBar'
+
+
+const HeaderContainer = styled.div`
+margin-bottom: ${(props) => (props.home ? '80px' : '60px')};
+`
 
 const Header = styled(Row)`
   justify-content: space-between;
@@ -17,7 +23,6 @@ const Header = styled(Row)`
   padding-right: 30px;
   width: min(80%, 1400px);
   margin: auto;
-  margin-bottom: ${(props) => (props.home ? '80px' : '60px')};
 `
 
 const LogoBit = styled(Row)`
@@ -53,12 +58,6 @@ const SignupBit = styled(Row)`
     margin-left: 0;
     justify-content: center;
     max-width: 140px;
-  }
-`
-
-const SearchButtonContainer = styled.div`
-  @media screen and (max-width: 650px) {
-    display: none;
   }
 `
 
@@ -168,7 +167,40 @@ export default function _Header({ home }) {
     }
   }, [])
 
+  const [showSearchBar, setShowSearchBar] = useState(false)
+
+  function SearchButton (){
+   
+    const SearchContainer = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    margin-left: auto;
+    @media screen and (max-width: 650px) {
+      display: none;
+    }
+    `
+  
+    return(
+      <SearchContainer>
+        <a onClick={() => {
+          setShowSearchBar(!showSearchBar)
+          setNavigatorOpen(false)
+        }}>
+      <Image
+            src={'/search-icon.svg'}
+            width={30}
+            height={30}
+            alt={'search'}
+          />
+         </a> 
+      </SearchContainer>
+    )
+  }
+
   return (
+    <HeaderContainer>
     <Header home={home}>
       <Head>
         <title>Premiere</title>
@@ -181,7 +213,10 @@ export default function _Header({ home }) {
       <LogoBit>
         <LinksDropdown
           ref={dropdownRef}
-          onClick={() => setNavigatorOpen(!navigatorOpen)}
+          onClick={() => {
+            setNavigatorOpen(!navigatorOpen)
+            setShowSearchBar(false)
+          }}
         >
           <Image
             src={navigatorOpen ? '/navigator_open.svg' : '/navigator.svg'}
@@ -230,9 +265,11 @@ export default function _Header({ home }) {
           </a>
         </Link>
       </LinksBit>
+    
       <SignupBit>
         {!user ? (
           <>
+            <SearchButton/>
             <AvatarPlaceholder />
             <Link href={'/login'}>
               <a>
@@ -242,6 +279,7 @@ export default function _Header({ home }) {
           </>
         ) : (
           <>
+            <SearchButton/>
             <div
               onClick={() => Router.push(`/profile`)}
               style={{ cursor: 'pointer', marginTop: 5 }}
@@ -253,5 +291,7 @@ export default function _Header({ home }) {
         )}
       </SignupBit>
     </Header>
+    {showSearchBar ? ( <SearchBar/>): null}
+    </HeaderContainer>
   )
 }
