@@ -23,12 +23,7 @@ const ProfilePanel = styled(Row)`
 `
 
 const ProfileData = styled(Row)``
-/*
-const ProfileButtons = styled(Column)`
-  height: 220px;
-  justify-content: space-between;
-`
-*/
+
 const Name = styled.div`
   font-size: 36px;
   line-height: 36px;
@@ -63,7 +58,9 @@ const ProfileStats = styled(Row)``
 const ProfileButtons = styled(Row)`
   display: flex;
   flex-direction: column;
-  `
+  justify-content: space-between;
+  height: 220px;
+`
 
 const GreyTextColumn = styled(Column)`
   margin-right: 42px;
@@ -379,16 +376,8 @@ export default function ProfileTop() {
                 onClick={handleEditMode}
               />
             </EditProfileButton>
-            <EditProfileButton>
-              <Image
-                src={'/edit_profile.svg'}
-                width={32}
-                height={32}
-                alt={'placeholder'}
-              />
-            </EditProfileButton>
             <ShareProfileButton>
-              <ShareButton/>
+              <ShareButton />
             </ShareProfileButton>
           </ProfileButtons>
         </ProfilePanel>
@@ -465,7 +454,7 @@ export default function ProfileTop() {
       )}
       {selected == 'Teams' && <Teams />}
       {selected == 'Home' && <Home />}
-      {selected == 'History' && <EventHistory />} 
+      {selected == 'History' && <EventHistory />}
     </Column>
   )
 }
