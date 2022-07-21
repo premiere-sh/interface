@@ -114,7 +114,6 @@ export function ShareButton(){
   align-items: center;
   flex-direction: column;
   position: relative;
-  
 `
 
   return(
@@ -163,3 +162,4 @@ export function ArrowButton({ text }) {
     </ArrowButtonContainer>
   )
 }
+
