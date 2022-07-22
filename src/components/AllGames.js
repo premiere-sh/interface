@@ -44,7 +44,7 @@ export default function AllGames({ games }) {
           }}
         >
           <Subheading>ALL GAMES</Subheading>
-          <CustomMenuSelect attribute="platform" option={'PLATFORM'} />
+          <CustomMenuSelect attribute="platform" option={'platform'} />
         </GameRow>
         <Hits />
       </InstantSearch>

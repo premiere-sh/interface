@@ -66,20 +66,25 @@ const DropdownOption = styled.button`
 
 export default function Menu({ items, currentRefinement, refine, option }) {
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [selectedLb, setSelectedLb] = useState()
 
   const handleOptionSelect = (e) => {
+    if (option == 'leaderboard') setSelectedLb(e.currentTarget.name)
     setDropdownOpen(false)
     refine(e.currentTarget.value)
   }
+
   return (
     <DropdownContainer>
       <DropdownButton onClick={() => setDropdownOpen(!dropdownOpen)}>
         <Text>
-          {currentRefinement
-            ? `FILTER BY: ${currentRefinement.toUpperCase()}`
-            : option == 'leaderboard'
+          {option == 'leaderboard' && selectedLb == null
             ? 'OTHER LEADERBOARDS'
-            : `FILTER BY ${option}`}
+            : option == 'leaderboard' && selectedLb
+            ? `FILTER BY: ${selectedLb?.toUpperCase()}`
+            : option != 'leaderboards' && currentRefinement == null
+            ? `FILTER BY ${option.toUpperCase()}`
+            : `FILTER BY: ${currentRefinement?.toUpperCase()}`}
         </Text>
         <div style={{ marginBottom: -4, marginLeft: 22 }}>
           <Image
@@ -92,13 +97,16 @@ export default function Menu({ items, currentRefinement, refine, option }) {
       </DropdownButton>
       {dropdownOpen && (
         <Dropdown>
-          <DropdownOption onClick={handleOptionSelect} value={null}>
-            <Option>ALL {option}S</Option>
-          </DropdownOption>
+          {option != 'leaderboard' && (
+            <DropdownOption onClick={handleOptionSelect} value={null}>
+              <Option>ALL {option}S</Option>
+            </DropdownOption>
+          )}
           {items.map((item, idx) => (
             <DropdownOption
               key={idx}
               value={item.isRefined ? currentRefinement : item.value}
+              name={item.label}
               onClick={handleOptionSelect}
             >
               {option == 'PLATFORM' && (
