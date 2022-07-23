@@ -81,8 +81,8 @@ const TableBody = styled.tbody``
 const TableHead = styled.thead``
 
 const searchClient = algoliasearch(
-  'J5N2XCPQQS',
-  '7df279cadf91c7303c472b9fb66065c4'
+  process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
 )
 
 const CustomSortBy = connectSortBy(Menu)

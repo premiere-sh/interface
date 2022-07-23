@@ -6,7 +6,12 @@ module.exports = {
   typescript: {
     ignoreBuildErrors: true
   },
-  webpack5: true
+  webpack5: true.valueOf,
+  env: {
+    NEXT_PUBLIC_ALGOLIA_APP_ID: process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+    NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY:
+      process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
+  }
 }
 
 module.exports = withPWA({

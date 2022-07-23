@@ -15,8 +15,8 @@ const GameRow = styled(Row)`
 `
 
 const searchClient = algoliasearch(
-  'J5N2XCPQQS',
-  'cd04218c2b5aa38fd04e04f1e56b625a'
+  process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
 )
 
 const Hits = connectHits(({ hits }) => {
@@ -34,7 +34,7 @@ const Hits = connectHits(({ hits }) => {
 
 const CustomMenuSelect = connectMenu(Menu)
 
-export default function AllGames({ games }) {
+export default function AllGames() {
   return (
     <Container>
       <InstantSearch searchClient={searchClient} indexName="games">

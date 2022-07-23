@@ -21,8 +21,8 @@ const SubheadingRow = styled(Row)`
 `
 
 const searchClient = algoliasearch(
-  'J5N2XCPQQS',
-  '1a824074d4ffa54fc925aaa3ad9a9527'
+  process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
 )
 
 const CustomMenuSelect = connectMenu(Menu)
