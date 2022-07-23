@@ -66,26 +66,32 @@ const DropdownOption = styled.button`
 
 export default function Menu({ items, currentRefinement, refine, option }) {
   const [dropdownOpen, setDropdownOpen] = useState(false)
-  const [selectedLb, setSelectedLb] = useState()
+  const [selectedLeaderboard, setSelectedLeaderboard] = useState()
 
   const handleOptionSelect = (e) => {
-    if (option == 'leaderboard') setSelectedLb(e.currentTarget.name)
+    if (option == 'leaderboard') setSelectedLeaderboard(e.currentTarget.name)
     setDropdownOpen(false)
     refine(e.currentTarget.value)
+  }
+
+  const switchText = (option) => {
+    switch (option) {
+      case 'leaderboard':
+        return !selectedLeaderboard
+          ? 'OTHER LEADERBOARDS'
+          : `FILTER BY: ${selectedLeaderboard?.toUpperCase()}`
+      case 'platform':
+      case 'game':
+        return !currentRefinement
+          ? `FILTER BY ${option.toUpperCase()}`
+          : `FILTER BY: ${currentRefinement?.toUpperCase()}`
+    }
   }
 
   return (
     <DropdownContainer>
       <DropdownButton onClick={() => setDropdownOpen(!dropdownOpen)}>
-        <Text>
-          {option == 'leaderboard' && selectedLb == null
-            ? 'OTHER LEADERBOARDS'
-            : option == 'leaderboard' && selectedLb
-            ? `FILTER BY: ${selectedLb?.toUpperCase()}`
-            : option != 'leaderboards' && currentRefinement == null
-            ? `FILTER BY ${option.toUpperCase()}`
-            : `FILTER BY: ${currentRefinement?.toUpperCase()}`}
-        </Text>
+        <Text>{switchText(option)}</Text>
         <div style={{ marginBottom: -4, marginLeft: 22 }}>
           <Image
             src={'/dropdown.svg'}
