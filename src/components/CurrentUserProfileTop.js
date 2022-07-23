@@ -442,11 +442,6 @@ export default function ProfileTop() {
           >
             friends
           </Button>
-          <Link href={'/events'}>
-            <a style={{ color: 'inherit' }}>
-              <ButtonEvents>upcoming events</ButtonEvents>
-            </a>
-          </Link>
         </ButtonWrapper>
       </Wrapper>
       {selected == 'Friends' && (

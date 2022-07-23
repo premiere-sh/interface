@@ -13,6 +13,26 @@ import styled from 'styled-components'
 const Row = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: ${(props) => (props.roundBorders ? '10px' : '0')};
+`
+
+const StartingSoon = styled.div`
+  position: absolute;
+  display: none;
+  bottom: -17px;
+  left: 10px;
+  padding: 3px 15px;
+  background: linear-gradient(266.89deg, #982649 -18.13%, #F71735 120.14%);
+  border-radius: 5px;
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+  color: #FFFFFF;
 `
 
 const TournamentContainer = styled(Container)`
@@ -22,11 +42,13 @@ const TournamentContainer = styled(Container)`
   width: 453px;
   cursor: pointer;
   border: 1px solid transparent;
+  border-radius: ${(props) => (props.roundBorders ? '15px' : '0')};
   &:hover {
-    border: 1px solid ${(props) => props.theme.colors.ruby};
+    border: 4px solid ${(props) => props.theme.colors.ruby};
   }
-  border-radius: ${(props) => (props.roundBorders ? '10px' : '0')};
-  overflow: hidden;
+  &:hover ${StartingSoon} {
+    display: block;
+  }
 `
 
 const SubText = styled.div`
@@ -85,7 +107,7 @@ const ImageContainer = styled.div`
 export default function FeaturedTournament({ tournament, roundBorders }) {
   return (
     <TournamentContainer roundBorders={roundBorders}>
-      <Row style={{ width: '100%', height: '100%' }}>
+      <Row roundBorders={roundBorders}>
         <ImageContainer>
           <Image
             src={`/${tournament.game}.svg`}
@@ -109,6 +131,9 @@ export default function FeaturedTournament({ tournament, roundBorders }) {
             </InfoText>
           </div>
         </InfoColumn>
+        <StartingSoon>
+          <span>Starting Soon</span>
+        </StartingSoon>
       </Row>
     </TournamentContainer>
   )
