@@ -11,7 +11,7 @@ import {
   connectHits,
   connectMenu
 } from 'react-instantsearch-dom'
-import algoliasearch from 'algoliasearch'
+import { searchClient } from 'algolia/index'
 
 const SubheadingRow = styled(Row)`
   margin-bottom: 80px;
@@ -19,11 +19,6 @@ const SubheadingRow = styled(Row)`
     flex-direction: column;
   }
 `
-
-const searchClient = algoliasearch(
-  process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
-  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
-)
 
 const CustomMenuSelect = connectMenu(Menu)
 

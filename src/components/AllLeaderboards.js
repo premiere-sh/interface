@@ -13,9 +13,9 @@ import {
   connectHits,
   connectSortBy
 } from 'react-instantsearch-dom'
-import algoliasearch from 'algoliasearch'
 import Menu from 'components/Filter'
 import Image from 'next/image'
+import { searchClient } from 'algolia/index'
 
 const SubheadingRow = styled(Row)`
   justify-content: space-between;
@@ -79,11 +79,6 @@ const Points = styled.th``
 const TableBody = styled.tbody``
 
 const TableHead = styled.thead``
-
-const searchClient = algoliasearch(
-  process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
-  process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
-)
 
 const CustomSortBy = connectSortBy(Menu)
 
