@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styled from 'styled-components'
 import Image from 'next/image'
-import { Row } from 'components/common'
+import { Row, Column } from 'components/common'
 import { DropdownText } from 'components/Dropdown'
 import { Button } from 'components/Buttons'
 import LogoHeader from 'components/LogoHeader'
@@ -98,6 +98,19 @@ const AvatarPlaceholder = styled.div`
 
 const LogoutButton = styled(LoginButton)``
 
+const OtherDropdownContainer = styled(Column)`
+  width: 200px;
+  height: 110px;
+  position: absolute;
+  z-index: 13;
+  background: #f9f9f9;
+  top: 70px;
+  margin-left: -150px;
+  align-items: flex-start;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px 0px #0000000d;
+`
+
 function Navigator({ isAuthenticated, currentUser }) {
   return (
     <NavigatorContainer>
@@ -157,6 +170,7 @@ export default function _Header({ home }) {
         !dropdownRef.current.contains(event.target)
       )
         setNavigatorOpen(false)
+      setShowOtherOpen(false)
     }
     document.addEventListener('mousedown', handleOutsideClick)
 
@@ -185,6 +199,7 @@ export default function _Header({ home }) {
           onClick={() => {
             setShowSearchBar(!showSearchBar)
             setNavigatorOpen(false)
+            setShowOtherOpen(false)
           }}
         >
           <Image
@@ -195,6 +210,53 @@ export default function _Header({ home }) {
           />
         </a>
       </SearchContainer>
+    )
+  }
+
+  const [showOtherOpen, setShowOtherOpen] = useState(false)
+
+  function OtherDropdown() {
+    return (
+      <div style={{ cursor: 'pointer' }}>
+        <a
+          onClick={() => {
+            setShowOtherOpen(!showOtherOpen)
+            setShowSearchBar(false)
+            setNavigatorOpen(false)
+          }}
+        >
+          <Row>
+            <a style={{ marginRight: 13 }}>
+              <DropdownText>OTHER</DropdownText>
+            </a>
+            <Image
+              src={'/dropdown.svg'}
+              width={16}
+              height={16}
+              alt={'dropdown'}
+            />
+          </Row>
+        </a>
+      </div>
+    )
+  }
+
+  function OtherOpen() {
+    return (
+      <OtherDropdownContainer>
+        <LinksContainer>
+          <Link href={'/support'}>
+            <a>
+              <DropdownText>SUPPORT</DropdownText>
+            </a>
+          </Link>
+          <Link href={'/events'}>
+            <a>
+              <DropdownText>EVENTS</DropdownText>
+            </a>
+          </Link>
+        </LinksContainer>
+      </OtherDropdownContainer>
     )
   }
 
@@ -253,20 +315,9 @@ export default function _Header({ home }) {
               <DropdownText>LEADERBOARDS</DropdownText>
             </a>
           </Link>
-          <Row>
-            <Link href={'/events'}>
-              <a style={{ marginRight: 13 }}>
-                <DropdownText>OTHER</DropdownText>
-              </a>
-            </Link>
-            <Image
-              src={'/dropdown.svg'}
-              width={16}
-              height={16}
-              alt={'dropdown'}
-            />
-          </Row>
+          <OtherDropdown />
         </LinksBit>
+        <Column>{showOtherOpen && <OtherOpen />}</Column>
         <SignupBit>
           {!user ? (
             <>
