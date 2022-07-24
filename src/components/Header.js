@@ -170,7 +170,6 @@ export default function _Header({ home }) {
         !dropdownRef.current.contains(event.target)
       )
         setNavigatorOpen(false)
-      setShowOtherOpen(false)
     }
     document.addEventListener('mousedown', handleOutsideClick)
 
