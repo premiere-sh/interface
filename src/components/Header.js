@@ -238,45 +238,21 @@ export default function _Header({ home }) {
           />
         )}
         <LinksBit>
-          <Row>
-            <Link href={'/games'}>
-              <a style={{ marginRight: 13 }}>
-                <DropdownText>GAMES</DropdownText>
-              </a>
-            </Link>
-            <Image
-              src={'/dropdown.svg'}
-              width={16}
-              height={16}
-              alt={'dropdown'}
-            />
-          </Row>
-          <Row>
-            <Link href={'/tournaments'}>
-              <a style={{ marginRight: 13 }}>
-                <DropdownText>TOURNAMENTS</DropdownText>
-              </a>
-            </Link>
-            <Image
-              src={'/dropdown.svg'}
-              width={16}
-              height={16}
-              alt={'dropdown'}
-            />
-          </Row>
-          <Row>
-            <Link href={'/leaderboards'}>
-              <a style={{ marginRight: 13 }}>
-                <DropdownText>LEADERBOARDS</DropdownText>
-              </a>
-            </Link>
-            <Image
-              src={'/dropdown.svg'}
-              width={16}
-              height={16}
-              alt={'dropdown'}
-            />
-          </Row>
+          <Link href={'/games'}>
+            <a>
+              <DropdownText>GAMES</DropdownText>
+            </a>
+          </Link>
+          <Link href={'/tournaments'}>
+            <a>
+              <DropdownText>TOURNAMENTS</DropdownText>
+            </a>
+          </Link>
+          <Link href={'/leaderboards'}>
+            <a>
+              <DropdownText>LEADERBOARDS</DropdownText>
+            </a>
+          </Link>
           <Row>
             <Link href={'/events'}>
               <a style={{ marginRight: 13 }}>
@@ -291,7 +267,6 @@ export default function _Header({ home }) {
             />
           </Row>
         </LinksBit>
-
         <SignupBit>
           {!user ? (
             <>
