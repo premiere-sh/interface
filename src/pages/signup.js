@@ -7,7 +7,7 @@ import { Column } from 'components/common'
 export default function SignupPage() {
   return (
     <Column>
-      <Header />
+      <Header games={games} />
       <Signup />
       <div style={{ marginTop: 120, marginBottom: 150 }}>
         <SocialsSection />

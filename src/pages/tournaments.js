@@ -24,7 +24,7 @@ export default function Tournaments({ tournaments }) {
   }, [])
   return (
     <Column>
-      <Header />
+      <Header games={games} />
       <Container>
         <SubheadingRow style={{ justifyContent: 'space-between' }}>
           <Subheading>TOURNAMENTS</Subheading>

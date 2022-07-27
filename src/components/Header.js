@@ -3,13 +3,14 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styled from 'styled-components'
 import Image from 'next/image'
-import { Row, Column } from 'components/common'
+import { Row, Column, Container } from 'components/common'
 import { DropdownText } from 'components/Dropdown'
 import { Button } from 'components/Buttons'
 import LogoHeader from 'components/LogoHeader'
 import AuthenticationContext from 'contexts/authentication'
 import Router from 'next/router'
 import SearchBar from 'components/SearchBar'
+import GameTile from 'components/GameTile'
 
 const HeaderContainer = styled.div`
   margin-bottom: ${(props) => (props.home ? '80px' : '60px')};
@@ -111,6 +112,27 @@ const OtherDropdownContainer = styled(Column)`
   box-shadow: 0px 4px 8px 0px #0000000d;
 `
 
+const GamesDropdownBox = styled(Container)`
+  top: 70px;
+  display: flex;
+  background: #f9f9f9;
+  z-index: 13;
+  flex-direction: row;
+  position: absolute;
+  border-radius: 5px;
+  justify-content: space-between;
+`
+const CenterGamesDropdown = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+const ArrowContainer = styled(Link)`
+  display: flex;
+  justify-content: center;
+  flex-align: column;
+`
+
 function Navigator({ isAuthenticated, currentUser }) {
   return (
     <NavigatorContainer>
@@ -156,7 +178,7 @@ function Navigator({ isAuthenticated, currentUser }) {
   )
 }
 
-export default function _Header({ home }) {
+export default function _Header({ home, games }) {
   const [navigatorOpen, setNavigatorOpen] = useState(false)
   const ref = useRef()
   const dropdownRef = useRef()
@@ -199,6 +221,7 @@ export default function _Header({ home }) {
             setShowSearchBar(!showSearchBar)
             setNavigatorOpen(false)
             setShowOtherOpen(false)
+            setShowGamesOpen(false)
           }}
         >
           <Image
@@ -222,6 +245,7 @@ export default function _Header({ home }) {
             setShowOtherOpen(!showOtherOpen)
             setShowSearchBar(false)
             setNavigatorOpen(false)
+            setShowGamesOpen(false)
           }}
         >
           <Row>
@@ -256,6 +280,64 @@ export default function _Header({ home }) {
           </Link>
         </LinksContainer>
       </OtherDropdownContainer>
+    )
+  }
+
+  const [showGamesOpen, setShowGamesOpen] = useState(false)
+
+  function GamesDropdown() {
+    return (
+      <div style={{ cursor: 'pointer' }}>
+        <a
+          onClick={() => {
+            setShowGamesOpen(!showGamesOpen)
+            setShowOtherOpen(false)
+            setShowSearchBar(false)
+            setNavigatorOpen(false)
+          }}
+        >
+          <Row>
+            <a style={{ marginRight: 13 }}>
+              <DropdownText>Games</DropdownText>
+            </a>
+            <Image
+              src={'/dropdown.svg'}
+              width={16}
+              height={16}
+              alt={'dropdown'}
+            />
+          </Row>
+        </a>
+      </div>
+    )
+  }
+
+  function GamesOpen({ games }) {
+    return (
+      <>
+        <GamesDropdownBox>
+          {games &&
+            games.map(
+              (game, key) =>
+                key < 4 && (
+                  <div
+                    key={key}
+                    style={{ width: 210, height: 300, margin: 20 }}
+                  >
+                    <GameTile game={game.name} caption={game.caption} />
+                  </div>
+                )
+            )}
+          <ArrowContainer href={'./games'}>
+            <Image
+              src={'/arrow_right.svg'}
+              width={50}
+              height={50}
+              alt={'dropdown'}
+            />
+          </ArrowContainer>
+        </GamesDropdownBox>
+      </>
     )
   }
 
@@ -299,11 +381,7 @@ export default function _Header({ home }) {
           />
         )}
         <LinksBit>
-          <Link href={'/games'}>
-            <a>
-              <DropdownText>GAMES</DropdownText>
-            </a>
-          </Link>
+          <GamesDropdown />
           <Link href={'/tournaments'}>
             <a>
               <DropdownText>TOURNAMENTS</DropdownText>
@@ -343,6 +421,9 @@ export default function _Header({ home }) {
         </SignupBit>
       </Header>
       {showSearchBar ? <SearchBar /> : null}
+      <CenterGamesDropdown>
+        {showGamesOpen && <GamesOpen games={games} />}
+      </CenterGamesDropdown>
     </HeaderContainer>
   )
 }

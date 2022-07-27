@@ -7,7 +7,7 @@ import { Column } from 'components/common'
 export default function CreateTournamentPage() {
   return (
     <Column>
-      <Header />
+      <Header games={games} />
       <CreateTournament />
       <div style={{ marginTop: 120, marginBottom: 150 }}>
         <SocialsSection />

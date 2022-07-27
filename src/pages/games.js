@@ -8,7 +8,7 @@ import { getGames } from 'calls'
 export default function Games({ games }) {
   return (
     <Column>
-      <Header />
+      <Header games={games} />
       {games.length && (
         <div style={{ marginBottom: 150 }}>
           <AllGames games={games} />

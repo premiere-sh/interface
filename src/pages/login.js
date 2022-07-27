@@ -7,7 +7,7 @@ import SocialsSection from 'components/SocialsSection'
 export default function LoginPage() {
   return (
     <Column>
-      <Header />
+      <Header games={games} />
       <Login />
       <div style={{ marginTop: 120, marginBottom: 150 }}>
         <SocialsSection />

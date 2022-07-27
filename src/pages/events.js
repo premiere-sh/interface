@@ -7,7 +7,7 @@ import { Container } from 'components/common'
 export default function Events() {
   return (
     <div>
-      <Header />
+      <Header games={games} />
       <Container>
         <UpcomingEvents />
       </Container>

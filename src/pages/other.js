@@ -5,7 +5,7 @@ import { Column } from 'components/common'
 export default function Home() {
   return (
     <Column>
-      <Header />
+      <Header games={games} />
       <Footer />
     </Column>
   )

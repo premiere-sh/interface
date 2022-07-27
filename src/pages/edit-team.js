@@ -6,7 +6,7 @@ import TeamEdit from 'components/TeamEdit'
 export default function Profile() {
   return (
     <div>
-      <Header />
+      <Header games={games} />
       <TeamEdit />
       <div style={{ marginBottom: 152, marginTop: 352 }}>
         <SocialsSection />

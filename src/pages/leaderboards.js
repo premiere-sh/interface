@@ -30,7 +30,7 @@ export default function Leaderboards() {
   const { user, avatar } = useUser(3)
   return (
     <Column>
-      <Header />
+      <Header games={games} />
       <Container>
         <SubheadingRow>
           <Subheading>LEADERBOARDS</Subheading>

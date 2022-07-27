@@ -14,7 +14,7 @@ export default function Home({ games, tournaments }) {
   const { user, avatar } = useUser(3)
   return (
     <Column>
-      <Header home={true} />
+      <Header home={true} games={games} />
       <Container>
         <HomeHeading />
         <WelcomeToPremiere />

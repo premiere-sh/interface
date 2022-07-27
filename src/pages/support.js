@@ -7,7 +7,7 @@ import SupportSection from 'components/SupportSection'
 export default function Support() {
   return (
     <Column>
-      <Header />
+      <Header games={games} />
       <Container>
         <SupportSection />
       </Container>

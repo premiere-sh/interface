@@ -7,7 +7,7 @@ import CurrentUserProfileTop from 'components/CurrentUserProfileTop'
 export default function Profile() {
   return (
     <div>
-      <Header />
+      <Header games={games} />
       <CurrentUserProfileTop />
       <div style={{ marginBottom: 152, marginTop: 152 }}>
         <SocialsSection />
