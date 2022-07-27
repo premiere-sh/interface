@@ -105,7 +105,7 @@ const OtherDropdownContainer = styled(Column)`
   position: absolute;
   z-index: 13;
   background: #f9f9f9;
-  top: 70px;
+  top: 75px;
   margin-left: -150px;
   align-items: flex-start;
   border-radius: 5px;
@@ -113,13 +113,14 @@ const OtherDropdownContainer = styled(Column)`
 `
 
 const GamesDropdownBox = styled(Container)`
-  top: 70px;
+  top: 75px;
   display: flex;
   background: #f9f9f9;
   z-index: 13;
   flex-direction: row;
   position: absolute;
   border-radius: 5px;
+  box-shadow: 0px 4px 8px 0px #0000000d;
   justify-content: space-between;
 `
 const CenterGamesDropdown = styled.div`
@@ -127,10 +128,13 @@ const CenterGamesDropdown = styled.div`
   justify-content: center;
 `
 
-const ArrowContainer = styled(Link)`
+const ArrowContainer = styled(Column)`
   display: flex;
   justify-content: center;
   flex-align: column;
+`
+const Filler = styled.div`
+  width: 1%;
 `
 
 function Navigator({ isAuthenticated, currentUser }) {
@@ -328,14 +332,20 @@ export default function _Header({ home, games }) {
                   </div>
                 )
             )}
-          <ArrowContainer href={'./games'}>
-            <Image
-              src={'/arrow_right.svg'}
-              width={50}
-              height={50}
-              alt={'dropdown'}
-            />
+          <ArrowContainer style={{ cursor: 'pointer' }}>
+            <Link href={'/games'} passHref>
+              <Image
+                src={'/arrow_right.svg'}
+                width={50}
+                height={50}
+                alt={'arrow_right'}
+              />
+            </Link>
+            <Link href={'/games'} passHref>
+              <div>View All</div>
+            </Link>
           </ArrowContainer>
+          <Filler />
         </GamesDropdownBox>
       </>
     )
