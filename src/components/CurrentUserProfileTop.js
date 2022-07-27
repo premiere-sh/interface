@@ -58,7 +58,7 @@ const ProfileStats = styled(Row)``
 const ProfileButtons = styled(Row)`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   height: 220px;
 `
 
@@ -73,6 +73,14 @@ const GreyText = styled.div`
   color: ${(props) => props.theme.colors.gray};
   letter-spacing: 0.1em;
   text-transform: uppercase;
+`
+
+const Joined = styled.div`
+  font-size: 20px;
+  line-height: 42px;
+  font-weight: 500;
+  margin-bottom:50px;
+  color: ${(props) => props.theme.colors.gray};
 `
 
 const ArrowColumn = styled(Column)`
@@ -101,7 +109,9 @@ const Button = styled.div`
   font-weight: 500;
   line-height: 40px;
   letter-spacing: 0.1em;
-  border-bottom: 0px solid;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
   border-image-source: linear-gradient(
     266.89deg,
     #982649 -18.13%,
@@ -350,6 +360,7 @@ export default function ProfileTop() {
             )}
             <ProfileInfo>
               <Name>{user?.username || user?.email}</Name>
+              <Joined>UK Member since 16 August 2001</Joined>
               <ProfileStats>
                 <GreyTextColumn>
                   <GreyText>rank</GreyText>
@@ -419,25 +430,25 @@ export default function ProfileTop() {
         </EditAvatarColumn>
         <ButtonWrapper>
           <ButtonHome
-            style={{ borderBottom: `${selected == 'Home' ? 1 : 0}px solid` }}
+            style={{ borderBottom: `${selected == 'Home' ? 4 : 0}px solid` }}
             onClick={() => setSelected('Home')}
           >
             home
           </ButtonHome>
           <Button
-            style={{ borderBottom: `${selected == 'History' ? 1 : 0}px solid` }}
+            style={{ borderBottom: `${selected == 'History' ? 4 : 0}px solid` }}
             onClick={() => setSelected('History')}
           >
             event history
           </Button>
           <Button
-            style={{ borderBottom: `${selected == 'Teams' ? 1 : 0}px solid` }}
+            style={{ borderBottom: `${selected == 'Teams' ? 4 : 0}px solid` }}
             onClick={() => setSelected('Teams')}
           >
             Teams
           </Button>
           <Button
-            style={{ borderBottom: `${selected == 'Friends' ? 1 : 0}px solid` }}
+            style={{ borderBottom: `${selected == 'Friends' ? 4 : 0}px solid` }}
             onClick={() => setSelected('Friends')}
           >
             friends
