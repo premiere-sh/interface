@@ -32,7 +32,6 @@ export const Subheading = styled.div`
   line-height: 150%;
   letter-spacing: 0.055em;
   color: ${(props) => props.theme.colors.black};
-  margin-bottom: 80px;
   text-transform: uppercase;
 `
 
