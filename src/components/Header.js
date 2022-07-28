@@ -12,7 +12,6 @@ import Router from 'next/router'
 import SearchBar from 'components/SearchBar'
 import GameTile from 'components/GameTile'
 import FeaturedTournament from './FeaturedTournament'
-import { SocialsDivider } from 'components/Socials'
 
 const HeaderContainer = styled.div`
   margin-bottom: ${(props) => (props.home ? '80px' : '60px')};
@@ -243,7 +242,7 @@ function Navigator({ isAuthenticated, currentUser }) {
   )
 }
 
-export default function _Header({ home, games, tournaments }) {
+export default function _Header({ home, tournaments, games }) {
   const [navigatorOpen, setNavigatorOpen] = useState(false)
   const ref = useRef()
   const dropdownRef = useRef()
@@ -390,7 +389,7 @@ export default function _Header({ home, games, tournaments }) {
           {games &&
             games.map(
               (game, key) =>
-                key < 4 && (
+                key < 5 && (
                   <div
                     key={key}
                     style={{ width: 210, height: 300, margin: 20 }}
@@ -448,38 +447,45 @@ export default function _Header({ home, games, tournaments }) {
     )
   }
 
-  function TournamentsOpen({ tournaments }) {
+  function TournamentsOpen({}) {
     return (
-      <TournamentsDropdownContainer>
-        {tournaments &&
-          tournaments.map(
-            (tournament, key) =>
-              key < 2 && (
-                <div
-                  key={key}
-                  style={{ width: 210, height: 300, marginBottom: 20 }}
-                >
-                  <FeaturedTournament
-                    tournament={tournament}
-                    roundBorders={true}
-                  />
-                </div>
-              )
-          )}
-        <ArrowContainer style={{ cursor: 'pointer' }}>
-          <Link href={'/tournaments'} passHref>
-            <Image
-              src={'/arrow_right.svg'}
-              width={50}
-              height={50}
-              alt={'arrow_right'}
-            />
-          </Link>
-          <Link href={'/tournaments'} passHref>
-            <BlackText>View All</BlackText>
-          </Link>
-        </ArrowContainer>
-      </TournamentsDropdownContainer>
+      <>
+        <TournamentsDropdownContainer>
+          {tournaments &&
+            tournaments.map(
+              (tournament, key) =>
+                key < 2 && (
+                  <div
+                    key={key}
+                    style={{
+                      width: 210,
+                      height: 300,
+                      margin: 20,
+                      marginBottom: -10
+                    }}
+                  >
+                    <FeaturedTournament
+                      tournament={tournament}
+                      roundBorders={true}
+                    />
+                  </div>
+                )
+            )}
+          <ArrowContainer style={{ cursor: 'pointer' }}>
+            <Link href={'/tournaments'} passHref>
+              <Image
+                src={'/arrow_right.svg'}
+                width={50}
+                height={50}
+                alt={'arrow_right'}
+              />
+            </Link>
+            <Link href={'/tournaments'} passHref>
+              <BlackText>View All</BlackText>
+            </Link>
+          </ArrowContainer>
+        </TournamentsDropdownContainer>
+      </>
     )
   }
 
