@@ -3,6 +3,7 @@ import { Column, Container, Row } from './common'
 import Image from 'next/image'
 import Tournament from './SmallTournament'
 import { ArrowButton } from 'components/Buttons'
+import Link from 'next/link'
 
 const HomeContainer = styled(Container)``
 
@@ -107,7 +108,7 @@ const Avatar = styled.img`
   border-radius: 90px;
 `
 
-export default function Home({ friends }) {
+export default function Home({ friends, handleTabSelect }) {
   const tournament = {
     game: 'csgo',
     region: 'USA + Europe',
@@ -140,7 +141,7 @@ export default function Home({ friends }) {
           <Numbers>$4,301</Numbers>
         </GreyTextColumn>
       </StatsRow>
-      <ArrowButtonContainer>
+      <ArrowButtonContainer onClick={()=>handleTabSelect('History')}>
         <ArrowButton text={'event history'} />
       </ArrowButtonContainer>
       <TopFriends>Top friends</TopFriends>
@@ -153,7 +154,7 @@ export default function Home({ friends }) {
             </FriendColumn>
           ))}
       </FriendsRow>
-      <ArrowButtonContainer>
+      <ArrowButtonContainer onClick={()=>handleTabSelect('Friends')}>
         <ArrowButton text={'view all friends'} />
       </ArrowButtonContainer>
       <TournamentsColumn>
@@ -167,9 +168,11 @@ export default function Home({ friends }) {
           ))}
         </TournamentsRow>
       </TournamentsColumn>
-      <ArrowButtonContainer>
-        <ArrowButton text={'view all events'} />
-      </ArrowButtonContainer>
+      <Link href={'/tournaments'}>
+        <ArrowButtonContainer>
+          <ArrowButton text={'view all events'} />
+        </ArrowButtonContainer>
+      </Link>
     </HomeContainer>
   )
 }
