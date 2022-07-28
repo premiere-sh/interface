@@ -56,6 +56,7 @@ export function useAuth() {
     if (auth) {
       signOut(auth)
       updateCurrentUser(auth, user)
+      router.push('/')
     }
   }
 

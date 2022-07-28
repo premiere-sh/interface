@@ -38,6 +38,7 @@ const ContextForgotPassword = styled.div`
   text-align: center;
   text-decoration-line: underline;
   color: #8d8d8d;
+  margin:auto;
   display: flex;
   justify-content: flex-end;
   font-family: 'Inter';
