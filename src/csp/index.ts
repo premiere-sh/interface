@@ -10,17 +10,16 @@ export const getCSPHeaders = (inlineScriptSource: BinaryType) => {
   // const scriptSource = `'self'${
   //   isProd ? '' : ` 'unsafe-eval'`
   // } 'sha256-${digest}'`
-
-  csp.push(`base-uri 'self'`)
-  csp.push(`form-action 'self'`)
+  // csp.push(`base-uri 'self'`)
+  // csp.push(`form-action 'self'`)
   // csp.push(`default-src 'self'`)
   // csp.push(`script-src ${scriptSource} 'unsafe-inline'`)
   // csp.push(`connect-src 'self' premiere.sh api.premiere.sh`)
-  csp.push(`style-src 'self' 'unsafe-inline'`)
-  csp.push(`img-src 'self' data: blob:`)
-  csp.push(`font-src 'self' data:`)
-  csp.push(`frame-src *`)
-  csp.push(`media-src *`)
+  // csp.push(`style-src 'self' 'unsafe-inline'`)
+  // csp.push(`img-src 'self' data: blob:`)
+  // csp.push(`font-src 'self' data:`)
+  // csp.push(`frame-src *`)
+  // csp.push(`media-src *`)
 
   return csp.join('; ')
 }

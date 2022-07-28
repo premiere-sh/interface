@@ -95,8 +95,10 @@ export default function Login() {
         )}
       </Entry>
       <ForgotPassword>
-        <Link href={'#'}>
-          <ContextForgotPassword>Forgot your password?</ContextForgotPassword>
+        <Link href={'/reset-password'}>
+          <a>
+            <ContextForgotPassword>Forgot your password?</ContextForgotPassword>
+          </a>
         </Link>
       </ForgotPassword>
       <SubmitEntry>
