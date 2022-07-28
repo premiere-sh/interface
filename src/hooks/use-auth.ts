@@ -114,9 +114,11 @@ export function useAuth() {
 
   const sendResetLink = async (email: string) => {
     try {
-      const result = await sendPasswordResetEmail(auth, email).then(() => {})
+      const result = await sendPasswordResetEmail(auth, email).then(() => {
+        toast.success('Link sent, check your email')
+      })
     } catch (error) {
-      console.log(error.message)
+      console.log(error)
     }
   }
 
@@ -125,14 +127,19 @@ export function useAuth() {
       const result = await verifyPasswordResetCode(auth, oobCode).then(
         (email) => {
           confirmPasswordReset(auth, oobCode, newPassword)
-            .then((resp) => {})
+            .then((resp) => {
+              router.push('/login')
+              toast.success('Passwor successfully reset')
+            })
             .catch((error) => {
-              console.log('second message', error.message)
+              console.log(error)
+              toast.error(`Error resetting password`)
             })
         }
       )
     } catch (error) {
-      console.log(error.message)
+      console.log(error)
+      toast.error(`Error resetting password`)
     }
   }
   return {

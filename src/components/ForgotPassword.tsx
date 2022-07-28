@@ -45,16 +45,7 @@ const EmailInput = styled(Input)`
   margin-right: 40px;
 `
 
-const LinkMessageContainer = styled(Row)`
-  margin: auto;
-  text-align: center;
-  width: 560px;
-`
-
-const LinkMessage = styled.div``
-
 export default function ForgotPassword() {
-  const [isLinkSent, setLinkSent] = useState(false)
   const { sendResetLink } = useAuth()
   const {
     register,
@@ -90,11 +81,6 @@ export default function ForgotPassword() {
             />
           </Row>
         </Entry>
-        {isLinkSent && (
-          <LinkMessageContainer>
-            <LinkMessage>Check your e-mail</LinkMessage>
-          </LinkMessageContainer>
-        )}
       </FormContainer>
     </div>
   )

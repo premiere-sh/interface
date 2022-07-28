@@ -12,8 +12,7 @@ export default function ResetPasswordPage() {
   return (
     <Column>
       <Header />
-      <ResetPassword resetData={oobCode} />
-      <div> {`reset data ${oobCode}`}</div>
+      <ResetPassword oobCode={oobCode} />
       <div style={{ marginTop: 120, marginBottom: 150 }}>
         <SocialsSection />
       </div>
