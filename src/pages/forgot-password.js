@@ -1,14 +1,14 @@
 import Header from 'components/Header'
 import Footer from 'components/Footer'
-import ResetPassword from 'components/ResetPassword'
+import ForgotPassword from 'components/ForgotPassword'
 import { Column } from 'components/common'
 import SocialsSection from 'components/SocialsSection'
 
-export default function ResetPasswordPage() {
+export default function ForgotPasswordPage() {
   return (
     <Column>
       <Header />
-      <ResetPassword />
+      <ForgotPassword />
       <div style={{ marginTop: 120, marginBottom: 150 }}>
         <SocialsSection />
       </div>

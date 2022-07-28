@@ -16,7 +16,6 @@ import {
   verifyPasswordResetCode
 } from 'firebase/auth'
 import firebase from 'firebase/app'
-import { useAuth } from 'hooks'
 
 const FormContainer = styled.form`
   display: flex;
@@ -62,7 +61,8 @@ const LinkMessageContainer = styled(Row)`
 
 const LinkMessage = styled.div``
 
-export default function ResetPassword() {
+export default function ForgotPassword() {
+  const [isLinkSent, setLinkSent] = useState(false)
   const {
     register,
     handleSubmit,
@@ -70,53 +70,49 @@ export default function ResetPassword() {
   } = useForm()
   const { loading } = useContext(AuthenticationContext)
   const auth = getAuth()
-  const { resetPassword } = useAuth()
 
-  const actionCodeSettings = {
-    url: 'http://localhost:3000/reset-password' // URL you want to be redirected to after email verification
+  const onSubmitMail = async (data: any) => {
+    await sendPasswordResetEmail(auth, data.email, {
+      url: 'http://localhost:3000/reset-password'
+    })
+      .then(() => {
+        setLinkSent(true)
+        console.log(auth)
+      })
+      .catch((error) => {
+        const errorCode = error.code
+        const errorMessage = error.message
+        // ..
+      })
   }
-
-  const onSubmitPassword = async (data: any) => {}
 
   return (
     <div>
       <Heading>Reset password</Heading>
       <Subtext>Reset password for your premiere account</Subtext>
-      <div>
-        <FormContainer onSubmit={handleSubmit(onSubmitPassword)}>
-          <Entry>
-            <Caption>password</Caption>
-            <Input
+      <FormContainer onSubmit={handleSubmit(onSubmitMail)}>
+        <Entry>
+          <Caption>email</Caption>
+          <Row>
+            <EmailInput
               required={true}
-              {...register('password', {
-                minLength: 8
-              })}
-              type={'password'}
-              placeholder={'Enter your password'}
+              {...register('email')}
+              type={'email'}
+              placeholder={'Enter your email'}
             />
-          </Entry>
-          <Entry>
-            <Caption>confirm password</Caption>
-            <Input
-              required={true}
-              {...register('confirm')}
-              type={'password'}
-              placeholder={'Enter your password'}
+            <SendEmailButton
+              text={'send link'}
+              disabled={false}
+              type={'submit'}
             />
-          </Entry>
-          <SubmitEntry>
-            {loading ? (
-              <ResetPasswordButton text={<Dots />} disabled />
-            ) : (
-              <ResetPasswordButton
-                type={'submit'}
-                text={'reset password'}
-                disabled={false}
-              />
-            )}
-          </SubmitEntry>
-        </FormContainer>
-      </div>
+          </Row>
+        </Entry>
+        {isLinkSent && (
+          <LinkMessageContainer>
+            <LinkMessage>Check your e-mail</LinkMessage>
+          </LinkMessageContainer>
+        )}
+      </FormContainer>
     </div>
   )
 }
