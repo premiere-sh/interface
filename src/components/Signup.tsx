@@ -231,7 +231,7 @@ export default function Signup() {
         
         <SocialsSignup/>
         <LoginIfGotAnAccount>
-            Already have a member?
+            Already a member?
             <GradientText style={{ display: 'inline', marginLeft: 5 }}>
               <Link href={'/login'}>
                 <a> Login here</a>
