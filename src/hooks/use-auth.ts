@@ -12,7 +12,9 @@ import {
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  confirmPasswordReset
+  sendPasswordResetEmail,
+  confirmPasswordReset,
+  verifyPasswordResetCode
 } from 'firebase/auth'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
@@ -110,18 +112,34 @@ export function useAuth() {
     setLoading(false)
   }
 
-  const resetPassword = async (oobCode: string, newPassword: string) => {
+  const sendResetLink = async (email: string) => {
     try {
-      confirmPasswordReset(auth, oobCode, newPassword)
+      const result = await sendPasswordResetEmail(auth, email).then(() => {})
     } catch (error) {
-      console.log(error)
+      console.log(error.message)
     }
   }
 
+  const resetPassword = async (oobCode: string, newPassword: string) => {
+    try {
+      const result = await verifyPasswordResetCode(auth, oobCode).then(
+        (email) => {
+          confirmPasswordReset(auth, oobCode, newPassword)
+            .then((resp) => {})
+            .catch((error) => {
+              console.log('second message', error.message)
+            })
+        }
+      )
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
   return {
     signIn,
     signUp,
     signInWithProvider,
+    sendResetLink,
     resetPassword,
     loading,
     setLoading,

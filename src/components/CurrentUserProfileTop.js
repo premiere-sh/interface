@@ -79,7 +79,7 @@ const Joined = styled.div`
   font-size: 20px;
   line-height: 42px;
   font-weight: 500;
-  margin-bottom:50px;
+  margin-bottom: 50px;
   color: ${(props) => props.theme.colors.gray};
 `
 

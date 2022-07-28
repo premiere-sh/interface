@@ -4,18 +4,10 @@ import { LoginButton } from 'components/Buttons'
 import { Heading, Caption, Subtext, Entry, Input } from 'components/Forms'
 import { useForm } from 'react-hook-form'
 import AuthenticationContext from 'contexts/authentication'
-import { Dots } from 'react-activity'
 import { useState } from 'react'
-import { GradientText, Container, Center } from 'components/common'
-import Link from 'next/link'
 import { Row } from 'react-bootstrap'
-import {
-  getAuth,
-  sendPasswordResetEmail,
-  updatePassword,
-  verifyPasswordResetCode
-} from 'firebase/auth'
-import firebase from 'firebase/app'
+import { getAuth } from 'firebase/auth'
+import { useAuth } from 'hooks'
 
 const FormContainer = styled.form`
   display: flex;
@@ -63,6 +55,7 @@ const LinkMessage = styled.div``
 
 export default function ForgotPassword() {
   const [isLinkSent, setLinkSent] = useState(false)
+  const { sendResetLink } = useAuth()
   const {
     register,
     handleSubmit,
@@ -72,18 +65,8 @@ export default function ForgotPassword() {
   const auth = getAuth()
 
   const onSubmitMail = async (data: any) => {
-    await sendPasswordResetEmail(auth, data.email, {
-      url: 'http://localhost:3000/reset-password'
-    })
-      .then(() => {
-        setLinkSent(true)
-        console.log(auth)
-      })
-      .catch((error) => {
-        const errorCode = error.code
-        const errorMessage = error.message
-        // ..
-      })
+    setLinkSent(true)
+    await sendResetLink(data.email)
   }
 
   return (

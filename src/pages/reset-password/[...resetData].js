@@ -7,13 +7,13 @@ import { useRouter } from 'next/router'
 
 export default function ResetPasswordPage() {
   const router = useRouter()
-  const { resetData } = router.query
+  const { mode, oobCode } = router.query
 
   return (
     <Column>
       <Header />
-      <ResetPassword />
-      <div> {`reset data${resetData}`}</div>
+      <ResetPassword resetData={oobCode} />
+      <div> {`reset data ${oobCode}`}</div>
       <div style={{ marginTop: 120, marginBottom: 150 }}>
         <SocialsSection />
       </div>
