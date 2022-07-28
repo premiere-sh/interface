@@ -6,7 +6,7 @@ import GradientDropdown from 'components/GradientDropdown'
 import Leaderboard from 'components/Leaderboard'
 import PlayerOfTheWeek from 'components/PlayerOfTheWeek'
 import styled from 'styled-components'
-import { getPlayerOfTheWeek } from 'calls'
+import { getTournaments, getGames, getPlayerOfTheWeek } from 'calls'
 import { useUser } from 'hooks'
 
 const SubheadingRow = styled(Row)`
@@ -26,7 +26,7 @@ const ContainerRow = styled(Container)`
   }
 `
 
-export default function Leaderboards() {
+export default function Leaderboards({ games }) {
   const { user, avatar } = useUser(3)
   return (
     <Column>
@@ -47,4 +47,11 @@ export default function Leaderboards() {
       <Footer />
     </Column>
   )
+}
+
+export async function getStaticProps(context) {
+  const games = await getGames()
+  return {
+    props: { games }
+  }
 }

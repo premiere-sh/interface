@@ -3,8 +3,9 @@ import Footer from 'components/Footer'
 import SocialsSection from 'components/SocialsSection'
 import UpcomingEvents from 'components/UpcomingEvents'
 import { Container } from 'components/common'
+import { getTournaments, getGames } from 'calls'
 
-export default function Events() {
+export default function Events({ games }) {
   return (
     <div>
       <Header games={games} />
@@ -17,4 +18,11 @@ export default function Events() {
       <Footer />
     </div>
   )
+}
+
+export async function getStaticProps(context) {
+  const games = await getGames()
+  return {
+    props: { games }
+  }
 }

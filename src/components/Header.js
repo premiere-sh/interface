@@ -244,7 +244,7 @@ export default function _Header({ home, games, tournaments }) {
             setNavigatorOpen(false)
             setShowOtherOpen(false)
             setShowGamesOpen(false)
-            setShowTournamentsOpen9(false)
+            setShowTournamentsOpen(false)
           }}
         >
           <Image

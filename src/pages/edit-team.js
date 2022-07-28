@@ -2,8 +2,9 @@ import Header from 'components/Header'
 import Footer from 'components/Footer'
 import SocialsSection from 'components/SocialsSection'
 import TeamEdit from 'components/TeamEdit'
+import { getTournaments, getGames } from 'calls'
 
-export default function Profile() {
+export default function Profile({ games }) {
   return (
     <div>
       <Header games={games} />
@@ -14,4 +15,11 @@ export default function Profile() {
       <Footer />
     </div>
   )
+}
+
+export async function getStaticProps(context) {
+  const games = await getGames()
+  return {
+    props: { games }
+  }
 }

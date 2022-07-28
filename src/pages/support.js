@@ -3,8 +3,9 @@ import Footer from 'components/Footer'
 import { Column, Container } from 'components/common'
 import SocialsSection from 'components/SocialsSection'
 import SupportSection from 'components/SupportSection'
+import { getTournaments, getGames } from 'calls'
 
-export default function Support() {
+export default function Support({ games }) {
   return (
     <Column>
       <Header games={games} />
@@ -17,4 +18,11 @@ export default function Support() {
       <Footer />
     </Column>
   )
+}
+
+export async function getStaticProps(context) {
+  const games = await getGames()
+  return {
+    props: { games }
+  }
 }
