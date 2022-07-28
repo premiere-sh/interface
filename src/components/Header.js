@@ -11,6 +11,7 @@ import AuthenticationContext from 'contexts/authentication'
 import Router from 'next/router'
 import SearchBar from 'components/SearchBar'
 import GameTile from 'components/GameTile'
+import FeaturedTournament from './FeaturedTournament'
 
 const HeaderContainer = styled.div`
   margin-bottom: ${(props) => (props.home ? '80px' : '60px')};
@@ -112,7 +113,7 @@ const OtherDropdownContainer = styled(Column)`
   box-shadow: 0px 4px 8px 0px #0000000d;
 `
 
-const GamesDropdownBox = styled(Container)`
+const GamesDropdownContainer = styled(Container)`
   top: 75px;
   display: flex;
   background: #f9f9f9;
@@ -135,6 +136,23 @@ const ArrowContainer = styled(Column)`
 `
 const Filler = styled.div`
   width: 1%;
+`
+
+const TournamentsDropdownContainer = styled(Container)`
+  top: 75px;
+  height: 500px;
+  display: flex;
+  background: #f9f9f9;
+  z-index: 13;
+  flex-direction: row;
+  position: absolute;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px 0px #0000000d;
+  justify-content: space-between;
+`
+const CenterTournamentsDropdown = styled.div`
+  display: flex;
+  justify-content: center;
 `
 
 function Navigator({ isAuthenticated, currentUser }) {
@@ -182,7 +200,7 @@ function Navigator({ isAuthenticated, currentUser }) {
   )
 }
 
-export default function _Header({ home, games }) {
+export default function _Header({ home, games, tournaments }) {
   const [navigatorOpen, setNavigatorOpen] = useState(false)
   const ref = useRef()
   const dropdownRef = useRef()
@@ -226,6 +244,7 @@ export default function _Header({ home, games }) {
             setNavigatorOpen(false)
             setShowOtherOpen(false)
             setShowGamesOpen(false)
+            setShowTournamentsOpen9(false)
           }}
         >
           <Image
@@ -250,6 +269,7 @@ export default function _Header({ home, games }) {
             setShowSearchBar(false)
             setNavigatorOpen(false)
             setShowGamesOpen(false)
+            setShowTournamentsOpen(false)
           }}
         >
           <Row>
@@ -298,6 +318,7 @@ export default function _Header({ home, games }) {
             setShowOtherOpen(false)
             setShowSearchBar(false)
             setNavigatorOpen(false)
+            setShowTournamentsOpen(false)
           }}
         >
           <Row>
@@ -319,7 +340,7 @@ export default function _Header({ home, games }) {
   function GamesOpen({ games }) {
     return (
       <>
-        <GamesDropdownBox>
+        <GamesDropdownContainer>
           {games &&
             games.map(
               (game, key) =>
@@ -346,8 +367,68 @@ export default function _Header({ home, games }) {
             </Link>
           </ArrowContainer>
           <Filler />
-        </GamesDropdownBox>
+        </GamesDropdownContainer>
       </>
+    )
+  }
+
+  const [showTournamentsOpen, setShowTournamentsOpen] = useState(false)
+
+  function TournamentsDropdown() {
+    return (
+      <div style={{ cursor: 'pointer' }}>
+        <a
+          onClick={() => {
+            setShowTournamentsOpen(!showTournamentsOpen)
+            setShowGamesOpen(false)
+            setShowOtherOpen(false)
+            setShowSearchBar(false)
+            setNavigatorOpen(false)
+          }}
+        >
+          <Row>
+            <a style={{ marginRight: 13 }}>
+              <DropdownText>Tournaments</DropdownText>
+            </a>
+            <Image
+              src={'/dropdown.svg'}
+              width={16}
+              height={16}
+              alt={'dropdown'}
+            />
+          </Row>
+        </a>
+      </div>
+    )
+  }
+
+  function TournamentsOpen({ tournaments }) {
+    return (
+      <TournamentsDropdownContainer>
+        {tournaments &&
+          tournaments.map((tournament, key) => (
+            <div
+              key={key}
+              style={{ width: 210, height: 300, marginBottom: 20 }}
+            >
+              <FeaturedTournament tournament={tournament} roundBorders={true} />
+            </div>
+          ))}
+        <ArrowContainer style={{ cursor: 'pointer' }}>
+          <Link href={'/tournaments'} passHref>
+            <Image
+              src={'/arrow_right.svg'}
+              width={50}
+              height={50}
+              alt={'arrow_right'}
+            />
+          </Link>
+          <Link href={'/tournaments'} passHref>
+            <div>View All</div>
+          </Link>
+        </ArrowContainer>
+        <Filler />
+      </TournamentsDropdownContainer>
     )
   }
 
@@ -392,11 +473,7 @@ export default function _Header({ home, games }) {
         )}
         <LinksBit>
           <GamesDropdown />
-          <Link href={'/tournaments'}>
-            <a>
-              <DropdownText>TOURNAMENTS</DropdownText>
-            </a>
-          </Link>
+          <TournamentsDropdown />
           <Link href={'/leaderboards'}>
             <a>
               <DropdownText>LEADERBOARDS</DropdownText>
@@ -434,6 +511,9 @@ export default function _Header({ home, games }) {
       <CenterGamesDropdown>
         {showGamesOpen && <GamesOpen games={games} />}
       </CenterGamesDropdown>
+      <CenterTournamentsDropdown>
+        {showTournamentsOpen && <TournamentsOpen tournamets={tournaments} />}
+      </CenterTournamentsDropdown>
     </HeaderContainer>
   )
 }

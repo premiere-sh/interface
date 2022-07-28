@@ -7,7 +7,7 @@ import SmallTournament from 'components/SmallTournament'
 import SocialsSection from 'components/SocialsSection'
 import GradientDropdown from 'components/GradientDropdown'
 import { Grid, Cell } from 'styled-css-grid'
-import { getTournaments } from 'calls'
+import { getTournaments, getGames } from 'calls'
 import styled from 'styled-components'
 
 const SubheadingRow = styled(Row)`
@@ -16,7 +16,7 @@ const SubheadingRow = styled(Row)`
   }
 `
 
-export default function Tournaments({ tournaments }) {
+export default function Tournaments({ tournaments, games }) {
   const [width, setWidth] = useState(null)
   useEffect(function () {
     setWidth(window.innerWidth)
@@ -24,7 +24,7 @@ export default function Tournaments({ tournaments }) {
   }, [])
   return (
     <Column>
-      <Header games={games} />
+      <Header games={games} tournaments={tournaments} />
       <Container>
         <SubheadingRow style={{ justifyContent: 'space-between' }}>
           <Subheading>TOURNAMENTS</Subheading>
@@ -58,7 +58,8 @@ export default function Tournaments({ tournaments }) {
 
 export async function getStaticProps(context) {
   const tournaments = await getTournaments()
+  const games = await getGames()
   return {
-    props: { tournaments }
+    props: { tournaments, games }
   }
 }
