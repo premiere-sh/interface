@@ -5,10 +5,10 @@ import SocialsSection from 'components/SocialsSection'
 import SupportSection from 'components/SupportSection'
 import { getTournaments, getGames } from 'calls'
 
-export default function Support({ games }) {
+export default function Support({ games, tournaments }) {
   return (
     <Column>
-      <Header games={games} />
+      <Header games={games} tournaments={tournaments} />
       <Container>
         <SupportSection />
       </Container>
@@ -21,8 +21,9 @@ export default function Support({ games }) {
 }
 
 export async function getStaticProps(context) {
+  const tournaments = await getTournaments()
   const games = await getGames()
   return {
-    props: { games }
+    props: { tournaments, games }
   }
 }

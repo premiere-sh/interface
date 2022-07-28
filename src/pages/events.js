@@ -5,10 +5,10 @@ import UpcomingEvents from 'components/UpcomingEvents'
 import { Container } from 'components/common'
 import { getTournaments, getGames } from 'calls'
 
-export default function Events({ games }) {
+export default function Events({ games, tournaments }) {
   return (
     <div>
-      <Header games={games} />
+      <Header games={games} tournaments={tournaments} />
       <Container>
         <UpcomingEvents />
       </Container>
@@ -21,8 +21,9 @@ export default function Events({ games }) {
 }
 
 export async function getStaticProps(context) {
+  const tournaments = await getTournaments()
   const games = await getGames()
   return {
-    props: { games }
+    props: { tournaments, games }
   }
 }

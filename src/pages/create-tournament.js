@@ -5,10 +5,10 @@ import SocialsSection from 'components/SocialsSection'
 import { Column } from 'components/common'
 import { getTournaments, getGames } from 'calls'
 
-export default function CreateTournamentPage({ games }) {
+export default function CreateTournamentPage({ games, tournaments }) {
   return (
     <Column>
-      <Header games={games} />
+      <Header games={games} tournaments={tournaments} />
       <CreateTournament />
       <div style={{ marginTop: 120, marginBottom: 150 }}>
         <SocialsSection />
@@ -19,8 +19,9 @@ export default function CreateTournamentPage({ games }) {
 }
 
 export async function getStaticProps(context) {
+  const tournaments = await getTournaments()
   const games = await getGames()
   return {
-    props: { games }
+    props: { tournaments, games }
   }
 }
