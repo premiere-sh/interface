@@ -11,7 +11,8 @@ import { useUser } from 'hooks'
 import {
   InstantSearch,
   connectHits,
-  connectSortBy
+  connectSortBy,
+  currentRefinement
 } from 'react-instantsearch-dom'
 import Menu from 'components/Filter'
 import Image from 'next/image'
