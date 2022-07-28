@@ -14,6 +14,8 @@ import { useForm } from 'react-hook-form'
 import Link from 'next/link'
 import AuthenticationContext from 'contexts/authentication'
 import { Dots } from 'react-activity'
+import SocialsSignup from 'components/SocialsSignup'
+
 
 interface FormValues {
   email: string
@@ -55,6 +57,12 @@ const SubmitEntry = styled(Entry)`
 `
 
 const LoginIfGotAnAccount = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+`
+
+const TermsOfService = styled.div`
   display: flex;
   justify-content: center;
 `
@@ -119,6 +127,7 @@ export default function Signup() {
   return (
     <>
       {!user ? (
+        <>
         <FormContainer onSubmit={handleSubmit(onSubmit)}>
           <Heading>sign up</Heading>
           <Subtext>Premiere is only available to users that are 18+</Subtext>
@@ -193,6 +202,24 @@ export default function Signup() {
             />
             {errors.confirm && <Alert>Passwords do not match</Alert>}
           </Entry>
+
+
+    
+          <TermsOfService>
+      
+            <input style = {{display: 'inline-block', fontSize: 40, marginRight: 10}} type = {'checkbox'} required={true}/>
+           
+          
+    
+            I confirm that I am 18 years old or over. See our 
+              <GradientText style={{marginLeft: 5}}>
+              <Link href={'/login'}>
+                <a>  Terms of Service</a>
+              </Link>
+              </GradientText>
+              .     
+          </TermsOfService>
+          {errors.email && <Alert>Must be 18!</Alert>}
           <SubmitEntry>
             <SignupButton
               type="submit"
@@ -200,15 +227,19 @@ export default function Signup() {
               text={loading ? <Dots /> : 'sign up'}
             />
           </SubmitEntry>
-          <LoginIfGotAnAccount>
-            Already havean account?
+        </FormContainer>
+        
+        <SocialsSignup/>
+        <LoginIfGotAnAccount>
+            Already have a member?
             <GradientText style={{ display: 'inline', marginLeft: 5 }}>
               <Link href={'/login'}>
-                <a> Log In</a>
+                <a> Login here</a>
               </Link>
             </GradientText>
           </LoginIfGotAnAccount>
-        </FormContainer>
+        </>
+
       ) : (
         <div>Authorized!</div>
       )}
