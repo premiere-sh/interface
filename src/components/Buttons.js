@@ -159,6 +159,18 @@ export function ShareButton(){
 }
 
 export function ArrowButton({ text }) {
+
+  const Text = styled(GradientText)`
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 150%;
+  letter-spacing: 0.1em;
+  color: ${(props) => props.theme.colors.black};
+  user-select: none;
+  `
+  
   return (
     <ArrowButtonContainer>
       <ArrowButtonText>{text}</ArrowButtonText>
