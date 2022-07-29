@@ -66,6 +66,17 @@ const ArrowButtonContainer = styled(GradientText)`
   user-select: none;
 `
 
+const ArrowButtonText = styled(GradientText)`
+font-family: Inter;
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 150%;
+letter-spacing: 0.1em;
+color: ${(props) => props.theme.colors.black};
+user-select: none;
+`
+
 export function SignupButton({ text, disabled }) {
   return <Signup disabled={disabled}>{text}</Signup>
 }
@@ -148,21 +159,9 @@ export function ShareButton(){
 }
 
 export function ArrowButton({ text }) {
-
-  const Text = styled(GradientText)`
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 150%;
-  letter-spacing: 0.1em;
-  color: ${(props) => props.theme.colors.black};
-  user-select: none;
-  `
-  
   return (
     <ArrowButtonContainer>
- <Text>{text}</Text>
+      <ArrowButtonText>{text}</ArrowButtonText>
       <div style={{ marginBottom: 10, marginLeft: 15 }}>
         <Image
           src={'/arrow-right-gradient.svg'}
