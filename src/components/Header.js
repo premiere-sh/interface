@@ -533,7 +533,7 @@ export default function _Header({ home, tournaments, games }) {
           width={1.5}
           alt={'social'}
         />
-        <Link href={'/leaderboards'} passHref>
+        <Link href={'/leaderboards/?sort=byRank'} passHref>
           <BlackText>GB RANK</BlackText>
         </Link>
         <Image
@@ -542,7 +542,7 @@ export default function _Header({ home, tournaments, games }) {
           width={1.5}
           alt={'social'}
         />
-        <Link href={'/leaderboards'} passHref>
+        <Link href={'/leaderboards/?sort=byWins'} passHref>
           <BlackText>WINS</BlackText>
         </Link>
         <Image
@@ -552,7 +552,7 @@ export default function _Header({ home, tournaments, games }) {
           alt={'social'}
         />
         <EarnedContainer>
-          <Link href={'/leaderboards'} passHref>
+          <Link href={'/leaderboards/?sort=byPrem'} passHref>
             <BlackText>$PREM EARNED</BlackText>
           </Link>
         </EarnedContainer>

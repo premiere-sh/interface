@@ -1,30 +1,30 @@
 import Header from 'components/Header'
-import Teams from 'components/Teams'
 import Footer from 'components/Footer'
+import { Column } from 'components/common'
 import SocialsSection from 'components/SocialsSection'
-import ProfileTop from 'components/ProfileTop'
-import { useRouter } from 'next/router'
+import AllLeaderboards from 'components/AllLeaderboards'
 import { getGames, getTournaments } from 'calls'
+import { useRouter } from 'next/router'
 
-export default function Profile({ games, tournaments }) {
+export default function Leaderboards({ games, tournaments }) {
   const router = useRouter()
-  const { userId } = router.query
+  const { sort } = router.query
   return (
-    <div>
+    <Column>
       <Header games={games} tournaments={tournaments} />
-      <ProfileTop />
-      <div style={{ marginBottom: 152, marginTop: 152 }}>
+      <AllLeaderboards sort={sort} />
+      <div style={{ marginBottom: 150 }}>
         <SocialsSection />
       </div>
       <Footer />
-    </div>
+    </Column>
   )
 }
 
 export async function getStaticProps(context) {
-  const games = await getGames()
   const tournaments = await getTournaments()
+  const games = await getGames()
   return {
-    props: { games, tournaments }
+    props: { tournaments, games }
   }
 }

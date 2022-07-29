@@ -11,8 +11,7 @@ import { useUser } from 'hooks'
 import {
   InstantSearch,
   connectHits,
-  connectSortBy,
-  currentRefinement
+  connectSortBy
 } from 'react-instantsearch-dom'
 import Menu from 'components/Filter'
 import Image from 'next/image'
@@ -99,9 +98,9 @@ const Hits = connectHits(({ hits }) => {
   return <Column>{items}</Column>
 })
 
-export default function Leaderboards() {
+export default function AllLeaderboards({ sort }) {
   const { user, avatar } = useUser(3)
-
+  console.log('option', sort)
   return (
     <InstantSearch searchClient={searchClient} indexName="users">
       <Container>
@@ -109,7 +108,7 @@ export default function Leaderboards() {
           <Subheading>LEADERBOARDS</Subheading>
           <CustomSortBy
             option={'leaderboard'}
-            defaultRefinement={'byRank'}
+            defaultRefinement="byPrem"
             items={[
               { label: 'gb rank', value: 'byRank' },
               { label: 'wins', value: 'byWins' },
