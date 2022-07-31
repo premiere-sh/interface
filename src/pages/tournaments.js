@@ -18,7 +18,7 @@ export default function Tournaments({ tournaments }) {
   return (
     <Column>
       <Header />
-      {tournaments.length && (
+      {tournaments?.length && (
         <div style={{ marginBottom: 150 }}>
           <AllTournaments tournaments={tournaments} />
         </div>
@@ -31,9 +31,9 @@ export default function Tournaments({ tournaments }) {
   )
 }
 
-export async function getStaticProps(context) {
-  const tournaments = await getTournaments()
-  return {
-    props: { tournaments }
-  }
-}
+// export async function getStaticProps(context) {
+//   const tournaments = await getTournaments()
+//   return {
+//     props: { tournaments }
+//   }
+// }

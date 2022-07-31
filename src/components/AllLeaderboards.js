@@ -99,8 +99,9 @@ const Hits = connectHits(({ hits }) => {
 })
 
 export default function Leaderboards() {
-  const { user, avatar } = useUser(3)
-
+  // const { user, avatar } = useUser(3)
+  const user = {}
+  const avatar = {}
   return (
     <InstantSearch searchClient={searchClient} indexName="users">
       <Container>

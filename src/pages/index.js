@@ -11,7 +11,9 @@ import { getGames, getTournaments, getPlayerOfTheWeek } from 'calls'
 import { useUser } from 'hooks'
 
 export default function Home({ games, tournaments }) {
-  const { user, avatar } = useUser(3)
+  // const { user, avatar } = useUser(3)
+  const user = {}
+  const avatar = {}
   return (
     <Column>
       <Header home={true} />
@@ -30,12 +32,4 @@ export default function Home({ games, tournaments }) {
       <Footer />
     </Column>
   )
-}
-
-export async function getStaticProps(context) {
-  const games = await getGames()
-  const tournaments = await getTournaments()
-  return {
-    props: { games, tournaments }
-  }
 }

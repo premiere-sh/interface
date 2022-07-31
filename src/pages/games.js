@@ -9,7 +9,7 @@ export default function Games({ games }) {
   return (
     <Column>
       <Header />
-      {games.length && (
+      {games?.length && (
         <div style={{ marginBottom: 150 }}>
           <AllGames games={games} />
         </div>
@@ -22,9 +22,9 @@ export default function Games({ games }) {
   )
 }
 
-export async function getStaticProps(context) {
-  const games = await getGames()
-  return {
-    props: { games }
-  }
-}
+// export async function getStaticProps(context) {
+//   const games = await getGames()
+//   return {
+//     props: { games }
+//   }
+// }
