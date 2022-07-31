@@ -129,7 +129,7 @@ export function useAuth() {
         confirmPasswordReset(auth, oobCode, newPassword)
           .then((resp) => {
             router.push('/login')
-            toast.success('Passwor successfully reset')
+            toast.success(`Password successfully reset for ${email}`)
           })
           .catch((error) => {
             console.log(error)
