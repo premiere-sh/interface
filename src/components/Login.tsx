@@ -38,7 +38,7 @@ const ContextForgotPassword = styled.div`
   text-align: center;
   text-decoration-line: underline;
   color: #8d8d8d;
-  margin:auto;
+  margin: auto;
   display: flex;
   justify-content: flex-end;
   font-family: 'Inter';
@@ -96,10 +96,8 @@ export default function Login() {
         )}
       </Entry>
       <ForgotPassword>
-        <Link href={'/forgot-password'}>
-          <a>
-            <ContextForgotPassword>Forgot your password?</ContextForgotPassword>
-          </a>
+        <Link href={'/forgot-password'} passHref>
+          <ContextForgotPassword>Forgot your password?</ContextForgotPassword>
         </Link>
       </ForgotPassword>
       <SubmitEntry>

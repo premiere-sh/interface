@@ -56,7 +56,6 @@ export default function ForgotPassword() {
   const auth = getAuth()
 
   const onSubmitMail = async (data: any) => {
-    setLinkSent(true)
     await sendResetLink(data.email)
   }
 
