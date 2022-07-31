@@ -124,25 +124,24 @@ export function useAuth() {
   }
 
   const resetPassword = async (oobCode: string, newPassword: string) => {
-    try {
-      const result = await verifyPasswordResetCode(auth, oobCode).then(
-        (email) => {
-          confirmPasswordReset(auth, oobCode, newPassword)
-            .then((resp) => {
-              router.push('/login')
-              toast.success('Passwor successfully reset')
-            })
-            .catch((error) => {
-              console.log(error)
-              toast.error(`Error resetting password`)
-            })
-        }
-      )
-    } catch (error) {
-      console.log(error)
-      toast.error(`Error resetting password`)
-    }
+    verifyPasswordResetCode(auth, oobCode)
+      .then((email) => {
+        confirmPasswordReset(auth, oobCode, newPassword)
+          .then((resp) => {
+            router.push('/login')
+            toast.success('Passwor successfully reset')
+          })
+          .catch((error) => {
+            console.log(error)
+            toast.error(`Error resetting password`)
+          })
+      })
+      .catch((error) => {
+        console.log(error)
+        toast.error(`Error resetting password`)
+      })
   }
+
   return {
     signIn,
     signUp,
