@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styled from 'styled-components'
 import Image from 'next/image'
-import { Row } from 'components/common'
+import { Row, Column } from 'components/common'
 import { DropdownText } from 'components/Dropdown'
 import { Button } from 'components/Buttons'
 import LogoHeader from 'components/LogoHeader'
@@ -11,9 +11,8 @@ import AuthenticationContext from 'contexts/authentication'
 import Router from 'next/router'
 import SearchBar from 'components/SearchBar'
 
-
 const HeaderContainer = styled.div`
-margin-bottom: ${(props) => (props.home ? '80px' : '60px')};
+  margin-bottom: ${(props) => (props.home ? '80px' : '60px')};
 `
 
 const Header = styled(Row)`
@@ -25,8 +24,7 @@ const Header = styled(Row)`
   margin: auto;
 `
 
-const LogoBit = styled(Row)`
-`
+const LogoBit = styled(Row)``
 
 const LinksBit = styled(Row)`
   width: 100%;
@@ -100,6 +98,19 @@ const AvatarPlaceholder = styled.div`
 
 const LogoutButton = styled(LoginButton)``
 
+const OtherDropdownContainer = styled(Column)`
+  width: 200px;
+  height: 110px;
+  position: absolute;
+  z-index: 13;
+  background: #f9f9f9;
+  top: 70px;
+  margin-left: -150px;
+  align-items: flex-start;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px 0px #0000000d;
+`
+
 function Navigator({ isAuthenticated, currentUser }) {
   return (
     <NavigatorContainer>
@@ -169,129 +180,169 @@ export default function _Header({ home }) {
 
   const [showSearchBar, setShowSearchBar] = useState(false)
 
-  function SearchButton (){
-   
+  function SearchButton() {
     const SearchContainer = styled.div`
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    position: relative;
-    margin-left: auto;
-    @media screen and (max-width: 650px) {
-      display: none;
-    }
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+      margin-left: auto;
+      @media screen and (max-width: 650px) {
+        display: none;
+      }
     `
-  
-    return(
+
+    return (
       <SearchContainer>
-        <a onClick={() => {
-          setShowSearchBar(!showSearchBar)
-          setNavigatorOpen(false)
-        }}>
-      <Image
+        <a
+          onClick={() => {
+            setShowSearchBar(!showSearchBar)
+            setNavigatorOpen(false)
+            setShowOtherOpen(false)
+          }}
+        >
+          <Image
             src={'/search-icon.svg'}
             width={30}
             height={30}
             alt={'search'}
           />
-         </a> 
+        </a>
       </SearchContainer>
+    )
+  }
+
+  const [showOtherOpen, setShowOtherOpen] = useState(false)
+
+  function OtherDropdown() {
+    return (
+      <div style={{ cursor: 'pointer' }}>
+        <a
+          onClick={() => {
+            setShowOtherOpen(!showOtherOpen)
+            setShowSearchBar(false)
+            setNavigatorOpen(false)
+          }}
+        >
+          <Row>
+            <a style={{ marginRight: 13 }}>
+              <DropdownText>OTHER</DropdownText>
+            </a>
+            <Image
+              src={'/dropdown.svg'}
+              width={16}
+              height={16}
+              alt={'dropdown'}
+            />
+          </Row>
+        </a>
+      </div>
+    )
+  }
+
+  function OtherOpen() {
+    return (
+      <OtherDropdownContainer>
+        <LinksContainer>
+          <Link href={'/support'}>
+            <a>
+              <DropdownText>SUPPORT</DropdownText>
+            </a>
+          </Link>
+          <Link href={'/events'}>
+            <a>
+              <DropdownText>EVENTS</DropdownText>
+            </a>
+          </Link>
+        </LinksContainer>
+      </OtherDropdownContainer>
     )
   }
 
   return (
     <HeaderContainer>
-    <Header home={home}>
-      <Head>
-        <title>Premiere</title>
-        <meta
-          name="description"
-          content="Participate in gaming tournaments and receive crypto!"
-        />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <LogoBit>
-        <LinksDropdown
-          ref={dropdownRef}
-          onClick={() => {
-            setNavigatorOpen(!navigatorOpen)
-            setShowSearchBar(false)
-          }}
-        >
-          <Image
-            src={navigatorOpen ? '/navigator_open.svg' : '/navigator.svg'}
-            width={34}
-            height={34}
-            alt={'navigator'}
+      <Header home={home}>
+        <Head>
+          <title>Premiere</title>
+          <meta
+            name="description"
+            content="Participate in gaming tournaments and receive crypto!"
           />
-        </LinksDropdown>
-        <Link href={'/'}>
-          <a>
-            <LogoHeader />
-          </a>
-        </Link>
-      </LogoBit>
-      {navigatorOpen && (
-        <Navigator
-          ref={ref}
-          currentUser={user}
-          isAuthenticated={user ? user.isAuthenticated : null}
-        />
-      ) }
-      <LinksBit>
-        <Link href={'/games'}>
-          <a>
-            <DropdownText>GAMES</DropdownText>
-          </a>
-        </Link>
-        <Link href={'/tournaments'}>
-          <a>
-            <DropdownText>TOURNAMENTS</DropdownText>
-          </a>
-        </Link>
-        <Link href={'/leaderboards'}>
-          <a>
-            <DropdownText>LEADERBOARDS</DropdownText>
-          </a>
-        </Link>
-        <Link href={'/support'}>
-          <a>
-            <DropdownText>SUPPORT</DropdownText>
-          </a>
-        </Link>
-        <Link href={'/events'}>
-          <a>
-            <DropdownText>EVENTS</DropdownText>
-          </a>
-        </Link>
-      </LinksBit>
-    
-      <SignupBit>
-        {!user ? (
-          <>
-            <SearchButton/>
-            <AvatarPlaceholder />
-            <Link href={'/login'}>
-              <a>
-                <LoginButton>login</LoginButton>
-              </a>
-            </Link>
-          </>
-        ) : (
-          <>
-            <SearchButton/>
-            <div
-              onClick={() => Router.push(`/profile`)}
-              style={{ cursor: 'pointer', marginTop: 5 }}
-            >
-              <Avatar src={userAvatar} />
-            </div>
-            <LogoutButton onClick={logout}>log out</LogoutButton>
-          </>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <LogoBit>
+          <LinksDropdown
+            ref={dropdownRef}
+            onClick={() => {
+              setNavigatorOpen(!navigatorOpen)
+              setShowSearchBar(false)
+            }}
+          >
+            <Image
+              src={navigatorOpen ? '/navigator_open.svg' : '/navigator.svg'}
+              width={34}
+              height={34}
+              alt={'navigator'}
+            />
+          </LinksDropdown>
+          <Link href={'/'}>
+            <a>
+              <LogoHeader />
+            </a>
+          </Link>
+        </LogoBit>
+        {navigatorOpen && (
+          <Navigator
+            ref={ref}
+            currentUser={user}
+            isAuthenticated={user ? user.isAuthenticated : null}
+          />
         )}
-      </SignupBit>
-    </Header>
-    {showSearchBar ? ( <SearchBar/>): null}
+        <LinksBit>
+          <Link href={'/games'}>
+            <a>
+              <DropdownText>GAMES</DropdownText>
+            </a>
+          </Link>
+          <Link href={'/tournaments'}>
+            <a>
+              <DropdownText>TOURNAMENTS</DropdownText>
+            </a>
+          </Link>
+          <Link href={'/leaderboards'}>
+            <a>
+              <DropdownText>LEADERBOARDS</DropdownText>
+            </a>
+          </Link>
+          <OtherDropdown />
+        </LinksBit>
+        <Column>{showOtherOpen && <OtherOpen />}</Column>
+        <SignupBit>
+          {!user ? (
+            <>
+              <SearchButton />
+              <AvatarPlaceholder />
+              <Link href={'/login'}>
+                <a>
+                  <LoginButton>login</LoginButton>
+                </a>
+              </Link>
+            </>
+          ) : (
+            <>
+              <SearchButton />
+              <div
+                onClick={() => Router.push(`/profile`)}
+                style={{ cursor: 'pointer', marginTop: 5 }}
+              >
+                <Avatar src={userAvatar} />
+              </div>
+              <LogoutButton onClick={logout}>log out</LogoutButton>
+            </>
+          )}
+        </SignupBit>
+      </Header>
+      {showSearchBar ? <SearchBar /> : null}
     </HeaderContainer>
   )
 }
