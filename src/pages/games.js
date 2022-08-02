@@ -9,7 +9,7 @@ export default function Games({ games }) {
   return (
     <Column>
       <Header />
-      {games.length && (
+      {games?.length && (
         <div style={{ marginBottom: 150 }}>
           <AllGames games={games} />
         </div>
