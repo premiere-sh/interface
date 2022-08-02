@@ -4,15 +4,12 @@ import { Column } from 'components/common'
 import SocialsSection from 'components/SocialsSection'
 import AllLeaderboards from 'components/AllLeaderboards'
 import { getGames, getTournaments } from 'calls'
-import { useRouter } from 'next/router'
 
 export default function Leaderboards({ games, tournaments }) {
-  const router = useRouter()
-  const { sort } = router.query
   return (
     <Column>
       <Header games={games} tournaments={tournaments} />
-      <AllLeaderboards sort={sort} />
+      <AllLeaderboards />
       <div style={{ marginBottom: 150 }}>
         <SocialsSection />
       </div>

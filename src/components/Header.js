@@ -400,15 +400,15 @@ export default function _Header({ home, tournaments, games }) {
             )}
           <ArrowContainer style={{ cursor: 'pointer' }}>
             <Link href={'/games'} passHref>
-              <Image
-                src={'/arrow_right.svg'}
-                width={50}
-                height={50}
-                alt={'arrow_right'}
-              />
-            </Link>
-            <Link href={'/games'} passHref>
-              <BlackText>View All</BlackText>
+              <Column>
+                <Image
+                  src={'/arrow_right.svg'}
+                  width={50}
+                  height={50}
+                  alt={'arrow_right'}
+                />
+                <BlackText>View All</BlackText>
+              </Column>
             </Link>
           </ArrowContainer>
         </GamesDropdownContainer>
@@ -473,15 +473,15 @@ export default function _Header({ home, tournaments, games }) {
             )}
           <ArrowContainer style={{ cursor: 'pointer' }}>
             <Link href={'/tournaments'} passHref>
-              <Image
-                src={'/arrow_right.svg'}
-                width={50}
-                height={50}
-                alt={'arrow_right'}
-              />
-            </Link>
-            <Link href={'/tournaments'} passHref>
-              <BlackText>View All</BlackText>
+              <Column>
+                <Image
+                  src={'/arrow_right.svg'}
+                  width={50}
+                  height={50}
+                  alt={'arrow_right'}
+                />
+                <BlackText>View All</BlackText>
+              </Column>
             </Link>
           </ArrowContainer>
         </TournamentsDropdownContainer>
@@ -558,15 +558,15 @@ export default function _Header({ home, tournaments, games }) {
         </EarnedContainer>
         <ArrowContainer style={{ cursor: 'pointer' }}>
           <Link href={'/leaderboards'} passHref>
-            <Image
-              src={'/arrow_right.svg'}
-              width={50}
-              height={50}
-              alt={'arrow_right'}
-            />
-          </Link>
-          <Link href={'/leaderboards'} passHref>
-            <BlackText>Leaderboards</BlackText>
+            <Column>
+              <Image
+                src={'/arrow_right.svg'}
+                width={50}
+                height={50}
+                alt={'arrow_right'}
+              />
+              <BlackText>Leaderboards</BlackText>
+            </Column>
           </Link>
         </ArrowContainer>
       </LeaderboardsDropdownContainer>

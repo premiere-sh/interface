@@ -17,7 +17,7 @@ export default function Tournaments({ tournaments, games }) {
   return (
     <Column>
       <Header games={games} tournaments={tournaments} />
-      {tournaments.length && (
+      {tournaments?.length && (
         <div style={{ marginBottom: 150 }}>
           <AllTournaments tournaments={tournaments} />
         </div>

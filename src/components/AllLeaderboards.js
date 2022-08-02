@@ -16,6 +16,7 @@ import {
 import Menu from 'components/Filter'
 import Image from 'next/image'
 import { searchClient } from 'algolia/index'
+import { useRouter } from 'next/router'
 
 const SubheadingRow = styled(Row)`
   justify-content: space-between;
@@ -98,9 +99,11 @@ const Hits = connectHits(({ hits }) => {
   return <Column>{items}</Column>
 })
 
-export default function AllLeaderboards({ sort }) {
+export default function AllLeaderboards() {
   const { user, avatar } = useUser(3)
-  console.log('option', sort)
+  const router = useRouter()
+  const { sort } = router.query
+  console.log('sort', sort)
   return (
     <InstantSearch searchClient={searchClient} indexName="users">
       <Container>
@@ -108,7 +111,7 @@ export default function AllLeaderboards({ sort }) {
           <Subheading>LEADERBOARDS</Subheading>
           <CustomSortBy
             option={'leaderboard'}
-            defaultRefinement="byPrem"
+            defaultRefinement={sort ? sort : 'byRank'}
             items={[
               { label: 'gb rank', value: 'byRank' },
               { label: 'wins', value: 'byWins' },
