@@ -129,7 +129,10 @@ export default function PlayerOfTheWeek({ user, avatar }) {
       <LeaderboardTitle>Share this page</LeaderboardTitle>
       <ShareRow>
         <CopyLink />
-        <a style={{ marginTop: 12, marginLeft: 10, cursor: 'pointer' }}>
+        <a
+          style={{ marginTop: 12, marginLeft: 10, cursor: 'pointer' }}
+          href="https://www.instagram.com"
+        >
           <Image
             src={'/instagram_button.svg'}
             width={64}
@@ -137,7 +140,10 @@ export default function PlayerOfTheWeek({ user, avatar }) {
             alt={'button'}
           />
         </a>
-        <a style={{ marginTop: 12, cursor: 'pointer' }}>
+        <a
+          style={{ marginTop: 12, cursor: 'pointer' }}
+          href="https://twitter.com/intent/tweet?via=premiere_sh&text=Some%20tweet%20text%20here"
+        >
           <Image
             src={'/twitter_button.svg'}
             width={64}
