@@ -1,18 +1,16 @@
 import Image from 'next/image'
-import {
-  Subheading,
-  Column,
-  Container,
-  GradientText,
-  Circle
-} from 'components/common'
+import { Column, Circle } from 'components/common'
 import { ArrowButton } from 'components/Buttons'
-import GradientDropdown from 'components/GradientDropdown'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 const Row = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: ${(props) => (props.roundBorders ? '10px' : '0')};
 `
 
 const ButtonRow = styled(Row)`
@@ -36,13 +34,39 @@ const ShadowCircle = styled(Circle)`
   margin-left: 12px;
 `
 
+const StartingSoon = styled.div`
+  position: relative;
+  width: 120px;
+  background: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
+  border-radius: 5px;
+  font-family: 'Inter';
+  font-style: italic;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+  color: #ffffff;
+  text-align: center;
+  line-height: 40px;
+  z-index: 30;
+  top: -23px;
+  left: 37px;
+`
+
 const TournamentContainer = styled.div`
   height: 340px;
   background-color: ${(props) => props.theme.colors.white};
   position: relative;
   width: 590px;
-  border-radius: 15px;
   overflow: hidden;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 15px;
+  &:hover {
+    border: 4px solid ${(props) => props.theme.colors.ruby};
+  }
+  &:hover ${StartingSoon} {
+    display: block;
+  }
 `
 
 const SubText = styled.div`
@@ -86,12 +110,13 @@ const InfoColumn = styled(Column)`
 `
 
 const ImageContainer = styled.div`
-  width: 100%;
+  width: 50%;
   overflow: hidden;
   height: 111%;
   height: fill;
   position: relative;
   margin-top: -12px;
+  margin-left: -30px;
   img {
     width: 100%;
     height: 100%;
@@ -100,67 +125,78 @@ const ImageContainer = styled.div`
   }
 `
 
-export default function SmallTournament({ tournament }) {
+export default function SmallTournament({ tournament, roundBorders }) {
+  const [isHover, setHover] = useState(false)
+
   return (
-    <TournamentContainer>
-      <Row style={{ width: '100%', height: '100%' }}>
-        <ImageContainer>
-          <Image
-            src={`/${tournament.game}.svg`}
-            alt={'tournament_pic'}
-            layout={'fill'}
-          />
-        </ImageContainer>
-        <InfoColumn>
-          <SubText>{tournament.region}</SubText>
-          <TitleContainer>
-            <Title>{tournament.name}</Title>
-          </TitleContainer>
-          <InfoText>
-            <span style={{ fontWeight: 800 }}>{tournament.time}</span>
-            <span> - {tournament.date}</span>
-          </InfoText>
-          <div style={{ height: 16 }} />
-          <InfoText>
-            <span style={{ fontWeight: 800 }}>Prize</span>
-            <span>
-              {' '}
-              - {tournament.prize} {tournament.prize_currency}
-            </span>
-          </InfoText>
-          <ButtonRow>
-            <div style={{ marginTop: 11, fontSize: 15 }}>
-              <ArrowButton text={'enter now'} />
-            </div>
-            <Row>
-              <ShadowCircle>
-                <Image
-                  src={'/xplay.svg'}
-                  width={24}
-                  height={24}
-                  alt={'xplay'}
-                />
-              </ShadowCircle>
-              <ShadowCircle>
-                <Image
-                  src={'/laptop.svg'}
-                  width={24}
-                  height={24}
-                  alt={'laptop'}
-                />
-              </ShadowCircle>
-              <ShadowCircle>
-                <Image
-                  src={'/logo-xbox.svg'}
-                  width={24}
-                  height={24}
-                  alt={'xbox'}
-                />
-              </ShadowCircle>
-            </Row>
-          </ButtonRow>
-        </InfoColumn>
-      </Row>
-    </TournamentContainer>
+    <div
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{ marginBottom: isHover ? -8 : 0 }}
+    >
+      <TournamentContainer roundBorders={roundBorders}>
+        <Row roundBorders={roundBorders}>
+          <ImageContainer>
+            <Image
+              src={`/${tournament.game}.svg`}
+              alt={'tournament_pic'}
+              layout={'fill'}
+            />
+          </ImageContainer>
+          <InfoColumn>
+            <SubText>{tournament.region}</SubText>
+            <TitleContainer>
+              <Title>{tournament.name}</Title>
+            </TitleContainer>
+            <InfoText>
+              <span style={{ fontWeight: 800 }}>{tournament.time}</span>
+              <span> - {tournament.date}</span>
+            </InfoText>
+            <div style={{ height: 16 }} />
+            <InfoText>
+              <span style={{ fontWeight: 800 }}>Prize</span>
+              <span>
+                {' '}
+                - {tournament.prize} {tournament.prize_currency}
+              </span>
+            </InfoText>
+            <ButtonRow>
+              <div style={{ marginTop: 11, fontSize: 15 }}>
+                <ArrowButton text={'enter now'} />
+              </div>
+              <Row>
+                <ShadowCircle>
+                  <Image
+                    src={'/xplay.svg'}
+                    width={24}
+                    height={24}
+                    alt={'xplay'}
+                  />
+                </ShadowCircle>
+                <ShadowCircle>
+                  <Image
+                    src={'/laptop.svg'}
+                    width={24}
+                    height={24}
+                    alt={'laptop'}
+                  />
+                </ShadowCircle>
+                <ShadowCircle>
+                  <Image
+                    src={'/logo-xbox.svg'}
+                    width={24}
+                    height={24}
+                    alt={'xbox'}
+                  />
+                </ShadowCircle>
+              </Row>
+            </ButtonRow>
+          </InfoColumn>
+        </Row>
+      </TournamentContainer>
+      <StartingSoon>
+        <span>8h 48m</span>
+      </StartingSoon>
+    </div>
   )
 }
