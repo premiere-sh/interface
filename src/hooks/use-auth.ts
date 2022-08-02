@@ -11,7 +11,8 @@ import {
   AuthProvider,
   signInWithPopup,
   createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+  signInWithEmailAndPassword,
+  sendEmailVerification
 } from 'firebase/auth'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
@@ -100,6 +101,7 @@ export function useAuth() {
         const _token = await result.user.getIdToken()
         setToken(_token)
         setUser(result.user)
+        sendEmailVerification(auth.currentUser)
         router.push('/profile')
       }
     } catch (error) {
