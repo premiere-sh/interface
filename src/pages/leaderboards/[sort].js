@@ -18,21 +18,21 @@ export default function Leaderboards({ games, tournaments }) {
   )
 }
 
-export async function getStaticPaths() {
-  const res = await fetch('http://localhost:3000/leaderboards')
-  const leaderboards = await res.json()
-
-  const paths = leaderboards.map((leaderboard) => ({
-    params: { id: leaderboard.id.toString() }
-  }))
-
-  return { paths, fallback: false }
-}
-
 export async function getStaticProps(context) {
   const tournaments = await getTournaments()
   const games = await getGames()
   return {
     props: { tournaments, games }
+  }
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { sort: 'byRank' } },
+      { params: { sort: 'byWins' } },
+      { params: { sort: 'byPrem' } }
+    ],
+    fallback: false
   }
 }

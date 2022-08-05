@@ -28,3 +28,10 @@ export async function getStaticProps(context) {
     props: { games, tournaments }
   }
 }
+
+export async function getStaticPaths() {
+  return {
+    paths: [{ params: { userId: '1' } }],
+    fallback: false
+  }
+}
