@@ -3,13 +3,15 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styled from 'styled-components'
 import Image from 'next/image'
-import { Row, Column } from 'components/common'
+import { Row, Column, Container } from 'components/common'
 import { DropdownText } from 'components/Dropdown'
 import { Button } from 'components/Buttons'
 import LogoHeader from 'components/LogoHeader'
 import AuthenticationContext from 'contexts/authentication'
 import Router from 'next/router'
 import SearchBar from 'components/SearchBar'
+import GameTile from 'components/GameTile'
+import FeaturedTournament from './FeaturedTournament'
 import { toast } from 'react-toastify'
 import {sendEmailVerification} from 'firebase/auth'
 
@@ -106,11 +108,95 @@ const OtherDropdownContainer = styled(Column)`
   position: absolute;
   z-index: 13;
   background: #f9f9f9;
-  top: 70px;
+  top: 75px;
   margin-left: -150px;
   align-items: flex-start;
   border-radius: 5px;
   box-shadow: 0px 4px 8px 0px #0000000d;
+`
+
+const GamesDropdownContainer = styled(Container)`
+  top: 75px;
+  display: flex;
+  background: #f9f9f9;
+  z-index: 13;
+  flex-direction: row;
+  position: absolute;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px 0px #0000000d;
+  justify-content: space-between;
+`
+const CenterDropdown = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+const ArrowContainer = styled(Column)`
+  display: flex;
+  justify-content: center;
+  flex-align: column;
+  margin-right: 3%;
+`
+
+const TournamentsDropdownContainer = styled(Container)`
+  top: 75px;
+  display: flex;
+  background: #f9f9f9;
+  z-index: 13;
+  flex-direction: row;
+  position: absolute;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px 0px #0000000d;
+  justify-content: space-between;
+`
+
+const LeaderboardsDropdownContainer = styled(Container)`
+  top: 75px;
+  height: 130px;
+  display: flex;
+  background: #f9f9f9;
+  z-index: 13;
+  flex-direction: row;
+  position: absolute;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px 0px #0000000d;
+  justify-content: space-between;
+  align-items: center;
+`
+const GreyText = styled.div`
+  font-family: Inter;
+  font-style: Regular;
+  font-size: 18px;
+  weight: 700;
+  line-height: 27px;
+  fine-height: 24px;
+  color: ${(props) => props.theme.colors.gray};
+  letter-spacing: 0.1em;
+`
+const BlackText = styled.div`
+  font-family: Inter;
+  font-style: Regular;
+  font-size: 16px;
+  line-height: 24px;
+  weight: 500;
+  color: #0c0a09;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+`
+const Number = styled.div`
+  font-family: Inter;
+  font-style: Regular;
+  font-size: 24px;
+  weight: 600;
+  line-height: 36px;
+  color: #0c0a09;
+  letter-spacing: 0.1em;
+`
+const RankContainer = styled(Column)`
+  margin-left: 3%;
+`
+const EarnedContainer = styled(Column)`
+  margin-right: 15%;
 `
 
 function Navigator({ isAuthenticated, currentUser }) {
@@ -158,7 +244,7 @@ function Navigator({ isAuthenticated, currentUser }) {
   )
 }
 
-export default function _Header({ home }) {
+export default function _Header({ home, tournaments, games }) {
   const [navigatorOpen, setNavigatorOpen] = useState(false)
   const ref = useRef()
   const dropdownRef = useRef()
@@ -201,6 +287,9 @@ export default function _Header({ home }) {
             setShowSearchBar(!showSearchBar)
             setNavigatorOpen(false)
             setShowOtherOpen(false)
+            setShowGamesOpen(false)
+            setShowTournamentsOpen(false)
+            setShowLeaderboardsOpen(false)
           }}
         >
           <Image
@@ -224,6 +313,9 @@ export default function _Header({ home }) {
             setShowOtherOpen(!showOtherOpen)
             setShowSearchBar(false)
             setNavigatorOpen(false)
+            setShowGamesOpen(false)
+            setShowTournamentsOpen(false)
+            setShowLeaderboardsOpen(false)
           }}
         >
           <Row>
@@ -279,6 +371,228 @@ export default function _Header({ home }) {
       {toastId: 'verifyEmail1'})
   }
 
+  const [showGamesOpen, setShowGamesOpen] = useState(false)
+
+  function GamesDropdown() {
+    return (
+      <div style={{ cursor: 'pointer' }}>
+        <a
+          onClick={() => {
+            setShowGamesOpen(!showGamesOpen)
+            setShowOtherOpen(false)
+            setShowSearchBar(false)
+            setNavigatorOpen(false)
+            setShowTournamentsOpen(false)
+            setShowLeaderboardsOpen(false)
+          }}
+        >
+          <Row>
+            <a style={{ marginRight: 13 }}>
+              <DropdownText>Games</DropdownText>
+            </a>
+            <Image
+              src={'/dropdown.svg'}
+              width={16}
+              height={16}
+              alt={'dropdown'}
+            />
+          </Row>
+        </a>
+      </div>
+    )
+  }
+
+  function GamesOpen({ games }) {
+    return (
+      <>
+        <GamesDropdownContainer>
+          {games &&
+            games.map(
+              (game, key) =>
+                key < 5 && (
+                  <div
+                    key={key}
+                    style={{ width: 210, height: 300, margin: 20 }}
+                  >
+                    <GameTile game={game.name} caption={game.caption} />
+                  </div>
+                )
+            )}
+          <ArrowContainer style={{ cursor: 'pointer' }}>
+            <Link href={'/games'} passHref>
+              <Column>
+                <Image
+                  src={'/arrow_right.svg'}
+                  width={50}
+                  height={50}
+                  alt={'arrow_right'}
+                />
+                <BlackText>View All</BlackText>
+              </Column>
+            </Link>
+          </ArrowContainer>
+        </GamesDropdownContainer>
+      </>
+    )
+  }
+
+  const [showTournamentsOpen, setShowTournamentsOpen] = useState(false)
+
+  function TournamentsDropdown() {
+    return (
+      <div style={{ cursor: 'pointer' }}>
+        <a
+          onClick={() => {
+            setShowTournamentsOpen(!showTournamentsOpen)
+            setShowGamesOpen(false)
+            setShowOtherOpen(false)
+            setShowSearchBar(false)
+            setNavigatorOpen(false)
+            setShowLeaderboardsOpen(false)
+          }}
+        >
+          <Row>
+            <a style={{ marginRight: 13 }}>
+              <DropdownText>Tournaments</DropdownText>
+            </a>
+            <Image
+              src={'/dropdown.svg'}
+              width={16}
+              height={16}
+              alt={'dropdown'}
+            />
+          </Row>
+        </a>
+      </div>
+    )
+  }
+
+  function TournamentsOpen({}) {
+    return (
+      <>
+        <TournamentsDropdownContainer>
+          {tournaments &&
+            tournaments.map(
+              (tournament, key) =>
+                key < 2 && (
+                  <div
+                    key={key}
+                    style={{
+                      width: 210,
+                      height: 300,
+                      margin: 20,
+                      marginBottom: -10
+                    }}
+                  >
+                    <FeaturedTournament
+                      tournament={tournament}
+                      roundBorders={true}
+                    />
+                  </div>
+                )
+            )}
+          <ArrowContainer style={{ cursor: 'pointer' }}>
+            <Link href={'/tournaments'} passHref>
+              <Column>
+                <Image
+                  src={'/arrow_right.svg'}
+                  width={50}
+                  height={50}
+                  alt={'arrow_right'}
+                />
+                <BlackText>View All</BlackText>
+              </Column>
+            </Link>
+          </ArrowContainer>
+        </TournamentsDropdownContainer>
+      </>
+    )
+  }
+
+  const [showLeaderboardsOpen, setShowLeaderboardsOpen] = useState(false)
+
+  function LeaderboardsDropdown() {
+    return (
+      <div style={{ cursor: 'pointer' }}>
+        <a
+          onClick={() => {
+            setShowLeaderboardsOpen(!showLeaderboardsOpen)
+            setShowTournamentsOpen(false)
+            setShowGamesOpen(false)
+            setShowOtherOpen(false)
+            setShowSearchBar(false)
+            setNavigatorOpen(false)
+          }}
+        >
+          <Row>
+            <a style={{ marginRight: 13 }}>
+              <DropdownText>Leaderboards</DropdownText>
+            </a>
+            <Image
+              src={'/dropdown.svg'}
+              width={16}
+              height={16}
+              alt={'dropdown'}
+            />
+          </Row>
+        </a>
+      </div>
+    )
+  }
+
+  function LeaderboardsOpen() {
+    return (
+      <LeaderboardsDropdownContainer>
+        <RankContainer>
+          <GreyText>Your [COUNTRY] position</GreyText>
+          <Number>#1452</Number>
+        </RankContainer>
+        <Image
+          src={'/socials_divider.svg'}
+          height={63}
+          width={1.5}
+          alt={'social'}
+        />
+        <Link href={'/leaderboards/?sort=byRank'} passHref>
+          <BlackText>GB RANK</BlackText>
+        </Link>
+        <Image
+          src={'/socials_divider.svg'}
+          height={63}
+          width={1.5}
+          alt={'social'}
+        />
+        <Link href={'/leaderboards/?sort=byWins'} passHref>
+          <BlackText>WINS</BlackText>
+        </Link>
+        <Image
+          src={'/socials_divider.svg'}
+          height={63}
+          width={1.5}
+          alt={'social'}
+        />
+        <EarnedContainer>
+          <Link href={'/leaderboards/?sort=byPrem'} passHref>
+            <BlackText>$PREM EARNED</BlackText>
+          </Link>
+        </EarnedContainer>
+        <ArrowContainer style={{ cursor: 'pointer' }}>
+          <Link href={'/leaderboards'} passHref>
+            <Column>
+              <Image
+                src={'/arrow_right.svg'}
+                width={50}
+                height={50}
+                alt={'arrow_right'}
+              />
+              <BlackText>Leaderboards</BlackText>
+            </Column>
+          </Link>
+        </ArrowContainer>
+      </LeaderboardsDropdownContainer>
+    )
+  }
+
   return (
     <HeaderContainer>
       <Header home={home}>
@@ -319,21 +633,9 @@ export default function _Header({ home }) {
           />
         )}
         <LinksBit>
-          <Link href={'/games'}>
-            <a>
-              <DropdownText>GAMES</DropdownText>
-            </a>
-          </Link>
-          <Link href={'/tournaments'}>
-            <a>
-              <DropdownText>TOURNAMENTS</DropdownText>
-            </a>
-          </Link>
-          <Link href={'/leaderboards'}>
-            <a>
-              <DropdownText>LEADERBOARDS</DropdownText>
-            </a>
-          </Link>
+          <GamesDropdown />
+          <TournamentsDropdown />
+          <LeaderboardsDropdown />
           <OtherDropdown />
         </LinksBit>
         <Column>{showOtherOpen && <OtherOpen />}</Column>
@@ -363,6 +665,15 @@ export default function _Header({ home }) {
         </SignupBit>
       </Header>
       {showSearchBar ? <SearchBar /> : null}
+      <CenterDropdown>
+        {showGamesOpen && <GamesOpen games={games} />}
+      </CenterDropdown>
+      <CenterDropdown>
+        {showTournamentsOpen && <TournamentsOpen tournamets={tournaments} />}
+      </CenterDropdown>
+      <CenterDropdown>
+        {showLeaderboardsOpen && <LeaderboardsOpen />}
+      </CenterDropdown>
     </HeaderContainer>
   )
 }

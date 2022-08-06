@@ -1,19 +1,15 @@
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import { Column } from 'components/common'
-import AllGames from 'components/AllGames'
 import SocialsSection from 'components/SocialsSection'
+import AllLeaderboards from 'components/AllLeaderboards'
 import { getGames, getTournaments } from 'calls'
 
-export default function Games({ games, tournaments }) {
+export default function Leaderboards({ games, tournaments }) {
   return (
     <Column>
       <Header games={games} tournaments={tournaments} />
-      {games?.length && (
-        <div style={{ marginBottom: 150 }}>
-          <AllGames games={games} />
-        </div>
-      )}
+      <AllLeaderboards />
       <div style={{ marginBottom: 150 }}>
         <SocialsSection />
       </div>
@@ -27,5 +23,16 @@ export async function getStaticProps(context) {
   const games = await getGames()
   return {
     props: { tournaments, games }
+  }
+}
+
+export async function getStaticPaths() {
+  return {
+    paths: [
+      { params: { sort: 'byRank' } },
+      { params: { sort: 'byWins' } },
+      { params: { sort: 'byPrem' } }
+    ],
+    fallback: false
   }
 }

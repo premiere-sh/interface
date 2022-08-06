@@ -2,11 +2,10 @@ import Header from 'components/Header'
 import Footer from 'components/Footer'
 import { Row, Column } from 'components/common'
 import SocialsSection from 'components/SocialsSection'
-import { getTournaments } from 'calls'
-import styled from 'styled-components'
+import { getTournaments, getGames } from 'calls'
 import AllTournaments from 'components/AllTournaments'
 
-export default function Tournaments({ tournaments }) {
+export default function Tournaments({ tournaments, games }) {
   // TO ADD TOURNAMNETS TO ALGOLIA:
   // const index = searchClient.initIndex('tournaments')
   // index
@@ -17,8 +16,8 @@ export default function Tournaments({ tournaments }) {
 
   return (
     <Column>
-      <Header />
-      {tournaments.length && (
+      <Header games={games} tournaments={tournaments} />
+      {tournaments?.length && (
         <div style={{ marginBottom: 150 }}>
           <AllTournaments tournaments={tournaments} />
         </div>
@@ -33,7 +32,8 @@ export default function Tournaments({ tournaments }) {
 
 export async function getStaticProps(context) {
   const tournaments = await getTournaments()
+  const games = await getGames()
   return {
-    props: { tournaments }
+    props: { tournaments, games }
   }
 }

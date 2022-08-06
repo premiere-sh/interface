@@ -12,53 +12,63 @@ export async function getPlayerOfTheWeek() {
 }
 
 export async function getGames() {
-  const _games = []
-  const res = await fetch(BASE_URL + 'tournaments/ongoing/')
-  if (res.status == 200) {
-    const ongoingTournaments = await res.json()
-    let ongoing
-    for (let game in ongoingTournaments) {
-      _games.push({
-        name: game,
-        caption: `${ongoingTournaments[game]} ongoing`
-      })
+  try {
+    const _games = []
+    const res = await fetch(BASE_URL + 'tournaments/ongoing/')
+    if (res.status == 200) {
+      const ongoingTournaments = await res.json()
+      let ongoing
+      for (let game in ongoingTournaments) {
+        _games.push({
+          name: game,
+          caption: `${ongoingTournaments[game]} ongoing`
+        })
+      }
     }
+    return _games
+  } catch (error) {
+    console.log(error)
+    return null
   }
-  return _games
 }
 
 export async function getTournaments() {
-  let tournaments = []
-  const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-  ]
-  function makeTimeRight(tournament) {
-    const unix = tournament.time
-    let date = new Date(unix * 1000)
-    let year = date.getFullYear()
-    let day = date.getDate()
-    let month = months[date.getMonth()]
-    let hours = date.getHours()
-    let minutes = date.getMinutes()
-    tournament.time = `${hours}:${minutes}`
-    tournament.date = `${day} ${month} ${year}`
-    return tournament
+  try {
+    let tournaments = []
+    const months = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ]
+    function makeTimeRight(tournament) {
+      const unix = tournament.time
+      let date = new Date(unix * 1000)
+      let year = date.getFullYear()
+      let day = date.getDate()
+      let month = months[date.getMonth()]
+      let hours = date.getHours()
+      let minutes = date.getMinutes()
+      tournament.time = `${hours}:${minutes}`
+      tournament.date = `${day} ${month} ${year}`
+      return tournament
+    }
+    const res = await fetch(BASE_URL + 'tournaments/')
+    if (res.status == 200) {
+      let _tournaments = await res.json()
+      tournaments = _tournaments.map((tournament) => makeTimeRight(tournament))
+    }
+    return tournaments
+  } catch (error) {
+    console.log(error)
+    return null
   }
-  const res = await fetch(BASE_URL + 'tournaments/')
-  if (res.status == 200) {
-    let _tournaments = await res.json()
-    tournaments = _tournaments.map((tournament) => makeTimeRight(tournament))
-  }
-  return tournaments
 }
