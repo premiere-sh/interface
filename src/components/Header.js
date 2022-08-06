@@ -12,6 +12,8 @@ import Router from 'next/router'
 import SearchBar from 'components/SearchBar'
 import GameTile from 'components/GameTile'
 import FeaturedTournament from './FeaturedTournament'
+import { toast } from 'react-toastify'
+import {sendEmailVerification} from 'firebase/auth'
 
 const HeaderContainer = styled.div`
   margin-bottom: ${(props) => (props.home ? '80px' : '60px')};
@@ -349,6 +351,24 @@ export default function _Header({ home, tournaments, games }) {
         </LinksContainer>
       </OtherDropdownContainer>
     )
+  }
+  
+  if(user && !user.emailVerified){
+    toast.error(
+      <div>
+        <p style={{marginBottom: 10, fontWeight: 'bold'}}>Welcome to Premiere!</p>
+        <p style={{marginBottom: 10}}>Please verify your email address by clicking link sent to: 
+          <span style={{textDecoration: 'underline', color: 'blue', marginLeft: 5}}>
+            {user.auth.currentUser.email}
+          </span>
+        </p>
+        <a onClick={async()=>{
+          sendEmailVerification(user)
+          .then(()=>alert('Email verification sent! Check your spam folder!'))
+          .catch(err=> alert('error'))
+          }}>Click here to resend link.</a>
+      </div>, 
+      {toastId: 'verifyEmail1'})
   }
 
   const [showGamesOpen, setShowGamesOpen] = useState(false)

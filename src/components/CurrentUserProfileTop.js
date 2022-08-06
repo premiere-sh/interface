@@ -330,6 +330,10 @@ export default function ProfileTop() {
     })
   }
 
+  const handleTabSelect = (tab)=>{
+    setSelected(tab)
+  }
+
   return (
     <Column>
       <Wrapper>
@@ -459,7 +463,7 @@ export default function ProfileTop() {
         <Friends friends={friends} invites={invites} avatars={avatars} />
       )}
       {selected == 'Teams' && <Teams />}
-      {selected == 'Home' && <Home />}
+      {selected == 'Home' && <Home handleTabSelect = {handleTabSelect}/>}
       {selected == 'History' && <EventHistory />}
     </Column>
   )
