@@ -15,7 +15,7 @@ export default function Home({ games, tournaments }) {
 
   return (
     <Column>
-      <Header home={true} />
+      <Header home={true} games={games} tournaments={tournaments} />
       <Container>
         <HomeHeading />
         <WelcomeToPremiere />
