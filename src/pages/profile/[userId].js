@@ -12,7 +12,7 @@ export default function Profile({ games, tournaments }) {
   return (
     <div>
       <Header games={games} tournaments={tournaments} />
-      <ProfileTop />
+      <CurrentUserProfileTop />
       <div style={{ marginBottom: 152, marginTop: 152 }}>
         <SocialsSection />
       </div>
