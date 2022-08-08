@@ -10,6 +10,9 @@ import Checkbox, { CheckboxProps } from 'components/Checkbox'
 import { LoginButton } from './Buttons'
 import moment from 'moment'
 import SelectGameModal from 'components/SelectGameModal'
+import { db } from '../firebase'
+import { addDoc, collection } from "firebase/firestore"; 
+import { useRouter } from 'next/router'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -180,24 +183,37 @@ interface Games {
 }
 
 export default function CreateTournament() {
+
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm()
+
   const { user } = useContext(AuthenticationContext)
   const [errorMessage, setErrorMessage] = useState('')
   const [selectedRegion, setSelectedRegion] = useState('international')
   const [selectedPlatform, setSelectedPlatform] = useState('')
   const [selectedTime, setSelectedTime] = useState('')
+  const [selectedDate, setSelectedDate] = useState('')
   const [selectedGame, setSelectedGame] = useState('')
+  const [name,setName]= useState('')
+  const [description, setDescription] = useState('')
+  const [prize, setPrize] = useState('')
 
   const handleRegionSelect = (newValue: Region) => {
     setSelectedRegion(newValue.value)
   }
 
-  const handleTimeSelect = (newValue: Region) => {
+  const handleTimeSelect = (newValue: Time) => {
     setSelectedTime(newValue.value)
+  }
+
+  const handleDateSelect = (newValue) => {
+    const date: Date = new Date(newValue)
+    setSelectedDate(date.toLocaleDateString())
   }
 
   const handlePlatformSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -241,14 +257,28 @@ export default function CreateTournament() {
   const onSubmit = async (data: Tournament) => {
     const tournamentData = {
       ...data,
-      creator: user,
-      users: '',
       region: selectedRegion,
-      time: getDate(data.time),
+      name: name,
+      description: description,
+      time: selectedTime,
+      date: selectedDate,
+      game: selectedGame,
+      prize: prize,
+      users: '',
+      creator: user.uid,
       platform: selectedPlatform,
-      game: selectedGame
     }
     console.log('tournament', tournamentData)
+
+    try {
+      const docRef = await addDoc(collection(db, "tournaments"),tournamentData);
+      console.log('tournament added with ID: ' + docRef.id)
+      if(docRef.id){
+        router.push('/tournaments')
+      }
+    } catch(e){
+      console.error('Error adding document: ', e)
+    }
   }
 
   const regionOptions: Region[] = [
@@ -320,11 +350,11 @@ export default function CreateTournament() {
         <InputColumn>
           <TournamentNameEntry>
             <Caption>name</Caption>
-            <Input required={true} {...register('name')} type={'text'} />
+            <Input required={true} {...register('name')} type={'text'} value={name} onChange={e => setName(e.target.value)}/>
           </TournamentNameEntry>
           <DescriptionEntry>
             <Caption>description</Caption>
-            <DescriptionInput required={true} {...register('description')} />
+            <DescriptionInput required={true} {...register('description')} value={description} onChange={e => setDescription(e.target.value)}/>
           </DescriptionEntry>
         </InputColumn>
         <InputRow>
@@ -343,13 +373,13 @@ export default function CreateTournament() {
               <Select
                 options={getTimes()}
                 styles={regionStyles}
-                onChange={handleTimeSelect}
+                onChange={e=>handleTimeSelect(e)}
                 placeholder={'00:00'}
               />
             </TournamentEntry>
             <DateEntry>
               <Caption>date</Caption>
-              <DateInput required={true} {...register('time')} type={'date'} />
+              <DateInput required={true} {...register('time')} type={'date'} onChange={e => handleDateSelect(e.target.valueAsNumber)}/>
             </DateEntry>
           </InputColumn>
           <InputColumn>
@@ -372,6 +402,7 @@ export default function CreateTournament() {
                 type={'number'}
                 min={0.0001}
                 step={0.0001}
+                onChange={(e)=>setPrize(e.target.value)}
                 max={1}
                 placeholder={'0.0001'}
               />

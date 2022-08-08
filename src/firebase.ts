@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app'
+import { getFirestore } from "firebase/firestore";
 import 'firebase/auth'
 
 const app = initializeApp({
@@ -11,4 +12,6 @@ const app = initializeApp({
   measurementId: 'G-F8REW9W40C'
 })
 
-export { app }
+const db = getFirestore(app)
+
+export { app, db }
