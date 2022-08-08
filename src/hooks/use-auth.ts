@@ -16,6 +16,7 @@ import {
 } from 'firebase/auth'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
+import { initializeUser } from '../firebase/initialize-user'
 
 export function useAuth() {
   const [user, setUser] = useState<User>()
@@ -68,6 +69,7 @@ export function useAuth() {
         const _token = await result?.user?.getIdToken()
         setToken(_token)
         setUser(result?.user)
+        await initializeUser()
         router.push('/profile')
       }
     } catch (error) {

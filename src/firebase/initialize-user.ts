@@ -5,10 +5,11 @@ import {
   addDoc,
   getFirestore,
   collection,
-  DocumentData
+  DocumentData,
+  DocumentSnapshot
 } from 'firebase/firestore'
 
-export const initializeUser = async (): Promise<DocumentData> => {
+const initializeUser = async (): Promise<DocumentSnapshot<DocumentData>> => {
   const auth = getAuth()
   const firestore = getFirestore()
   const userDoc = doc(firestore, `users/${auth.currentUser.uid}`)
@@ -24,7 +25,11 @@ export const initializeUser = async (): Promise<DocumentData> => {
       wins: 0
     })
     const createdUser = await getDoc(docRef)
-    return createdUser.data()
+    console.log(createdUser)
+    return createdUser
   }
+  console.log(userSnapshot)
   return userSnapshot
 }
+
+export { initializeUser }
