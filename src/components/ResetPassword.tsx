@@ -68,7 +68,7 @@ export default function ResetPassword({ oobCode }) {
   }
 
   return (
-    <FormContainer onSubmit={handleSubmit(onSubmitPassword)}>
+    <FormContainer onSubmit={() => handleSubmit(onSubmitPassword)}>
       <Heading>Reset password</Heading>
       <Subtext>Reset password for your premiere account</Subtext>
       <Entry>
