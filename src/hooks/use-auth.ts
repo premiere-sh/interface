@@ -19,6 +19,7 @@ import {
 } from 'firebase/auth'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
+import { initializeUser } from '../firebase/initialize-user'
 
 export function useAuth() {
   const [user, setUser] = useState<User>()
@@ -49,9 +50,11 @@ export function useAuth() {
   }, [auth])
 
   useEffect(() => {
-    setAuth(getAuth(app))
-    setUser(auth?.currentUser)
-  }, [user, auth])
+    if (app?.options?.apiKey) {
+      setAuth(getAuth(app))
+      setUser(auth?.currentUser)
+    }
+  }, [user, auth, app])
 
   const logout = async () => {
     if (auth) {
@@ -69,11 +72,14 @@ export function useAuth() {
         const _token = await result?.user?.getIdToken()
         setToken(_token)
         setUser(result?.user)
+        await initializeUser()
         router.push('/profile')
       }
     } catch (error) {
       setLoading(false)
-      toast.error(`Error signing in with ${provider.providerId} provider`)
+      toast.error(
+        `Error signing in with ${provider.providerId} provider: ${error.message}`
+      )
     }
     setLoading(false)
   }
@@ -91,7 +97,7 @@ export function useAuth() {
     } catch (error) {
       setLoading(false)
       console.log(error)
-      toast.error(`Error signing in with email: ${email}`)
+      toast.error(`Error signing in with email: ${email}: ${error.message}`)
     }
     setLoading(false)
   }
@@ -110,7 +116,7 @@ export function useAuth() {
     } catch (error) {
       setLoading(false)
       console.log(error)
-      toast.error(`Error signing up with email: ${email}`)
+      toast.error(`Error signing up with email: ${email}: ${error.message}`)
     }
     setLoading(false)
   }

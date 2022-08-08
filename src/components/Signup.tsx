@@ -15,7 +15,7 @@ import Link from 'next/link'
 import AuthenticationContext from 'contexts/authentication'
 import { Dots } from 'react-activity'
 import SocialsSignup from 'components/SocialsSignup'
-
+import { initializeUser } from '../firebase/initialize-user'
 
 interface FormValues {
   email: string
@@ -82,6 +82,7 @@ export default function Signup() {
     delete data['date']
     */
     await signUp(data.email, data.password)
+    await initializeUser()
   }
 
   const inUse = (inputValue) => {
@@ -131,106 +132,108 @@ export default function Signup() {
         <FormContainer onSubmit={() => handleSubmit(onSubmit)}>
           <Heading>sign up</Heading>
           <Subtext>Premiere is only available to users that are 18+</Subtext>
-          <RowEntry>
+            <RowEntry>
+              <Entry>
+                <Caption>username</Caption>
+                <SmallInput
+                  required={true}
+                  {...register('username', { validate: { inUse } })}
+                  type={'text'}
+                  placeholder={'Enter your username'}
+                />
+                {errors.username && <Alert>Username already in use</Alert>}
+              </Entry>
+              <Entry style={{ marginLeft: 65 }}>
+                <Caption>date of birth</Caption>
+                <DateInput
+                  required={true}
+                  {...register('date', { validate: { adult } })}
+                  type={'date'}
+                  placeholder={'Enter your date of birth'}
+                />
+                {errors.date && (
+                  <Alert>We&apos;re sorry - you must be 18 or older</Alert>
+                )}
+              </Entry>
+            </RowEntry>
             <Entry>
-              <Caption>username</Caption>
-              <SmallInput
+              <Caption>email address</Caption>
+              <Input
                 required={true}
-                {...register('username', { validate: { inUse } })}
-                type={'text'}
-                placeholder={'Enter your username'}
+                {...register('email', { validate: { inUse } })}
+                type={'email'}
+                placeholder={'Enter your email address'}
               />
-              {errors.username && <Alert>Username already in use</Alert>}
+              {errors.email && <Alert>Email address already in use</Alert>}
             </Entry>
-            <Entry style={{ marginLeft: 65 }}>
-              <Caption>date of birth</Caption>
-              <DateInput
+            <Entry>
+              <Caption>password</Caption>
+              <Input
                 required={true}
-                {...register('date', { validate: { adult } })}
-                type={'date'}
-                placeholder={'Enter your date of birth'}
+                {...register('password', {
+                  minLength: 8,
+                  validate: { uppercase, number, special, inUse, checkMatch }
+                })}
+                type={'password'}
+                placeholder={'Enter your password'}
               />
-              {errors.date && (
-                <Alert>We&apos;re sorry - you must be 18 or older</Alert>
+              {errors.password?.type === 'minLength' && (
+                <Alert>Please use at least 8 characters</Alert>
+              )}
+              {errors.password?.type === 'uppercase' && (
+                <Alert>Please use at least one capital letter</Alert>
+              )}
+              {errors.password?.type === 'number' && (
+                <Alert>Please use at least one number</Alert>
+              )}
+              {errors.password?.type === 'special' && (
+                <Alert>Please use at least one special character</Alert>
+              )}
+              {errors.password?.type === 'inUse' && (
+                <Alert>Password already in use</Alert>
               )}
             </Entry>
-          </RowEntry>
-          <Entry>
-            <Caption>email address</Caption>
-            <Input
-              required={true}
-              {...register('email', { validate: { inUse } })}
-              type={'email'}
-              placeholder={'Enter your email address'}
-            />
-            {errors.email && <Alert>Email address already in use</Alert>}
-          </Entry>
-          <Entry>
-            <Caption>password</Caption>
-            <Input
-              required={true}
-              {...register('password', {
-                minLength: 8,
-                validate: { uppercase, number, special, inUse, checkMatch }
-              })}
-              type={'password'}
-              placeholder={'Enter your password'}
-            />
-            {errors.password?.type === 'minLength' && (
-              <Alert>Please use at least 8 characters</Alert>
-            )}
-            {errors.password?.type === 'uppercase' && (
-              <Alert>Please use at least one capital letter</Alert>
-            )}
-            {errors.password?.type === 'number' && (
-              <Alert>Please use at least one number</Alert>
-            )}
-            {errors.password?.type === 'special' && (
-              <Alert>Please use at least one special character</Alert>
-            )}
-            {errors.password?.type === 'inUse' && (
-              <Alert>Password already in use</Alert>
-            )}
-          </Entry>
-          <Entry>
-            <Caption>confirm password</Caption>
-            <Input
-              required={true}
-              {...register('confirm', { validate: { match } })}
-              type={'password'}
-              placeholder={'Enter your password'}
-            />
-            {errors.confirm && <Alert>Passwords do not match</Alert>}
-          </Entry>
+            <Entry>
+              <Caption>confirm password</Caption>
+              <Input
+                required={true}
+                {...register('confirm', { validate: { match } })}
+                type={'password'}
+                placeholder={'Enter your password'}
+              />
+              {errors.confirm && <Alert>Passwords do not match</Alert>}
+            </Entry>
 
-
-    
-          <TermsOfService>
-      
-            <input style = {{display: 'inline-block', fontSize: 40, marginRight: 10}} type = {'checkbox'} required={true}/>
-           
-          
-    
-            I confirm that I am 18 years old or over. See our 
-              <GradientText style={{marginLeft: 5}}>
-              <Link href={'/login'}>
-                <a>  Terms of Service</a>
-              </Link>
+            <TermsOfService>
+              <input
+                style={{
+                  display: 'inline-block',
+                  fontSize: 40,
+                  marginRight: 10
+                }}
+                type={'checkbox'}
+                required={true}
+              />
+              I confirm that I am 18 years old or over. See our
+              <GradientText style={{ marginLeft: 5 }}>
+                <Link href={'/login'}>
+                  <a> Terms of Service</a>
+                </Link>
               </GradientText>
-              .     
-          </TermsOfService>
-          {errors.email && <Alert>Must be 18!</Alert>}
-          <SubmitEntry>
-            <SignupButton
-              type="submit"
-              disabled={loading}
-              text={loading ? <Dots /> : 'sign up'}
-            />
-          </SubmitEntry>
-        </FormContainer>
-        
-        <SocialsSignup/>
-        <LoginIfGotAnAccount>
+              .
+            </TermsOfService>
+            {errors.email && <Alert>Must be 18!</Alert>}
+            <SubmitEntry>
+              <SignupButton
+                type="submit"
+                disabled={loading}
+                text={loading ? <Dots /> : 'sign up'}
+              />
+            </SubmitEntry>
+          </FormContainer>
+
+          <SocialsSignup />
+          <LoginIfGotAnAccount>
             Already a member?
             <GradientText style={{ display: 'inline', marginLeft: 5 }}>
               <Link href={'/login'}>
@@ -239,7 +242,6 @@ export default function Signup() {
             </GradientText>
           </LoginIfGotAnAccount>
         </>
-
       ) : (
         <div>Authorized!</div>
       )}

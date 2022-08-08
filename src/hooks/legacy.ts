@@ -13,24 +13,28 @@ export function getHeaders(token) {
 
 export function useSignUp() {
   const signIn = useSignIn()
-  return async function signUp(data) {
-    const res = await fetch(BASE_URL + 'users/', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
+  return async function signUp(data: any) {
+    try {
+      const res = await fetch(BASE_URL + 'users/', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+      if (res.status == 200) {
+        const credentials = {
+          username: data.username,
+          password: data.password
+        }
+        return signIn(credentials)
+      } else {
+        const error = await res.json()
+        return { error: error.detail }
       }
-    })
-    if (res.status == 200) {
-      const credentials = {
-        username: data.username,
-        password: data.password
-      }
-      return signIn(credentials)
-    } else {
-      const error = await res.json()
-      return { error: error.detail }
+    } catch {
+      // pass
     }
   }
 }
@@ -149,9 +153,13 @@ export function useUser(userId) {
     function () {
       if (userId) {
         ;(async function () {
-          const res = await fetch(BASE_URL + `users/${userId}`)
-          const _user = await res.json()
-          setUser(_user)
+          try {
+            const res = await fetch(BASE_URL + `users/${userId}`)
+            const _user = await res.json()
+            setUser(_user)
+          } catch {
+            // pass
+          }
         })()
       }
     },
