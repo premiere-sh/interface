@@ -2,7 +2,8 @@ import { initializeApp } from 'firebase/app'
 import 'firebase/auth'
 
 const app = initializeApp({
-  apiKey: 'AIzaSyAXrmMuj7gjo8s6Wryn85hYMFuSXzDPIQc',
+  // TODO add the API_KEY env variable on vercel
+  apiKey: process.env.API_KEY || '',
   authDomain: 'premiere-6c19e.firebaseapp.com',
   projectId: 'premiere-6c19e',
   storageBucket: 'premiere-6c19e.appspot.com',
