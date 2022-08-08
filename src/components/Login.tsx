@@ -69,7 +69,7 @@ export default function Login() {
   }
 
   return (
-    <FormContainer onSubmit={handleSubmit(onSubmit)}>
+    <FormContainer onSubmit={() => handleSubmit(onSubmit)}>
       <Heading>log in</Heading>
       <Subtext>Login to your Premiere account below!</Subtext>
       <Entry>
