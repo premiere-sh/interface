@@ -46,9 +46,11 @@ export function useAuth() {
   }, [auth])
 
   useEffect(() => {
-    setAuth(getAuth(app))
-    setUser(auth?.currentUser)
-  }, [user, auth])
+    if (app?.options?.apiKey) {
+      setAuth(getAuth(app))
+      setUser(auth?.currentUser)
+    }
+  }, [user, auth, app])
 
   const logout = async () => {
     if (auth) {
