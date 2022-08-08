@@ -74,7 +74,9 @@ export function useAuth() {
       }
     } catch (error) {
       setLoading(false)
-      toast.error(`Error signing in with ${provider.providerId} provider`)
+      toast.error(
+        `Error signing in with ${provider.providerId} provider: ${error.message}`
+      )
     }
     setLoading(false)
   }
@@ -92,7 +94,7 @@ export function useAuth() {
     } catch (error) {
       setLoading(false)
       console.log(error)
-      toast.error(`Error signing in with email: ${email}`)
+      toast.error(`Error signing in with email: ${email}: ${error.message}`)
     }
     setLoading(false)
   }
@@ -111,7 +113,7 @@ export function useAuth() {
     } catch (error) {
       setLoading(false)
       console.log(error)
-      toast.error(`Error signing up with email: ${email}`)
+      toast.error(`Error signing up with email: ${email}: ${error.message}`)
     }
     setLoading(false)
   }
