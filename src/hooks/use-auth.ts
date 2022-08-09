@@ -17,14 +17,29 @@ import {
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import { initializeUser } from '../firebase/initialize-user'
+import { getDoc, getFirestore, doc } from 'firebase/firestore'
 
 export function useAuth() {
   const [user, setUser] = useState<User>()
   const [auth, setAuth] = useState<Auth>()
+  const [userFirestore, setUserFirestore] = useState<any>()
   const [loading, setLoading] = useState<boolean>()
   const [token, setToken] = useState<string>()
   const [userAvatar, setUserAvatar] = useState<string>()
   const router = useRouter()
+
+  useEffect(() => {
+    ;(async function () {
+      // TODO fetch the user here from firestore and pass in the context
+      if (user?.uid) {
+        const firestore = getFirestore()
+        const userDoc = doc(firestore, `users/${user?.uid}`)
+        const userSnapshot = await getDoc(userDoc)
+        const userData = userSnapshot?.data()
+        setUserFirestore(userData)
+      }
+    })()
+  }, [user])
 
   useEffect(
     function () {
