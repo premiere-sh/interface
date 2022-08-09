@@ -31,6 +31,7 @@
     "react-instantsearch": "^6.30.2",
     "react-modal": "^3.14.3",
     "react-player": "^2.9.0",
+    "react-router-dom": "^6.3.0",
     "react-select": "^5.4.0",
     "react-select-search": "^3.0.10",
     "react-select-search-nextjs-typescript": "^3.0.7",

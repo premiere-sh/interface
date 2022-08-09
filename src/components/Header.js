@@ -307,7 +307,7 @@ export default function _Header({ home, tournaments, games }) {
   function OtherDropdown() {
     return (
       <div style={{ cursor: 'pointer' }}>
-        <a
+        <div
           onClick={() => {
             setShowOtherOpen(!showOtherOpen)
             setShowSearchBar(false)
@@ -318,9 +318,9 @@ export default function _Header({ home, tournaments, games }) {
           }}
         >
           <Row>
-            <a style={{ marginRight: 13 }}>
+            <div style={{ marginRight: 13 }}>
               <DropdownText>OTHER</DropdownText>
-            </a>
+            </div>
             <Image
               src={'/dropdown.svg'}
               width={16}
@@ -328,7 +328,7 @@ export default function _Header({ home, tournaments, games }) {
               alt={'dropdown'}
             />
           </Row>
-        </a>
+        </div>
       </div>
     )
   }

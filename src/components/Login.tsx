@@ -10,10 +10,10 @@ import { GradientText } from 'components/common'
 import Link from 'next/link'
 
 const FormContainer = styled.form`
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
-  padding:20px;
+  padding: 20px;
 `
 
 const SubmitEntry = styled(Entry)`
@@ -22,7 +22,7 @@ const SubmitEntry = styled(Entry)`
 `
 
 const LoginPageButton = styled(LoginButton)`
-width: 350px;
+  width: 350px;
 `
 
 const ErrorMessage = styled.p`
@@ -51,6 +51,11 @@ const ContextForgotPassword = styled.div`
   }
 `
 
+const ForgotPassword = styled.div`
+  margin: auto;
+  width: 560px;
+`
+
 export default function Login() {
   const {
     register,
@@ -64,7 +69,7 @@ export default function Login() {
   }
 
   return (
-    <FormContainer onSubmit={handleSubmit(onSubmit)}>
+    <FormContainer onSubmit={() => handleSubmit(onSubmit)}>
       <Heading>log in</Heading>
       <Subtext>Login to your Premiere account below!</Subtext>
       <Entry>
@@ -90,9 +95,11 @@ export default function Login() {
           </ErrorMessage>
         )}
       </Entry>
-      <Link href={'#'}>
-        <ContextForgotPassword>Forgot your password?</ContextForgotPassword>
-      </Link>
+      <ForgotPassword>
+        <Link href={'/forgot-password'} passHref>
+          <ContextForgotPassword>Forgot your password?</ContextForgotPassword>
+        </Link>
+      </ForgotPassword>
       <SubmitEntry>
         {loading ? (
           <LoginPageButton text={<Dots />} disabled />
