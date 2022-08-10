@@ -12,19 +12,37 @@ import {
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
+  confirmPasswordReset,
+  verifyPasswordResetCode,
   sendEmailVerification
 } from 'firebase/auth'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import { initializeUser } from '../firebase/initialize-user'
+import { getDoc, getFirestore, doc } from 'firebase/firestore'
 
 export function useAuth() {
   const [user, setUser] = useState<User>()
   const [auth, setAuth] = useState<Auth>()
+  const [userFirestore, setUserFirestore] = useState<any>()
   const [loading, setLoading] = useState<boolean>()
   const [token, setToken] = useState<string>()
   const [userAvatar, setUserAvatar] = useState<string>()
   const router = useRouter()
+
+  useEffect(() => {
+    ;(async function () {
+      // TODO fetch the user here from firestore and pass in the context
+      if (user?.uid) {
+        const firestore = getFirestore()
+        const userDoc = doc(firestore, `users/${user?.uid}`)
+        const userSnapshot = await getDoc(userDoc)
+        const userData = userSnapshot?.data()
+        setUserFirestore(userData)
+      }
+    })()
+  }, [user])
 
   useEffect(
     function () {
@@ -74,7 +92,9 @@ export function useAuth() {
       }
     } catch (error) {
       setLoading(false)
-      toast.error(`Error signing in with ${provider.providerId} provider`)
+      toast.error(
+        `Error signing in with ${provider.providerId} provider: ${error.message}`
+      )
     }
     setLoading(false)
   }
@@ -92,7 +112,7 @@ export function useAuth() {
     } catch (error) {
       setLoading(false)
       console.log(error)
-      toast.error(`Error signing in with email: ${email}`)
+      toast.error(`Error signing in with email: ${email}: ${error.message}`)
     }
     setLoading(false)
   }
@@ -111,15 +131,46 @@ export function useAuth() {
     } catch (error) {
       setLoading(false)
       console.log(error)
-      toast.error(`Error signing up with email: ${email}`)
+      toast.error(`Error signing up with email: ${email}: ${error.message}`)
     }
     setLoading(false)
+  }
+
+  const sendResetLink = async (email: string) => {
+    try {
+      const result = await sendPasswordResetEmail(auth, email).then(() => {
+        toast.success('Link sent, check your email')
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const resetPassword = async (oobCode: string, newPassword: string) => {
+    verifyPasswordResetCode(auth, oobCode)
+      .then((email) => {
+        confirmPasswordReset(auth, oobCode, newPassword)
+          .then((resp) => {
+            router.push('/login')
+            toast.success(`Password successfully reset for ${email}`)
+          })
+          .catch((error) => {
+            console.log(error)
+            toast.error(`Error resetting password`)
+          })
+      })
+      .catch((error) => {
+        console.log(error)
+        toast.error(`Error resetting password`)
+      })
   }
 
   return {
     signIn,
     signUp,
     signInWithProvider,
+    sendResetLink,
+    resetPassword,
     loading,
     setLoading,
     user,

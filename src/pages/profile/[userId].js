@@ -2,7 +2,7 @@ import Header from 'components/Header'
 import Teams from 'components/Teams'
 import Footer from 'components/Footer'
 import SocialsSection from 'components/SocialsSection'
-import ProfileTop from 'components/ProfileTop'
+import CurrentUserProfileTop from 'components/CurrentUserProfileTop'
 import { useRouter } from 'next/router'
 import { getGames, getTournaments } from 'calls'
 
@@ -12,7 +12,7 @@ export default function Profile({ games, tournaments }) {
   return (
     <div>
       <Header games={games} tournaments={tournaments} />
-      <ProfileTop />
+      <CurrentUserProfileTop />
       <div style={{ marginBottom: 152, marginTop: 152 }}>
         <SocialsSection />
       </div>

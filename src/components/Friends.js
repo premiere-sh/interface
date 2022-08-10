@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Column, Container, Row } from './common'
+import { Button } from 'components/Buttons'
 import Image from 'next/image'
 import { Grid } from 'styled-css-grid'
 import {
@@ -8,6 +9,7 @@ import {
   connectSearchBox
 } from 'react-instantsearch-dom'
 import { searchClient } from 'algolia/index'
+import { useState } from 'react'
 
 function zip(arrays) {
   return arrays[0].map((_, i) => {
@@ -41,7 +43,8 @@ const SearchContainer = styled(Row)`
   width: 315px;
   margin-bottom: 90px;
 `
-const YourFriends = styled.div`
+
+const YourInvites = styled.div`
   font-size: 26px;
   line-height: 31px;
   font-weight: 600;
@@ -59,6 +62,32 @@ const Avatar = styled.img`
   width: 170px;
   height: 170px;
   border-radius: 170px;
+`
+const AddFriendsButton = styled(Button)`
+  font-size: 26px;
+  line-height: 31px;
+  font-weight: 600;
+  margin-bottom: 45px;
+  width: 200px;
+  height: 80px;
+  margin-left: 20px;
+`
+
+const YourFriendsButton = styled(Button)`
+  font-size: 26px;
+  line-height: 31px;
+  font-weight: 600;
+  margin-bottom: 45px;
+  width: 200px;
+  height: 80px;
+`
+
+const TextContainer = styled(Row)`
+  justify-content: start;
+`
+
+const PopoutContainer = styled(Container)`
+  width: 100%;
 `
 
 const SearchBox = ({ currentRefinement, refine }) => {
@@ -91,13 +120,42 @@ const Hits = connectHits(({ hits }) => {
 })
 
 export default function Friends({ friends, invites, avatars }) {
+  const [selected, setSelected] = useState('yourfriends')
+
+  function AddFriends() {
+    return (
+      <div>
+        <SearchContainer>
+          <Image src={'/search.svg'} width={32} height={32} alt={'search'} />
+          <CustomSearchBox />
+        </SearchContainer>
+        <Grid columns={'repeat(auto-fit, minmax(210px, 1fr))'} gap={'83px'}>
+          <Hits />
+        </Grid>
+      </div>
+    )
+  }
+
+  function YourFriends() {
+    return (
+      <div>
+        <SearchContainer>
+          <Image src={'/search.svg'} width={32} height={32} alt={'search'} />
+          <CustomSearchBox />
+        </SearchContainer>
+        <Grid columns={'repeat(auto-fit, minmax(210px, 1fr))'} gap={'83px'}>
+          <Hits />
+        </Grid>
+      </div>
+    )
+  }
   return (
     <InstantSearch searchClient={searchClient} indexName="users">
       <FriendsContainer>
         {invites && (
           <Container>
             <TextSection>
-              <YourFriends>Your invites</YourFriends>
+              <YourInvites>Your invites</YourInvites>
             </TextSection>
             <Grid columns={'repeat(auto-fit, minmax(210px, 1fr))'} gap={'83px'}>
               {invites?.length &&
@@ -114,21 +172,28 @@ export default function Friends({ friends, invites, avatars }) {
           </Container>
         )}
         <Container>
-          <TextSection>
-            <YourFriends>Your friends</YourFriends>
-            <SearchContainer>
-              <Image
-                src={'/search.svg'}
-                width={32}
-                height={32}
-                alt={'search'}
-              />
-              <CustomSearchBox />
-            </SearchContainer>
-          </TextSection>
-          <Grid columns={'repeat(auto-fit, minmax(210px, 1fr))'} gap={'83px'}>
-            <Hits />
-          </Grid>
+          <TextContainer>
+            <YourFriendsButton
+              style={{
+                fontSize: `${selected == 'yourfriends' ? 32 : 26}px`
+              }}
+              onClick={() => setSelected('yourfriends')}
+            >
+              Your friends
+            </YourFriendsButton>
+            <AddFriendsButton
+              style={{
+                fontSize: `${selected == 'addfriends' ? 32 : 26}px`
+              }}
+              onClick={() => setSelected('addfriends')}
+            >
+              Add Friends
+            </AddFriendsButton>
+          </TextContainer>
+          <PopoutContainer>
+            {selected == 'yourfriends' && <YourFriends />}
+            {selected == 'addfriends' && <AddFriends />}
+          </PopoutContainer>
         </Container>
       </FriendsContainer>
     </InstantSearch>

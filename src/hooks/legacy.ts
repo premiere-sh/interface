@@ -1,9 +1,11 @@
-import { useState, useEffect, useContext } from 'react'
-import AuthenticationContext from 'contexts/authentication'
+import { useState, useEffect } from 'react'
 
-export const BASE_URL = 'https://api.premiere.sh/'
+export interface Credentials {
+  username: string
+  password: string
+}
 
-export function getHeaders(token) {
+export function getHeaders(token: string) {
   return {
     Authorization: `Bearer ${token}`,
     Accept: 'application/json',
@@ -36,6 +38,7 @@ export function useSignUp() {
     } catch {
       // pass
     }
+    return signIn(credentials)
   }
 }
 
@@ -91,7 +94,7 @@ export function useFriends(user: any) {
   return friends
 }
 
-export function useStats(user_id) {
+export function useStats(user_id: string | number) {
   const [stats, setStats] = useState({})
 
   useEffect(function () {
@@ -137,23 +140,12 @@ export function useInviteFriend() {
 }
 
 export function useCreateTournament() {
-  return async function createTournament(tournament, token) {
-    const headers = getHeaders(token)
-    const res = await fetch(BASE_URL + 'tournaments/', {
-      headers: headers,
-      method: 'POST',
-      body: JSON.stringify(tournament)
-    })
-    if (res.status == 200) {
-      return { success: true }
-    } else {
-      const error = await res.json()
-      return { error: error }
-    }
+  return async function createTournament(tournament: any, token: string) {
+    return { success: true, error: null }
   }
 }
 
-export function useUser(userId) {
+export function useUser(userId: string | number) {
   const [user, setUser] = useState(null)
   const [avatar, setAvatar] = useState(null)
 
@@ -196,25 +188,11 @@ export function useFriendInvites(user: any, token: any) {
   useEffect(
     function () {
       ;(async function () {
-        if (token && user?.user_id) {
-          const headers = getHeaders(token)
-          const res = await fetch(
-            BASE_URL + `users/${user?.user_id}/invites/`,
-            {
-              headers: headers,
-              method: 'GET'
-            }
-          )
-          if (res.status == 200) {
-            const _invites = await res.json()
-            setInvites(_invites)
-            setAvatars(['.'])
-          } else {
-            const _error = await res.json()
-            setError(_error)
-          }
-        }
-      })()
+        setInvites([])
+        setAvatars([])
+        setError(undefined)
+        setAccepted(false)
+      })
     },
     [token]
   )

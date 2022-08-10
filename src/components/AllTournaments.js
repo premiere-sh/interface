@@ -63,11 +63,9 @@ export default function AllTournaments({ tournaments }) {
             <CustomMenuSelect attribute="game" option={'game'} />
           </SubheadingRow>
         </Container>
-        {tournaments && (
-          <Container style={{ marginBottom: 220 }}>
-            <Hits />
-          </Container>
-        )}
+        <Container style={{ marginBottom: 220 }}>
+          <Hits />
+        </Container>
       </InstantSearch>
     </div>
   )
