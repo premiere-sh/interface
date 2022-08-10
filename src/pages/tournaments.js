@@ -1,3 +1,4 @@
+import React, {useState, useEffect} from 'react'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import { Row, Column } from 'components/common'
@@ -5,14 +6,17 @@ import SocialsSection from 'components/SocialsSection'
 import { getTournaments, getGames } from 'calls'
 import AllTournaments from 'components/AllTournaments'
 
-export default function Tournaments({ tournaments, games }) {
-  // TO ADD TOURNAMNETS TO ALGOLIA:
-  // const index = searchClient.initIndex('tournaments')
-  // index
-  //   .saveObjects(tournaments, {
-  //     autoGenerateObjectIDIfNotExist: true
-  //   })
-  //   .then(objectIDs)
+export default function Tournaments() {
+
+  const [tournaments,setTournaments]=useState([])
+
+  useEffect(async()=> {
+    const tournamentsCall = await getTournaments()
+    setTournaments(tournamentsCall)
+    console.log(tournaments)
+  },[])
+
+  const games = []
 
   return (
     <Column>
@@ -28,12 +32,4 @@ export default function Tournaments({ tournaments, games }) {
       <Footer />
     </Column>
   )
-}
-
-export async function getStaticProps(context) {
-  const tournaments = await getTournaments()
-  const games = await getGames()
-  return {
-    props: { tournaments, games }
-  }
 }

@@ -1,5 +1,8 @@
 import { BASE_URL } from 'hooks'
 
+import { db } from '../firebase'
+import { doc, getDocs, collection } from "firebase/firestore"; 
+
 export async function getPlayerOfTheWeek() {
   const player = {
     name: 'devonhenry_',
@@ -32,41 +35,16 @@ export async function getGames() {
   }
 }
 
-export async function getTournaments() {
-  try {
-    let tournaments = []
-    const months = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December'
-    ]
-    function makeTimeRight(tournament) {
-      const unix = tournament.time
-      let date = new Date(unix * 1000)
-      let year = date.getFullYear()
-      let day = date.getDate()
-      let month = months[date.getMonth()]
-      let hours = date.getHours()
-      let minutes = date.getMinutes()
-      tournament.time = `${hours}:${minutes}`
-      tournament.date = `${day} ${month} ${year}`
-      return tournament
-    }
-    const res = await fetch(BASE_URL + 'tournaments/')
-    if (res.status == 200) {
-      let _tournaments = await res.json()
-      tournaments = _tournaments.map((tournament) => makeTimeRight(tournament))
-    }
+export const getTournaments = async () => {
+  try{
+    const querySnapshot = await getDocs(collection(db, 'tournaments'))
+    const tournaments = querySnapshot.docs.map(doc => {
+      const data = doc.data()
+      const id = doc.id
+      return {id, ...data}
+    })
     return tournaments
+
   } catch (error) {
     console.log(error)
     return null
