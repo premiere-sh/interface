@@ -6,8 +6,6 @@ import { Grid, Cell } from 'styled-css-grid'
 import { getTournaments } from 'calls'
 import styled from 'styled-components'
 import Menu from 'components/Filter'
-import { getOriginalNode } from 'typescript'
-
 
 const SubheadingRow = styled(Row)`
   margin-bottom: 80px;
@@ -15,8 +13,6 @@ const SubheadingRow = styled(Row)`
     flex-direction: column;
   }
 `
-
-
 const Hits = (({ hits }) => {
   const [width, setWidth] = useState(null)
 

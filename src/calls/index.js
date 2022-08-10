@@ -44,7 +44,6 @@ export const getTournaments = async () => {
       return {id, ...data}
     })
     return tournaments
-
   } catch (error) {
     console.log(error)
     return null
