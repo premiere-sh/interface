@@ -1,9 +1,11 @@
-import { useState, useEffect, useContext } from 'react'
-import AuthenticationContext from 'contexts/authentication'
+import { useState, useEffect } from 'react'
 
-export const BASE_URL = 'https://api.premiere.sh/'
+export interface Credentials {
+  username: string
+  password: string
+}
 
-export function getHeaders(token) {
+export function getHeaders(token: string) {
   return {
     Authorization: `Bearer ${token}`,
     Accept: 'application/json',
@@ -13,45 +15,19 @@ export function getHeaders(token) {
 
 export function useSignUp() {
   const signIn = useSignIn()
-  return async function signUp(data) {
-    const res = await fetch(BASE_URL + 'users/', {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    if (res.status == 200) {
-      const credentials = {
-        username: data.username,
-        password: data.password
-      }
-      return signIn(credentials)
-    } else {
-      const error = await res.json()
-      return { error: error.detail }
+  return async function signUp(data: any) {
+    const credentials = {
+      username: 'deprecated',
+      password: 'deprecated',
+      ...data
     }
+    return signIn(credentials)
   }
 }
 
 export function useSignIn() {
-  return async function signIn(data) {
-    const res = await fetch(BASE_URL + 'token/', {
-      method: 'POST',
-      body: `username=${data.username}&password=${data.password}`,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    })
-    if (res.status == 200) {
-      const token = (await res.json()).access_token
-      return { token: token }
-    } else {
-      const error = (await res.json()).detail
-      return { error: error }
-    }
+  return async function signIn(data: Credentials) {
+    return { token: 'deprecated', error: 'deprecated' }
   }
 }
 
@@ -64,31 +40,19 @@ export function useFriends(user: any) {
 
   useEffect(function () {
     ;(async function () {
-      const res = await fetch(`${BASE_URL}${user?.user_id}/friends/`)
-      if (res.status == 200) {
-        let _friends = await res.json()
-        _friends = _friends.map((friend: any) => {
-          friend.avatar = ''
-          return friend
-        })
-        setFriends(_friends)
-      }
+      setFriends([])
     })()
   }, [])
 
   return friends
 }
 
-export function useStats(user_id) {
+export function useStats(user_id: string | number) {
   const [stats, setStats] = useState({})
 
   useEffect(function () {
     ;(async function () {
-      const res = await fetch(`${BASE_URL}${user_id}/stats/`)
-      if (res.status == 200) {
-        const _stats = await res.json()
-        setStats(_stats)
-      }
+      setStats({})
     })()
   }, [])
 
@@ -101,39 +65,17 @@ export function useInviteFriend() {
     acceptingId: any,
     token: any
   ) {
-    const headers = getHeaders(token)
-    const slug = `users/${acceptingId}/friends/invite/`
-    const res = await fetch(BASE_URL + slug, {
-      headers: headers,
-      method: 'POST'
-    })
-    if (res.status == 200) {
-      return { success: true }
-    } else {
-      const error = await res.json()
-      return { error: error }
-    }
+    return { success: true, error: null }
   }
 }
 
 export function useCreateTournament() {
-  return async function createTournament(tournament, token) {
-    const headers = getHeaders(token)
-    const res = await fetch(BASE_URL + 'tournaments/', {
-      headers: headers,
-      method: 'POST',
-      body: JSON.stringify(tournament)
-    })
-    if (res.status == 200) {
-      return { success: true }
-    } else {
-      const error = await res.json()
-      return { error: error }
-    }
+  return async function createTournament(tournament: any, token: string) {
+    return { success: true, error: null }
   }
 }
 
-export function useUser(userId) {
+export function useUser(userId: string | number) {
   const [user, setUser] = useState(null)
   const [avatar, setAvatar] = useState(null)
 
@@ -147,13 +89,8 @@ export function useUser(userId) {
 
   useEffect(
     function () {
-      if (userId) {
-        ;(async function () {
-          const res = await fetch(BASE_URL + `users/${userId}`)
-          const _user = await res.json()
-          setUser(_user)
-        })()
-      }
+      setUser(null)
+      setAvatar(null)
     },
     [userId]
   )
@@ -172,25 +109,11 @@ export function useFriendInvites(user: any, token: any) {
   useEffect(
     function () {
       ;(async function () {
-        if (token && user?.user_id) {
-          const headers = getHeaders(token)
-          const res = await fetch(
-            BASE_URL + `users/${user?.user_id}/invites/`,
-            {
-              headers: headers,
-              method: 'GET'
-            }
-          )
-          if (res.status == 200) {
-            const _invites = await res.json()
-            setInvites(_invites)
-            setAvatars(['.'])
-          } else {
-            const _error = await res.json()
-            setError(_error)
-          }
-        }
-      })()
+        setInvites([])
+        setAvatars([])
+        setError(undefined)
+        setAccepted(false)
+      })
     },
     [token]
   )

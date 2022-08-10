@@ -2,6 +2,8 @@ import Image from 'next/image'
 import styled from 'styled-components'
 import { LeaderboardTitle, Row, Column, GradientText } from 'components/common'
 import { useRouter } from 'next/router'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { toast } from 'react-toastify'
 
 const PlayerRow = styled(Row)``
 
@@ -57,7 +59,7 @@ const ShareRow = styled(Row)`
   margin-bottom: 50px;
 `
 
-const CopyLinkContainer = styled.div`
+const CopyLinkContainer = styled(CopyToClipboard)`
   width: 183px;
   height: 44px;
   background: #ffffff;
@@ -90,15 +92,26 @@ const Avatar = styled.img`
 
 function CopyLink() {
   return (
-    <CopyLinkContainer>
-      <Image src={'/copy_link.svg'} width={24} height={24} alt={'copy-link'} />
-      <CopyLinkText>copy link</CopyLinkText>
+    <CopyLinkContainer
+      text={'https://www.premiere.sh/leaderboards'}
+      onCopy={() => toast.success('link copied')}
+    >
+      <div>
+        <Image
+          src={'/copy_link.svg'}
+          width={24}
+          height={24}
+          alt={'copy-link'}
+        />
+        <CopyLinkText>copy link</CopyLinkText>
+      </div>
     </CopyLinkContainer>
   )
 }
 
 export default function PlayerOfTheWeek({ user, avatar }) {
   const router = useRouter()
+
   return (
     <div>
       <LeaderboardTitle>Player of the week</LeaderboardTitle>
@@ -129,7 +142,10 @@ export default function PlayerOfTheWeek({ user, avatar }) {
       <LeaderboardTitle>Share this page</LeaderboardTitle>
       <ShareRow>
         <CopyLink />
-        <a style={{ marginTop: 12, marginLeft: 10, cursor: 'pointer' }}>
+        <a
+          style={{ marginTop: 12, marginLeft: 10, cursor: 'pointer' }}
+          href="https://www.instagram.com"
+        >
           <Image
             src={'/instagram_button.svg'}
             width={64}
@@ -137,7 +153,10 @@ export default function PlayerOfTheWeek({ user, avatar }) {
             alt={'button'}
           />
         </a>
-        <a style={{ marginTop: 12, cursor: 'pointer' }}>
+        <a
+          style={{ marginTop: 12, cursor: 'pointer' }}
+          href="https://twitter.com/intent/tweet?via=premiere_sh&text=Some%20tweet%20text%20here"
+        >
           <Image
             src={'/twitter_button.svg'}
             width={64}

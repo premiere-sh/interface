@@ -1,5 +1,3 @@
-import { BASE_URL } from 'hooks'
-
 export async function getPlayerOfTheWeek() {
   const player = {
     name: 'devonhenry_',
@@ -14,17 +12,6 @@ export async function getPlayerOfTheWeek() {
 export async function getGames() {
   try {
     const _games = []
-    const res = await fetch(BASE_URL + 'tournaments/ongoing/')
-    if (res.status == 200) {
-      const ongoingTournaments = await res.json()
-      let ongoing
-      for (let game in ongoingTournaments) {
-        _games.push({
-          name: game,
-          caption: `${ongoingTournaments[game]} ongoing`
-        })
-      }
-    }
     return _games
   } catch (error) {
     console.log(error)
@@ -60,11 +47,6 @@ export async function getTournaments() {
       tournament.time = `${hours}:${minutes}`
       tournament.date = `${day} ${month} ${year}`
       return tournament
-    }
-    const res = await fetch(BASE_URL + 'tournaments/')
-    if (res.status == 200) {
-      let _tournaments = await res.json()
-      tournaments = _tournaments.map((tournament) => makeTimeRight(tournament))
     }
     return tournaments
   } catch (error) {

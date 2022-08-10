@@ -53,9 +53,8 @@ const LoginButton = styled(Button)`
 
 const SignupBit = styled(Row)`
   width: 100%;
-  max-width: 200px;
+  max-width: 250px;
   justify-content: space-between;
-  margin-left: 50px;
   @media screen and (max-width: 650px) {
     margin-left: 0;
     justify-content: center;
@@ -275,7 +274,7 @@ export default function _Header({ home, tournaments, games }) {
       flex-direction: column;
       position: relative;
       margin-left: auto;
-      @media screen and (max-width: 650px) {
+      @media screen and (max-width: 700px) {
         display: none;
       }
     `
@@ -308,7 +307,7 @@ export default function _Header({ home, tournaments, games }) {
   function OtherDropdown() {
     return (
       <div style={{ cursor: 'pointer' }}>
-        <a
+        <div
           onClick={() => {
             setShowOtherOpen(!showOtherOpen)
             setShowSearchBar(false)
@@ -319,9 +318,9 @@ export default function _Header({ home, tournaments, games }) {
           }}
         >
           <Row>
-            <a style={{ marginRight: 13 }}>
+            <div style={{ marginRight: 13 }}>
               <DropdownText>OTHER</DropdownText>
-            </a>
+            </div>
             <Image
               src={'/dropdown.svg'}
               width={16}
@@ -329,7 +328,7 @@ export default function _Header({ home, tournaments, games }) {
               alt={'dropdown'}
             />
           </Row>
-        </a>
+        </div>
       </div>
     )
   }
@@ -639,30 +638,32 @@ export default function _Header({ home, tournaments, games }) {
           <OtherDropdown />
         </LinksBit>
         <Column>{showOtherOpen && <OtherOpen />}</Column>
-        <SignupBit>
-          {!user ? (
-            <>
+        {!user ? (
+          <SignupBit>
+            <div>
               <SearchButton />
-              <AvatarPlaceholder />
-              <Link href={'/login'}>
-                <a>
-                  <LoginButton>login</LoginButton>
-                </a>
-              </Link>
-            </>
-          ) : (
-            <>
+            </div>
+            <AvatarPlaceholder />
+            <Link href={'/login'}>
+              <a>
+                <LoginButton>login</LoginButton>
+              </a>
+            </Link>
+          </SignupBit>
+        ) : (
+          <SignupBit>
+            <div>
               <SearchButton />
-              <div
-                onClick={() => Router.push(`/profile`)}
-                style={{ cursor: 'pointer', marginTop: 5 }}
-              >
-                <Avatar src={userAvatar} />
-              </div>
-              <LogoutButton onClick={logout}>log out</LogoutButton>
-            </>
-          )}
-        </SignupBit>
+            </div>
+            <div
+              onClick={() => Router.push(`/profile`)}
+              style={{ cursor: 'pointer', marginTop: 5 }}
+            >
+              <Avatar src={userAvatar} />
+            </div>
+            <LogoutButton onClick={logout}>log out</LogoutButton>
+          </SignupBit>
+        )}
       </Header>
       {showSearchBar ? <SearchBar /> : null}
       <CenterDropdown>
