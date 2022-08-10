@@ -41,20 +41,24 @@ export function useSignUp() {
 
 export function useSignIn() {
   return async function signIn(data) {
-    const res = await fetch(BASE_URL + 'token/', {
-      method: 'POST',
-      body: `username=${data.username}&password=${data.password}`,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
+    try {
+      const res = await fetch(BASE_URL + 'token/', {
+        method: 'POST',
+        body: `username=${data.username}&password=${data.password}`,
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+      if (res.status == 200) {
+        const token = (await res.json()).access_token
+        return { token: token }
+      } else {
+        const error = (await res.json()).detail
+        return { error: error }
       }
-    })
-    if (res.status == 200) {
-      const token = (await res.json()).access_token
-      return { token: token }
-    } else {
-      const error = (await res.json()).detail
-      return { error: error }
+    } catch {
+      //pass
     }
   }
 }
@@ -68,14 +72,18 @@ export function useFriends(user: any) {
 
   useEffect(function () {
     ;(async function () {
-      const res = await fetch(`${BASE_URL}${user?.user_id}/friends/`)
-      if (res.status == 200) {
-        let _friends = await res.json()
-        _friends = _friends.map((friend: any) => {
-          friend.avatar = ''
-          return friend
-        })
-        setFriends(_friends)
+      try {
+        const res = await fetch(`${BASE_URL}${user?.user_id}/friends/`)
+        if (res.status == 200) {
+          let _friends = await res.json()
+          _friends = _friends.map((friend: any) => {
+            friend.avatar = ''
+            return friend
+          })
+          setFriends(_friends)
+        }
+      } catch {
+        //pass
       }
     })()
   }, [])
@@ -88,10 +96,14 @@ export function useStats(user_id) {
 
   useEffect(function () {
     ;(async function () {
-      const res = await fetch(`${BASE_URL}${user_id}/stats/`)
-      if (res.status == 200) {
-        const _stats = await res.json()
-        setStats(_stats)
+      try {
+        const res = await fetch(`${BASE_URL}${user_id}/stats/`)
+        if (res.status == 200) {
+          const _stats = await res.json()
+          setStats(_stats)
+        }
+      } catch {
+        //pass
       }
     })()
   }, [])
@@ -105,17 +117,21 @@ export function useInviteFriend() {
     acceptingId: any,
     token: any
   ) {
-    const headers = getHeaders(token)
-    const slug = `users/${acceptingId}/friends/invite/`
-    const res = await fetch(BASE_URL + slug, {
-      headers: headers,
-      method: 'POST'
-    })
-    if (res.status == 200) {
-      return { success: true }
-    } else {
-      const error = await res.json()
-      return { error: error }
+    try {
+      const headers = getHeaders(token)
+      const slug = `users/${acceptingId}/friends/invite/`
+      const res = await fetch(BASE_URL + slug, {
+        headers: headers,
+        method: 'POST'
+      })
+      if (res.status == 200) {
+        return { success: true }
+      } else {
+        const error = await res.json()
+        return { error: error }
+      }
+    } catch {
+      //pass
     }
   }
 }
