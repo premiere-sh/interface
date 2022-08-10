@@ -14,7 +14,7 @@ const initializeUser = async (): Promise<DocumentSnapshot<DocumentData>> => {
   const firestore = getFirestore()
   const userDoc = doc(firestore, `users/${auth.currentUser.uid}`)
   const userSnapshot = await getDoc(userDoc)
-  if (!userSnapshot.exists) {
+  if (!userSnapshot.exists()) {
     const col = collection(firestore, 'users')
     const docRef = await addDoc(col, {
       uid: auth.currentUser.uid,
@@ -25,10 +25,10 @@ const initializeUser = async (): Promise<DocumentSnapshot<DocumentData>> => {
       wins: 0
     })
     const createdUser = await getDoc(docRef)
-    console.log(createdUser)
+    console.log('created user', createdUser)
     return createdUser
   }
-  console.log(userSnapshot)
+  console.log('snapshot', userSnapshot)
   return userSnapshot
 }
 

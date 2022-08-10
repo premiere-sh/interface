@@ -129,9 +129,9 @@ export default function Signup() {
     <>
       {!user ? (
         <>
-        <FormContainer onSubmit={() => handleSubmit(onSubmit)}>
-          <Heading>sign up</Heading>
-          <Subtext>Premiere is only available to users that are 18+</Subtext>
+          <FormContainer onSubmit={() => handleSubmit(onSubmit)}>
+            <Heading>sign up</Heading>
+            <Subtext>Premiere is only available to users that are 18+</Subtext>
             <RowEntry>
               <Entry>
                 <Caption>username</Caption>
