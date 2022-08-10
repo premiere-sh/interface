@@ -31,9 +31,6 @@ const Hits = (({ hits }) => {
     </Cell>
   ))
 
- 
-
- 
   return (
     <Column>
       {width > 800 && <Tournament tournament={hits[0]} />}
@@ -63,7 +60,10 @@ export default function AllTournaments({ tournaments }) {
   useEffect(()=>{
     if(filterOption !== null){
       setFilteredTournaments(tournaments.filter((tournament)=> {return tournament.game == filterOption}))
-    }    
+    } 
+    if(filterOption == 'all'){
+      setFilteredTournaments(tournaments)
+    }   
   },[filterOption])
 
   return (

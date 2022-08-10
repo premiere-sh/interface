@@ -64,14 +64,19 @@ const DropdownOption = styled.button`
   flex-direction: row;
 `
 
-export default function Menu({ items, currentRefinement, refine, option }) {
+export default function Menu({ items, currentRefinement, refine, option, handleTournamentMenu }) {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [selectedLeaderboard, setSelectedLeaderboard] = useState()
 
   const handleOptionSelect = (e) => {
     if (option == 'leaderboard') setSelectedLeaderboard(e.currentTarget.name)
+    if (option == 'game') {
+      if(e == 'all'){
+        handleTournamentMenu('all')
+      }
+      else handleTournamentMenu(e.target.textContent)
+    }
     setDropdownOpen(false)
-    refine(e.currentTarget.value)
   }
 
   const switchText = (option) => {
@@ -104,7 +109,7 @@ export default function Menu({ items, currentRefinement, refine, option }) {
       {dropdownOpen && (
         <Dropdown>
           {option != 'leaderboard' && (
-            <DropdownOption onClick={handleOptionSelect} value={null}>
+            <DropdownOption onClick={()=>handleOptionSelect('all')}>
               <Option>ALL {option}S</Option>
             </DropdownOption>
           )}
@@ -113,7 +118,7 @@ export default function Menu({ items, currentRefinement, refine, option }) {
               key={idx}
               value={item.isRefined ? currentRefinement : item.value}
               name={item.label}
-              onClick={handleOptionSelect}
+              onClick={(e)=>handleOptionSelect(e)}
             >
               {option == 'PLATFORM' && (
                 <Image
