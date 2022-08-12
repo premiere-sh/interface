@@ -6,12 +6,6 @@ import { Grid, Cell } from 'styled-css-grid'
 import { getTournaments } from 'calls'
 import styled from 'styled-components'
 import Menu from 'components/Filter'
-import {
-  InstantSearch,
-  connectHits,
-  connectMenu
-} from 'react-instantsearch-dom'
-import { searchClient } from 'algolia/index'
 
 const SubheadingRow = styled(Row)`
   margin-bottom: 80px;
@@ -20,14 +14,11 @@ const SubheadingRow = styled(Row)`
   }
 `
 
-const CustomMenuSelect = connectMenu(Menu)
-
-const Hits = connectHits(({ hits }) => {
+const Hits = (({ hits }) => {
   const [width, setWidth] = useState(null)
 
   useEffect(function () {
     setWidth(window.innerWidth)
-    console.log(window.innerWidth)
   }, [])
 
   const items = hits.map((hit, idx) => (
@@ -46,27 +37,48 @@ const Hits = connectHits(({ hits }) => {
 })
 
 export default function AllTournaments({ tournaments }) {
-  // TO ADD TOURNAMNETS TO ALGOLIA:
-  // const index = searchClient.initIndex('tournaments')
-  // index
-  //   .saveObjects(tournaments, {
-  //     autoGenerateObjectIDIfNotExist: true
-  //   })
-  //   .then(objectIDs)
+ 
+  const [filterOption, setFilterOption]=useState(null)
+  const [filteredTournaments, setFilteredTournaments] =useState(tournaments)
+
+  const handleTournamentMenu = (option)=>{
+    setFilterOption(option)
+  }
+
+  const menuItems = tournaments.map((tournament, index)=>{
+    return{
+      label: tournament.game,
+      value: tournament.game
+    }
+  })
+
+  useEffect(()=>{
+    if(filterOption !== null){
+      setFilteredTournaments(tournaments.filter((tournament)=> {return tournament.game == filterOption}))
+    } 
+    if(filterOption == 'all'){
+      setFilteredTournaments(tournaments)
+    }   
+  },[filterOption])
 
   return (
-    <div>
-      <InstantSearch searchClient={searchClient} indexName="tournaments">
+    <>
         <Container>
           <SubheadingRow style={{ justifyContent: 'space-between' }}>
             <Subheading>TOURNAMENTS</Subheading>
-            <CustomMenuSelect attribute="game" option={'game'} />
+            <Menu 
+              attribute={'game'} 
+              option={'game'} 
+              items={menuItems} 
+              handleTournamentMenu={handleTournamentMenu}
+            />
           </SubheadingRow>
         </Container>
+        {filteredTournaments.length>0 && (
         <Container style={{ marginBottom: 220 }}>
-          <Hits />
+          <Hits hits={filteredTournaments}/>
         </Container>
-      </InstantSearch>
-    </div>
+        )}
+    </>
   )
 }

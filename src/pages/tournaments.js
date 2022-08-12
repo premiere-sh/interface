@@ -1,3 +1,4 @@
+import React, {useState, useEffect} from 'react'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import { Row, Column } from 'components/common'
@@ -6,17 +7,9 @@ import { getTournaments, getGames } from 'calls'
 import AllTournaments from 'components/AllTournaments'
 
 export default function Tournaments({ tournaments, games }) {
-  // TO ADD TOURNAMNETS TO ALGOLIA:
-  // const index = searchClient.initIndex('tournaments')
-  // index
-  //   .saveObjects(tournaments, {
-  //     autoGenerateObjectIDIfNotExist: true
-  //   })
-  //   .then(objectIDs)
 
   return (
     <Column>
-      <Header />
       <Header games={games} tournaments={tournaments} />
       {tournaments?.length && (
         <div style={{ marginBottom: 150 }}>
