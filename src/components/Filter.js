@@ -64,14 +64,19 @@ const DropdownOption = styled.button`
   flex-direction: row;
 `
 
-export default function Menu({ items, currentRefinement, refine, option }) {
+export default function Menu({ items, currentRefinement, refine, option, handleTournamentMenu }) {
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [selectedLeaderboard, setSelectedLeaderboard] = useState()
 
   const handleOptionSelect = (e) => {
     if (option == 'leaderboard') setSelectedLeaderboard(e.currentTarget.name)
+    if (option == 'game') {
+      if(e == 'all'){
+        handleTournamentMenu('all')
+      }
+      else handleTournamentMenu(e.target.textContent)
+    }
     setDropdownOpen(false)
-    refine(e.currentTarget.value)
   }
 
   const switchText = (option) => {
@@ -104,7 +109,7 @@ export default function Menu({ items, currentRefinement, refine, option }) {
       {dropdownOpen && (
         <Dropdown>
           {option != 'leaderboard' && (
-            <DropdownOption onClick={handleOptionSelect} value={null}>
+            <DropdownOption onClick={()=> handleOptionSelect('all')} value={null}>
               <Option>ALL {option}S</Option>
             </DropdownOption>
           )}
