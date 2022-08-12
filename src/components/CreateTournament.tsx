@@ -10,6 +10,9 @@ import Checkbox, { CheckboxProps } from 'components/Checkbox'
 import { LoginButton } from './Buttons'
 import moment from 'moment'
 import SelectGameModal from 'components/SelectGameModal'
+import { db } from '../firebase/firebase'
+import { addDoc, collection } from "firebase/firestore"; 
+import { useRouter } from 'next/router'
 
 const FormContainer = styled.form`
   margin: auto;
@@ -180,11 +183,15 @@ interface Games {
 }
 
 export default function CreateTournament() {
+
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm()
+
   const { user } = useContext(AuthenticationContext)
   const [errorMessage, setErrorMessage] = useState('')
   const [selectedRegion, setSelectedRegion] = useState('international')
@@ -261,6 +268,17 @@ export default function CreateTournament() {
       platform: selectedPlatform,
     }
     console.log('tournament', tournamentData)
+    
+    try {
+      const docRef = await addDoc(collection(db, "tournaments"),tournamentData);
+      console.log('tournament added with ID: ' + docRef.id)
+      if(docRef.id){
+        router.push('/tournaments')
+      }
+    } catch(e){
+      setErrorMessage(e.message)
+      console.error('Error adding document: ', e)
+    }
   }
 
   const regionOptions: Region[] = [
