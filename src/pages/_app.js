@@ -14,6 +14,16 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-activity/dist/Spinner.css'
 
+import { firebaseConfig } from '../firebase/firebase'
+import { getFirestore } from 'firebase/firestore'
+import {
+  FirebaseAppProvider,
+  FirestoreProvider,
+  AuthProvider,
+  useFirebaseApp
+} from 'reactfire'
+import { getAuth } from 'firebase/auth'
+
 const THEME = 'light'
 
 const theme = {
@@ -116,16 +126,35 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <GlobalStyle />
-      <WaitingProvider>
-        <TeamProvider>
-          <AuthenticationProvider>
-            <ThemeProvider theme={theme}>
-              <Component {...pageProps} />
-            </ThemeProvider>
-          </AuthenticationProvider>
-        </TeamProvider>
-      </WaitingProvider>
+      <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+        <WaitingProvider>
+          <TeamProvider>
+            <AuthenticationProvider>
+              <ThemeProvider theme={theme}>
+                <FirebaseProvider>
+                  <Component {...pageProps} />
+                </FirebaseProvider>
+              </ThemeProvider>
+            </AuthenticationProvider>
+          </TeamProvider>
+        </WaitingProvider>
+      </FirebaseAppProvider>
       <ToastContainer />
+    </>
+  )
+}
+
+function FirebaseProvider({ children }) {
+  const app = useFirebaseApp()
+
+  const firestore = getFirestore(app)
+  const auth = getAuth(app)
+
+  return (
+    <>
+      <AuthProvider sdk={auth}>
+        <FirestoreProvider sdk={firestore}>{children}</FirestoreProvider>
+      </AuthProvider>
     </>
   )
 }
