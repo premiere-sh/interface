@@ -18,11 +18,10 @@ const initializeUser = async (): Promise<DocumentSnapshot<DocumentData>> => {
     const col = collection(firestore, 'users')
     const docRef = await setDoc(userDoc, {
       uid: auth.currentUser.uid,
+      email: auth.currentUser.email,
       tournaments: [],
       points: 0,
       teams: [],
-      friends: [],
-      friendRequests: [],
       wins: 0
     })
     const createdUser = await getDoc(userSnapshot)
