@@ -122,6 +122,18 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
+function FirebaseSDKProviders({ children }) {
+  const app = useFirebaseApp()
+  const firestore = getFirestore(app)
+  const auth = getAuth(app)
+
+  return (
+    <AuthProvider sdk={auth}>
+      <FirestoreProvider sdk={firestore}>{children}</FirestoreProvider>
+    </AuthProvider>
+  )
+}
+
 function MyApp({ Component, pageProps }) {
   return (
     <>
@@ -131,30 +143,15 @@ function MyApp({ Component, pageProps }) {
           <TeamProvider>
             <AuthenticationProvider>
               <ThemeProvider theme={theme}>
-                <FirebaseProvider>
+                <FirebaseSDKProviders>
                   <Component {...pageProps} />
-                </FirebaseProvider>
+                </FirebaseSDKProviders>
               </ThemeProvider>
             </AuthenticationProvider>
           </TeamProvider>
         </WaitingProvider>
       </FirebaseAppProvider>
       <ToastContainer />
-    </>
-  )
-}
-
-function FirebaseProvider({ children }) {
-  const app = useFirebaseApp()
-
-  const firestore = getFirestore(app)
-  const auth = getAuth(app)
-
-  return (
-    <>
-      <AuthProvider sdk={auth}>
-        <FirestoreProvider sdk={firestore}>{children}</FirestoreProvider>
-      </AuthProvider>
     </>
   )
 }
