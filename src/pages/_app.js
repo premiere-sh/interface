@@ -14,7 +14,7 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-activity/dist/Spinner.css'
 
-import { firebaseConfig } from '../firebase/firebase'
+import { firebaseConfig } from '../firebase/firebase.config'
 import { getFirestore } from 'firebase/firestore'
 import {
   FirebaseAppProvider,
