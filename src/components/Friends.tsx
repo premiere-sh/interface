@@ -5,17 +5,16 @@ import Image from 'next/image'
 import { Grid } from 'styled-css-grid'
 import { InstantSearch, connectSearchBox } from 'react-instantsearch-dom'
 import { searchClient } from 'algolia/index'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddFriendsHits from 'components/AddFriendsHits'
 import { Hits as YourFriendsHits } from 'components/YourFriendsHits'
-
-function zip(arrays) {
-  return arrays[0].map((_, i) => {
-    return arrays.map((array) => {
-      return array[i]
-    })
-  })
-}
+import {
+  acceptFriendRequest,
+  refuseFriendRequest
+} from '../firebase/add-friend'
+import { getAuth } from 'firebase/auth'
+import { collection } from 'firebase/firestore'
+import { useFirestore, useFirestoreCollectionData } from 'reactfire'
 
 const UserColumn = styled(Column)``
 
@@ -88,6 +87,47 @@ const PopoutContainer = styled(Container)`
   width: 100%;
 `
 
+const InvitesGrid = styled(Grid)`
+  margin-bottom: 30px;
+  margin-left: 30px;
+`
+
+const Wrapper = styled.div`
+  position: relative;
+  width: 210px;
+`
+
+const FriendRequest = styled(Center)`
+  width: 65px;
+  height: 65px;
+  background: ${(props) => props.theme.colors.white};
+  border-radius: 50%;
+  border: 3px solid #982649;
+  position: absolute;
+  top: 0;
+  z-index: 50;
+`
+
+const AcceptFriendRequest = styled(FriendRequest)`
+  right: 15px;
+`
+
+const RefuseFriendRequest = styled(FriendRequest)`
+  left: 15px;
+  transform: rotate(45deg);
+`
+
+const AcceptFriendSign = styled.div`
+  display: block;
+  top: 0.05em;
+  left: 0.28em;
+  width: 15%;
+  height: 60%;
+  border: solid #982649;
+  border-width: 0 0.2em 0.2em 0;
+  transform: rotate(45deg);
+`
+
 const SearchBox = ({ currentRefinement, refine }) => {
   return (
     <Search
@@ -101,8 +141,18 @@ const SearchBox = ({ currentRefinement, refine }) => {
 
 const CustomSearchBox = connectSearchBox(SearchBox)
 
-export default function Friends({ friends, invites, avatars }) {
+export default function Friends({ invites }) {
   const [selected, setSelected] = useState('yourfriends')
+  const firestore = useFirestore()
+  const auth = getAuth()
+
+  const friendRequestsCollection = collection(
+    firestore,
+    `users/${auth.currentUser.uid}/friendRequests`
+  )
+  const { data: friendRequests } = useFirestoreCollectionData(
+    friendRequestsCollection
+  )
 
   function AddFriends() {
     return (
@@ -131,6 +181,7 @@ export default function Friends({ friends, invites, avatars }) {
       </div>
     )
   }
+
   return (
     <InstantSearch searchClient={searchClient} indexName="users">
       <FriendsContainer>
@@ -139,18 +190,36 @@ export default function Friends({ friends, invites, avatars }) {
             <TextSection>
               <YourInvites>Your invites</YourInvites>
             </TextSection>
-            <Grid columns={'repeat(auto-fit, minmax(210px, 1fr))'} gap={'83px'}>
-              {invites?.length &&
-                avatars?.length &&
-                zip(invites, avatars).map(([invite, avatar], key) => (
-                  <UserColumn style={{ alignItems: 'center' }} key={key}>
-                    <div onClick={() => acceptInvite(invite, token)}>
-                      <Avatar src={avatar} />
+            <InvitesGrid
+              columns={'repeat(auto-fit, minmax(210px, 1fr))'}
+              gap={'83px'}
+            >
+              {friendRequests?.map((requester, key) => (
+                <Wrapper key={key}>
+                  <UserColumn style={{ alignItems: 'center' }}>
+                    <div>
+                      <Avatar src={'/devonhenry_.svg'} />
                     </div>
-                    <Username>{invite.inviting_friend}</Username>
+                    <Username>{requester.email}</Username>
                   </UserColumn>
-                ))}
-            </Grid>
+                  <AcceptFriendRequest
+                    onClick={() => acceptFriendRequest(requester.uid)}
+                  >
+                    <AcceptFriendSign />
+                  </AcceptFriendRequest>
+                  <RefuseFriendRequest
+                    onClick={() => refuseFriendRequest(requester.uid)}
+                  >
+                    <Image
+                      src={'/cross.svg'}
+                      width={32}
+                      height={32}
+                      alt={'cross'}
+                    />
+                  </RefuseFriendRequest>
+                </Wrapper>
+              ))}
+            </InvitesGrid>
           </Container>
         )}
         <Container>
