@@ -58,11 +58,7 @@ const ProfileStats = styled(Row)``
 const ProfileButtons = styled(Row)`
   display: flex;
   flex-direction: column;
-<<<<<<< HEAD
-  justify-content: space-between;
-=======
   justify-content: space-around;
->>>>>>> 47ba9a83bf982892e83f9413586379cad35fad6e
   height: 220px;
 `
 
