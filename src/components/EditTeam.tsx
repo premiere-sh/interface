@@ -3,11 +3,28 @@ import { Row, Column } from './common'
 import { Heading, Input } from './Forms'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useEffect, useContext, useState } from 'react'
-import TeamContext from '../contexts/teamsContext'
-import { Button } from 'components/Buttons'
+import { useState } from 'react'
+import { LoginButton } from 'components/Buttons'
+import { useForm } from 'react-hook-form'
+import { editTeam } from '../firebase/teams'
+import {
+  useUser,
+  useFirestore,
+  useFirestoreCollectionData,
+  useFirestoreDocData
+} from 'reactfire'
+import { collection, doc } from 'firebase/firestore'
+import _ from 'underscore'
 
-const EditColumn = styled(Column)`
+interface FormValues {
+  name: string
+  description: string
+  members: Array<object>
+}
+
+const EditColumn = styled.form`
+  display: flex;
+  flex-direction: column;
   width: 541px;
   margin: auto;
 `
@@ -141,12 +158,22 @@ const RemoveMember = styled.div`
     background: #982649;
   }
 `
-const MyButton = styled(Button)`
-  height: 36px;
+const DiscardButton = styled(LoginButton)`
+  width: 221px;
+  background: linear-gradient(266.89deg, #982649 -18.13%, #f71735 120.14%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  border: 1px ${(props) => props.theme.colors.ruby} solid;
 `
+
+const SaveButton = styled(LoginButton)`
+  width: 192px;
+`
+
 const ButtonWrapper = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-align: row;
+  justify-content: space-around;
 `
 const SearchInput = styled(InputName)`
   margin-bottom: 1rem;
@@ -163,84 +190,67 @@ const SearchContainer = styled.div`
   display: flex;
   flex-direction: column;
 `
-const SearchElement = styled.div`
-  display: flex;
-  margin-bottom: 0.5rem;
-  margin-left: 27px;
-  margin-right: 27px;
-  &:hover {
-    background: lightgray;
-    cursor: pointer;
-  }
-`
 
-function List(props) {
-  const teamCtx = useContext(TeamContext)
+const Friend = styled.div``
 
-  //create a new array by filtering the original array
-  const filteredData = teamCtx.allTeammates.filter((el) => {
-    //if no input the return the original
-    if (props.input === '') {
-      return el
-    }
-    //return the item which contains the user input
-    else {
-      return el.user.toLowerCase().includes(props.input)
-    }
-  })
-  return (
-    <SearchContainer>
-      {filteredData.map((item, index) => (
-        <SearchElement
-          onClick={() => {
-            props.onClickHandler(item)
-          }}
-          key={index}
-        >
-          {item.user}: {item.id}
-        </SearchElement>
-      ))}
-      <SearchElement onClick={props.onClose}>Cancel</SearchElement>
-    </SearchContainer>
-  )
+interface EditedTeamData {
+  name: string
+  description: string
 }
 
-export default function _TeamEdit() {
+export default function _EditTeam() {
   const [isOpen, setIsOpen] = useState(false)
   const [teammates, setTeammates] = useState([])
   const [inputText, setInputText] = useState('')
   const router = useRouter()
-  const dataId = Number(router.query.id)
-  const teamCtx = useContext(TeamContext)
+  const { teamId: teamId } = router.query
+  console.log('gsdfgdsfgfds', teamId)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<FormValues>()
+  const firestore = useFirestore()
+  const { data: user } = useUser()
+  const friendsCollection = collection(firestore, `users/${user?.uid}/friends`)
+  const teamDoc = doc(firestore, `teams/${teamId}`)
+  const membersCollection = collection(firestore, `teams/${teamId}/members`)
+  const invitedMembersCollection = collection(
+    firestore,
+    `teams/${teamId}/invitedMembers`
+  )
+  const { data: friends } = useFirestoreCollectionData(friendsCollection)
+  const { data: team } = useFirestoreDocData(teamDoc)
+  const { data: members } = useFirestoreCollectionData(membersCollection)
+  const { data: invitedMembers } = useFirestoreCollectionData(
+    invitedMembersCollection
+  )
+  const membersPluck = _.pluck(members, 'uid')
+  const invitedMembersPluck = _.pluck(invitedMembers, 'uid')
 
-  useEffect(() => {
-    if (dataId) {
-      const findTeam = teamCtx.teamsUpdated.findIndex(
-        (team) => team.id == dataId
-      )
-      setTeammates(teamCtx.teamsUpdated[findTeam].teammates)
-    } else {
-      setTeammates([])
-    }
-  }, [teamCtx.teamsUpdated])
+  const onSubmit = async (data: EditedTeamData) => {
+    await editTeam(teamId as string, data.name, data.description, teammates)
+    router.push('/profile')
+  }
+
   return (
-    <EditColumn>
-      <EditYourTeam>edit your team</EditYourTeam>
+    <EditColumn onSubmit={handleSubmit(onSubmit)}>
+      <EditYourTeam>edit {team?.name}</EditYourTeam>
       <Wrapper>
         <SubHeading>Team Name</SubHeading>
         <InputName
-          onChange={(event) => {
-            teamCtx.onChangeName(dataId, event.target.value)
-          }}
+          value={team?.name}
+          required={true}
+          {...register('name')}
           placeholder={'Enter your team name'}
         />
       </Wrapper>
       <Wrapper>
         <SubHeading>Team Description</SubHeading>
         <InputDescription
-          onChange={(event) => {
-            teamCtx.onChangeDis(dataId, event.target.value)
-          }}
+          value={team?.description}
+          required={true}
+          {...register('description')}
           placeholder={'Enter your team description'}
         />
       </Wrapper>
@@ -258,7 +268,7 @@ export default function _TeamEdit() {
                 />
                 <RemoveMember
                   onClick={() => {
-                    teamCtx.removeMember(dataId, teammate.id)
+                    setTeammates(teammates.filter((e) => e !== teammate))
                   }}
                 />
               </MembersRow>
@@ -278,36 +288,30 @@ export default function _TeamEdit() {
               }}
               placeholder={'Search'}
             />
-            <List
-              onClickHandler={(memberTeammate) => {
-                teamCtx.addMember(dataId, memberTeammate)
-                setIsOpen(false)
-              }}
-              onClose={() => {
-                setIsOpen(false)
-              }}
-              input={inputText}
-            />
+            <SearchContainer>
+              {friends?.length &&
+                friends.map(
+                  (friend, key) =>
+                    !teammates.includes(friend) &&
+                    !membersPluck.includes(friend.uid) &&
+                    !invitedMembersPluck.includes(friend.uid) && (
+                      <Friend
+                        key={key}
+                        onClick={() => {
+                          setTeammates((current) => [...current, friend])
+                        }}
+                      >
+                        {friend.email}
+                      </Friend>
+                    )
+                )}
+            </SearchContainer>
           </SearchWrapper>
         )}
       </Wrapper>
       <ButtonWrapper>
-        <MyButton
-          onClick={() => {
-            teamCtx.discardChanges()
-            router.push('profile')
-          }}
-        >
-          Discard Changes
-        </MyButton>
-        <MyButton
-          onClick={() => {
-            teamCtx.saveChanges()
-            router.push('profile')
-          }}
-        >
-          Save Changes
-        </MyButton>
+        <DiscardButton text={'Discard Changes'} disabled={false} />
+        <SaveButton type="submit" text={'Save Changes'} disabled={false} />
       </ButtonWrapper>
     </EditColumn>
   )
