@@ -2,6 +2,7 @@ import Modal from 'react-modal'
 import styled from 'styled-components'
 import { Button as BaseButton } from 'components/Buttons'
 import { Center, Column, Row } from './common'
+import { deleteTeam } from '../firebase/teams'
 
 const Button = styled(BaseButton)`
   margin-bottom: 49px;
@@ -37,11 +38,11 @@ const SpaceBetween = styled(Row)`
   justify-content: center;
 `
 
-export default function DeleteTeamModal({
-  deleteTeamHandler,
-  isOpen,
-  setOpen
-}) {
+export default function DeleteTeamModal({ isOpen, setOpen, teamId }) {
+  const deleteTeamHandler = async (teamId) => {
+    await deleteTeam(teamId)
+  }
+
   const style = {
     content: {
       display: 'flex',
@@ -51,12 +52,13 @@ export default function DeleteTeamModal({
       height: 205,
       margin: 'auto',
       borderRadius: 15,
-      boxShadow: '0px 8px 50px 2px #00000040'
+      boxShadow: '0px 8px 50px 2px #00000040',
+      zIndex: 500
     }
   }
   return (
     <Modal
-      isOpen={isOpen}
+      isOpen={teamId === isOpen ? true : false}
       onRequestClose={() => setOpen(false)}
       style={style}
       ariaHideApp={false}
@@ -67,7 +69,7 @@ export default function DeleteTeamModal({
           <Cancel onClick={() => setOpen(false)}>no, cancel</Cancel>
           <Button
             onClick={() => {
-              deleteTeamHandler()
+              deleteTeamHandler(teamId)
               setOpen(false)
             }}
           >
