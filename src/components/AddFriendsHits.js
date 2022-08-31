@@ -78,8 +78,6 @@ const Hits = connectHits(({ hits }) => {
   const friendRequestsPluck = _.pluck(friendRequests, 'uid')
   const friendsPluck = _.pluck(friends, 'uid')
 
-  console.log('pluck', friendsPluck)
-
   const handleAddFriends = (friend) => {
     if (!invitedFriends.includes(friend)) {
       setInvitedFriends((current) => [...current, friend])
@@ -88,7 +86,6 @@ const Hits = connectHits(({ hits }) => {
       setInvitedFriends((current) => current.filter((item) => item !== friend))
       cancelFriendRequest(friend)
     }
-    console.log(invitedFriends)
   }
 
   const items = hits.map((hit, idx) =>
