@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { createAvatar } from '@dicebear/avatars'
 import * as style from '@dicebear/avatars-identicon-sprites'
-import { app } from '../firebase'
+import { app } from '../firebase/firebase'
 import {
   getAuth,
   signOut,
