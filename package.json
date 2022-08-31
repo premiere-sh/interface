@@ -37,8 +37,10 @@
     "react-select-search-nextjs-typescript": "^3.0.7",
     "react-tabs": "^5.1.0",
     "react-toastify": "^9.0.5",
+    "reactfire": "^4.2.2",
     "styled-components": "^5.2.3",
     "styled-css-grid": "^1.2.1",
+    "underscore": "^1.13.4",
     "unique-names-generator": "^4.7.1"
   },
   "devDependencies": {
