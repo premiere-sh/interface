@@ -23,6 +23,7 @@ import {
   useFirebaseApp
 } from 'reactfire'
 import { getAuth } from 'firebase/auth'
+import { app } from '../firebase/firebase'
 
 const THEME = 'light'
 
@@ -123,7 +124,6 @@ const GlobalStyle = createGlobalStyle`
 `
 
 function FirebaseSDKProviders({ children }) {
-  const app = useFirebaseApp()
   const firestore = getFirestore(app)
   const auth = getAuth(app)
 
