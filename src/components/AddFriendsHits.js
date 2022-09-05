@@ -6,7 +6,7 @@ import { connectHits } from 'react-instantsearch-dom'
 import { connectStateResults } from 'react-instantsearch-dom'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import { sendFriendRequest, cancelFriendRequest } from '../firebase/add-friend'
+import { handleFriendRequests } from '../firebase/add-friend'
 import { useUser, useFirestore, useFirestoreCollectionData } from 'reactfire'
 import { collection } from 'firebase/firestore'
 import _ from 'underscore'
@@ -66,27 +66,17 @@ const Hits = connectHits(({ hits }) => {
   const router = useRouter()
   const { data: user } = useUser()
   const firestore = useFirestore()
-  const friendRequestsCollection = collection(
+
+  const friendRequestsCol = collection(
     firestore,
     `users/${user.uid}/friendRequests`
   )
-  const friendsCollection = collection(firestore, `users/${user.uid}/friends`)
-  const { data: friendRequests } = useFirestoreCollectionData(
-    friendRequestsCollection
-  )
-  const { data: friends } = useFirestoreCollectionData(friendsCollection)
+  const { data: friendRequests } = useFirestoreCollectionData(friendRequestsCol)
   const friendRequestsPluck = _.pluck(friendRequests, 'uid')
-  const friendsPluck = _.pluck(friends, 'uid')
 
-  const handleAddFriends = (friend) => {
-    if (!invitedFriends.includes(friend)) {
-      setInvitedFriends((current) => [...current, friend])
-      sendFriendRequest(friend)
-    } else {
-      setInvitedFriends((current) => current.filter((item) => item !== friend))
-      cancelFriendRequest(friend)
-    }
-  }
+  const friendsCol = collection(firestore, `users/${user.uid}/friends`)
+  const { data: friends } = useFirestoreCollectionData(friendsCol)
+  const friendsPluck = _.pluck(friends, 'uid')
 
   const items = hits.map((hit, idx) =>
     hit.uid != user.uid &&
@@ -100,7 +90,9 @@ const Hits = connectHits(({ hits }) => {
           <Username>{hit.email}</Username>
         </UserColumn>
         <AddFriend>
-          <ImageContainer onClick={() => handleAddFriends(hit.uid)}>
+          <ImageContainer
+            onClick={() => handleFriendRequests(setInvitedFriends, hit.uid)}
+          >
             {invitedFriends.includes(hit.uid) ? (
               <InvitationSend />
             ) : (

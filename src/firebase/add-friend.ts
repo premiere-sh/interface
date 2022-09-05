@@ -2,101 +2,114 @@ import { getAuth } from 'firebase/auth'
 import {
   doc,
   getDoc,
-  updateDoc,
   getFirestore,
-  DocumentData,
-  DocumentSnapshot,
   setDoc,
-  deleteDoc
+  deleteDoc,
+  getDocs,
+  collection,
+  query,
+  where,
+  documentId
 } from 'firebase/firestore'
 
 const auth = getAuth()
 const firestore = getFirestore()
 
-const sendFriendRequest = async (
-  friendId: string
-): Promise<DocumentSnapshot<DocumentData>> => {
-  const friendDoc = doc(
+const sendFriendRequest = async (friendId: string) => {
+  const friendDocRef = doc(
     firestore,
     `users/${friendId}/friendRequests`,
     auth.currentUser.uid
   )
+  const friendSnap = await getDoc(friendDocRef)
   const userDoc = doc(firestore, 'users', auth.currentUser.uid)
-  const friendSnapshot = await getDoc(friendDoc)
-  const userSnapshot = await getDoc(userDoc)
-  if (!friendSnapshot.exists()) {
-    const docRef = await setDoc(friendDoc, userSnapshot.data())
+  const userSnap = await getDoc(userDoc)
+  if (!friendSnap.exists()) {
+    await setDoc(friendDocRef, userSnap.data())
   }
-  return null
 }
 
-const cancelFriendRequest = async (
-  friendId: string
-): Promise<DocumentSnapshot<DocumentData>> => {
-  const friendDoc = doc(
+const cancelFriendRequest = async (friendId: string) => {
+  const friendDocRef = doc(
     firestore,
     `users/${friendId}/friendRequests`,
     auth.currentUser.uid
   )
-  const friendSnapshot = await getDoc(friendDoc)
-  if (friendSnapshot.exists()) {
-    const docRef = await deleteDoc(friendDoc)
-  }
+  const friendSnap = await getDoc(friendDocRef)
 
-  return null
+  if (friendSnap.exists()) {
+    await deleteDoc(friendDocRef)
+  }
 }
 
-const acceptFriendRequest = async (
-  friendId: string
-): Promise<DocumentSnapshot<DocumentData>> => {
-  const userFriendRequestsDoc = doc(
+const acceptFriendRequest = async (friendId: string) => {
+  const userFriendRequestsDocRef = doc(
     firestore,
     `users/${auth.currentUser.uid}/friendRequests/${friendId}`
   )
-  const userFriendsDoc = doc(
+  const userFriendRequestsSnap = await getDoc(userFriendRequestsDocRef)
+  const userFriendsDocRef = doc(
     firestore,
     `users/${auth.currentUser.uid}/friends`,
     friendId
   )
-  const friendDoc = doc(
+  const userFriendsSnap = await getDoc(userFriendsDocRef)
+  const friendDocRef = doc(
     firestore,
     `users/${friendId}/friends`,
     auth.currentUser.uid
   )
+  const friendSnap = await getDoc(friendDocRef)
   const userDoc = doc(firestore, `users/${auth.currentUser.uid}`)
-  const userFriendRequestsSnap = await getDoc(userFriendRequestsDoc)
-  const userFriendsSnapshot = await getDoc(userFriendsDoc)
-  const friendSnapshot = await getDoc(friendDoc)
-  const userSnapshot = await getDoc(userDoc)
+  const userSnap = await getDoc(userDoc)
   if (userFriendRequestsSnap.exists()) {
-    const userFriendRequestsRef = await deleteDoc(userFriendRequestsDoc)
+    await deleteDoc(userFriendRequestsDocRef)
   }
-  if (!userFriendsSnapshot.exists()) {
-    const docRef = await setDoc(userFriendsDoc, userFriendRequestsSnap.data())
+  if (!userFriendsSnap.exists()) {
+    await setDoc(userFriendsDocRef, userFriendRequestsSnap.data())
   }
-  if (!friendSnapshot.exists()) {
-    const docRef = await setDoc(friendDoc, userSnapshot.data())
+  if (!friendSnap.exists()) {
+    await setDoc(friendDocRef, userSnap.data())
   }
-  return null
 }
 
-const refuseFriendRequest = async (
-  friendId: string
-): Promise<DocumentSnapshot<DocumentData>> => {
-  const userFriendRequestsDoc = doc(
+const refuseFriendRequest = async (friendId: string) => {
+  const userFriendRequestsDocRef = doc(
     firestore,
     `users/${auth.currentUser.uid}/friendRequests/${friendId}`
   )
-  const userFriendRequestsSnap = await getDoc(userFriendRequestsDoc)
+  const userFriendRequestsSnap = await getDoc(userFriendRequestsDocRef)
   if (userFriendRequestsSnap.exists()) {
-    const userFriendRequestsRef = await deleteDoc(userFriendRequestsDoc)
+    await deleteDoc(userFriendRequestsDocRef)
   }
-  return null
+}
+
+const handleFriendRequests = async (setInvitedFriends, friendId) => {
+  const sendFriendRequestsRef = collection(
+    firestore,
+    `users/${friendId}/friendRequests`
+  )
+  const sendFriendRequestsQuery = query(
+    sendFriendRequestsRef,
+    where(documentId(), '==', auth.currentUser.uid)
+  )
+  const sendFriendRequestsSnap = await getDocs(sendFriendRequestsQuery)
+  const sendFriendRequestId = sendFriendRequestsSnap.docs[0]
+  console.log('send', sendFriendRequestId)
+  if (!sendFriendRequestId == friendId || sendFriendRequestId == undefined) {
+    console.log('dsfsaaf', 'sdfgdsfg')
+    setInvitedFriends((current) => [...current, friendId])
+    sendFriendRequest(friendId)
+  } else {
+    setInvitedFriends((current) => current.filter((item) => item !== friendId))
+    cancelFriendRequest(friendId)
+  }
 }
 
 export {
   sendFriendRequest,
   cancelFriendRequest,
   acceptFriendRequest,
-  refuseFriendRequest
+  refuseFriendRequest,
+  handleFriendRequests
 }

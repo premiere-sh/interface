@@ -5,16 +5,15 @@ import Image from 'next/image'
 import { Grid } from 'styled-css-grid'
 import { InstantSearch, connectSearchBox } from 'react-instantsearch-dom'
 import { searchClient } from 'algolia/index'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import AddFriendsHits from 'components/AddFriendsHits'
 import { Hits as YourFriendsHits } from 'components/YourFriendsHits'
 import {
   acceptFriendRequest,
   refuseFriendRequest
 } from '../firebase/add-friend'
-import { getAuth } from 'firebase/auth'
 import { collection } from 'firebase/firestore'
-import { useFirestore, useFirestoreCollectionData } from 'reactfire'
+import { useFirestore, useFirestoreCollectionData, useUser } from 'reactfire'
 
 const UserColumn = styled(Column)``
 
@@ -144,11 +143,11 @@ const CustomSearchBox = connectSearchBox(SearchBox)
 export default function Friends({ invites }) {
   const [selected, setSelected] = useState('yourfriends')
   const firestore = useFirestore()
-  const auth = getAuth()
+  const { data: user } = useUser()
 
   const friendRequestsCollection = collection(
     firestore,
-    `users/${auth.currentUser.uid}/friendRequests`
+    `users/${user.uid}/friendRequests`
   )
   const { data: friendRequests } = useFirestoreCollectionData(
     friendRequestsCollection
