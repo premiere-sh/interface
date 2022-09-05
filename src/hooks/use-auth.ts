@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { createAvatar } from '@dicebear/avatars'
 import * as style from '@dicebear/avatars-identicon-sprites'
-import { app } from '../firebase/firebase'
 import {
   getAuth,
   signOut,
@@ -21,6 +20,7 @@ import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
 import { initializeUser } from '../firebase/initialize-user'
 import { getDoc, getFirestore, doc } from 'firebase/firestore'
+import { useFirebaseApp } from 'reactfire'
 
 export function useAuth() {
   const [user, setUser] = useState<User>()
@@ -30,6 +30,7 @@ export function useAuth() {
   const [token, setToken] = useState<string>()
   const [userAvatar, setUserAvatar] = useState<string>()
   const router = useRouter()
+  const app = useFirebaseApp()
 
   useEffect(() => {
     ;(async function () {
